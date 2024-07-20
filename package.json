@@ -1,5 +1,7 @@
 {
+  "name": "@mstack/monorepo",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -9,13 +11,29 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "prettier": "^3.2.5",
-    "prettier-plugin-tailwindcss": "^0.5.11",
-    "turbo": "^2.0.7"
+    "@eslint/eslintrc": "3.1.0",
+    "@eslint/js": "9.7.0",
+    "@types/eslint__js": "8.42.3",
+    "@types/node": "20.14.11",
+    "eslint": "9.7.0",
+    "eslint-config-prettier": "9.1.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-svelte": "2.43.0",
+    "globals": "15.8.0",
+    "prettier": "3.2.5",
+    "prettier-plugin-svelte": "3.2.6",
+    "prettier-plugin-tailwindcss": "0.6.5",
+    "svelte-eslint-parser": "0.41.0",
+    "turbo": "^2.0.9",
+    "typescript": "5.5.3",
+    "typescript-eslint": "7.16.1"
   },
-  "packageManager": "pnpm@8.15.6",
   "engines": {
     "node": ">=18"
   },
-  "name": "with-tailwind"
+  "packageManager": "bun@1.1.20",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }
