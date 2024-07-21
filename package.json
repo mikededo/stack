@@ -4,11 +4,11 @@
   "type": "module",
   "scripts": {
     "build": "turbo build",
+    "clean": "turbo clean",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "type-check": "turbo type-check",
-    "clean": "turbo clean",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "db-types": "bunx supabase gen types --lang typescript --local --schema auth,public,finances > ./packages/svelte-supabase/src/database.ts",
+    "type-check": "turbo type-check"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
@@ -24,7 +24,7 @@
     "prettier-plugin-svelte": "3.2.6",
     "prettier-plugin-tailwindcss": "0.6.5",
     "svelte-eslint-parser": "0.41.0",
-    "turbo": "^2.0.9",
+    "turbo": "2.0.9",
     "typescript": "5.5.3",
     "typescript-eslint": "7.16.1"
   },

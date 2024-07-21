@@ -1,0 +1,25 @@
+{
+  "name": "@mstack/svelte-supabase",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "index.ts",
+  "main": "index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "svelte": "./src/index.ts"
+    }
+  },
+  "scripts": {
+    "lint": "prettier --check . && eslint . --max-warnings=0",
+    "lint:fix": "prettier --write . && eslint --fix ."
+  },
+  "dependencies": {
+    "@supabase/ssr": "0.4.0",
+    "@supabase/supabase-js": "2.44.4"
+  },
+  "devDependencies": {
+    "@mstack/typescript-config": "*",
+    "svelte": "5.0.0-next.192"
+  }
+}
