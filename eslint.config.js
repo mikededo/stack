@@ -29,7 +29,10 @@ const sharedRules = {
         "index",
         "object",
       ],
-      pathGroups: [{ pattern: "\\$*/**", group: "internal" }],
+      pathGroups: [
+        { pattern: "@mstack/**", group: "builtin" },
+        { pattern: "\\$*/**", group: "internal" },
+      ],
       pathGroupsExcludedImportTypes: ["builtin"],
       "newlines-between": "always",
       alphabetize: { order: "asc" },
