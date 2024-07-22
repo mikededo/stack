@@ -3,8 +3,8 @@ import { theme, typography } from '@mstack/tailwind-config';
 import type { Config } from 'tailwindcss';
 
 export default {
-  content: ['./src/**/*.svelte', './src/**/*.ts', './src/**/*.html'],
-  theme,
+  content: ['./src/**/*.{html,js,svelte,ts}'],
   darkMode: 'class',
-  plugins: [typography()]
+  plugins: [typography()],
+  presets: [{ theme }]
 } satisfies Config;

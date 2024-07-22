@@ -1,0 +1,32 @@
+{
+  "name": "@mstack/ui",
+  "version": "0.0.0",
+  "type": "module",
+  "module": "index.ts",
+  "main": "index.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "svelte": "./src/index.ts"
+    },
+    "./styles": "./dist/index.css",
+    "./tailwind": "./tailwind.config.ts"
+  },
+  "scripts": {
+    "build": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "lint": "prettier --check . && eslint . --max-warnings=0",
+    "lint:fix": "prettier --write . && eslint --fix .",
+    "prepare": "svelte-kit sync"
+  },
+  "devDependencies": {
+    "@mstack/tailwind-config": "*",
+    "@mstack/typescript-config": "*",
+    "@sveltejs/vite-plugin-svelte": "4.0.0-next.4",
+    "svelte": "5.0.0-next.192"
+  },
+  "dependencies": {
+    "lucide-svelte": "0.412.0",
+    "tailwind-merge": "2.4.0"
+  }
+}

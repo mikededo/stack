@@ -1,7 +1,22 @@
-<script>
+<script lang="ts">
     import '../global.css';
+    import '@mstack/ui/styles';
+    import { setSupabaseClient } from '@mstack/svelte-supabase';
 
-    let { children } = $props();
+    import { QueryClientProvider } from '@tanstack/svelte-query';
+    import type { Snippet } from 'svelte';
+
+    import type { LayoutData } from './$types.js';
+
+    type Props = {
+        children: Snippet;
+        data: LayoutData;
+    };
+    let { children, data }: Props = $props();
+
+    setSupabaseClient(data.supabase);
 </script>
 
-{@render children()}
+<QueryClientProvider client={data.queryClient}>
+    {@render children()}
+</QueryClientProvider>

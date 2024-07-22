@@ -5,7 +5,6 @@
   "scripts": {
     "build": "turbo build",
     "clean": "turbo clean",
-    "dev": "turbo dev",
     "lint": "turbo lint",
     "db-types": "bunx supabase gen types --lang typescript --local --schema auth,public,finances > ./packages/svelte-supabase/src/database.ts",
     "type-check": "turbo type-check"
@@ -15,15 +14,18 @@
     "@eslint/js": "9.7.0",
     "@types/eslint__js": "8.42.3",
     "@types/node": "20.14.11",
+    "autoprefixer": "10.4.19",
     "eslint": "9.7.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-svelte": "2.43.0",
     "globals": "15.8.0",
+    "postcss": "8.4.39",
     "prettier": "3.2.5",
     "prettier-plugin-svelte": "3.2.6",
     "prettier-plugin-tailwindcss": "0.6.5",
     "svelte-eslint-parser": "0.41.0",
+    "tailwindcss": "3.4.6",
     "turbo": "2.0.9",
     "typescript": "5.5.3",
     "typescript-eslint": "7.16.1"
@@ -35,5 +37,8 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "lucide-svelte": "0.412.0"
+  }
 }
