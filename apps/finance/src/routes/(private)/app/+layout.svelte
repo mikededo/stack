@@ -15,10 +15,10 @@
     ];
 </script>
 
-<div class="bg-background flex h-screen w-full flex-col overflow-hidden md:flex-row">
+<div class="flex h-screen w-full flex-col overflow-hidden bg-background md:flex-row">
     <!-- Desktop navigation-->
     <div
-        class="border-secondary-100 bg-secondary-50 hidden min-h-screen overflow-x-hidden border-r md:block md:w-64"
+        class="hidden min-h-screen overflow-x-hidden border-r border-secondary-100 bg-secondary-50 md:block md:w-64"
     >
         <div class="flex h-full flex-col gap-1 px-6 py-10">
             <header class="mb-12 flex items-center justify-between gap-2">
@@ -30,7 +30,7 @@
                     {#each tabs as { name, href } (href)}
                         <li>
                             <a
-                                class="text-secondary-800 aria-[current=true]:bg-secondary-100 aria-[current=false]:hover:bg-secondary-100 block w-full cursor-pointer rounded px-3 py-2 font-semibold transition-colors"
+                                class="block w-full cursor-pointer rounded px-3 py-2 font-semibold text-secondary-800 transition-colors aria-[current=true]:bg-secondary-100 aria-[current=false]:hover:bg-secondary-100"
                                 {href}
                                 role="tab"
                                 aria-current={isCurrentPath(href)}
@@ -46,7 +46,7 @@
 
     <!-- Mobile navigation -->
 
-    <header class="border-secondary-100 bg-secondary-50 block border-b md:hidden">
+    <header class="block border-b border-secondary-100 bg-secondary-50 md:hidden">
         <nav class="flex h-10 items-center justify-between px-6">
             <div class="flex items-center gap-2">
                 <Wallet class="size-4" strokeWidth={2.5} />

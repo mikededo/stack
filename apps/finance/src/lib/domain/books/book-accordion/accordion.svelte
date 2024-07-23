@@ -26,7 +26,7 @@
 
 {#each books as book, i (i)}
     <button
-        class="border-secondary-100 hover:bg-secondary-100/50 active:bg-secondary-100 flex w-full cursor-pointer items-center justify-between border-b px-3 py-2 transition-colors last-of-type:border-0"
+        class="flex w-full cursor-pointer items-center justify-between border-b border-secondary-100 px-3 py-2 transition-colors last-of-type:border-0 hover:bg-secondary-100/50 active:bg-secondary-100"
         class:bg-secondary-50={i % 2 === 1}
         onclick={handleOnToggleBook(book.id)}
         aria-current={openedBooks.has(book.id)}
@@ -44,7 +44,7 @@
     {#if openedBooks.has(book.id)}
         <ul
             transition:slide={{ duration: 200 }}
-            class="border-secondary-100 border-b pl-4 last:border-0"
+            class="border-b border-secondary-100 pl-4 last:border-0"
         >
             {#if book.page.length}
                 <BookAccordionPages {book} />

@@ -12,7 +12,8 @@
     "type-check": {},
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "interactive": true
     },
     "clean": {
       "cache": false

@@ -1,10 +1,14 @@
 <script lang="ts">
+    import { getUserDataContext } from '@mstack/svelte-supabase';
+
     import { File, Link2 } from 'lucide-svelte';
 
     import type { BookWithPages } from '$lib/db';
 
     type Props = { book: BookWithPages };
     let { book }: Props = $props();
+
+    let user = getUserDataContext();
 </script>
 
 <li
@@ -31,18 +35,16 @@
                     class="bg-primary mx-auto flex size-6 items-center justify-center rounded-full text-sm font-semibold uppercase text-white"
                     aria-describedby={`${page.id}-creator`}
                 >
-                    <!-- {page.created_by.slice(0, 1)} -->
-                    M
+                    {user.first_name[0]}
                 </span>
             </div>
             <span class="hidden w-20 text-center text-xs md:block">
                 {new Date(page.created_at).toLocaleDateString()}
             </span>
-            {#if page.id % 2 === 1}
-                <Link2 class="size-4 rotate-45" strokeWidth={2.5} />
-            {:else}
-                <div class="size-4"></div>
-            {/if}
+            <Link2
+                class={`size-4 rotate-45 ${page.created_by === user.id ? 'text-secondary-200' : ''}`}
+                strokeWidth={2.5}
+            />
         </div>
     </li>
 {/each}

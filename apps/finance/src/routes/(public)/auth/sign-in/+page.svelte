@@ -17,6 +17,7 @@
         mutationFn: async ({ email, password }: SignInData) =>
             await signInUser(supabaseClient, email, password),
         onSuccess: () => {
+            console.log('success');
             goto(pathTo('app'));
         },
         onError: (e) => {
