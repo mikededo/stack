@@ -17,7 +17,7 @@ export const theme: Config['theme'] = {
       background: 'var(--background)',
       foreground: 'var(--foreground)',
       primary: {
-        DEFAULT: '#9B7AD8',
+        DEFAULT: '#7F58BE',
         '50': '#F8F9FE',
         '100': '#E7E5FC',
         '200': '#C6C0E9',
@@ -40,16 +40,6 @@ export const theme: Config['theme'] = {
         700: '#3C4257',
         800: '#2A2F45',
         900: '#1A1F36'
-        // '50': '#FAFCFC',
-        // '100': '#E4E8EE',
-        // '200': '#C1C9D0',
-        // '300': '#A2ABB7',
-        // '400': '#8892A2',
-        // '500': '#6B7385',
-        // '600': '#505669',
-        // '700': '#3C4055',
-        // '800': '#2B2E44',
-        // '900': '#2B2E44'
       },
       info: {
         '50': '#EEFDFE',
@@ -115,10 +105,11 @@ export const theme: Config['theme'] = {
 export const typography = () =>
   plugin((api) => {
     const { addBase, theme } = api;
+
     addBase({
       h1: {
         fontSize: theme('fontSize.4xl'),
-        fontWeight: theme('fontWeight.semibold'),
+        fontWeight: theme('fontWeight.bold'),
         lineHeight: theme('lineHeight.tight')
       },
       h2: {
