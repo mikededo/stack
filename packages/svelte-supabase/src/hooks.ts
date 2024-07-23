@@ -2,7 +2,9 @@ import { createServerClient } from '@supabase/ssr';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { RequestEvent } from '@sveltejs/kit';
 
-export const createSupabaseServerClient = <Database>(
+import type { Database } from './database';
+
+export const createSupabaseServerClient = (
   supabseUrl: string,
   supabaseAnonKey: string,
   event: RequestEvent
@@ -18,7 +20,9 @@ export const createSupabaseServerClient = <Database>(
     }
   });
 
-export const getSession = async (supabase: SupabaseClient) => {
+export const getSession = async <Schema extends keyof Database>(
+  supabase: SupabaseClient<Database, Schema>
+) => {
   const {
     data: { session }
   } = await supabase.auth.getSession();

@@ -19,8 +19,8 @@ type UnauthorizedRedirectOptptions = {
  * Helper handler that checks for unauthorized responses and provides callbacks for redirecting the user.
  * Works for both browser and server.
  */
-export const withUnauthorizedRedirect = async <T>(
-  client: Client,
+export const withUnauthorizedRedirect = async <T, S extends keyof Database>(
+  client: SupabaseClient<Database, S>,
   response: PostgrestSingleResponse<T>,
   { onBrowserRedirect, onServerRedirect }: UnauthorizedRedirectOptptions = {}
 ) => {
