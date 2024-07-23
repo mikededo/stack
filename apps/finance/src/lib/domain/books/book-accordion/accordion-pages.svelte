@@ -13,7 +13,7 @@
     <p>Page name</p>
     <div class="flex items-center gap-4">
         <span>Owner</span>
-        <span class="w-20 text-center">Created at</span>
+        <span class="hidden w-20 text-center md:block">Created at</span>
         <div class="size-4"></div>
     </div>
 </li>
@@ -35,7 +35,7 @@
                     M
                 </span>
             </div>
-            <span class="w-20 text-center text-xs">
+            <span class="hidden w-20 text-center text-xs md:block">
                 {new Date(page.created_at).toLocaleDateString()}
             </span>
             {#if page.id % 2 === 1}
