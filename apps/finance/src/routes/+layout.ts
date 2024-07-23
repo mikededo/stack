@@ -15,10 +15,10 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
   depends('supabase:auth');
 
   const supabase = isBrowser()
-    ? createBrowserClient<Database, 'finances'>(supabaseURl, supabaseAnonKey, {
+    ? createBrowserClient<Database>(supabaseURl, supabaseAnonKey, {
         global: { fetch }
       })
-    : createServerClient<Database, 'finances'>(supabaseURl, supabaseAnonKey, {
+    : createServerClient<Database>(supabaseURl, supabaseAnonKey, {
         global: { fetch },
         cookies: {
           getAll() {

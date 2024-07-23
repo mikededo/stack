@@ -37,6 +37,5 @@ export function pathTo<T extends Routes>(route: T, params?: Route[T]): string {
   }
 }
 
-// Helpers
 export const isAuthPath = (path: string | undefined) => path === Paths.auth;
 export const isAuthRelated = (path: string | undefined) => path?.startsWith(Paths.auth);
