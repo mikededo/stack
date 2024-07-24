@@ -10,10 +10,10 @@
 
     let { variant = 'default', color = 'primary', children, ...restProps }: Props = $props();
 
-    restProps = {
+    let elementProps = $derived({
         ...restProps,
         'aria-disabled': restProps.disabled ? 'true' : restProps['aria-disabled']
-    };
+    });
 
     const classes = sharedClasses({
         variant,
@@ -22,14 +22,14 @@
     });
 </script>
 
-{#if 'href' in restProps}
-    <a {...restProps as HTMLAnchorAttributes} href={restProps.href} class={classes}>
+{#if 'href' in elementProps}
+    <a {...elementProps as HTMLAnchorAttributes} href={elementProps.href} class={classes}>
         {#if children}
             {@render children()}
         {/if}
     </a>
 {:else}
-    <button {...restProps} class={classes}>
+    <button {...elementProps} class={classes}>
         {#if children}
             {@render children()}
         {/if}
