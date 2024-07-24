@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { Button } from '@mstack/ui';
-
-    import { Book, ChevronDown, FilePlus } from 'lucide-svelte';
+    import { Book, ChevronDown } from 'lucide-svelte';
     import { slide } from 'svelte/transition';
 
     import type { BooksWithPages } from '$lib/db';
@@ -46,17 +44,7 @@
             transition:slide={{ duration: 200 }}
             class="border-b border-secondary-100 pl-4 last:border-0"
         >
-            {#if book.page.length}
-                <BookAccordionPages {book} />
-            {/if}
-            <div class="py-4">
-                <Button
-                    class="flex cursor-pointer items-center gap-2 border-b px-3 py-2 transition-colors last:border-0"
-                >
-                    <FilePlus class="size-4" strokeWidth={2.5} />
-                    <span>Add a new page</span>
-                </Button>
-            </div>
+            <BookAccordionPages {book} />
         </ul>
     {/if}
 {/each}
