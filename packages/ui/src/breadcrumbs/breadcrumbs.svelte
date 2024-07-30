@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
     type Crumb = { label: string; href: string };
-    export type Crumbs = [Crumb, ...Crumb[], Omit<Crumb, 'href'>];
+    export type Crumbs = [...Crumb[], Crumb & { href?: undefined }];
 </script>
 
 <script lang="ts">
