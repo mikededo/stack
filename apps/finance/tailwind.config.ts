@@ -6,5 +6,12 @@ export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   darkMode: 'class',
   plugins: [typography()],
-  presets: [{ theme }]
+  presets: [{ theme }],
+  theme: {
+    extend: {
+      height: {
+        'top-bar-sm': 'var(--sm-top-bar-h)'
+      }
+    }
+  }
 } satisfies Config;

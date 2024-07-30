@@ -8,6 +8,9 @@
     --font-mono: 'Geist Mono';
     --background: #ffffff;
     --foreground: #333333;
+
+    /* TODO: Extract when creating a package for the layouts */
+    --sm-top-bar-h: 2.5rem;
   }
 
   .dark {
