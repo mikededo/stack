@@ -17,6 +17,11 @@
 
     type Props = { menu: Menu; options: Option[] };
     let { menu, options }: Props = $props();
+
+    const handleOnClick = (onClick: Required<Option>['onClick']) => () => {
+        menu.hide();
+        onClick();
+    };
 </script>
 
 {#snippet content({ text, Icon }: Omit<Option, 'onClick'>)}
@@ -30,7 +35,7 @@
     {#if onClick}
         <button
             class="ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm hover:ui-bg-secondary-50"
-            onclick={menu.hide}
+            onclick={handleOnClick(onClick)}
         >
             {@render content(opt)}
         </button>
