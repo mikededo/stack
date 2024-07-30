@@ -24,7 +24,8 @@ export const withUnauthorizedRedirect = async <T, S extends keyof Database>(
   response: PostgrestSingleResponse<T>,
   { onBrowserRedirect, onServerRedirect }: UnauthorizedRedirectOptions = {}
 ) => {
-  if (response.error && response.status >= 400 && response.status < 500) {
+  // TODO: Specifically check for 401 and 403 errors
+  if (response.error && response.status > 400 && response.status < 500) {
     await client.auth.signOut();
 
     if (isBrowser()) {
