@@ -18,7 +18,7 @@
 <div class="flex h-screen w-full flex-col overflow-hidden bg-background md:flex-row">
     <!-- Desktop navigation-->
     <div
-        class="hidden h-screen overflow-x-hidden border-r border-secondary-100 bg-secondary-50 md:block md:w-64"
+        class="hidden h-screen overflow-x-hidden border-r border-secondary-100 bg-secondary-50 md:block md:min-w-64"
     >
         <div class="flex h-full flex-col gap-1 px-6 py-10">
             <header class="mb-12 flex items-center justify-between gap-2">
@@ -56,7 +56,7 @@
     </header>
 
     <main
-        class="flex h-top-bar-sm flex-1 flex-col gap-4 p-6 md:h-screen md:gap-12 md:px-10 md:py-8"
+        class="flex h-top-bar-sm flex-1 flex-col gap-4 p-6 md:h-screen md:max-w-[calc(100vw_-_256px)] md:gap-12 md:px-10 md:py-8"
     >
         {@render children()}
     </main>

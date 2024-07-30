@@ -11,6 +11,8 @@ type Route = {
 
   // Private
   app: undefined;
+  book: { book: string };
+  page: { book: string; page: string };
 };
 
 type Routes = keyof Route;
@@ -21,7 +23,9 @@ const Paths: Record<Routes, string> = {
   signIn: '/auth/sign-in',
   signUp: '/auth/sign-up',
 
-  app: '/app'
+  app: '/app',
+  book: '/app/:book',
+  page: '/app/:book/:page'
 };
 
 export const isCurrentPath = (path: string | undefined): boolean => get(page).url.pathname === path;

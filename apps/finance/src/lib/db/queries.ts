@@ -16,7 +16,7 @@ export const getPageQuery = (client: Client, id: string) =>
   client
     .schema('finances')
     .from('page')
-    .select('*, expense(*, tags:tag(*)), book(*)')
+    .select('*, expenses:date_sorted_expenses(*, tags:tag(*)), book(*)')
     .eq('id', id)
     .limit(1)
     .single();
