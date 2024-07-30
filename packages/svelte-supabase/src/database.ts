@@ -793,6 +793,13 @@ export type Database = {
             foreignKeyName: 'expenses_tags_expense_id_fkey';
             columns: ['expense_id'];
             isOneToOne: false;
+            referencedRelation: 'date_sorted_expenses';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'expenses_tags_expense_id_fkey';
+            columns: ['expense_id'];
+            isOneToOne: false;
             referencedRelation: 'expense';
             referencedColumns: ['id'];
           },
@@ -856,7 +863,7 @@ export type Database = {
           book_id: number;
           color: string;
           created_at?: string;
-          id: number;
+          id?: number;
           name: string;
         };
         Update: {
@@ -911,7 +918,51 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      date_sorted_expenses: {
+        Row: {
+          amount: number | null;
+          comment: string | null;
+          created_at: string | null;
+          created_by: string | null;
+          date: string | null;
+          id: number | null;
+          page_id: number | null;
+        };
+        Insert: {
+          amount?: number | null;
+          comment?: string | null;
+          created_at?: string | null;
+          created_by?: string | null;
+          date?: string | null;
+          id?: number | null;
+          page_id?: number | null;
+        };
+        Update: {
+          amount?: number | null;
+          comment?: string | null;
+          created_at?: string | null;
+          created_by?: string | null;
+          date?: string | null;
+          id?: number | null;
+          page_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'expense_created_by_fkey';
+            columns: ['created_by'];
+            isOneToOne: false;
+            referencedRelation: 'users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'expense_page_id_fkey';
+            columns: ['page_id'];
+            isOneToOne: false;
+            referencedRelation: 'page';
+            referencedColumns: ['id'];
+          }
+        ];
+      };
     };
     Functions: {
       [_ in never]: never;
