@@ -62,8 +62,8 @@
             {#each $query.data.expense as expense (expense.id)}
                 <tr class="border-b border-secondary-100">
                     <td class="w-[12.5%] p-3">{new Date(expense.date).toLocaleDateString()}</td>
-                    <td class="w-full p-3">{expense.amount}&euro;</td>
-                    <td class="w-[12.5%] p-3">{expense.comment}</td>
+                    <td class="w-[12.5%] p-3">{expense.amount}&euro;</td>
+                    <td class="w-full p-3">{expense.comment}</td>
                     <td class="min-w-[12.5%] p-3">
                         {#each expense.tags as tag (tag.id)}
                             <span
