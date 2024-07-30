@@ -4,8 +4,8 @@
     import { createQuery } from '@tanstack/svelte-query';
 
     import { Keys, pathTo } from '$lib/config';
-    import { getPage } from '$lib/db';
-    import { PageTable } from '$lib/domain/page';
+    import { getBook } from '$lib/db';
+    import { BookAccordionPages } from '$lib/domain/books';
 
     import type { PageData } from './$types';
 
@@ -13,31 +13,17 @@
     let { data }: Props = $props();
 
     let query = createQuery({
-        queryKey: Keys.PAGE(data.params.book, data.params.page),
-        queryFn: () => getPage(data.supabase, data.params.page)
+        queryKey: Keys.BOOK(data.params.book),
+        queryFn: () => getBook(data.supabase, data.params.book)
     });
     let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
-        if (!$query.data || !$query.data.book) {
+        if (!$query.data) {
             return;
         }
 
-        const book = $query.data.book.id.toString();
-        return [
-            { label: 'Dashboard', href: pathTo('app') },
-            {
-                label: $query.data.book?.name,
-                href: pathTo('book', { book })
-            },
-            { label: $query.data.name }
-        ];
+        return [{ label: 'Dashboard', href: pathTo('app') }, { label: $query.data.name }];
     });
 </script>
-
-<svelte:head>
-    {#if $query.data}
-        <title>Editing: {$query.data.name} - {$query.data.book?.name}</title>
-    {/if}
-</svelte:head>
 
 {#if $query.isLoading}
     <div class="flex h-full w-full items-center justify-center">
@@ -50,6 +36,7 @@
             <Breadcrumbs {breadcrumbs} />
         {/if}
     </div>
-
-    <PageTable page={$query.data} />
+    <ul class="border-b border-secondary-100 last:border-0">
+        <BookAccordionPages book={$query.data} />
+    </ul>
 {/if}

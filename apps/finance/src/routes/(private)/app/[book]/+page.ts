@@ -1,5 +1,5 @@
 import { Keys } from '$lib/config';
-import { getPage } from '$lib/db';
+import { getBook } from '$lib/db';
 
 import type { PageLoad } from './$types';
 
@@ -7,8 +7,8 @@ export const load: PageLoad = async ({ params, parent }) => {
   const { queryClient, supabase } = await parent();
 
   queryClient.prefetchQuery({
-    queryKey: Keys.PAGE(params.book, params.page),
-    queryFn: () => getPage(supabase, params.page)
+    queryKey: Keys.BOOK(params.book),
+    queryFn: () => getBook(supabase, params.book)
   });
 
   return { params };

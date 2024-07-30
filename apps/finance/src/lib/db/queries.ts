@@ -12,6 +12,12 @@ export const getBooksWithPages = async (client: Client) =>
 export type BooksWithPages = Result<typeof getBooksWithPagesQuery>;
 export type BookWithPages = BooksWithPages[number];
 
+export const getBookQuery = (client: Client, id: string) =>
+  client.schema('finances').from('book').select('*, page(*)').eq('id', id).limit(1).single();
+export const getBook = async (client: Client, id: string) =>
+  (await withUnauthorizedRedirect(client, await getBookQuery(client, id))).data;
+export type Book = Result<typeof getBookQuery>;
+
 export const getPageQuery = (client: Client, id: string) =>
   client
     .schema('finances')
