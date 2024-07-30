@@ -84,6 +84,7 @@
 {@render header()}
 {#each book.page as page (page.id)}
     <PageItem
+        href={`/app/${book.id}/${page.id}`}
         owner={user.first_name[0]}
         createdAt={new Date(page.created_at)}
         isShared={page.created_by !== user.id}

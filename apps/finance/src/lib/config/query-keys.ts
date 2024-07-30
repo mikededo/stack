@@ -1,4 +1,5 @@
 export const Keys = {
   USER: ['user'],
-  BOOKS: ['books']
+  BOOKS: ['books'],
+  BOOK: (id: string) => ['books', id]
 };

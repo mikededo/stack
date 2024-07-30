@@ -12,6 +12,18 @@ export const getBooksWithPages = async (client: Client) =>
 export type BooksWithPages = Result<typeof getBooksWithPagesQuery>;
 export type BookWithPages = BooksWithPages[number];
 
+export const getPageQuery = (client: Client, id: string) =>
+  client
+    .schema('finances')
+    .from('page')
+    .select('*, expense(*, tags:tag(*)), book(*)')
+    .eq('id', id)
+    .limit(1)
+    .single();
+export const getPage = async (client: Client, id: string) =>
+  (await withUnauthorizedRedirect(client, await getPageQuery(client, id))).data;
+export type Page = Result<typeof getPageQuery>;
+
 // Mutations
 export type NewPageData = { name: string; book: number };
 export const createPage = async (client: Client, { name, book }: NewPageData) =>
