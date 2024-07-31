@@ -29,13 +29,13 @@
     "!dist/**/*.spec.*"
   ],
   "devDependencies": {
-    "@mstack/tailwind-config": "*",
-    "@mstack/typescript-config": "*",
+    "@mstack/tailwind-config": "workspace:*",
+    "@mstack/typescript-config": "workspace:*",
     "@sveltejs/vite-plugin-svelte": "4.0.0-next.4"
   },
   "dependencies": {
     "@mstack/actions": "workspace:*",
-    "lucide-svelte": "0.412.0",
+    "lucide-svelte": "0.417.0",
     "svelte": "5.0.0-next.192",
     "tailwind-merge": "2.4.0"
   }

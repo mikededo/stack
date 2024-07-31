@@ -19,7 +19,7 @@
     "@supabase/supabase-js": "2.44.4"
   },
   "devDependencies": {
-    "@mstack/typescript-config": "*",
+    "@mstack/typescript-config": "workspace:*",
     "svelte": "5.0.0-next.192"
   }
 }

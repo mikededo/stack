@@ -1,6 +1,6 @@
 {
   "name": "@mstack/finance",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "type": "module",
   "private": true,
   "scripts": {
@@ -40,6 +40,6 @@
     "@supabase/ssr": "0.4.0",
     "@supabase/supabase-js": "2.44.4",
     "@tanstack/svelte-query": "5.51.11",
-    "lucide-svelte": "0.412.0"
+    "lucide-svelte": "0.417.0"
   }
 }

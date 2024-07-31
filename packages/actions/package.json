@@ -23,8 +23,8 @@
     "!dist/**/*.spec.*"
   ],
   "devDependencies": {
-    "@mstack/tailwind-config": "*",
-    "@mstack/typescript-config": "*",
+    "@mstack/tailwind-config": "workspace:*",
+    "@mstack/typescript-config": "workspace:*",
     "@sveltejs/kit": "2.5.18",
     "@sveltejs/package": "2.3.2",
     "@sveltejs/vite-plugin-svelte": "4.0.0-next.4"
