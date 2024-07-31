@@ -6,9 +6,7 @@
     "build": "bun run build:styles && bun run build:lib",
     "build:lib": "svelte-kit sync && svelte-package --input src",
     "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "dev": "conc \"bun run dev:styles\" \"bun run dev:lib\" --names styles,lib",
-    "dev:lib": "svelte-package --watch --input src",
-    "dev:styles": "bun run build:styles && tailwindcss -i ./src/styles.css -o ./src/index.css --watch",
+    "dev": "tailwindcss -i ./src/styles.css -o ./src/index.css --watch",
     "lint": "prettier --check . && eslint . --max-warnings=0",
     "lint:fix": "prettier --write . && eslint --fix .",
     "prepare": "svelte-kit sync"
@@ -17,8 +15,8 @@
   "module": "index.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "svelte": "./dist/index.js"
+      "types": "./src/index.ts",
+      "svelte": "./src/index.js"
     },
     "./styles": "./dist/index.css",
     "./tailwind": "./tailwind.config.ts"
