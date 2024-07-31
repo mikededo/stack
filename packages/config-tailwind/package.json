@@ -1,7 +1,7 @@
 {
   "name": "@mstack/tailwind-config",
-  "version": "0.0.0",
   "private": true,
+  "version": "0.0.0",
   "exports": {
     ".": "./tailwind.config.ts",
     "./postcss": "./postcss.config.js"

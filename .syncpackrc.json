@@ -1,0 +1,36 @@
+{
+  "$schema": "https://unpkg.com/syncpack@11.2.1/dist/schema.json",
+  "versionGroups": [
+    {
+      "label": "Use workspace protocol when developing local packages",
+      "dependencies": ["$LOCAL"],
+      "dependencyTypes": ["!local"],
+      "pinVersion": "workspace:*"
+    }
+  ],
+  "sortAz": [
+    "bin",
+    "contributors",
+    "dependencies",
+    "devDependencies",
+    "keywords",
+    "peerDependencies",
+    "resolutions",
+    "scripts",
+    "files",
+    "exports"
+  ],
+  "sortFirst": [
+    "name",
+    "description",
+    "author",
+    "private",
+    "version",
+    "type",
+    "main",
+    "module",
+    "exports",
+    "files",
+    "scripts"
+  ]
+}

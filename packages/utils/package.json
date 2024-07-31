@@ -2,16 +2,16 @@
   "name": "@mstack/utils",
   "version": "0.0.0",
   "type": "module",
-  "module": "index.ts",
+  "scripts": {
+    "lint": "eslint ."
+  },
   "main": "index.ts",
+  "module": "index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
       "svelte": "./src/index.ts"
     }
-  },
-  "scripts": {
-    "lint": "eslint ."
   },
   "devDependencies": {
     "@mstack/typescript-config": "workspace:*"

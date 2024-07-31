@@ -16,6 +16,9 @@
     "lint": "turbo lint",
     "type-check": "turbo type-check"
   },
+  "dependencies": {
+    "lucide-svelte": "0.417.0"
+  },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.8.0",
@@ -47,8 +50,5 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ],
-  "dependencies": {
-    "lucide-svelte": "0.417.0"
-  }
+  ]
 }
