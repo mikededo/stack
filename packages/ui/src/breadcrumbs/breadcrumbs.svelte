@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
-    type Crumb = { label: string; href: string };
-    export type Crumbs = [...Crumb[], Crumb & { href?: undefined }];
+    type Crumb = { label: string; href?: string };
+    export type Crumbs = Crumb[];
 </script>
 
 <script lang="ts">
@@ -11,7 +11,7 @@
 <nav aria-label="Breadcrumbs">
     <ol class="ui-flex ui-flex-row ui-gap-1 ui-text-sm ui-text-secondary-300 ui-duration-75">
         {#each breadcrumbs as crumb, i (i)}
-            {#if crumb.href}
+            {#if crumb.href && i < breadcrumbs.length - 1}
                 <li>
                     <a
                         href={crumb.href}
