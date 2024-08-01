@@ -20,7 +20,7 @@
       "types": "./dist/index.d.ts",
       "svelte": "./dist/index.js"
     },
-    "./styles": "./dist/index.css",
+    "./styles": "./src/index.css",
     "./tailwind": "./tailwind.config.ts"
   },
   "files": [

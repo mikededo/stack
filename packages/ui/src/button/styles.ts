@@ -13,11 +13,11 @@ const COLORS: Record<ButtonColor, string> = {
   primary:
     'ui-bg-primary dark:ui-bg-primary-800 ui-text-white hover:ui-bg-primary/90 hover:dark:ui-bg-primary-800/90 ui-stroke-white disabled:ui-bg-primary/75 dark:disabled:ui-bg-primary-800/75',
   secondary:
-    'ui-bg-secondary dark:ui-bg-secondary-900 ui-text-secondary-foreground dark:ui-text-white dark:ui-stroke-white hover:ui-bg-secondary/80 dark:hover:ui-bg-secondary-900/90 ui-border ui-border-transparent hover:ui-border-secondary-300 dark:hover:ui-border-secondary-700 focus-visible:ui-ring-secondary-300 dark:focus-visible:ui-ring-secondary-700',
+    'ui-bg-secondary-50 dark:ui-bg-secondary-900 dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-secondary-900/90 ui-border ui-border-transparent hover:ui-border-secondary-100 dark:hover:ui-border-secondary-700 disabled:ui-bg-secondary-50 disabled:ui-text-secondary-400 disabled:hover:ui-border-secondary-50',
   muted:
-    'ui-bg-transparent ui-text-foreground hover:ui-bg-secondary-50 ui-stroke-foreground focus-visible:ui-ring-secondary-300 dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-secondary-900 disabled:ui-bg-secondary-50 disabled:ui-text-secondary-200',
+    'ui-bg-transparent ui-text-foreground hover:ui-bg-secondary-50 ui-stroke-foreground dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-secondary-900 disabled:ui-bg-secondary-50 disabled:ui-text-secondary-200',
   destructive:
-    'ui-bg-destructive ui-text-destructive-foreground hover:ui-bg-destructive/90 ui-stroke-destructive focus-visible:ui-ring-destructive'
+    'ui-bg-destructive ui-text-destructive-foreground hover:ui-bg-destructive/90 ui-stroke-destructive'
 };
 
 export const sharedClasses = ({
@@ -26,7 +26,7 @@ export const sharedClasses = ({
   className
 }: Required<Pick<BaseProps, 'variant' | 'color'>> & { className?: string | null }) =>
   twMerge(
-    'ui-whitespace-nowrap ui-rounded-lg ui-font-medium ui-transition-all focus-visible:ui-outline-none focus-visible:ui-ring-2 focus-visible:ui-ring-primary focus-visible:ui-ring-offset-2 active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
+    'ui-whitespace-nowrap ui-rounded-lg ui-font-medium ui-transition-all focus-visible:ui-scale-[0.975] focus-visible:ui-outline-none active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
     VARIANTS[variant],
     COLORS[color],
     className

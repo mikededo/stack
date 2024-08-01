@@ -14,12 +14,7 @@
         ...restProps,
         'aria-disabled': restProps.disabled ? 'true' : restProps['aria-disabled']
     });
-
-    const classes = sharedClasses({
-        variant,
-        color,
-        className: restProps.class
-    });
+    const classes = $derived(sharedClasses({ variant, color, className: restProps.class }));
 </script>
 
 {#if 'href' in elementProps}
