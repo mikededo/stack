@@ -2,12 +2,6 @@
   "name": "@mstack/actions",
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "build": "svelte-kit sync && svelte-package --input src",
-    "lint": "prettier --check . && eslint . --max-warnings=0",
-    "lint:fix": "prettier --write . && eslint --fix .",
-    "prepare": "svelte-kit sync"
-  },
   "exports": {
     ".": {
       "types": "./src/index.ts",
@@ -19,6 +13,12 @@
     "!dist/**/*.test.*",
     "dist"
   ],
+  "scripts": {
+    "build": "svelte-kit sync && svelte-package --input src",
+    "lint": "prettier --check . && eslint . --max-warnings=0",
+    "lint:fix": "prettier --write . && eslint --fix .",
+    "prepare": "svelte-kit sync"
+  },
   "dependencies": {
     "svelte": "5.0.0-next.192"
   },
