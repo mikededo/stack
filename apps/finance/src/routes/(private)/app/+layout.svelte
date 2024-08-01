@@ -2,7 +2,7 @@
     import { Ellipsis, Wallet } from 'lucide-svelte';
     import type { Snippet } from 'svelte';
 
-    import { isCurrentPath, pathTo } from '$lib/config';
+    import { isNestedPath, pathTo } from '$lib/config';
 
     type Props = { children: Snippet };
     let { children }: Props = $props();
@@ -33,7 +33,7 @@
                                 class="block w-full cursor-pointer rounded px-3 py-2 font-semibold text-secondary-800 transition-colors aria-[current=true]:bg-secondary-100 aria-[current=false]:hover:bg-secondary-100"
                                 {href}
                                 role="tab"
-                                aria-current={isCurrentPath(href)}
+                                aria-current={isNestedPath(href, 'app')}
                             >
                                 {name}
                             </a>
@@ -56,7 +56,7 @@
     </header>
 
     <main
-        class="flex h-top-bar-sm flex-1 flex-col gap-4 p-6 md:h-screen md:max-w-[calc(100vw_-_256px)] md:gap-12 md:px-10 md:py-8"
+        class="flex h-top-bar-sm flex-1 flex-col gap-4 p-6 pb-0 md:h-screen md:max-w-[calc(100vw_-_256px)] md:px-10 md:pt-8"
     >
         {@render children()}
     </main>

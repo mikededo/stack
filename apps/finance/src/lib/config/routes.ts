@@ -30,6 +30,9 @@ const Paths: Record<Routes, string> = {
 
 export const isCurrentPath = (path: string | undefined): boolean => get(page).url.pathname === path;
 
+export const isNestedPath = (path: string | undefined, nested: Routes): boolean =>
+  !!path?.startsWith(Paths[nested]);
+
 export function pathTo<T extends Routes>(route: T, params?: Route[T]): string {
   if (params !== undefined) {
     return Object.keys(params).reduce(

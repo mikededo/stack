@@ -28,13 +28,10 @@
 </svelte:head>
 
 <h1>Dashboard</h1>
-<div class="flex flex-col gap-4">
-    <h2 class="text-2xl font-semibold">Your books</h2>
-    {#if $query.isLoading}
-        <p>Loading...</p>
-    {:else if $query.data}
-        <section>
-            <BookAccordion books={$query.data} />
-        </section>
-    {/if}
-</div>
+{#if $query.isLoading}
+    <p>Loading...</p>
+{:else if $query.data}
+    <section class="md:mt-8">
+        <BookAccordion books={$query.data} />
+    </section>
+{/if}

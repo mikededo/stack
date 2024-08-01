@@ -1,35 +1,18 @@
 <script lang="ts">
     import type { Page } from '$lib/db';
 
+    import PageTableHead from './table-head.svelte';
+    import PageTableOptions from './table-options.svelte';
+
     type Props = { page: Page };
     let { page }: Props = $props();
 </script>
 
+<PageTableOptions />
+
 <table class="relative -mx-6 flex flex-col overflow-auto md:mx-0">
-    <thead class="sticky top-0">
-        <tr class="flex w-full text-left text-sm text-secondary-500">
-            <th
-                class="w-32 shrink-0 border-b border-secondary-100 bg-secondary-50 py-1.5 pl-3 font-semibold"
-            >
-                Date
-            </th>
-            <th
-                class="w-32 shrink-0 border-b border-secondary-100 bg-secondary-50 py-1.5 pl-3 font-semibold"
-            >
-                Amount
-            </th>
-            <th
-                class="w-full min-w-64 border-b border-secondary-100 bg-secondary-50 py-1.5 pl-3 font-semibold"
-            >
-                Comment
-            </th>
-            <th
-                class="border-b border-secondary-100 bg-secondary-50 py-1.5 pl-3 font-semibold sm:min-w-24 md:min-w-40"
-            >
-                Tags
-            </th>
-        </tr>
-    </thead>
+    <PageTableHead />
+
     <tbody class="pb-4 text-left text-sm">
         {#each page.expenses as expense (expense.id)}
             <tr class="flex w-full items-stretch">
