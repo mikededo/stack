@@ -6,8 +6,6 @@
     "lint": "prettier --check . && eslint . --max-warnings=0",
     "lint:fix": "prettier --write . && eslint --fix ."
   },
-  "main": "index.ts",
-  "module": "index.ts",
   "exports": {
     ".": {
       "types": "./src/index.ts",
