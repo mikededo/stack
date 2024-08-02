@@ -8,7 +8,7 @@
     let { page }: Props = $props();
 </script>
 
-<PageTableOptions />
+<PageTableOptions book={page.book_id} />
 
 <table class="relative -mx-6 flex flex-col overflow-auto md:mx-0">
     <PageTableHead />
