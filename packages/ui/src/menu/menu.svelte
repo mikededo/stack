@@ -10,7 +10,7 @@
     import { clickAway } from '@mstack/actions';
     import { Keys, getFocusableElements } from '@mstack/utils';
 
-    import { type Icon as LucideIcon } from 'lucide-svelte';
+    import { Loader, type Icon as LucideIcon } from 'lucide-svelte';
     import { type ComponentType, type Snippet } from 'svelte';
     import { twMerge } from 'tailwind-merge';
 
@@ -20,11 +20,12 @@
     type Props = {
         children: Snippet;
         class?: string;
+        loading?: boolean;
     } & (
         | { Icon: ComponentType<LucideIcon>; label?: string }
         | { Icon?: ComponentType<LucideIcon>; label: string }
     );
-    let { label, children, Icon, ...restProps }: Props = $props();
+    let { label, children, Icon, loading, ...restProps }: Props = $props();
 
     let showMenu = $state(false);
     let menuState = $state<MenuState>({
@@ -84,13 +85,20 @@
 </script>
 
 <div class="relative">
-    <Button color="secondary" class={buttonClasses} onclick={handleOnToggle} disabled={showMenu}>
-        {#if Icon}<svelte:component this={Icon} class="size-4" />{/if}
+    <Button
+        color="secondary"
+        class={buttonClasses}
+        onclick={handleOnToggle}
+        disabled={showMenu || loading}
+    >
+        {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
+        {#if Icon && !loading}<svelte:component this={Icon} class="size-4" />{/if}
         {#if label}<span>{label}</span>{/if}
     </Button>
 
     {#if showMenu}
         <FloatingCard
+            class="ui-box-border ui-max-h-96 ui-overflow-y-auto ui-overflow-x-hidden"
             role="menu"
             tabindex={1}
             onkeydown={handleOnNavigation}

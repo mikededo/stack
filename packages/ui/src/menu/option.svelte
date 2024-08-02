@@ -8,13 +8,15 @@
         active?: boolean;
         label: string;
         onClick: () => void;
+        class?: string;
     };
-    let { active, Icon, label, onClick }: Props = $props();
+    let { active, Icon, label, onClick, ...restProps }: Props = $props();
 
     const classes = $derived(
         twMerge(
             'outline-none ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm hover:ui-bg-secondary-50 focus:ui-bg-secondary-50 active:ui-bg-secondary-50',
-            active && 'ui-bg-secondary-50 ui-font-semibold'
+            active && 'ui-bg-secondary-50 ui-font-semibold',
+            restProps.class
         )
     );
 </script>
