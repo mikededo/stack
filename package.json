@@ -51,7 +51,10 @@
     "node": ">=18"
   },
   "lint-staged": {
-    "*.{ts,svelte,html,css}": "turbo lint:fix --ui stream",
+    "*.{ts,svelte,html,css}": [
+      "prettier --check",
+      "eslint --max-warnings 0"
+    ],
     "*package.json": [
       "bun run dep:check",
       "bun run dep:lint"

@@ -1,21 +1,17 @@
 <script lang="ts">
     import { Breadcrumbs, type Crumbs } from '@mstack/ui';
 
-    import { createQuery } from '@tanstack/svelte-query';
-
-    import { Keys, pathTo } from '$lib/config';
-    import { getPage } from '$lib/db';
+    import { pathTo } from '$lib/config';
     import { PageTable } from '$lib/domain/page';
+    import { useBookPages } from '$lib/hooks';
 
     import type { PageData } from './$types';
 
     type Props = { data: PageData };
     let { data }: Props = $props();
 
-    let query = createQuery({
-        queryKey: Keys.PAGE(data.params.book, data.params.page),
-        queryFn: () => getPage(data.supabase, data.params.page)
-    });
+    const query = useBookPages(data.supabase, data.params.book, data.params.page);
+
     let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
         if (!$query.data || !$query.data.book) {
             return;

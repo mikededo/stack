@@ -1,19 +1,13 @@
 <script lang="ts">
-    import { createQuery } from '@tanstack/svelte-query';
-
-    import { Keys } from '$lib/config';
-    import { getBooksWithPages } from '$lib/db';
     import { BookAccordion } from '$lib/domain/books';
+    import { useBooks } from '$lib/hooks';
 
     import type { PageData } from './$types';
 
     type Props = { data: PageData };
     let { data }: Props = $props();
 
-    let query = createQuery({
-        queryKey: Keys.BOOKS,
-        queryFn: () => getBooksWithPages(data.supabase)
-    });
+    const query = useBooks(data.supabase);
 </script>
 
 <svelte:head>

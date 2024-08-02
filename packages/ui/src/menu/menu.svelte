@@ -8,14 +8,14 @@
 
 <script lang="ts">
     import { clickAway } from '@mstack/actions';
-    import { getFocusableElements, Keys } from '@mstack/utils';
+    import { Keys, getFocusableElements } from '@mstack/utils';
 
     import { type Icon as LucideIcon } from 'lucide-svelte';
     import { type ComponentType, type Snippet } from 'svelte';
+    import { twMerge } from 'tailwind-merge';
 
     import { Button } from '../button/index.js';
     import { FloatingCard } from '../floating-card/index.js';
-    import { twMerge } from 'tailwind-merge';
 
     type Props = {
         children: Snippet;
