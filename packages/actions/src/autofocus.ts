@@ -1,5 +1,5 @@
 import type { Action } from 'svelte/action';
 
-export const useAutofocus: Action<HTMLElement, undefined> = (node) => {
+export const useAutofocus: Action = (node) => {
   node.focus();
 };
