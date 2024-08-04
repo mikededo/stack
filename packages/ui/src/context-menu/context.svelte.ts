@@ -22,6 +22,12 @@ export const createContextMenu = () => {
   };
 
   return {
+    states: {
+      get isMenuActive() {
+        let _internal = $derived(cmState !== null);
+        return _internal;
+      }
+    },
     trigger,
     get menu(): Menu {
       let _internal = $derived(cmState);

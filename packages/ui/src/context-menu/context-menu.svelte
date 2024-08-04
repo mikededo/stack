@@ -2,9 +2,16 @@
     import { Icon as LucideIcon } from 'lucide-svelte';
     import type { ComponentType } from 'svelte';
 
-    type Option = { text: string; Icon?: ComponentType<LucideIcon>; onClick?: () => void };
+    type Option = {
+        text: string;
+        Icon?: ComponentType<LucideIcon>;
+        onClick?: () => void;
+        destructive?: boolean;
+        disabled?: boolean;
+    };
+    type Divider = 'divider';
 
-    export type ContextMenuOption = Option;
+    export type ContextMenuOption = Option | Divider;
 </script>
 
 <script lang="ts">
@@ -12,16 +19,25 @@
 
     import { cubicInOut } from 'svelte/easing';
     import { scale } from 'svelte/transition';
+    import { twMerge } from 'tailwind-merge';
 
     import type { Menu } from './context.svelte.ts';
 
-    type Props = { menu: Menu; options: Option[] };
+    type Props = { menu: Menu; options: ContextMenuOption[] };
     let { menu, options }: Props = $props();
 
     const handleOnClick = (onClick: Required<Option>['onClick']) => () => {
         menu.hide();
         onClick();
     };
+
+    const getOptionClasses = ({ onClick, destructive }: Option) =>
+        twMerge(
+            'ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm ui-transition-colors ui-duration-100 disabled:ui-cursor-not-allowed disabled:ui-text-secondary-400 disabled:hover:ui-bg-transparent aria-disabled:ui-cursor-not-allowed aria-disabled:ui-text-secondary-400 aria-disabled:hover:ui-bg-transparent',
+            onClick && 'hover:ui-bg-secondary-50',
+            destructive &&
+                'ui-text-destructive-500 hover:!ui-bg-destructive-50 focus:ui-bg-destructive-50 active:ui-bg-destructive-50'
+        );
 </script>
 
 {#snippet content({ text, Icon }: Omit<Option, 'onClick'>)}
@@ -31,18 +47,17 @@
     <span>{text}</span>
 {/snippet}
 
-{#snippet option({ onClick, ...opt }: Option)}
-    {#if onClick}
+{#snippet option(opt: Option)}
+    {#if opt.onClick}
         <button
-            class="ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm hover:ui-bg-secondary-50"
-            onclick={handleOnClick(onClick)}
+            class={getOptionClasses(opt)}
+            onclick={handleOnClick(opt.onClick)}
+            disabled={opt.disabled}
         >
             {@render content(opt)}
         </button>
     {:else}
-        <div
-            class="ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm"
-        >
+        <div class={getOptionClasses(opt)} aria-disabled={opt.disabled}>
             {@render content(opt)}
         </div>
     {/if}
@@ -57,7 +72,14 @@
         use:clickAway={menu.hide}
     >
         {#each options as o}
-            {@render option(o)}
+            {#if o === 'divider'}
+                <div
+                    role="separator"
+                    class="ui-mx-auto ui-my-2 ui-h-[1px] ui-w-[90%] ui-bg-secondary-100/75"
+                ></div>
+            {:else}
+                {@render option(o)}
+            {/if}
         {/each}
     </div>
 {/if}
