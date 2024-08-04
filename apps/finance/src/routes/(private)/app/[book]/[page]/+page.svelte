@@ -2,7 +2,7 @@
     import { Breadcrumbs, type Crumbs } from '@mstack/ui';
 
     import { pathTo } from '$lib/config';
-    import { PageTable } from '$lib/domain/page';
+    import { PageTable } from '$lib/domain/page/table';
     import { useBookPages } from '$lib/hooks';
 
     import type { PageData } from './$types';
