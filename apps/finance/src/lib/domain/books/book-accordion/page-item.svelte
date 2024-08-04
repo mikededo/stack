@@ -57,10 +57,10 @@
     </div>
 {/snippet}
 
-<li
-    class="cursor-pointer transition-colors odd:bg-secondary-50 last-of-type:border-0 hover:bg-secondary-100/50 active:bg-secondary-100"
->
-    {#if href}
+{#if href}
+    <li
+        class="cursor-pointer transition-colors odd:bg-secondary-50 last-of-type:border-0 hover:bg-secondary-100/50 active:bg-secondary-100"
+    >
         <a
             {href}
             class="flex w-full items-center justify-between gap-2 border-b border-secondary-100 px-3 py-2"
@@ -68,9 +68,13 @@
         >
             {@render content()}
         </a>
-    {:else}
+    </li>
+{:else}
+    <li
+        class="flex w-full items-center justify-between gap-2 border-b border-secondary-100 px-3 py-2"
+    >
         {@render content()}
-    {/if}
-</li>
+    </li>
+{/if}
 
 <ContextMenu menu={menu.menu} options={cmOptions} />

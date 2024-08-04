@@ -21,7 +21,7 @@
 
     const tagsQuery = useBookTags(supabase, `${book}`);
 
-    const getTagClasses = (color: string, active?: boolean) =>
+    const getTagClasses = (active?: boolean) =>
         `text-[var(--tag-color)] hover:bg-[var(--tag-color-hover)] active:bg-[var(--tag-color-hover)] ${
             active ? 'bg-transparent' : ''
         }`;
@@ -30,7 +30,7 @@
 {#snippet filterContent()}
     <MenuOption Icon={TrendingUp} label="Amount (Ascending)" onClick={console.log} />
     <MenuOption Icon={TrendingDown} label="Amount (Descending)" onClick={console.log} />
-    <MenuOption Icon={CalendarArrowUp} label="Date (Asc)" onClick={console.log} active />
+    <MenuOption Icon={CalendarArrowUp} label="Date (Asc)" onClick={console.log} />
     <MenuOption Icon={CalendarArrowDown} label="Date (Desc)" onClick={console.log} />
 {/snippet}
 
@@ -42,7 +42,7 @@
                 class="w-full"
             >
                 <MenuOption
-                    class={getTagClasses(tag.color, tag.id % 2 === 0)}
+                    class={getTagClasses(tag.id % 2 === 0)}
                     label={tag.name}
                     Icon={tag.id % 2 === 0 ? CircleCheck : Circle}
                     onClick={console.log}

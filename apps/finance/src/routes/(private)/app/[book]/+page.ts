@@ -8,7 +8,7 @@ export const load: PageLoad = async ({ params, parent }) => {
 
   queryClient.prefetchQuery({
     queryKey: Keys.BOOK(params.book),
-    queryFn: () => getBook(supabase, params.book)
+    queryFn: () => getBook(supabase, +params.book)
   });
 
   return { params };
