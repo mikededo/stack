@@ -8,6 +8,11 @@
       "svelte": "./src/index.ts"
     }
   },
+  "files": [
+    "!dist/**/*.spec.*",
+    "!dist/**/*.test.*",
+    "dist"
+  ],
   "scripts": {
     "lint": "eslint ."
   },
