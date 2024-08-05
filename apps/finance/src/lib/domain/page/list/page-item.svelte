@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ContextMenu, type ContextMenuOption, createContextMenu } from '@mstack/ui';
+    import { ContextMenu, type ContextMenuOption, ListItem, createContextMenu } from '@mstack/ui';
 
     import {
         ClipboardCopyIcon,
@@ -58,23 +58,15 @@
 {/snippet}
 
 {#if href}
-    <li
-        class="cursor-pointer transition-colors odd:bg-secondary-50 last-of-type:border-0 hover:bg-secondary-100/50 active:bg-secondary-100"
-    >
-        <a
-            {href}
-            class="flex w-full items-center justify-between gap-2 border-b border-secondary-100 px-3 py-2"
-            use:menu.trigger
-        >
+    <ListItem hoverable>
+        <a {href} class="flex w-full items-center justify-between gap-2 px-3 py-2" use:menu.trigger>
             {@render content()}
         </a>
-    </li>
+    </ListItem>
 {:else}
-    <li
-        class="flex w-full items-center justify-between gap-2 border-b border-secondary-100 px-3 py-2"
-    >
+    <ListItem class="flex w-full items-center justify-between gap-2 px-3 py-2" hoverable>
         {@render content()}
-    </li>
+    </ListItem>
 {/if}
 
 <ContextMenu menu={menu.menu} options={cmOptions} />

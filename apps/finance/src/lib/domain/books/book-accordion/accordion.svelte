@@ -3,8 +3,7 @@
     import { slide } from 'svelte/transition';
 
     import type { BooksWithPages } from '$lib/db';
-
-    import BookAccordionPages from './accordion-pages.svelte';
+    import { PageList } from '$lib/domain/page';
 
     type Props = { books: BooksWithPages };
     let { books }: Props = $props();
@@ -40,11 +39,8 @@
         {/if}
     </button>
     {#if openedBooks.has(book.id)}
-        <ul
-            transition:slide={{ duration: 200 }}
-            class="border-b border-secondary-100 pl-4 last:border-0"
-        >
-            <BookAccordionPages {book} />
-        </ul>
+        <div transition:slide={{ duration: 200 }} class="pl-4">
+            <PageList {book} />
+        </div>
     {/if}
 {/each}

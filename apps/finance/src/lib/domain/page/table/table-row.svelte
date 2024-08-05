@@ -3,7 +3,7 @@
 </script>
 
 <script lang="ts">
-    import { ContextMenu, type ContextMenuOption, createContextMenu } from '@mstack/ui';
+    import { Chip, ContextMenu, type ContextMenuOption, createContextMenu } from '@mstack/ui';
 
     import {
         ArrowDownToLine,
@@ -63,12 +63,7 @@
     </td>
     <td class="border-b border-secondary-100 p-3 sm:min-w-24 md:min-w-40">
         {#each expense.tags as tag (tag.id)}
-            <span
-                class="rounded-full px-2 py-1 text-xs font-semibold"
-                style="background-color: {tag.color}44; color: {tag.color}"
-            >
-                {tag.name}
-            </span>
+            <Chip color={tag.color}>{tag.name}</Chip>
         {/each}
     </td>
 </tr>

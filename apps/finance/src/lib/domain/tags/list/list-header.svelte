@@ -1,0 +1,10 @@
+<li
+    class="flex items-center justify-between bg-secondary-50 py-1.5 pl-4 pr-3 text-xs font-semibold uppercase"
+>
+    <p>Tag name</p>
+    <div class="flex items-center gap-4">
+        <span>Preview</span>
+        <span class="w-16 text-right">Color</span>
+        <div class="w-5"></div>
+    </div>
+</li>

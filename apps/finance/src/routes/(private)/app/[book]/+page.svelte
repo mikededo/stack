@@ -1,14 +1,19 @@
 <script lang="ts">
-    import { Breadcrumbs, type Crumbs } from '@mstack/ui';
+    import { Breadcrumbs, type Crumbs, TextIconButton } from '@mstack/ui';
+
+    import { File, Tag } from 'lucide-svelte';
 
     import { pathTo } from '$lib/config';
-    import { BookAccordionPages } from '$lib/domain/books';
+    import { PageList, PageListOptions, initListContext } from '$lib/domain/page';
+    import { TagList } from '$lib/domain/tags';
     import { useBook } from '$lib/hooks';
 
     import type { PageData } from './$types';
 
     type Props = { data: PageData };
     let { data }: Props = $props();
+
+    let listState = initListContext();
 
     let query = useBook(data.supabase, data.params.book);
     let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
@@ -18,6 +23,16 @@
 
         return [{ label: 'Dashboard', href: pathTo('app') }, { label: $query.data.name }];
     });
+
+    let buttonProps = $derived(
+        listState.view === 'pages'
+            ? { label: 'Edit tags', Icon: Tag }
+            : { label: 'See pages', Icon: File }
+    );
+
+    const onToggleView = () => {
+        listState.view = listState.view === 'pages' ? 'tags' : 'pages';
+    };
 </script>
 
 {#if $query.isLoading}
@@ -31,7 +46,15 @@
             <Breadcrumbs {breadcrumbs} />
         {/if}
     </div>
-    <ul class="border-b border-secondary-100 last:border-0">
-        <BookAccordionPages book={$query.data} />
-    </ul>
+
+    <PageListOptions>
+        <TextIconButton {...buttonProps} color="secondary" onclick={onToggleView} />
+    </PageListOptions>
+    <section>
+        {#if listState.view === 'pages'}
+            <PageList book={$query.data} />
+        {:else}
+            <TagList book={$query.data} />
+        {/if}
+    </section>
 {/if}

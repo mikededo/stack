@@ -7,12 +7,13 @@
     import { fade } from 'svelte/transition';
 
     import { Keys } from '$lib/config';
-    import { type BookWithPages, type BooksWithPages, type NewPageData, createPage } from '$lib/db';
+    import { type BooksWithPages, type NewPageData, createPage } from '$lib/db';
 
+    import ListHeader from './list-header.svelte';
     import NewPageItem from './new-page-item.svelte';
     import PageItem from './page-item.svelte';
 
-    type Props = { book: BookWithPages };
+    type Props = { book: BooksWithPages[number] };
     let { book }: Props = $props();
 
     let queryClient = useQueryClient();
@@ -64,39 +65,24 @@
     };
 </script>
 
-{#snippet header()}
-    <li
-        class="flex items-center justify-between bg-secondary-50 py-1.5 pl-4 pr-3 text-xs font-semibold uppercase"
-    >
-        <p>Page name</p>
-        <div class="flex items-center gap-4">
-            <span>Owner</span>
-            <span class="hidden w-20 text-center md:block">Created at</span>
-            <div class="size-4"></div>
-        </div>
-    </li>
-{/snippet}
-
-{#snippet new_page()}
-    <NewPageItem onConfirm={handleOnConfirmNewPage} onCancel={handleOnCancelNewPage} />
-{/snippet}
-
-{@render header()}
-{#each book.page as page (page.id)}
-    <PageItem
-        href={`/app/${book.id}/${page.id}`}
-        owner={user.first_name[0]}
-        createdAt={new Date(page.created_at)}
-        isShared={page.created_by !== user.id}
-    >
-        {#snippet name()}
-            <span>{page.name}</span>
-        {/snippet}
-    </PageItem>
-{/each}
-{#if newPage}
-    {@render new_page()}
-{/if}
+<ul>
+    <ListHeader />
+    {#each book.page as page (page.id)}
+        <PageItem
+            href={`/app/${book.id}/${page.id}`}
+            owner={user.first_name[0]}
+            createdAt={new Date(page.created_at)}
+            isShared={page.created_by !== user.id}
+        >
+            {#snippet name()}
+                <span>{page.name}</span>
+            {/snippet}
+        </PageItem>
+    {/each}
+    {#if newPage}
+        <NewPageItem onConfirm={handleOnConfirmNewPage} onCancel={handleOnCancelNewPage} />
+    {/if}
+</ul>
 <div class="flex items-center gap-2 py-2">
     <Button
         class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"

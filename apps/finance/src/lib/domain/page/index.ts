@@ -1,1 +1,2 @@
-export * from './table.svelte';
+export * from './list';
+export * from './table';

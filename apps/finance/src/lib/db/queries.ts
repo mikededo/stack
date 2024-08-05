@@ -10,10 +10,15 @@ export const getBooksWithPagesQuery = (client: Client) =>
 export const getBooksWithPages = async (client: Client) =>
   (await withUnauthorizedRedirect(client, await getBooksWithPagesQuery(client))).data;
 export type BooksWithPages = Result<typeof getBooksWithPagesQuery>;
-export type BookWithPages = BooksWithPages[number];
 
 export const getBookQuery = (client: Client, id: number) =>
-  client.schema('finances').from('book').select('*, page(*)').eq('id', id).limit(1).single();
+  client
+    .schema('finances')
+    .from('book')
+    .select('*, page(*), tag(*)')
+    .eq('id', id)
+    .limit(1)
+    .single();
 export const getBook = async (client: Client, id: number) =>
   (await withUnauthorizedRedirect(client, await getBookQuery(client, id))).data;
 export type Book = Result<typeof getBookQuery>;
@@ -44,6 +49,16 @@ export const createPage = async (client: Client, { name, book }: NewPageData) =>
       .schema('finances')
       .from('page')
       .insert([{ book_id: book, name }])
+      .select()
+      .throwOnError()
+  ).data;
+export type NewTagData = { book: number; name: string; color: string };
+export const createTag = async (client: Client, { book, ...data }: NewTagData) =>
+  (
+    await client
+      .schema('finances')
+      .from('tag')
+      .insert([{ book_id: book, ...data }])
       .select()
       .throwOnError()
   ).data;
