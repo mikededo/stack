@@ -60,7 +60,7 @@
         <Chip {color}>{name ? name : 'Tag name'}</Chip>
         <input
             bind:value={color}
-            class="w-16 bg-transparent text-right text-sm uppercase outline-none"
+            class="w-20 bg-transparent text-right text-sm uppercase outline-none"
             onkeydown={handleOnKeydown}
             onkeyup={handleOnKeyup}
         />

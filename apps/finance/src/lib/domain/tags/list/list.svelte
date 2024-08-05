@@ -71,7 +71,7 @@
             </div>
             <div class="flex shrink-0 items-center gap-4">
                 <Chip color={tag.color}>{tag.name}</Chip>
-                <span class="w-16 text-right text-sm uppercase">
+                <span class="w-20 text-right text-sm uppercase">
                     {tag.color}
                 </span>
                 <div class="size-5 rounded" style="background-color: {tag.color}"></div>

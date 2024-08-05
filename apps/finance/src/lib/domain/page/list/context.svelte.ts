@@ -8,7 +8,7 @@ type ListState = {
 
 let listState = $state<ListState>({
   keywords: '',
-  view: 'tags',
+  view: 'pages',
   sort: 'date-asc'
 });
 

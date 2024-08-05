@@ -4,7 +4,7 @@
     <p>Tag name</p>
     <div class="flex items-center gap-4">
         <span>Preview</span>
-        <span class="w-16 text-right">Color</span>
+        <span class="w-20 text-right">Color</span>
         <div class="w-5"></div>
     </div>
 </li>
