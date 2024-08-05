@@ -4,8 +4,12 @@
 
     type InputColor = 'primary' | 'secondary';
 
-    type Props = HTMLInputAttributes & { label?: string; invalid?: boolean; color?: InputColor };
-    let { color, label, name, invalid, ...rest }: Props = $props();
+    type Props = HTMLInputAttributes & {
+        label?: string;
+        invalid?: boolean;
+        color?: InputColor;
+    };
+    let { color, label, name, invalid, value = $bindable<string>(''), ...rest }: Props = $props();
 
     const COLORS: Record<InputColor, string> = {
         primary: 'focus:ui-border-primary active:ui-border-primary input',
@@ -25,7 +29,7 @@
 </script>
 
 {#snippet content()}
-    <input {...rest} {name} aria-invalid={invalid} class={classes} />
+    <input {...rest} bind:value {name} aria-invalid={invalid} class={classes} />
 {/snippet}
 
 {#if label}

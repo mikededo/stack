@@ -20,6 +20,7 @@
     type Props = {
         children: Snippet;
         class?: string;
+        wrapperClass?: string;
         loading?: boolean;
     } & (
         | { Icon: ComponentType<LucideIcon>; label?: string }
@@ -39,6 +40,7 @@
             restProps.class
         )
     );
+    let wrapperClasses = $derived(twMerge('relative', restProps.wrapperClass));
 
     const handleOnToggle = () => {
         showMenu = !showMenu;
@@ -84,7 +86,7 @@
     };
 </script>
 
-<div class="relative">
+<div class={wrapperClasses}>
     <Button
         color="secondary"
         class={buttonClasses}
