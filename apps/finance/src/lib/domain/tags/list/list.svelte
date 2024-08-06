@@ -11,7 +11,7 @@
     import { isTagValid } from './helpers';
     import ListHeader from './list-header.svelte';
     import TagListItem from './list-item.svelte';
-    import { useCreateTag, useDeleteTag } from './mutations';
+    import { useTagMutations } from './mutations';
     import NewTagItem from './new-tag-item.svelte';
 
     type Props = { book: Book };
@@ -34,23 +34,27 @@
             newTag = false;
         }
     };
-    const newTagMutation = useCreateTag(mutationArgs);
-    const deleteTagMutation = useDeleteTag(mutationArgs);
+    const { createTagMutation, updateTagMutation, deleteTagMutation } =
+        useTagMutations(mutationArgs);
 
     const handleOnAddTag = () => {
         newTag = true;
     };
 
     const handleOnCreateNewTag = () => {
-        $newTagMutation.mutate({ book: book.id, name, color });
+        $createTagMutation.mutate({ book: book.id, name, color });
+    };
+
+    const handleOnDuplicateTag = (tag: Tag) => {
+        $createTagMutation.mutate({ book: book.id, name: `${tag.name} (copy)`, color: tag.color });
     };
 
     const handleOnCancelNewTag = () => {
         newTag = false;
     };
 
-    const handleOnDuplicateTag = (tag: Tag) => {
-        $newTagMutation.mutate({ book: book.id, name: `${tag.name} (copy)`, color: tag.color });
+    const handleOnUpdateTag = (tag: Tag) => {
+        $updateTagMutation.mutate(tag);
     };
 
     const handleOnConfirmDelete = (tag: Tag) => {
@@ -74,6 +78,7 @@
     {#each book.tag as tag (tag.id)}
         <TagListItem
             {tag}
+            onUpdateTag={handleOnUpdateTag}
             onDeleteTag={handleOnConfirmDelete}
             onDuplicateTag={handleOnDuplicateTag}
         />
