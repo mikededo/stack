@@ -1,6 +1,6 @@
 <script lang="ts">
     import { getSupabaseClient } from '@mstack/svelte-supabase';
-    import { Button } from '@mstack/ui';
+    import { Button, DangerDialog } from '@mstack/ui';
 
     import { useQueryClient } from '@tanstack/svelte-query';
     import { Plus } from 'lucide-svelte';
@@ -24,6 +24,7 @@
     let name = $state('');
     let color = $state('#9d33dd');
     let canSubmit = $derived(isTagValid(name, color));
+    let confirmDelete = $state<Tag | undefined>();
 
     let mutationArgs = {
         bookId: `${book.id}`,
@@ -52,15 +53,30 @@
         $newTagMutation.mutate({ book: book.id, name: `${tag.name} (copy)`, color: tag.color });
     };
 
-    const handleOnDeleteTag = (tag: Tag) => {
-        $deleteTagMutation.mutate(tag.id);
+    const handleOnConfirmDelete = (tag: Tag) => {
+        confirmDelete = tag;
+    };
+
+    const handleOnCancelDelete = () => {
+        confirmDelete = undefined;
+    };
+
+    const handleOnDeleteTag = () => {
+        if (confirmDelete) {
+            $deleteTagMutation.mutate(confirmDelete.id);
+            confirmDelete = undefined;
+        }
     };
 </script>
 
 <ul>
     <ListHeader />
     {#each book.tag as tag (tag.id)}
-        <TagListItem {tag} onDeleteTag={handleOnDeleteTag} onDuplicateTag={handleOnDuplicateTag} />
+        <TagListItem
+            {tag}
+            onDeleteTag={handleOnConfirmDelete}
+            onDuplicateTag={handleOnDuplicateTag}
+        />
     {/each}
     {#if newTag}
         <NewTagItem
@@ -71,6 +87,7 @@
         />
     {/if}
 </ul>
+
 <div class="flex items-center gap-2 py-2">
     <Button
         class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
@@ -94,3 +111,7 @@
         </div>
     {/if}
 </div>
+
+{#if confirmDelete}
+    <DangerDialog onCancel={handleOnCancelDelete} onConfirm={handleOnDeleteTag} />
+{/if}
