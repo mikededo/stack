@@ -20,7 +20,7 @@ const COLORS: Record<ButtonColor, string> = {
   muted:
     'ui-bg-transparent ui-text-foreground hover:ui-bg-secondary-50 ui-stroke-foreground dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-secondary-900 disabled:ui-bg-secondary-50 disabled:ui-text-secondary-200',
   destructive:
-    'ui-bg-destructive ui-text-destructive-foreground hover:ui-bg-destructive/90 ui-stroke-destructive'
+    'ui-bg-destructive-500 ui-text-white hover:ui-bg-destructive-500/90 ui-stroke-destructive'
 };
 
 export const sharedClasses = ({
