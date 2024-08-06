@@ -6,6 +6,9 @@
     ".": "./tailwind.config.ts",
     "./postcss": "./postcss.config.js"
   },
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
   "devDependencies": {
     "@mstack/typescript-config": "workspace:*"
   }

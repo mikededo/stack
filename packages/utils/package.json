@@ -14,7 +14,8 @@
     "dist"
   ],
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
   },
   "devDependencies": {
     "@mstack/typescript-config": "workspace:*"

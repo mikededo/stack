@@ -1,8 +1,11 @@
+import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 import { twMerge } from 'tailwind-merge';
 
 export type ButtonVariant = 'condensed' | 'default' | 'expanded';
 export type ButtonColor = 'primary' | 'secondary' | 'muted' | 'destructive';
-export type BaseProps = { variant?: ButtonVariant; color?: ButtonColor; disabled?: boolean };
+type BaseProps = { variant?: ButtonVariant; color?: ButtonColor; disabled?: boolean };
+export type Props = BaseProps &
+  ((HTMLAnchorAttributes & { href: string }) | (HTMLButtonAttributes & { href?: never }));
 
 const VARIANTS: Record<ButtonVariant, string> = {
   condensed: 'ui-py-1 ui-px-2.5 ui-h-unset ui-text-xs ui-font-normal',

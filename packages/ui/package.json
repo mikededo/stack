@@ -22,7 +22,8 @@
     "dev": "tailwindcss -i ./src/styles.css -o ./src/index.css --watch",
     "lint": "prettier --check . && eslint . --max-warnings=0",
     "lint:fix": "prettier --write . && eslint --fix .",
-    "prepare": "svelte-kit sync"
+    "prepare": "svelte-kit sync",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@mstack/actions": "workspace:*",

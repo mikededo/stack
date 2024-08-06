@@ -1,19 +1,3 @@
-<script lang="ts" context="module">
-    import { Icon as LucideIcon } from 'lucide-svelte';
-    import type { ComponentType } from 'svelte';
-
-    type Option = {
-        text: string;
-        Icon?: ComponentType<LucideIcon>;
-        onClick?: () => void;
-        destructive?: boolean;
-        disabled?: boolean;
-    };
-    type Divider = 'divider';
-
-    export type ContextMenuOption = Option | Divider;
-</script>
-
 <script lang="ts">
     import { clickAway, portal } from '@mstack/actions';
 
@@ -22,6 +6,7 @@
     import { twMerge } from 'tailwind-merge';
 
     import type { Menu } from './context.svelte.ts';
+    import type { ContextMenuOption, Option } from './types.js';
 
     type Props = { menu: Menu; options: ContextMenuOption[] };
     let { menu, options }: Props = $props();

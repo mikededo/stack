@@ -1,12 +1,7 @@
-<script context="module" lang="ts">
-    export type Props = BaseProps &
-        ((HTMLAnchorAttributes & { href: string }) | (HTMLButtonAttributes & { href?: never }));
-</script>
-
 <script lang="ts">
-    import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
+    import type { HTMLAnchorAttributes } from 'svelte/elements';
 
-    import { type BaseProps, sharedClasses } from './styles.js';
+    import { type Props, sharedClasses } from './styles.js';
 
     let { variant = 'default', color = 'primary', children, ...restProps }: Props = $props();
 

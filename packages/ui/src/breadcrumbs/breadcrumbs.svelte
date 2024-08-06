@@ -1,9 +1,6 @@
-<script lang="ts" context="module">
-    type Crumb = { label: string; href?: string };
-    export type Crumbs = Crumb[];
-</script>
-
 <script lang="ts">
+    import type { Crumbs } from './types.js';
+
     type Props = { breadcrumbs: Crumbs };
     let { breadcrumbs }: Props = $props();
 </script>

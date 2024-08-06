@@ -16,7 +16,8 @@
     "preview": "vite preview",
     "test": "bun run test:integration && bun run test:unit",
     "test:integration": "playwright test",
-    "test:unit": "vitest"
+    "test:unit": "vitest",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@mstack/actions": "workspace:*",
