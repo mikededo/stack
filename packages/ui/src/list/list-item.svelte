@@ -1,11 +1,15 @@
 <script lang="ts">
+    import type { ActionArray } from '@mstack/actions';
+    import { useActions } from '@mstack/actions';
+
     import type { HTMLLiAttributes } from 'svelte/elements';
     import { twMerge } from 'tailwind-merge';
 
     type Props = HTMLLiAttributes & {
         hoverable?: boolean;
+        use?: ActionArray;
     };
-    let { hoverable, ...restProps }: Props = $props();
+    let { hoverable, use = [], ...restProps }: Props = $props();
 
     let classes = $derived(
         twMerge(
@@ -17,7 +21,7 @@
     );
 </script>
 
-<li {...restProps} class={classes}>
+<li {...restProps} class={classes} use:useActions={use}>
     {#if restProps.children}
         {@render restProps.children()}
     {/if}
