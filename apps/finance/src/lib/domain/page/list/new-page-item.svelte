@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { useAutofocus } from '@mstack/actions';
     import { getUserDataContext } from '@mstack/svelte-supabase';
 
-    import type { Action } from 'svelte/action';
+    import type { KeyboardEventHandler } from 'svelte/elements';
 
     import PageItem from './page-item.svelte';
 
@@ -13,31 +14,27 @@
 
     let user = getUserDataContext();
 
-    const autofocus: Action<HTMLInputElement> = (node) => {
-        node.focus();
+    const handleOnBlur = () => {
+        onCancel?.();
+    };
 
-        node.addEventListener('blur', () => {
+    const handleOnKeydown: KeyboardEventHandler<HTMLInputElement> = (event) => {
+        if (event.key === 'Escape') {
             onCancel?.();
-        });
-
-        node.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                // ESC
-                onCancel?.();
-            } else if (event.key === 'Enter') {
-                // ENTER
-                onConfirm?.(node.value);
-            }
-        });
+        } else if (event.key === 'Enter') {
+            onConfirm?.(event.currentTarget.value);
+        }
     };
 </script>
 
 <PageItem owner={user.first_name[0]} createdAt={new Date()}>
     {#snippet name()}
         <input
-            use:autofocus
-            placeholder="Page name..."
             class="w-full bg-transparent outline-none"
+            placeholder="Page name..."
+            onblur={handleOnBlur}
+            onkeydown={handleOnKeydown}
+            use:useAutofocus
         />
     {/snippet}
 </PageItem>

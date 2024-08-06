@@ -1,16 +1,17 @@
 <script lang="ts">
     import { getSupabaseClient } from '@mstack/svelte-supabase';
-    import { Button, Chip, ListItem } from '@mstack/ui';
-    import { HEX_REGEX } from '@mstack/utils';
+    import { Button } from '@mstack/ui';
 
-    import { createMutation, useQueryClient } from '@tanstack/svelte-query';
-    import { Plus, Tag } from 'lucide-svelte';
+    import { useQueryClient } from '@tanstack/svelte-query';
+    import { Plus } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
-    import { Keys } from '$lib/config';
-    import { type Book, type NewTagData, createTag } from '$lib/db';
+    import { type Book, type Tag } from '$lib/db';
 
+    import { isTagValid } from './helpers';
     import ListHeader from './list-header.svelte';
+    import TagListItem from './list-item.svelte';
+    import { useCreateTag, useDeleteTag } from './mutations';
     import NewTagItem from './new-tag-item.svelte';
 
     type Props = { book: Book };
@@ -22,64 +23,52 @@
     let newTag = $state(false);
     let name = $state('');
     let color = $state('#9d33dd');
-    let canSubmit = $derived(name.length > 0 && HEX_REGEX.test(color));
+    let canSubmit = $derived(isTagValid(name, color));
+
+    let mutationArgs = {
+        bookId: `${book.id}`,
+        supabaseClient,
+        queryClient,
+        onSettled: () => {
+            newTag = false;
+        }
+    };
+    const newTagMutation = useCreateTag(mutationArgs);
+    const deleteTagMutation = useDeleteTag(mutationArgs);
 
     const handleOnAddTag = () => {
         newTag = true;
     };
 
-    let newTagMutation = createMutation({
-        mutationFn: async (data: NewTagData) => await createTag(supabaseClient, data),
-        onSuccess: (data) => {
-            if (!data) {
-                return;
-            }
+    const handleOnCreateNewTag = () => {
+        $newTagMutation.mutate({ book: book.id, name, color });
+    };
 
-            queryClient.setQueryData<Book>(Keys.BOOK(`${book.id}`), (book) => {
-                // TS check only
-                if (!book) {
-                    return book;
-                }
+    const handleOnCancelNewTag = () => {
+        newTag = false;
+    };
 
-                const updated = { ...book };
-                updated.tag = [...book.tag, data[0]];
-                return updated;
-            });
-            queryClient.invalidateQueries({ queryKey: Keys.BOOK_TAGS(`${book.id}`) });
-        }
-    });
+    const handleOnDuplicateTag = (tag: Tag) => {
+        $newTagMutation.mutate({ book: book.id, name: `${tag.name} (copy)`, color: tag.color });
+    };
 
-    const handleOnConfirmNewPage = () => {
-        $newTagMutation.mutate(
-            { book: book.id, name, color },
-            {
-                onSettled: () => {
-                    newTag = false;
-                }
-            }
-        );
+    const handleOnDeleteTag = (tag: Tag) => {
+        $deleteTagMutation.mutate(tag.id);
     };
 </script>
 
 <ul>
     <ListHeader />
     {#each book.tag as tag (tag.id)}
-        <ListItem class="flex w-full items-center justify-between px-3 py-2">
-            <div class="flex w-full items-center gap-2">
-                <Tag class="size-4" strokeWidth={2.5} />
-                <span>{tag.name}</span>
-            </div>
-            <div class="flex shrink-0 items-center gap-4">
-                <Chip color={tag.color}>{tag.name}</Chip>
-                <span class="w-20 text-right text-sm uppercase">
-                    {tag.color}
-                </span>
-                <div class="size-5 rounded" style="background-color: {tag.color}"></div>
-            </div>
-        </ListItem>
+        <TagListItem {tag} onDeleteTag={handleOnDeleteTag} onDuplicateTag={handleOnDuplicateTag} />
     {/each}
     {#if newTag}
-        <NewTagItem bind:name bind:color />
+        <NewTagItem
+            bind:name
+            bind:color
+            onConfirm={handleOnCreateNewTag}
+            onCancel={handleOnCancelNewTag}
+        />
     {/if}
 </ul>
 <div class="flex items-center gap-2 py-2">
@@ -97,7 +86,7 @@
             <Button
                 class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
                 color="primary"
-                onclick={handleOnConfirmNewPage}
+                onclick={handleOnCreateNewTag}
                 disabled={!canSubmit}
             >
                 Save tag

@@ -22,6 +22,7 @@ export const getBookQuery = (client: Client, id: number) =>
 export const getBook = async (client: Client, id: number) =>
   (await withUnauthorizedRedirect(client, await getBookQuery(client, id))).data;
 export type Book = Result<typeof getBookQuery>;
+export type Tag = Book['tag'][number];
 
 export const getPageQuery = (client: Client, id: number) =>
   client
@@ -52,6 +53,7 @@ export const createPage = async (client: Client, { name, book }: NewPageData) =>
       .select()
       .throwOnError()
   ).data;
+
 export type NewTagData = { book: number; name: string; color: string };
 export const createTag = async (client: Client, { book, ...data }: NewTagData) =>
   (
@@ -62,3 +64,7 @@ export const createTag = async (client: Client, { book, ...data }: NewTagData) =
       .select()
       .throwOnError()
   ).data;
+
+export type DeleteTagData = { id: number };
+export const deleteTag = async (client: Client, id: number) =>
+  await client.schema('finances').from('tag').delete().eq('id', id).select().throwOnError();
