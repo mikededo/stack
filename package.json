@@ -51,10 +51,11 @@
     "node": ">=18"
   },
   "lint-staged": {
-    "*.{ts,svelte,html,css}": [
+    "*.{ts,svelte,html}": [
       "prettier --check",
       "eslint --max-warnings 0"
     ],
+    "*.css": "prettier --check",
     "*package.json": [
       "bun run dep:check",
       "bun run dep:lint"
