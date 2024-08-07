@@ -1,58 +1,30 @@
 <script lang="ts">
-    import { useActions, useAutofocus } from '@mstack/actions';
+    import { useMoneyMask } from '@mstack/actions';
 
-    import type { Action } from 'svelte/action';
+    import type { Expense } from '$lib/db';
 
-    const useDateMask: Action<HTMLElement, undefined> = (node) => {
-        if (!(node instanceof HTMLInputElement)) {
-            return;
-        }
+    import { Comment, Date } from './new-expense';
 
-        node.addEventListener('keydown', (event) => {
-            if (!event.target || event.key === 'Backspace') {
-                return;
-            }
-
-            const input = event.target as HTMLInputElement;
-            const value = input.value;
-
-            if (value.length === 2 || value.length === 5) {
-                input.value = value + '/';
-            }
-
-            const isValidDate = (date: string) => {
-                // dd/mm/yyyy
-                if (date.length === 10) {
-                    const [day, month, year] = date.split('/');
-                    return day.length === 2 && month.length === 2 && year.length === 4;
-                }
-                return true;
-            };
-
-            // Check if date is invalid and add a aria-invalid attribute
-            input.setAttribute('aria-invalid', `${!isValidDate(input.value)}`);
-        });
-    };
+    type IntialState = { date: string; amount: string; comment: string };
+    type Props = { disableAutofocus?: boolean; expenses: Expense[]; initialState?: IntialState };
+    let { disableAutofocus, initialState, expenses }: Props = $props();
 </script>
 
-<tr class="flex w-full items-stretch">
-    <td class="relative w-32 shrink-0 border-b border-secondary-100 p-3">
+<tr class="group flex w-full items-stretch">
+    <td class=" relative w-32 shrink-0 border-b border-secondary-100 p-3">
+        <Date {disableAutofocus} defaultValue={initialState?.date} />
+    </td>
+    <td class=" w-32 shrink-0 border-b border-secondary-100 p-3">
         <input
-            name="date"
-            class="invalid:color-destructive-500 w-full outline-none"
-            placeholder="dd/mm/yyyy"
-            use:useActions={[useAutofocus, useDateMask]}
+            name="amount"
+            class="w-full outline-none hover:bg-secondary-50 group-hover:bg-secondary-50"
+            value={initialState?.amount}
+            placeholder="€ xx.xx"
+            use:useMoneyMask
         />
     </td>
-    <td class="w-32 shrink-0 border-b border-secondary-100 p-3">
-        <input name="amount" class="w-full outline-none" placeholder="€ xx.xx" />
+    <td class=" relative h-[45px] w-full min-w-64 border-b border-secondary-100 p-3">
+        <Comment {expenses} defaultValue={initialState?.comment} />
     </td>
-    <td class="w-full min-w-64 border-b border-secondary-100 p-3">
-        <input
-            name="comment"
-            class="w-full outline-none"
-            placeholder="What was this expense for...?"
-        />
-    </td>
-    <td class="border-b border-secondary-100 p-3 sm:min-w-24 md:min-w-40"> </td>
+    <td class="min-w-24 border-b border-secondary-100 p-3 md:min-w-40"> </td>
 </tr>

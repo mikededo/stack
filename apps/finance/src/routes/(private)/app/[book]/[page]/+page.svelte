@@ -1,6 +1,8 @@
 <script lang="ts">
     import { Breadcrumbs, type Crumbs } from '@mstack/ui';
 
+    import { Loader2 } from 'lucide-svelte';
+
     import { pathTo } from '$lib/config';
     import { PageTable } from '$lib/domain/page/table';
     import { useBookPages } from '$lib/hooks';
@@ -42,9 +44,16 @@
 {:else if $query.data}
     <div class="flex flex-col gap-2">
         <h1>{$query.data.name}</h1>
-        {#if breadcrumbs}
-            <Breadcrumbs {breadcrumbs} />
-        {/if}
+        <div class="flex flex-row items-center justify-between">
+            {#if breadcrumbs}
+                <Breadcrumbs {breadcrumbs} />
+            {/if}
+            <!-- TODO: Add global table state -->
+            <div class="flex items-center gap-1 text-sm text-secondary-200">
+                <Loader2 strokeWidth={2} class="size-4 animate-spin" />
+                <span>Saving changes...</span>
+            </div>
+        </div>
     </div>
 
     <PageTable page={$query.data} />

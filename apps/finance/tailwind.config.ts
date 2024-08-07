@@ -11,6 +11,9 @@ export default {
     extend: {
       height: {
         'top-bar-sm': 'var(--sm-top-bar-h)'
+      },
+      aria: {
+        invalid: 'invalid="true"'
       }
     }
   }

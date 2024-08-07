@@ -18,12 +18,15 @@
     --foreground: #ffffff;
   }
 }
-
 html {
   @apply font-sans;
 
   color: var(--foreground);
   stroke: var(--foreground);
+}
+
+::placeholder {
+  color: theme('colors.secondary.300');
 }
 
 @font-face {

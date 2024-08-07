@@ -35,6 +35,7 @@ export const getPageQuery = (client: Client, id: number) =>
 export const getPage = async (client: Client, id: number) =>
   (await withUnauthorizedRedirect(client, await getPageQuery(client, id))).data;
 export type Page = Result<typeof getPageQuery>;
+export type Expense = Page['expenses'][number];
 
 export const getBookTagsQuery = (client: Client, id: number) =>
   client.schema('finances').from('tag').select('*').eq('book_id', id);
