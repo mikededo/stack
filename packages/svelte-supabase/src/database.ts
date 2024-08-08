@@ -744,7 +744,7 @@ export type Database = {
           amount: number;
           comment?: string | null;
           created_at?: string;
-          created_by: string;
+          created_by?: string;
           date: string;
           id?: number;
           page_id: number;
