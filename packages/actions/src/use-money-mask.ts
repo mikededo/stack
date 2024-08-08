@@ -2,7 +2,11 @@ import type { Action } from 'svelte/action';
 
 import { usePrefix } from './use-prefix.js';
 
-export const useMoneyMask: Action<HTMLInputElement> = (node) => {
+export const useMoneyMask: Action = (node) => {
+  if (!(node instanceof HTMLInputElement)) {
+    return;
+  }
+
   const onInput = () => {
     let value = node.value;
 
