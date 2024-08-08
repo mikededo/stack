@@ -4,6 +4,7 @@
         disableAutofocus?: boolean;
         expense?: Expense;
         forceFocus?: ForceFocus;
+        nested?: boolean;
         onBlur?: () => void;
     };
 
@@ -36,13 +37,13 @@
     import { useExpenseMutation } from './hooks';
     import { Amount, Comment, Date } from './new-expense';
 
-    let { disableAutofocus, expense, forceFocus, onBlur }: Props = $props();
+    let { disableAutofocus, expense, forceFocus, nested, onBlur }: Props = $props();
 
     let supabase = getSupabaseClient();
     let queryClient = useQueryClient();
     let expenses = getPageExpenses();
     let page = getPageId();
-    let amount = $state(`${expense?.amount ?? ''}`);
+    let amount = $state(`${expense?.amount?.toFixed(2) ?? ''}`);
     let comment = $state(expense?.comment ?? '');
     let date = $state(parseDate(expense?.date));
     let expenseMutation = useExpenseMutation({
@@ -96,8 +97,8 @@
     // easier to just detect clicks outside the tr
 </script>
 
-<tr class="group flex w-full items-stretch hover:bg-secondary-50">
-    <td class=" relative w-32 shrink-0 border-b border-secondary-100 p-3">
+{#snippet content()}
+    <td class="relative w-32 shrink-0 border-b border-secondary-100 p-3">
         <Date
             disableAutofocus={forceFocus !== 'date' || disableAutofocus}
             bind:value={date}
@@ -116,4 +117,12 @@
         />
     </td>
     <td class="min-w-24 border-b border-secondary-100 p-3 md:min-w-40"> </td>
-</tr>
+{/snippet}
+
+{#if nested}
+    {@render content()}
+{:else}
+    <tr class="group flex w-full items-stretch hover:bg-secondary-50">
+        {@render content()}
+    </tr>
+{/if}

@@ -12,7 +12,7 @@
 <input
     name="amount"
     bind:value
-    class="w-full outline-none hover:bg-secondary-50 group-hover:bg-secondary-50"
+    class="w-full outline-none hover:bg-secondary-50 group-hover:bg-secondary-50 group-aria-current:bg-secondary-50"
     placeholder="€ xx.xx"
     use:useActions={actions}
 />

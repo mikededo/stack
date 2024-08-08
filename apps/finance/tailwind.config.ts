@@ -13,6 +13,8 @@ export default {
         'top-bar-sm': 'var(--sm-top-bar-h)'
       },
       aria: {
+        current: 'current="true"',
+        'not-current': 'current="false"',
         invalid: 'invalid="true"'
       }
     }

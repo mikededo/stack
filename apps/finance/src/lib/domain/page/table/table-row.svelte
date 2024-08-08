@@ -58,12 +58,18 @@
 </script>
 
 <tr
-    class="flex w-full items-stretch hover:bg-secondary-50 aria-[current='true']:bg-secondary-50"
+    class="group flex w-full items-stretch hover:bg-secondary-50 aria-current:bg-secondary-50"
     use:menu.trigger
     aria-current={isRowActive(position) || menu.states.isMenuActive}
 >
     {#if editRow}
-        <NewEntry {expense} forceFocus={editRow} onBlur={handleOnEditMode(null)} disableAutofocus />
+        <NewEntry
+            {expense}
+            forceFocus={editRow}
+            onBlur={handleOnEditMode(null)}
+            disableAutofocus
+            nested
+        />
     {:else}
         <td class={baseTdStyles('w-32 shrink-0')} tabindex="0">
             <button class="cursor-text text-left outline-none" onclick={handleOnEditMode('date')}>

@@ -30,7 +30,7 @@
                     {#each tabs as { name, href } (href)}
                         <li>
                             <a
-                                class="block w-full cursor-pointer rounded px-3 py-2 font-semibold text-secondary-800 transition-colors aria-[current=true]:bg-secondary-100 aria-[current=false]:hover:bg-secondary-100"
+                                class="block w-full cursor-pointer rounded px-3 py-2 font-semibold text-secondary-800 transition-colors aria-current:bg-secondary-100 aria-not-current:hover:bg-secondary-100"
                                 {href}
                                 role="tab"
                                 aria-current={isNestedPath(href, 'app')}

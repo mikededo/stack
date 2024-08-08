@@ -12,7 +12,7 @@
 <input
     bind:value
     name="date"
-    class="w-full outline-none hover:bg-secondary-50 group-hover:bg-secondary-50 aria-invalid:text-destructive-500"
+    class="w-full outline-none hover:bg-secondary-50 group-hover:bg-secondary-50 aria-invalid:text-destructive-500 group-aria-current:bg-secondary-50"
     placeholder="dd/mm/yyyy"
     use:useActions={actions}
 />
