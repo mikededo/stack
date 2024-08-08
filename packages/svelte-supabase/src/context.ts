@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
+
 import { getContext, setContext } from 'svelte';
 
 import type { User } from './auth';

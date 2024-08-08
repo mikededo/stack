@@ -5,7 +5,7 @@
     import { fade } from 'svelte/transition';
 
     import { pathTo } from '$lib/config';
-    import { PageTable, initPageContext, setContextPage } from '$lib/domain/page';
+    import { initPageContext, PageTable, setContextPage } from '$lib/domain/page';
     import { useBookPages } from '$lib/hooks';
 
     import type { PageData } from './$types';
@@ -29,10 +29,10 @@
 
         const book = $query.data.book.id.toString();
         return [
-            { label: 'Dashboard', href: pathTo('app') },
+            { href: pathTo('app'), label: 'Dashboard' },
             {
-                label: $query.data.book?.name,
-                href: pathTo('book', { book })
+                href: pathTo('book', { book }),
+                label: $query.data.book?.name
             },
             { label: $query.data.name }
         ];
@@ -63,7 +63,7 @@
                     transition:fade={{ duration: 100 }}
                 >
                     {#if pageContext.state.saveStatus === 'saving'}
-                        <Loader2 strokeWidth={2} class="size-4 animate-spin" />
+                        <Loader2 class="size-4 animate-spin" strokeWidth={2} />
                     {:else if pageContext.state.saveStatus === 'saved'}
                         <Check class="size-4" />
                     {:else if pageContext.state.saveStatus === 'unsaved'}

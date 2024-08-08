@@ -1,7 +1,8 @@
 import type { Database, Result } from '@mstack/svelte-supabase';
-import { withUnauthorizedRedirect } from '@mstack/svelte-supabase';
 
 import type { SupabaseClient } from '@supabase/supabase-js';
+
+import { withUnauthorizedRedirect } from '@mstack/svelte-supabase';
 
 type Client = SupabaseClient<Database>;
 
@@ -44,8 +45,8 @@ export const getBookTags = async (client: Client, id: number) =>
 export type Tags = Result<typeof getBookTagsQuery>;
 
 // Mutations
-export type NewPageData = { name: string; book: number };
-export const createPage = async (client: Client, { name, book }: NewPageData) =>
+export type NewPageData = { book: number; name: string };
+export const createPage = async (client: Client, { book, name }: NewPageData) =>
   (
     await client
       .schema('finances')
@@ -56,11 +57,11 @@ export const createPage = async (client: Client, { name, book }: NewPageData) =>
   ).data;
 
 export type NewExpenseData = {
-  id?: number;
-  page: number;
-  date: string;
   amount: number;
   comment: string;
+  date: string;
+  id?: number;
+  page: number;
   tags?: number[];
 };
 export const createExpense = async (client: Client, { page, ...data }: NewExpenseData) =>
@@ -73,7 +74,7 @@ export const createExpense = async (client: Client, { page, ...data }: NewExpens
       .throwOnError()
   ).data;
 
-export type NewTagData = { book: number; name: string; color: string };
+export type NewTagData = { book: number; color: string; name: string };
 export const createTag = async (client: Client, { book, ...data }: NewTagData) =>
   (
     await client
@@ -83,7 +84,7 @@ export const createTag = async (client: Client, { book, ...data }: NewTagData) =
       .select()
       .throwOnError()
   ).data;
-export type UpdateTagData = { id: number; name: string; color: string };
+export type UpdateTagData = { color: string; id: number; name: string };
 export const updateTag = async (client: Client, { id, ...data }: UpdateTagData) =>
   (await client.schema('finances').from('tag').update(data).eq('id', id).select().throwOnError())
     .data;

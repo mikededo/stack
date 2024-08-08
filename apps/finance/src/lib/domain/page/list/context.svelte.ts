@@ -2,14 +2,14 @@ import { getContext, setContext } from 'svelte';
 
 type ListState = {
   keywords: string;
-  view: 'pages' | 'tags';
   sort?: 'date-asc' | 'date-desc' | 'name-asc' | 'name-desc';
+  view: 'pages' | 'tags';
 };
 
 let listState = $state<ListState>({
   keywords: '',
-  view: 'pages',
-  sort: 'date-asc'
+  sort: 'date-asc',
+  view: 'pages'
 });
 
 const CONTEXT_KEY = 'page-list';

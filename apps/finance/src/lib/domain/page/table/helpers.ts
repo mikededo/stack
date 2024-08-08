@@ -7,7 +7,7 @@ export const getNewEntryMatches = (expenses: Expense[], value: string) => {
     return [];
   }
 
-  return expenses.reduce<{ html: string; expense: Expense }[]>((acc, expense) => {
+  return expenses.reduce<{ expense: Expense; html: string }[]>((acc, expense) => {
     if (!expense.comment || !value) {
       return acc;
     }
@@ -29,8 +29,8 @@ export const getNewEntryMatches = (expenses: Expense[], value: string) => {
   }, []);
 };
 
-type ExpenseValidation = { date: string; amount: string; comment: string };
-export const isExpenseValid = ({ comment, date, amount }: ExpenseValidation) =>
+type ExpenseValidation = { amount: string; comment: string; date: string };
+export const isExpenseValid = ({ amount, comment, date }: ExpenseValidation) =>
   Boolean(comment && isValidDate(date) && amount && Number(amount) >= 0);
 
 export const hasExpenseChanged = (expense: Expense, newExpense: ExpenseValidation) =>

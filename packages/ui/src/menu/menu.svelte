@@ -1,14 +1,14 @@
-<script lang="ts" context="module">
+<script context="module" lang="ts">
     type MenuState = {
-        shown: boolean;
         focusableElements: HTMLElement[];
         focusIndex: number;
+        shown: boolean;
     };
 </script>
 
 <script lang="ts">
     import { clickAway } from '@mstack/actions';
-    import { Keys, getFocusableElements } from '@mstack/utils';
+    import { getFocusableElements, Keys } from '@mstack/utils';
 
     import { Loader, type Icon as LucideIcon } from 'lucide-svelte';
     import { type ComponentType, type Snippet } from 'svelte';
@@ -20,19 +20,19 @@
     type Props = {
         children: Snippet;
         class?: string;
-        wrapperClass?: string;
         loading?: boolean;
+        wrapperClass?: string;
     } & (
         | { Icon: ComponentType<LucideIcon>; label?: string }
         | { Icon?: ComponentType<LucideIcon>; label: string }
     );
-    let { label, children, Icon, loading, ...restProps }: Props = $props();
+    let { children, Icon, label, loading, ...restProps }: Props = $props();
 
     let showMenu = $state(false);
     let menuState = $state<MenuState>({
-        shown: false,
         focusableElements: [],
-        focusIndex: 0
+        focusIndex: 0,
+        shown: false
     });
     let buttonClasses = $derived(
         twMerge(
@@ -88,9 +88,9 @@
 
 <div class={wrapperClasses}>
     <Button
-        color="secondary"
         class={buttonClasses}
         onclick={handleOnToggle}
+        color="secondary"
         disabled={showMenu || loading}
     >
         {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
@@ -101,10 +101,10 @@
     {#if showMenu}
         <FloatingCard
             class="ui-box-border ui-max-h-96 ui-overflow-y-auto ui-overflow-x-hidden"
+            onClickAway={handleOnHide}
+            onkeydown={handleOnNavigation}
             role="menu"
             tabindex={1}
-            onkeydown={handleOnNavigation}
-            onClickAway={handleOnHide}
             use={[useFocusableElements, [clickAway, handleOnHide]]}
         >
             {@render children()}

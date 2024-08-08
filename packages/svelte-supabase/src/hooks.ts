@@ -1,6 +1,7 @@
-import { createServerClient } from '@supabase/ssr';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { RequestEvent } from '@sveltejs/kit';
+
+import { createServerClient } from '@supabase/ssr';
 
 import type { Database } from './database';
 
@@ -13,7 +14,7 @@ export const createSupabaseServerClient = (
     cookies: {
       getAll: () => event.cookies.getAll(),
       setAll: (cookiesToSet) => {
-        cookiesToSet.forEach(({ name, value, options }) => {
+        cookiesToSet.forEach(({ name, options, value }) => {
           event.cookies.set(name, value, { ...options, path: '/' });
         });
       }

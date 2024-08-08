@@ -1,17 +1,17 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
-    import Dialog from './dialog.svelte';
     import { Button } from '../button/index.js';
+    import Dialog from './dialog.svelte';
 
     type Props = {
         children?: Snippet;
-        disableConfirm?: boolean;
         disableCancel?: boolean;
-        onConfirm: () => void;
+        disableConfirm?: boolean;
         onCancel: () => void;
+        onConfirm: () => void;
     };
-    let { children, disableConfirm, disableCancel, onConfirm, onCancel }: Props = $props();
+    let { children, disableCancel, disableConfirm, onCancel, onConfirm }: Props = $props();
 </script>
 
 {#snippet header()}
@@ -20,12 +20,12 @@
 
 {#snippet footer()}
     <div class="ui-flex ui-items-center ui-justify-end ui-gap-2">
-        <Button color="destructive" disabled={disableConfirm} onclick={onConfirm}>Delete</Button>
-        <Button color="secondary" disabled={disableCancel} onclick={onCancel}>Cancel</Button>
+        <Button onclick={onConfirm} color="destructive" disabled={disableConfirm}>Delete</Button>
+        <Button onclick={onCancel} color="secondary" disabled={disableCancel}>Cancel</Button>
     </div>
 {/snippet}
 
-<Dialog {header} {footer} onClose={onCancel}>
+<Dialog onClose={onCancel} {footer} {header}>
     {#if children}
         {@render children()}
     {:else}

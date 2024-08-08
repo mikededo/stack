@@ -1,14 +1,15 @@
 <script lang="ts">
-    import { Icon as LucideIcon } from 'lucide-svelte';
     import type { ComponentType } from 'svelte';
+
+    import { Icon as LucideIcon } from 'lucide-svelte';
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
-        Icon?: ComponentType<LucideIcon>;
         active?: boolean;
+        class?: string;
+        Icon?: ComponentType<LucideIcon>;
         label: string;
         onClick: () => void;
-        class?: string;
     };
     let { active, Icon, label, onClick, ...restProps }: Props = $props();
 

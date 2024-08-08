@@ -1,19 +1,20 @@
 <script lang="ts">
-    import { X } from 'lucide-svelte';
     import type { Snippet } from 'svelte';
+
+    import { X } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
 
     import { IconButton } from '../icon-button/index.js';
 
     type Props = {
-        header: Snippet;
-        footer: Snippet;
         children: Snippet;
-        onClose: () => void;
         class?: string;
+        footer: Snippet;
+        header: Snippet;
+        onClose: () => void;
     };
-    let { header, footer, children, onClose, class: dialogClasses }: Props = $props();
+    let { children, class: dialogClasses, footer, header, onClose }: Props = $props();
 
     let classes = $derived(
         twMerge(
@@ -24,21 +25,21 @@
 </script>
 
 <div
-    role="presentation"
     class="ui-fixed ui-inset-0 ui-bg-black/50"
     transition:fade={{ duration: 150 }}
+    role="presentation"
 ></div>
 <div
-    role="dialog"
     class="ui-fixed ui-inset-0 ui-z-50 ui-flex ui-items-center ui-justify-center"
     transition:fade={{ duration: 150 }}
+    role="dialog"
 >
     <div class={classes} aria-modal="true">
         <div class="ui-flex ui-w-full ui-items-center ui-justify-between ui-p-4">
             <h2 class="ui-text-xl ui-font-semibold">
                 {@render header()}
             </h2>
-            <IconButton color="muted" Icon={X} on:click={onClose} />
+            <IconButton on:click={onClose} color="muted" Icon={X} />
         </div>
         <div class="ui-relative ui-flex ui-flex-1 ui-flex-col ui-gap-4 ui-overflow-y-auto ui-px-4">
             {@render children()}

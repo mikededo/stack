@@ -28,13 +28,13 @@
 
     let mutationArgs = {
         bookId: `${book.id}`,
-        supabaseClient,
-        queryClient,
         onSettled: () => {
             newTag = false;
-        }
+        },
+        queryClient,
+        supabaseClient
     };
-    const { createTagMutation, updateTagMutation, deleteTagMutation } =
+    const { createTagMutation, deleteTagMutation, updateTagMutation } =
         useTagMutations(mutationArgs);
 
     const handleOnAddTag = () => {
@@ -42,11 +42,11 @@
     };
 
     const handleOnCreateNewTag = () => {
-        $createTagMutation.mutate({ book: book.id, name, color });
+        $createTagMutation.mutate({ book: book.id, color, name });
     };
 
     const handleOnDuplicateTag = (tag: Tag) => {
-        $createTagMutation.mutate({ book: book.id, name: `${tag.name} (copy)`, color: tag.color });
+        $createTagMutation.mutate({ book: book.id, color: tag.color, name: `${tag.name} (copy)` });
     };
 
     const handleOnCancelNewTag = () => {
@@ -77,18 +77,18 @@
     <ListHeader />
     {#each book.tag as tag (tag.id)}
         <TagListItem
-            {tag}
-            onUpdateTag={handleOnUpdateTag}
             onDeleteTag={handleOnConfirmDelete}
             onDuplicateTag={handleOnDuplicateTag}
+            onUpdateTag={handleOnUpdateTag}
+            {tag}
         />
     {/each}
     {#if newTag}
         <NewTagItem
-            bind:name
             bind:color
-            onConfirm={handleOnCreateNewTag}
+            bind:name
             onCancel={handleOnCancelNewTag}
+            onConfirm={handleOnCreateNewTag}
         />
     {/if}
 </ul>
@@ -96,8 +96,8 @@
 <div class="flex items-center gap-2 py-2">
     <Button
         class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-        color="muted"
         onclick={handleOnAddTag}
+        color="muted"
         disabled={newTag}
     >
         <Plus class="size-4" strokeWidth={2.5} />
@@ -107,8 +107,8 @@
         <div transition:fade={{ duration: 100 }}>
             <Button
                 class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-                color="primary"
                 onclick={handleOnCreateNewTag}
+                color="primary"
                 disabled={!canSubmit}
             >
                 Save tag

@@ -16,7 +16,7 @@
         onClick();
     };
 
-    const getOptionClasses = ({ onClick, destructive }: Option) =>
+    const getOptionClasses = ({ destructive, onClick }: Option) =>
         twMerge(
             'ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm ui-transition-colors ui-duration-100 disabled:ui-cursor-not-allowed disabled:ui-text-secondary-400 disabled:hover:ui-bg-transparent aria-disabled:ui-cursor-not-allowed aria-disabled:ui-text-secondary-400 aria-disabled:hover:ui-bg-transparent',
             onClick && 'hover:ui-bg-secondary-50',
@@ -25,7 +25,7 @@
         );
 </script>
 
-{#snippet content({ text, Icon }: Omit<Option, 'onClick'>)}
+{#snippet content({ Icon, text }: Omit<Option, 'onClick'>)}
     {#if Icon}
         <svelte:component this={Icon} class="size-4" strokeWidth={2} />
     {/if}
@@ -51,16 +51,16 @@
 {#if menu.state}
     <div
         class="ui-fixed ui-z-10 ui-flex ui-w-48 ui-origin-top-left ui-flex-col ui-items-start ui-gap-[1px] ui-rounded-lg ui-border ui-border-secondary-100 ui-bg-white ui-p-1 ui-shadow-md"
-        style="top: {menu.state.y}px; left: {menu.state.x}px;"
-        transition:scale={{ duration: 150, easing: cubicInOut }}
-        use:portal={'portal'}
         use:clickAway={menu.hide}
+        use:portal={'portal'}
+        transition:scale={{ duration: 150, easing: cubicInOut }}
+        style="top: {menu.state.y}px; left: {menu.state.x}px;"
     >
         {#each options as o}
             {#if o === 'divider'}
                 <div
-                    role="separator"
                     class="ui-mx-auto ui-my-2 ui-h-[1px] ui-w-[90%] ui-bg-secondary-100/75"
+                    role="separator"
                 ></div>
             {:else}
                 {@render option(o)}

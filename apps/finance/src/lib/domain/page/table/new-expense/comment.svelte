@@ -1,22 +1,22 @@
 <script lang="ts">
+    import type { Action } from 'svelte/action';
+
     import { type ActionArray, clickAway, portal, useActions } from '@mstack/actions';
     import { FloatingCard } from '@mstack/ui';
     import { Keys } from '@mstack/utils';
-
-    import type { Action } from 'svelte/action';
 
     import type { Expense } from '$lib/db';
 
     import { getNewEntryMatches } from '../helpers';
 
     type Props = {
-        value?: string;
-        expenses: Expense[];
-        use?: ActionArray;
         autofocus?: boolean;
+        expenses: Expense[];
         onClickAway?: () => void;
+        use?: ActionArray;
+        value?: string;
     };
-    let { value = $bindable(''), autofocus, expenses, use = [], onClickAway }: Props = $props();
+    let { autofocus, expenses, onClickAway, use = [], value = $bindable('') }: Props = $props();
 
     let textarea = $state(autofocus ?? false);
     let textareaNode = $state<HTMLTextAreaElement | null>(null);
@@ -29,8 +29,8 @@
 
         let client = textareaNode.getBoundingClientRect();
         return {
-            top: client.y + client.height + 8, // 8 as padding
             left: client.x,
+            top: client.y + client.height + 8, // 8 as padding
             width: client.width
         };
     });
@@ -74,22 +74,22 @@
 
 {#if textarea}
     <textarea
+        class="w-full resize-none outline-none hover:bg-secondary-50 group-hover:bg-secondary-50"
         bind:this={textareaNode}
         bind:value
-        name="comment"
-        class="w-full resize-none outline-none hover:bg-secondary-50 group-hover:bg-secondary-50"
-        placeholder="What was this expense for...?"
-        style="field-sizing: content"
-        rows={1}
         use:useActions={autocompleteActions}
+        name="comment"
+        placeholder="What was this expense for...?"
+        rows={1}
+        style="field-sizing: content"
     ></textarea>
 {:else}
     <button
-        name="comment"
         class="w-full truncate text-left outline-none"
-        class:text-secondary-300={!value}
         onclick={handleOnShowTextarea}
         onfocus={handleOnShowTextarea}
+        class:text-secondary-300={!value}
+        name="comment"
     >
         {value ? value : 'What was this expense for...?'}
     </button>
@@ -97,15 +97,15 @@
 
 {#if textarea && autocompleteOptions.length}
     <FloatingCard
+        class="rounded-0 overflow-hidden p-0"
         position={autocompletePosition}
         use={[[portal, '']]}
-        class="rounded-0 overflow-hidden p-0"
     >
         <div
-            bind:this={autocompleteOptionsNode}
             class="flex max-h-44 w-full flex-col gap-[1px] overflow-y-auto overflow-x-hidden p-1"
+            bind:this={autocompleteOptionsNode}
         >
-            {#each autocompleteOptions as { html, expense } (expense.id)}
+            {#each autocompleteOptions as { expense, html } (expense.id)}
                 <button
                     class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-secondary-50 focus:bg-secondary-50 active:bg-secondary-50"
                     onclick={() => {

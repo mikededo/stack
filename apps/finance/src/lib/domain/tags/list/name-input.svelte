@@ -1,20 +1,20 @@
 <script lang="ts">
-    import { type ActionArray, useActions, useAutofocus } from '@mstack/actions';
-
     import type { Action } from 'svelte/action';
     import type { HTMLInputAttributes, KeyboardEventHandler } from 'svelte/elements';
 
-    type Props = HTMLInputAttributes & {
-        use?: ActionArray;
-        onConfirm?: () => void;
+    import { type ActionArray, useActions, useAutofocus } from '@mstack/actions';
+
+    type Props = {
         onCancel?: () => void;
-    };
+        onConfirm?: () => void;
+        use?: ActionArray;
+    } & HTMLInputAttributes;
     let {
-        value = $bindable(),
-        use = [],
         autofocus,
-        onConfirm,
         onCancel,
+        onConfirm,
+        use = [],
+        value = $bindable(),
         ...rest
     }: Props = $props();
 
@@ -34,9 +34,9 @@
 
 <input
     {...rest}
-    placeholder="Tag name..."
     class="w-full bg-transparent outline-none"
-    onkeydown={handleOnNameKeydown}
     bind:value
     use:useActions={[...use, withAutofocus]}
+    onkeydown={handleOnNameKeydown}
+    placeholder="Tag name..."
 />

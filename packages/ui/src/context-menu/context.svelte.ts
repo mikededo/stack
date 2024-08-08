@@ -1,7 +1,7 @@
 import type { Action } from 'svelte/action';
 
 type ContextMenu = { x: number; y: number };
-export type Menu = { state: ContextMenu | null; hide: () => void };
+export type Menu = { hide: () => void; state: ContextMenu | null };
 
 export const createContextMenu = () => {
   let cmState = $state<ContextMenu | null>(null);
@@ -37,24 +37,24 @@ export const createContextMenu = () => {
   };
 
   return {
+    get menu(): Menu {
+      let _internal = $derived(cmState);
+
+      return {
+        hide: () => {
+          cmState = null;
+        },
+        get state() {
+          return _internal;
+        }
+      };
+    },
     states: {
       get isMenuActive() {
         let _internal = $derived(cmState !== null);
         return _internal;
       }
     },
-    trigger,
-    get menu(): Menu {
-      let _internal = $derived(cmState);
-
-      return {
-        get state() {
-          return _internal;
-        },
-        hide: () => {
-          cmState = null;
-        }
-      };
-    }
+    trigger
   };
 };

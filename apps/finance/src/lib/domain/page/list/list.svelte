@@ -7,7 +7,7 @@
     import { fade } from 'svelte/transition';
 
     import { Keys } from '$lib/config';
-    import { type BooksWithPages, type NewPageData, createPage } from '$lib/db';
+    import { type BooksWithPages, createPage, type NewPageData } from '$lib/db';
 
     import ListHeader from './list-header.svelte';
     import NewPageItem from './new-page-item.svelte';
@@ -69,10 +69,10 @@
     <ListHeader />
     {#each book.page as page (page.id)}
         <PageItem
-            href={`/app/${book.id}/${page.id}`}
-            owner={user.first_name[0]}
             createdAt={new Date(page.created_at)}
+            href={`/app/${book.id}/${page.id}`}
             isShared={page.created_by !== user.id}
+            owner={user.first_name[0]}
         >
             {#snippet name()}
                 <span>{page.name}</span>
@@ -80,14 +80,14 @@
         </PageItem>
     {/each}
     {#if newPage}
-        <NewPageItem onConfirm={handleOnConfirmNewPage} onCancel={handleOnCancelNewPage} />
+        <NewPageItem onCancel={handleOnCancelNewPage} onConfirm={handleOnConfirmNewPage} />
     {/if}
 </ul>
 <div class="flex items-center gap-2 py-2">
     <Button
         class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-        color="muted"
         onclick={handleOnAddPage}
+        color="muted"
         disabled={newPage}
     >
         <FilePlus class="size-4" strokeWidth={2.5} />

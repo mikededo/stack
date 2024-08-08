@@ -1,15 +1,16 @@
 <script lang="ts">
     import type { HTMLInputAttributes } from 'svelte/elements';
+
     import { twMerge } from 'tailwind-merge';
 
     type InputColor = 'primary' | 'secondary';
 
-    type Props = HTMLInputAttributes & {
-        label?: string;
-        invalid?: boolean;
+    type Props = {
         color?: InputColor;
-    };
-    let { color, label, name, invalid, value = $bindable<string>(''), ...rest }: Props = $props();
+        invalid?: boolean;
+        label?: string;
+    } & HTMLInputAttributes;
+    let { color, invalid, label, name, value = $bindable<string>(''), ...rest }: Props = $props();
 
     const COLORS: Record<InputColor, string> = {
         primary: 'focus:ui-border-primary active:ui-border-primary input',
@@ -29,7 +30,7 @@
 </script>
 
 {#snippet content()}
-    <input {...rest} bind:value {name} aria-invalid={invalid} class={classes} />
+    <input {...rest} class={classes} bind:value {name} aria-invalid={invalid} />
 {/snippet}
 
 {#if label}

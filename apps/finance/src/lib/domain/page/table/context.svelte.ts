@@ -3,10 +3,10 @@ import { setContext } from 'svelte';
 import type { Page } from '$lib/db';
 
 type PageContextState = {
-  saveStatus: 'unsaved' | 'saved' | 'saving' | null;
+  saveStatus: 'saved' | 'saving' | 'unsaved' | null;
 };
 type PageContext = {
-  page: Page | null;
+  page: null | Page;
   state: PageContextState;
 };
 

@@ -1,6 +1,6 @@
-import { createSupabaseServerClient, getSession } from '@mstack/svelte-supabase';
-
 import type { Handle } from '@sveltejs/kit';
+
+import { createSupabaseServerClient, getSession } from '@mstack/svelte-supabase';
 
 export const handle: Handle = async ({ event, resolve }) => {
   event.locals.supabase = createSupabaseServerClient(

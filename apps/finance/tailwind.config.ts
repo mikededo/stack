@@ -1,6 +1,6 @@
-import { theme, typography } from '@mstack/tailwind-config';
-
 import type { Config } from 'tailwindcss';
+
+import { theme, typography } from '@mstack/tailwind-config';
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
@@ -9,13 +9,13 @@ export default {
   presets: [{ theme }],
   theme: {
     extend: {
-      height: {
-        'top-bar-sm': 'var(--sm-top-bar-h)'
-      },
       aria: {
         current: 'current="true"',
-        'not-current': 'current="false"',
-        invalid: 'invalid="true"'
+        invalid: 'invalid="true"',
+        'not-current': 'current="false"'
+      },
+      height: {
+        'top-bar-sm': 'var(--sm-top-bar-h)'
       }
     }
   }

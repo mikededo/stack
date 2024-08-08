@@ -4,7 +4,7 @@
     import { File, Tag } from 'lucide-svelte';
 
     import { pathTo } from '$lib/config';
-    import { PageList, PageListOptions, initListContext } from '$lib/domain/page';
+    import { initListContext, PageList, PageListOptions } from '$lib/domain/page';
     import { TagList } from '$lib/domain/tags';
     import { useBook } from '$lib/hooks';
 
@@ -21,13 +21,13 @@
             return;
         }
 
-        return [{ label: 'Dashboard', href: pathTo('app') }, { label: $query.data.name }];
+        return [{ href: pathTo('app'), label: 'Dashboard' }, { label: $query.data.name }];
     });
 
     let buttonProps = $derived(
         listState.view === 'pages'
-            ? { label: 'Edit tags', Icon: Tag }
-            : { label: 'See pages', Icon: File }
+            ? { Icon: Tag, label: 'Edit tags' }
+            : { Icon: File, label: 'See pages' }
     );
 
     const onToggleView = () => {
@@ -48,7 +48,7 @@
     </div>
 
     <PageListOptions>
-        <TextIconButton {...buttonProps} color="secondary" onclick={onToggleView} />
+        <TextIconButton {...buttonProps} onclick={onToggleView} color="secondary" />
     </PageListOptions>
     <section>
         {#if listState.view === 'pages'}

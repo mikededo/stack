@@ -1,48 +1,88 @@
 import path from 'path';
-import { fileURLToPath } from 'url';
 
+import { fileURLToPath } from 'url';
 import { FlatCompat } from '@eslint/eslintrc';
 import eslint from '@eslint/js';
 import eslintPluginSvelte from 'eslint-plugin-svelte';
 import globals from 'globals';
 import svelteEslintParser from 'svelte-eslint-parser';
+import perfectionist from 'eslint-plugin-perfectionist';
 import tsEslint from 'typescript-eslint';
 
 /** @type {import('eslint')Linter.RulesRecord} */
 const sharedRules = {
   'arrow-body-style': ['error', 'as-needed'],
-  'import/extensions': [
-    'error',
-    'ignorePackages',
-    { '': 'never', tsx: 'never', ts: 'never' }
-  ],
-  'import/export': 2,
-  'import/no-unresolved': 'off',
-  'import/order': [
-    'error',
-    {
-      groups: [
-        'builtin',
-        'external',
-        'internal',
-        ['parent', 'sibling'],
-        'index',
-        'object'
-      ],
-      pathGroups: [
-        { pattern: '@mstack/**', group: 'builtin' },
-        { pattern: '\\$*/**', group: 'internal' }
-      ],
-      pathGroupsExcludedImportTypes: ['builtin'],
-      'newlines-between': 'always',
-      alphabetize: { order: 'asc' }
-    }
-  ],
-  'import/no-duplicates': ['error', { considerQueryString: true }],
   'no-empty-function': ['error', { allow: ['arrowFunctions'] }],
   'no-unused-vars': 'off',
   'no-undef': 'off',
-  'sort-imports': ['error', { ignoreDeclarationSort: true }]
+  'sort-imports': 'off'
+};
+
+const perfectionistRules = {
+  ...perfectionist.configs['recommended-natural'].rules,
+  'perfectionist/sort-imports': [
+    'error',
+    {
+      type: 'alphabetical',
+      order: 'asc',
+      internalPattern: ['$lib/**'],
+      ignoreCase: true,
+      newlinesBetween: 'always',
+      maxLineLength: undefined,
+      groups: [
+        'style',
+        'repo-type',
+        'type',
+        'repo',
+        ['builtin', 'external'],
+        'internal-type',
+        'internal',
+        ['parent-type', 'sibling-type', 'index-type'],
+        ['parent', 'sibling', 'index'],
+        'object',
+        'unknown'
+      ],
+      customGroups: {
+        value: { repo: ['@mstack/**'] },
+        type: { 'repo-type': ['@mstack/**'] }
+      },
+      environment: 'bun'
+    }
+  ],
+  'perfectionist/sort-exports': [
+    'error',
+    {
+      type: 'alphabetical',
+      order: 'asc',
+      ignoreCase: true
+    }
+  ],
+  'perfectionist/sort-svelte-attributes': [
+    'error',
+    {
+      type: 'alphabetical',
+      order: 'asc',
+      ignoreCase: true,
+      groups: [
+        ['this', 'bind-this'],
+        'style-props',
+        'class',
+        ['bind-directives', 'use-directives'],
+        'effects',
+        ['shorthand', 'svelte-shorthand'],
+        'multiline'
+      ],
+      customGroups: {
+        'style-props': '--style-props',
+        'bind-directives': 'bind:*',
+        'use-directives': 'use:*',
+        'bind-this': 'bind:this',
+        effects: 'on*',
+        class: 'class',
+        this: 'this'
+      }
+    }
+  ]
 };
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -55,7 +95,6 @@ const compat = new FlatCompat({
 
 export default tsEslint.config(
   eslint.configs.recommended,
-  ...compat.plugins('import'),
   ...compat.extends('prettier'),
   ...eslintPluginSvelte.configs['flat/recommended'].map(
     ({ rules, ...rest }) => ({
@@ -68,7 +107,8 @@ export default tsEslint.config(
   {
     files: ['**/*.ts'],
     plugins: {
-      '@typescript-eslint': tsEslint.plugin
+      '@typescript-eslint': tsEslint.plugin,
+      perfectionist
     },
     languageOptions: {
       parser: tsEslint.parser,
@@ -92,6 +132,7 @@ export default tsEslint.config(
         }
       ],
       '@typescript-eslint/consistent-type-imports': 'error',
+      ...perfectionistRules,
       ...sharedRules
     }
   },
@@ -112,8 +153,10 @@ export default tsEslint.config(
         }
       }
     },
+    plugins: { perfectionist },
     rules: {
       ...sharedRules,
+      ...perfectionistRules,
       // FIXME: Temporary fix to be able to use $t
       // https://github.com/sveltejs/eslint-plugin-svelte/issues/652
       'svelte/valid-compile': 'off'

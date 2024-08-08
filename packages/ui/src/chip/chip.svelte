@@ -1,9 +1,10 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
+
     import { type SvelteHTMLElements } from 'svelte/elements';
     import { twMerge } from 'tailwind-merge';
 
-    type Props = SvelteHTMLElements['span'] & { children: Snippet; color: string };
+    type Props = { children: Snippet; color: string } & SvelteHTMLElements['span'];
     let { children, color, ...restProps }: Props = $props();
 
     let classes = $derived(

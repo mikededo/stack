@@ -1,31 +1,30 @@
+import { page } from '$app/stores';
 import { get } from 'svelte/store';
 
-import { page } from '$app/stores';
-
 type Route = {
-  // Public
-  home: undefined;
-  auth: undefined;
-  signIn: undefined;
-  signUp: undefined;
-
   // Private
   app: undefined;
+  auth: undefined;
   book: { book: string };
+  // Public
+  home: undefined;
+
   page: { book: string; page: string };
+  signIn: undefined;
+  signUp: undefined;
 };
 
 type Routes = keyof Route;
 
 const Paths: Record<Routes, string> = {
-  home: '/',
-  auth: '/auth',
-  signIn: '/auth/sign-in',
-  signUp: '/auth/sign-up',
-
   app: '/app',
+  auth: '/auth',
   book: '/app/:book',
-  page: '/app/:book/:page'
+  home: '/',
+
+  page: '/app/:book/:page',
+  signIn: '/auth/sign-in',
+  signUp: '/auth/sign-up'
 };
 
 export const isCurrentPath = (path: string | undefined): boolean => get(page).url.pathname === path;

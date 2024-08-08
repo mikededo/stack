@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script context="module" lang="ts">
     export type ForceFocus = 'amount' | 'comment' | 'date' | null;
     type Props = {
         disableAutofocus?: boolean;
@@ -8,7 +8,7 @@
         onBlur?: () => void;
     };
 
-    const parseDate = (date?: string | null) => {
+    const parseDate = (date?: null | string) => {
         if (!date) {
             return '';
         }
@@ -19,10 +19,11 @@
 </script>
 
 <script lang="ts">
+    import type { Action } from 'svelte/action';
+
     import { getSupabaseClient } from '@mstack/svelte-supabase';
 
     import { useQueryClient } from '@tanstack/svelte-query';
-    import type { Action } from 'svelte/action';
 
     import type { Expense } from '$lib/db';
 
@@ -47,11 +48,11 @@
     let comment = $state(expense?.comment ?? '');
     let date = $state(parseDate(expense?.date));
     let expenseMutation = useExpenseMutation({
-        client: supabase,
-        queryClient,
         bookId: getPageBookId(),
+        client: supabase,
         onMutate: onInitLoading,
-        onSettled: onStopLoading
+        onSettled: onStopLoading,
+        queryClient
     });
 
     const useUpsertExpense: Action<HTMLElement> = (node) => {
@@ -73,11 +74,11 @@
             }
 
             $expenseMutation.mutate({
-                id: expense?.id ?? undefined,
-                page,
-                date,
+                amount: Number(amount),
                 comment,
-                amount: Number(amount)
+                date,
+                id: expense?.id ?? undefined,
+                page
             });
             node.blur();
             onBlur?.();
@@ -100,8 +101,8 @@
 {#snippet content()}
     <td class="relative w-32 shrink-0 border-b border-secondary-100 p-3">
         <Date
-            disableAutofocus={forceFocus !== 'date' || disableAutofocus}
             bind:value={date}
+            disableAutofocus={forceFocus !== 'date' || disableAutofocus}
             use={[useUpsertExpense]}
         />
     </td>

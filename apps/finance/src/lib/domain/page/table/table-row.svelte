@@ -1,4 +1,4 @@
-<script lang="ts" context="module">
+<script context="module" lang="ts">
     type ProxyFn = <F extends (...args: any) => any = () => void>(cb: F) => () => void;
 
     const baseTdStyles = (styles?: string) =>
@@ -48,12 +48,12 @@
     };
 
     const cmOptions: ContextMenuOption[] = [
-        { text: 'New row (above)', Icon: ArrowUpToLine, onClick: handleOnNewRow('above') },
-        { text: 'New row (under)', Icon: ArrowDownToLine, onClick: handleOnNewRow('under') },
-        { text: 'Copy', Icon: ClipboardCopy, onClick: handleOnClick, disabled: true },
-        { text: 'Paste', Icon: ClipboardPaste, disabled: true },
+        { Icon: ArrowUpToLine, onClick: handleOnNewRow('above'), text: 'New row (above)' },
+        { Icon: ArrowDownToLine, onClick: handleOnNewRow('under'), text: 'New row (under)' },
+        { disabled: true, Icon: ClipboardCopy, onClick: handleOnClick, text: 'Copy' },
+        { disabled: true, Icon: ClipboardPaste, text: 'Paste' },
         'divider',
-        { text: 'Delete', Icon: Trash2, onClick: handleOnClick, destructive: true }
+        { destructive: true, Icon: Trash2, onClick: handleOnClick, text: 'Delete' }
     ];
 </script>
 
@@ -64,11 +64,11 @@
 >
     {#if editRow}
         <NewEntry
-            {expense}
-            forceFocus={editRow}
             onBlur={handleOnEditMode(null)}
             disableAutofocus
+            {expense}
             nested
+            forceFocus={editRow}
         />
     {:else}
         <td class={baseTdStyles('w-32 shrink-0')} tabindex="0">
@@ -76,21 +76,21 @@
                 {expense.date ? new Date(expense.date).toLocaleDateString() : ''}
             </button>
         </td>
-        <td class={baseTdStyles('w-32 shrink-0')} tabindex="0" onclick={handleOnEditMode('amount')}>
+        <td class={baseTdStyles('w-32 shrink-0')} onclick={handleOnEditMode('amount')} tabindex="0">
             <button class="w-full cursor-text text-left outline-none">
                 &euro; {expense.amount?.toFixed(2)}
             </button>
         </td>
         <td
             class={baseTdStyles('w-full min-w-64')}
-            tabindex="0"
             onclick={handleOnEditMode('comment')}
+            tabindex="0"
         >
             <button class="w-full cursor-text truncate text-left outline-none">
                 {expense.comment}
             </button>
         </td>
-        <td class={baseTdStyles('min-w-24 md:min-w-40')} tabindex="0" onclick={console.log}>
+        <td class={baseTdStyles('min-w-24 md:min-w-40')} onclick={console.log} tabindex="0">
             {#each expense.tags as tag (tag.id)}
                 <Chip color={tag.color}>{tag.name}</Chip>
             {/each}

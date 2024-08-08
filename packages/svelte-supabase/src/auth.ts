@@ -1,9 +1,10 @@
-import { isBrowser } from '@supabase/ssr';
 import type {
   PostgrestSingleResponse,
   QueryData,
   SupabaseClient
 } from '@supabase/supabase-js';
+
+import { isBrowser } from '@supabase/ssr';
 
 import type { Database } from './database';
 
@@ -57,7 +58,7 @@ export const signInUser = async (
 export const signUpUser = async (
   client: Client,
   { email, password, ...rest }: SignUpData
-) => await client.auth.signUp({ email, password, options: { data: rest } });
+) => await client.auth.signUp({ email, options: { data: rest }, password });
 
 export const getUserDataQuery = (client: Client) =>
   client.schema('public').from('user_data').select('*').limit(1).single();

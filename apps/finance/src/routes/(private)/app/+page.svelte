@@ -12,13 +12,13 @@
 
 <svelte:head>
     <title>Expenses | Finances · MStack</title>
-    <meta name="description" content="Welcome to your finances!" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="apple-mobile-web-app-title" content="Financed · MStack" />
-    <meta name="application-name" content="Financed · MStack" />
-    <meta property="og:title" content="Expenses | Finances · MStack" />
-    <meta property="og:description" content="Welcome to your finances!" />
+    <meta content="Welcome to your finances!" name="description" />
+    <meta content="#ffffff" name="theme-color" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Financed · MStack" name="apple-mobile-web-app-title" />
+    <meta content="Financed · MStack" name="application-name" />
+    <meta content="Expenses | Finances · MStack" property="og:title" />
+    <meta content="Welcome to your finances!" property="og:description" />
 </svelte:head>
 
 <h1>Dashboard</h1>

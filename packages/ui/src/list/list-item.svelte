@@ -1,14 +1,16 @@
 <script lang="ts">
     import type { ActionArray } from '@mstack/actions';
-    import { useActions } from '@mstack/actions';
 
     import type { HTMLLiAttributes } from 'svelte/elements';
+
+    import { useActions } from '@mstack/actions';
+
     import { twMerge } from 'tailwind-merge';
 
-    type Props = HTMLLiAttributes & {
+    type Props = {
         hoverable?: boolean;
         use?: ActionArray;
-    };
+    } & HTMLLiAttributes;
     let { hoverable, use = [], ...restProps }: Props = $props();
 
     let classes = $derived(

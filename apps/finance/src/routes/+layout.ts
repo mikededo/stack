@@ -2,7 +2,6 @@ import type { Database } from '@mstack/svelte-supabase';
 
 import { createBrowserClient, createServerClient, isBrowser } from '@supabase/ssr';
 import { QueryClient } from '@tanstack/svelte-query';
-
 import { browser, dev } from '$app/environment';
 
 import type { LayoutLoad } from './$types';
@@ -11,7 +10,7 @@ import type { LayoutLoad } from './$types';
 const supabaseURl = dev ? import.meta.env.MSTACK_DEV_SUPABASE_URL : '';
 const supabaseAnonKey = dev ? import.meta.env.MSTACK_DEV_SUPABASE_ANON_KEY : '';
 
-export const load: LayoutLoad = async ({ fetch, data, depends }) => {
+export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   depends('supabase:auth');
 
   const supabase = isBrowser()
@@ -19,12 +18,12 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
         global: { fetch }
       })
     : createServerClient<Database>(supabaseURl, supabaseAnonKey, {
-        global: { fetch },
         cookies: {
           getAll() {
             return data.cookies;
           }
-        }
+        },
+        global: { fetch }
       });
 
   /**
@@ -44,5 +43,5 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
     }
   });
 
-  return { supabase, session, user: data.user, queryClient };
+  return { queryClient, session, supabase, user: data.user };
 };

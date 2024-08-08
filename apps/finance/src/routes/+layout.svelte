@@ -1,12 +1,13 @@
 <script lang="ts">
-    import '@mstack/ui/styles';
     import '../global.css';
 
+    import type { Snippet } from 'svelte';
+
     import { setSupabaseClient } from '@mstack/svelte-supabase';
+    import '@mstack/ui/styles';
 
     import { QueryClientProvider } from '@tanstack/svelte-query';
     import { SvelteQueryDevtools } from '@tanstack/svelte-query-devtools';
-    import type { Snippet } from 'svelte';
 
     import type { LayoutData } from './$types.js';
 

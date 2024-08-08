@@ -7,19 +7,19 @@
 
 <svelte:head>
     <title>Authentication | Finance · MStack</title>
-    <meta name="description" content="Sign in or sign up to access your Finance account" />
-    <meta name="robots" content="noindex, nofollow" />
-    <meta name="theme-color" content="#ffffff" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="apple-mobile-web-app-title" content="Lang Hub" />
-    <meta name="application-name" content="Lang Hub" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="TBD" />
-    <meta property="og:title" content="Authentication | Finance · MStack" />
-    <meta property="og:description" content="Sign in or sign up to access your Finance account" />
-    <meta property="og:image" content="TBD" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta content="Sign in or sign up to access your Finance account" name="description" />
+    <meta content="noindex, nofollow" name="robots" />
+    <meta content="#ffffff" name="theme-color" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Lang Hub" name="apple-mobile-web-app-title" />
+    <meta content="Lang Hub" name="application-name" />
+    <meta content="website" property="og:type" />
+    <meta content="TBD" property="og:url" />
+    <meta content="Authentication | Finance · MStack" property="og:title" />
+    <meta content="Sign in or sign up to access your Finance account" property="og:description" />
+    <meta content="TBD" property="og:image" />
+    <meta content="1200" property="og:image:width" />
+    <meta content="630" property="og:image:height" />
 </svelte:head>
 
 <main>

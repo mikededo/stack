@@ -11,8 +11,8 @@
             {#if crumb.href && i < breadcrumbs.length - 1}
                 <li>
                     <a
-                        href={crumb.href}
                         class="ui-transition-all hover:ui-text-foreground hover:ui-underline"
+                        href={crumb.href}
                     >
                         {crumb.label}
                     </a>

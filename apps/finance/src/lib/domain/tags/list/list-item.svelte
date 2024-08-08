@@ -4,8 +4,8 @@
         Chip,
         ContextMenu,
         type ContextMenuOption,
-        ListItem,
-        createContextMenu
+        createContextMenu,
+        ListItem
     } from '@mstack/ui';
 
     import { Layers2, Tag as TagIcon, Trash2 } from 'lucide-svelte';
@@ -17,25 +17,25 @@
     import NameInput from './name-input.svelte';
 
     type Props = {
-        tag: Tag;
-        onUpdateTag: (tag: Tag) => void;
         onDeleteTag: (tag: Tag) => void;
         onDuplicateTag: (tag: Tag) => void;
+        onUpdateTag: (tag: Tag) => void;
+        tag: Tag;
     };
-    let { tag, onUpdateTag, onDuplicateTag, onDeleteTag }: Props = $props();
+    let { onDeleteTag, onDuplicateTag, onUpdateTag, tag }: Props = $props();
 
     let menu = createContextMenu();
     let name = $state(tag.name);
     let color = $state(tag.color);
-    let editMode = $state<'name' | 'color' | undefined>(undefined);
+    let editMode = $state<'color' | 'name' | undefined>(undefined);
 
     const handleOnFwdTag = (fn: (tag: Tag) => void) => () => {
         fn(tag);
     };
 
     const options: ContextMenuOption[] = [
-        { text: 'Duplicate', Icon: Layers2, onClick: handleOnFwdTag(onDuplicateTag) },
-        { text: 'Delete', Icon: Trash2, onClick: handleOnFwdTag(onDeleteTag), destructive: true }
+        { Icon: Layers2, onClick: handleOnFwdTag(onDuplicateTag), text: 'Duplicate' },
+        { destructive: true, Icon: Trash2, onClick: handleOnFwdTag(onDeleteTag), text: 'Delete' }
     ];
 
     const handleOnEditMode =
@@ -50,7 +50,7 @@
 
     const handleOnConfirm = () => {
         if (isTagValid(name, color)) {
-            onUpdateTag({ ...tag, name, color });
+            onUpdateTag({ ...tag, color, name });
             editMode = undefined;
         }
     };
@@ -66,8 +66,8 @@
         {#if editMode}
             <NameInput
                 bind:value={name}
-                onConfirm={handleOnConfirm}
                 onCancel={handleOnEditMode()}
+                onConfirm={handleOnConfirm}
                 autofocus={editMode === 'name'}
                 use={[[clickAway, handleOnEditMode()]]}
             />
@@ -82,8 +82,8 @@
         {#if editMode}
             <ColorInput
                 bind:value={color}
-                onConfirm={handleOnConfirm}
                 onCancel={handleOnEditMode()}
+                onConfirm={handleOnConfirm}
                 autofocus={editMode === 'color'}
                 use={[[clickAway, handleOnEditMode()]]}
             />
@@ -99,4 +99,4 @@
     </div>
 </ListItem>
 
-<ContextMenu menu={menu.menu} {options} />
+<ContextMenu {options} menu={menu.menu} />

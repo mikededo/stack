@@ -1,16 +1,16 @@
 import type { Client } from '@mstack/svelte-supabase';
 
-import { type QueryClient, createMutation } from '@tanstack/svelte-query';
+import { createMutation, type QueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { type NewExpenseData, type Page, createExpense } from '$lib/db';
+import { createExpense, type NewExpenseData, type Page } from '$lib/db';
 
 type UseExpenseMutationArgs = {
-  client: Client;
-  queryClient: QueryClient;
   bookId?: number;
+  client: Client;
   onMutate?: () => void;
   onSettled?: () => void;
+  queryClient: QueryClient;
 };
 export const useExpenseMutation = ({
   bookId,

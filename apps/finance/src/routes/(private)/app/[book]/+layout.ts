@@ -5,11 +5,11 @@ import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ params, parent }) => {
   const { book } = params;
-  const { supabase, queryClient } = await parent();
+  const { queryClient, supabase } = await parent();
 
   // Prefetch them for all nested book routes
   queryClient.prefetchQuery({
-    queryKey: Keys.BOOK_TAGS(book),
-    queryFn: () => getBookTags(supabase, +book)
+    queryFn: () => getBookTags(supabase, +book),
+    queryKey: Keys.BOOK_TAGS(book)
   });
 };

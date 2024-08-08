@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { ContextMenu, type ContextMenuOption, ListItem, createContextMenu } from '@mstack/ui';
+    import type { Snippet } from 'svelte';
+
+    import { ContextMenu, type ContextMenuOption, createContextMenu, ListItem } from '@mstack/ui';
 
     import {
         ClipboardCopyIcon,
@@ -9,16 +11,15 @@
         Link2,
         PencilIcon
     } from 'lucide-svelte';
-    import type { Snippet } from 'svelte';
 
     type Props = {
+        createdAt: Date;
         href?: string;
+        isShared?: boolean;
         name: Snippet;
         owner: string;
-        createdAt: Date;
-        isShared?: boolean;
     };
-    let { href, name, owner, createdAt, isShared }: Props = $props();
+    let { createdAt, href, isShared, name, owner }: Props = $props();
 
     let menu = createContextMenu();
 
@@ -27,10 +28,10 @@
     };
 
     const cmOptions: ContextMenuOption[] = [
-        { text: 'Copy', Icon: ClipboardCopyIcon, onClick: handleOnClick },
-        { text: 'Duplicate', Icon: ClipboardPlusIcon, onClick: handleOnClick },
-        { text: 'Paste', Icon: ClipboardPasteIcon, onClick: handleOnClick },
-        { text: 'Rename', Icon: PencilIcon, onClick: handleOnClick }
+        { Icon: ClipboardCopyIcon, onClick: handleOnClick, text: 'Copy' },
+        { Icon: ClipboardPlusIcon, onClick: handleOnClick, text: 'Duplicate' },
+        { Icon: ClipboardPasteIcon, onClick: handleOnClick, text: 'Paste' },
+        { Icon: PencilIcon, onClick: handleOnClick, text: 'Rename' }
     ];
 </script>
 
@@ -59,7 +60,7 @@
 
 {#if href}
     <ListItem hoverable>
-        <a {href} class="flex w-full items-center justify-between gap-2 px-3 py-2" use:menu.trigger>
+        <a class="flex w-full items-center justify-between gap-2 px-3 py-2" use:menu.trigger {href}>
             {@render content()}
         </a>
     </ListItem>

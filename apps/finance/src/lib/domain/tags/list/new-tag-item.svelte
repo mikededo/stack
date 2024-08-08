@@ -8,12 +8,12 @@
     import NameInput from './name-input.svelte';
 
     type Props = {
-        name: string;
         color: string;
-        onConfirm?: () => void;
+        name: string;
         onCancel?: () => void;
+        onConfirm?: () => void;
     };
-    let { name = $bindable(), color = $bindable(), onConfirm, onCancel }: Props = $props();
+    let { color = $bindable(), name = $bindable(), onCancel, onConfirm }: Props = $props();
 
     const handleOnConfirm = () => {
         if (isTagValid(name, color)) {
@@ -25,11 +25,11 @@
 <ListItem class="flex w-full items-center justify-between px-3 py-2">
     <div class="flex w-full items-center gap-2">
         <Tag class="size-4" strokeWidth={2.5} />
-        <NameInput bind:value={name} onConfirm={handleOnConfirm} {onCancel} />
+        <NameInput bind:value={name} {onCancel} onConfirm={handleOnConfirm} />
     </div>
     <div class="flex shrink-0 items-center gap-4">
         <Chip {color}>{name ? name : 'Tag name'}</Chip>
-        <ColorInput bind:value={color} onConfirm={handleOnConfirm} {onCancel} />
+        <ColorInput bind:value={color} {onCancel} onConfirm={handleOnConfirm} />
         <div class="size-5 rounded" style="background-color: {color}"></div>
     </div>
 </ListItem>

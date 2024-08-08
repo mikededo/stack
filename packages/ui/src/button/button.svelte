@@ -3,17 +3,17 @@
 
     import { type Props, sharedClasses } from './styles.js';
 
-    let { variant = 'default', color = 'primary', children, ...restProps }: Props = $props();
+    let { children, color = 'primary', variant = 'default', ...restProps }: Props = $props();
 
     let elementProps = $derived({
         ...restProps,
         'aria-disabled': restProps.disabled ? 'true' : restProps['aria-disabled']
     });
-    const classes = $derived(sharedClasses({ variant, color, className: restProps.class }));
+    const classes = $derived(sharedClasses({ className: restProps.class, color, variant }));
 </script>
 
 {#if 'href' in elementProps}
-    <a {...elementProps as HTMLAnchorAttributes} href={elementProps.href} class={classes}>
+    <a {...elementProps as HTMLAnchorAttributes} class={classes} href={elementProps.href}>
         {#if children}
             {@render children()}
         {/if}

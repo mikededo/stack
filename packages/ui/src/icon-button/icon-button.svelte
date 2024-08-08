@@ -1,26 +1,30 @@
 <script lang="ts">
     import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 
-    import { getIconClasses, getWrapperClasses } from './styles.js';
     import type { BaseProps } from './styles.js';
 
-    type Props = BaseProps &
-        ((HTMLAnchorAttributes & { href: string }) | (HTMLButtonAttributes & { href?: never }));
+    import { getIconClasses, getWrapperClasses } from './styles.js';
+
+    type Props = (
+        | ({ href: string } & HTMLAnchorAttributes)
+        | ({ href?: never } & HTMLButtonAttributes)
+    ) &
+        BaseProps;
 
     let {
-        Icon,
-        size = 'default',
         color = 'primary',
         href,
+        Icon,
+        iconClasses,
+        size = 'default',
         strokeWidth,
         wrapperClasses,
-        iconClasses,
         ...restProps
     }: Props = $props();
 
     const iconProps = { strokeWidth };
-    let wrapperClass = $derived(getWrapperClasses({ size, color, classes: wrapperClasses }));
-    let iconClass = $derived(getIconClasses({ size, classes: iconClasses }));
+    let wrapperClass = $derived(getWrapperClasses({ classes: wrapperClasses, color, size }));
+    let iconClass = $derived(getIconClasses({ classes: iconClasses, size }));
 </script>
 
 {#if 'href' in restProps}

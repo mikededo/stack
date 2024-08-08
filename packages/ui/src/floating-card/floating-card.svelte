@@ -1,20 +1,22 @@
 <script lang="ts">
-    import { clickAway, useActions } from '@mstack/actions';
     import type { ActionArray } from '@mstack/actions';
 
     import type { Snippet } from 'svelte';
-    import { cubicInOut } from 'svelte/easing';
     import type { HTMLAttributes } from 'svelte/elements';
+
+    import { clickAway, useActions } from '@mstack/actions';
+
+    import { cubicInOut } from 'svelte/easing';
     import { fade } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
 
-    type Props = HTMLAttributes<HTMLDivElement> & {
-        position?: { top: number; left: number; width: number };
+    type Props = {
         children: Snippet;
         onClickAway?: Parameters<typeof clickAway>[1];
+        position?: { left: number; top: number; width: number };
         use?: ActionArray;
-    };
-    let { children, position, onClickAway, use = [], ...restProps }: Props = $props();
+    } & HTMLAttributes<HTMLDivElement>;
+    let { children, onClickAway, position, use = [], ...restProps }: Props = $props();
 
     let positionStyle = $derived(
         position
@@ -32,10 +34,10 @@
 
 <div
     {...restProps}
-    style={positionStyle}
     class={classes}
-    transition:fade={{ duration: 150, easing: cubicInOut }}
     use:useActions={use}
+    transition:fade={{ duration: 150, easing: cubicInOut }}
+    style={positionStyle}
 >
     {@render children()}
 </div>

@@ -1,24 +1,25 @@
 import type { Client } from '@mstack/svelte-supabase';
 
 import type { QueryClient } from '@tanstack/svelte-query';
+
 import { createMutation } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
 import {
   type Book,
-  type NewTagData,
-  type Tag,
-  type UpdateTagData,
   createTag,
   deleteTag,
-  updateTag
+  type NewTagData,
+  type Tag,
+  updateTag,
+  type UpdateTagData
 } from '$lib/db';
 
 type UseTagMutationArgs = {
   bookId: string;
-  supabaseClient: Client;
-  queryClient: QueryClient;
   onSettled?: () => void;
+  queryClient: QueryClient;
+  supabaseClient: Client;
 };
 
 const updateBookTagsAndInvalidate = (
@@ -39,22 +40,23 @@ const updateBookTagsAndInvalidate = (
   queryClient.invalidateQueries({ queryKey: Keys.BOOK_TAGS(bookId) });
 };
 
-const useCreateTag = ({ bookId, supabaseClient, queryClient, onSettled }: UseTagMutationArgs) =>
+const useCreateTag = ({ bookId, onSettled, queryClient, supabaseClient }: UseTagMutationArgs) =>
   createMutation({
     mutationFn: async (data: NewTagData) => await createTag(supabaseClient, data),
+    onSettled,
     onSuccess: (data) => {
       if (!data) {
         return;
       }
 
       updateBookTagsAndInvalidate(queryClient, bookId, (tags) => [...tags, data[0]]);
-    },
-    onSettled
+    }
   });
 
-const useUpdateTag = ({ bookId, supabaseClient, queryClient, onSettled }: UseTagMutationArgs) =>
+const useUpdateTag = ({ bookId, onSettled, queryClient, supabaseClient }: UseTagMutationArgs) =>
   createMutation({
     mutationFn: async (data: UpdateTagData) => await updateTag(supabaseClient, data),
+    onSettled,
     onSuccess: (data, { id }) => {
       if (!data) {
         return;
@@ -63,13 +65,13 @@ const useUpdateTag = ({ bookId, supabaseClient, queryClient, onSettled }: UseTag
       updateBookTagsAndInvalidate(queryClient, bookId, (tags) =>
         tags.map((tag) => (tag.id === id ? { ...tag, ...data[0] } : tag))
       );
-    },
-    onSettled
+    }
   });
 
-const useDeleteTag = ({ bookId, supabaseClient, queryClient, onSettled }: UseTagMutationArgs) =>
+const useDeleteTag = ({ bookId, onSettled, queryClient, supabaseClient }: UseTagMutationArgs) =>
   createMutation({
     mutationFn: async (tag: number) => await deleteTag(supabaseClient, tag),
+    onSettled,
     onSuccess: (data, tag) => {
       if (!data) {
         return;
@@ -78,8 +80,7 @@ const useDeleteTag = ({ bookId, supabaseClient, queryClient, onSettled }: UseTag
       updateBookTagsAndInvalidate(queryClient, bookId, (tags) =>
         tags.filter(({ id }) => id !== tag)
       );
-    },
-    onSettled
+    }
   });
 
 export const useTagMutations = (args: UseTagMutationArgs) => {
@@ -89,7 +90,7 @@ export const useTagMutations = (args: UseTagMutationArgs) => {
 
   return {
     createTagMutation,
-    updateTagMutation,
-    deleteTagMutation
+    deleteTagMutation,
+    updateTagMutation
   };
 };

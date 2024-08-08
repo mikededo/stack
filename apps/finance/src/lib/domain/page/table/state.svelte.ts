@@ -1,6 +1,6 @@
 type TableState = {
-  activeRow: number | null;
-  newRowIndex: number | null;
+  activeRow: null | number;
+  newRowIndex: null | number;
 };
 
 let tableState = $state<TableState>({

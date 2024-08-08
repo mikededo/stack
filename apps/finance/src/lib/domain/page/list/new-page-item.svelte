@@ -1,16 +1,16 @@
 <script lang="ts">
+    import type { KeyboardEventHandler } from 'svelte/elements';
+
     import { useAutofocus } from '@mstack/actions';
     import { getUserDataContext } from '@mstack/svelte-supabase';
-
-    import type { KeyboardEventHandler } from 'svelte/elements';
 
     import PageItem from './page-item.svelte';
 
     type Props = {
-        onConfirm?: (pageName: string) => void;
         onCancel?: () => void;
+        onConfirm?: (pageName: string) => void;
     };
-    let { onConfirm, onCancel }: Props = $props();
+    let { onCancel, onConfirm }: Props = $props();
 
     let user = getUserDataContext();
 
@@ -27,14 +27,14 @@
     };
 </script>
 
-<PageItem owner={user.first_name[0]} createdAt={new Date()}>
+<PageItem createdAt={new Date()} owner={user.first_name[0]}>
     {#snippet name()}
         <input
             class="w-full bg-transparent outline-none"
-            placeholder="Page name..."
+            use:useAutofocus
             onblur={handleOnBlur}
             onkeydown={handleOnKeydown}
-            use:useAutofocus
+            placeholder="Page name..."
         />
     {/snippet}
 </PageItem>

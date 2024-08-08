@@ -1,7 +1,8 @@
 <script lang="ts">
+    import type { Snippet } from 'svelte';
+
     import { Input } from '@mstack/ui';
 
-    import type { Snippet } from 'svelte';
     import { fade } from 'svelte/transition';
 
     import { getListContext } from './context.svelte';
@@ -14,12 +15,12 @@
 
 <div class="flex flex-row items-center justify-end gap-0.5 md:gap-1">
     {#if listState.view === 'pages'}
-        <div transition:fade={{ duration: 100 }} class="mr-auto w-full">
+        <div class="mr-auto w-full" transition:fade={{ duration: 100 }}>
             <Input
-                bind:value={listState.keywords}
-                placeholder="Search pages"
-                color="secondary"
                 class="w-full max-w-96 text-sm"
+                bind:value={listState.keywords}
+                color="secondary"
+                placeholder="Search pages"
             />
         </div>
     {:else}

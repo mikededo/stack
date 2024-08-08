@@ -1,17 +1,18 @@
 <script lang="ts">
     import type { Icon as LucideIcon } from 'lucide-svelte';
     import type { ComponentType } from 'svelte';
-    import { twMerge } from 'tailwind-merge';
 
-    import Button from './button.svelte';
+    import { twMerge } from 'tailwind-merge';
 
     import type { ButtonProps } from './index.js';
 
-    type Props = ButtonProps & {
+    import Button from './button.svelte';
+
+    type Props = {
+        children?: never;
         Icon: ComponentType<LucideIcon>;
         label: string;
-        children?: never;
-    };
+    } & ButtonProps;
     let { Icon, label, ...props }: Props = $props();
 
     let buttonClasses = $derived(

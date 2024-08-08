@@ -1,3 +1,3 @@
-export { default as PageList } from './list.svelte';
+export { getListContext, initListContext } from './context.svelte.js';
 export { default as PageListOptions } from './list-options.svelte';
-export { initListContext, getListContext } from './context.svelte.js';
+export { default as PageList } from './list.svelte';

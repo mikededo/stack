@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { type SignInData, getSupabaseClient, signInUser } from '@mstack/svelte-supabase';
+    import { getSupabaseClient, type SignInData, signInUser } from '@mstack/svelte-supabase';
     import { Button, Input } from '@mstack/ui';
     import { EMAIL_REGEX, PASSWORD_REGEX } from '@mstack/utils';
 
     import { createMutation } from '@tanstack/svelte-query';
-
     import { goto } from '$app/navigation';
+
     import { pathTo } from '$lib/config';
 
     const supabaseClient = getSupabaseClient();
@@ -16,12 +16,12 @@
     const mutation = createMutation({
         mutationFn: async ({ email, password }: SignInData) =>
             await signInUser(supabaseClient, email, password),
+        onError: (e) => {
+            errorMessage = e.message;
+        },
         onSuccess: () => {
             console.log('success');
             goto(pathTo('app'));
-        },
-        onError: (e) => {
-            errorMessage = e.message;
         }
     });
 
@@ -55,20 +55,20 @@
     </div>
     <div class="flex w-full flex-col gap-4">
         <Input
+            id="email"
+            invalid={!validEmail}
             label="Email"
             name="email"
-            id="email"
             placeholder="email@example.com"
             type="email"
-            invalid={!validEmail}
         />
         <Input
+            id="password"
+            invalid={!validPassword}
             label="Password"
             name="password"
-            id="password"
             placeholder="Must be 8 characters long!"
             type="password"
-            invalid={!validPassword}
         />
         <a class="ml-auto inline-block text-sm underline" href="/">Forgot your password?</a>
     </div>

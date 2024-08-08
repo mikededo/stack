@@ -1,25 +1,25 @@
-<script lang="ts" context="module">
+<script context="module" lang="ts">
     const AllowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
 </script>
 
 <script lang="ts">
-    import { type ActionArray, useActions, useAutofocus } from '@mstack/actions';
-    import { HEX_REGEX } from '@mstack/utils';
-
     import type { Action } from 'svelte/action';
     import type { HTMLInputAttributes, KeyboardEventHandler } from 'svelte/elements';
 
-    type Props = HTMLInputAttributes & {
-        use?: ActionArray;
-        onConfirm?: () => void;
+    import { type ActionArray, useActions, useAutofocus } from '@mstack/actions';
+    import { HEX_REGEX } from '@mstack/utils';
+
+    type Props = {
         onCancel?: () => void;
-    };
+        onConfirm?: () => void;
+        use?: ActionArray;
+    } & HTMLInputAttributes;
     let {
-        value = $bindable(),
-        use = [],
         autofocus,
-        onConfirm,
         onCancel,
+        onConfirm,
+        use = [],
+        value = $bindable(),
         ...rest
     }: Props = $props();
 
@@ -67,9 +67,9 @@
 
 <input
     {...rest}
-    bind:value
     class="w-20 bg-transparent text-right text-sm uppercase outline-none"
+    bind:value
+    use:useActions={[...use, withAutofocus]}
     onkeydown={handleOnColorKeydown}
     onkeyup={handleOnColorKeyup}
-    use:useActions={[...use, withAutofocus]}
 />

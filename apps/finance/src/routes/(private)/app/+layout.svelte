@@ -1,17 +1,18 @@
 <script lang="ts">
-    import { Ellipsis, Wallet } from 'lucide-svelte';
     import type { Snippet } from 'svelte';
+
+    import { Ellipsis, Wallet } from 'lucide-svelte';
 
     import { isNestedPath, pathTo } from '$lib/config';
 
     type Props = { children: Snippet };
     let { children }: Props = $props();
 
-    type Tab = { name: string; href: string };
+    type Tab = { href: string; name: string };
     const tabs: Tab[] = [
-        { name: 'Dashboard', href: pathTo('app') },
-        { name: 'Expenses', href: '/expenses' },
-        { name: 'Other', href: '/other' }
+        { href: pathTo('app'), name: 'Dashboard' },
+        { href: '/expenses', name: 'Expenses' },
+        { href: '/other', name: 'Other' }
     ];
 </script>
 
@@ -27,13 +28,13 @@
             </header>
             <nav class="pb-4">
                 <ul class="flex w-full flex-col gap-1">
-                    {#each tabs as { name, href } (href)}
+                    {#each tabs as { href, name } (href)}
                         <li>
                             <a
                                 class="block w-full cursor-pointer rounded px-3 py-2 font-semibold text-secondary-800 transition-colors aria-current:bg-secondary-100 aria-not-current:hover:bg-secondary-100"
                                 {href}
-                                role="tab"
                                 aria-current={isNestedPath(href, 'app')}
+                                role="tab"
                             >
                                 {name}
                             </a>
