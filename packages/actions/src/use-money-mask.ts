@@ -31,7 +31,7 @@ export const useMoneyMask: Action<HTMLInputElement> = (node) => {
   return {
     destroy() {
       node.removeEventListener('input', onInput, true);
-      prefix.destroy();
+      prefix.destroy?.();
     }
   };
 };

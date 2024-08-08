@@ -1,12 +1,11 @@
-import type { Action, ActionReturn } from 'svelte/action';
+import type { ActionReturn } from 'svelte/action';
 
-export const usePrefix: Action<HTMLInputElement, string> = (
-  node: HTMLInputElement,
-  prefix: string
-): ActionReturn<string> => {
+export const usePrefix = (node: HTMLInputElement, prefix: string): ActionReturn => {
   const onInput = () => {
-    if (!node.value.startsWith(prefix)) {
+    if (!node.value.startsWith(prefix) && node.value) {
       node.value = prefix + node.value;
+    } else if (node.value === '' || node.value === prefix) {
+      node.value = '';
     }
   };
 
