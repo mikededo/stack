@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Breadcrumbs, type Crumbs } from '@mstack/ui';
 
-    import { Loader2 } from 'lucide-svelte';
+    import { Check, Loader2, SaveOff } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
     import { pathTo } from '$lib/config';
     import { PageTable, initPageContext, setContextPage } from '$lib/domain/page';
@@ -19,8 +20,7 @@
         }
     });
 
-    const ctx = initPageContext();
-    $inspect(ctx);
+    const pageContext = initPageContext();
 
     let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
         if (!$query.data || !$query.data.book) {
@@ -56,11 +56,30 @@
             {#if breadcrumbs}
                 <Breadcrumbs {breadcrumbs} />
             {/if}
-            <!-- TODO: Add global table state -->
-            <div class="flex items-center gap-1 text-sm text-secondary-200">
-                <Loader2 strokeWidth={2} class="size-4 animate-spin" />
-                <span>Saving changes...</span>
-            </div>
+
+            {#if pageContext.state.saveStatus !== null}
+                <div
+                    class="flex items-center gap-1 text-sm text-secondary-300"
+                    transition:fade={{ duration: 100 }}
+                >
+                    {#if pageContext.state.saveStatus === 'saving'}
+                        <Loader2 strokeWidth={2} class="size-4 animate-spin" />
+                    {:else if pageContext.state.saveStatus === 'saved'}
+                        <Check class="size-4" />
+                    {:else if pageContext.state.saveStatus === 'unsaved'}
+                        <SaveOff class="size-4" />
+                    {/if}
+                    <span>
+                        {#if pageContext.state.saveStatus === 'saving'}
+                            Saving changes...
+                        {:else if pageContext.state.saveStatus === 'saved'}
+                            Changes saved!
+                        {:else if pageContext.state.saveStatus === 'unsaved'}
+                            Unsaved changes!
+                        {/if}
+                    </span>
+                </div>
+            {/if}
         </div>
     </div>
 

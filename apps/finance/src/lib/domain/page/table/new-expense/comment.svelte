@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { clickAway, portal, useActions, useAutofocus } from '@mstack/actions';
+    import { type ActionArray, clickAway, portal, useActions } from '@mstack/actions';
     import { FloatingCard } from '@mstack/ui';
     import { Keys } from '@mstack/utils';
 
@@ -9,14 +9,19 @@
 
     import { getNewEntryMatches } from '../helpers';
 
-    type Props = { defaultValue?: string; expenses: Expense[] };
-    let { defaultValue, expenses }: Props = $props();
+    type Props = {
+        value?: string;
+        expenses: Expense[];
+        use?: ActionArray;
+        autofocus?: boolean;
+        onClickAway?: () => void;
+    };
+    let { value = $bindable(''), autofocus, expenses, use = [], onClickAway }: Props = $props();
 
-    let comment = $state(defaultValue ?? '');
-    let textarea = $state(false);
+    let textarea = $state(autofocus ?? false);
     let textareaNode = $state<HTMLTextAreaElement | null>(null);
     let autocompleteOptionsNode = $state<HTMLDivElement | null>(null);
-    let autocompleteOptions = $derived(textarea ? getNewEntryMatches(expenses, comment) : []);
+    let autocompleteOptions = $derived(textarea ? getNewEntryMatches(expenses, value) : []);
     let autocompletePosition = $derived.by(() => {
         if (!textareaNode) {
             return undefined;
@@ -28,6 +33,12 @@
             left: client.x,
             width: client.width
         };
+    });
+
+    $effect(() => {
+        if (autofocus && textareaNode && document.activeElement !== textareaNode) {
+            textareaNode.focus();
+        }
     });
 
     const useAutocomplete: Action = (node) => {
@@ -49,31 +60,38 @@
         textarea = true;
     };
 
-    const handleOnHideTextarea = () => {
+    const handleOnClickAway = () => {
         textarea = false;
+        onClickAway?.();
     };
+
+    let autocompleteActions = $derived<ActionArray>([
+        ...use,
+        [clickAway, handleOnClickAway],
+        useAutocomplete
+    ]);
 </script>
 
 {#if textarea}
     <textarea
         bind:this={textareaNode}
-        bind:value={comment}
+        bind:value
         name="comment"
         class="w-full resize-none outline-none hover:bg-secondary-50 group-hover:bg-secondary-50"
         placeholder="What was this expense for...?"
         style="field-sizing: content"
         rows={1}
-        use:useActions={[[clickAway, handleOnHideTextarea], useAutofocus, useAutocomplete]}
+        use:useActions={autocompleteActions}
     ></textarea>
 {:else}
     <button
         name="comment"
         class="w-full truncate text-left outline-none"
-        class:text-secondary-300={!comment}
+        class:text-secondary-300={!value}
         onclick={handleOnShowTextarea}
         onfocus={handleOnShowTextarea}
     >
-        {comment ? comment : 'What was this expense for...?'}
+        {value ? value : 'What was this expense for...?'}
     </button>
 {/if}
 
@@ -91,7 +109,7 @@
                 <button
                     class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-secondary-50 focus:bg-secondary-50 active:bg-secondary-50"
                     onclick={() => {
-                        comment = expense.comment!;
+                        value = expense.comment!;
                     }}
                 >
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->

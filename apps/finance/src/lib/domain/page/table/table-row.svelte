@@ -1,14 +1,8 @@
 <script lang="ts" context="module">
     type ProxyFn = <F extends (...args: any) => any = () => void>(cb: F) => () => void;
 
-    const parseDate = (date: string) => {
-        if (!date) {
-            return '';
-        }
-
-        const [year, month, day] = date.split('-');
-        return `${day}/${month}/${year}`;
-    };
+    const baseTdStyles = (styles?: string) =>
+        twMerge('border-b border-secondary-100 p-3 outline-none focus:bg-secondary-50', styles);
 </script>
 
 <script lang="ts">
@@ -25,22 +19,14 @@
 
     import type { Expense } from '$lib/db';
 
-    import NewEntry from './new-entry.svelte';
+    import NewEntry, { type ForceFocus } from './new-entry.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
 
     type Props = { expense: Expense; position: number };
     let { expense, position }: Props = $props();
 
     let menu = createContextMenu();
-    let editRow = $state(false);
-    let editState = $derived({
-        date: parseDate(expense.date ?? ''),
-        amount: `${expense.amount ?? ''}`,
-        comment: expense.comment ?? ''
-    });
-
-    const baseTdStyles = (styles?: string) =>
-        twMerge('border-b border-secondary-100 p-3 outline-none focus:bg-secondary-50', styles);
+    let editRow = $state<ForceFocus>(null);
 
     const menuProxy: ProxyFn = (cb) => () => {
         activateRow(position);
@@ -57,8 +43,8 @@
             disableRow();
         });
 
-    const handleOnEditMode = () => {
-        editRow = true;
+    const handleOnEditMode = (focusMode: ForceFocus) => () => {
+        editRow = focusMode;
     };
 
     const cmOptions: ContextMenuOption[] = [
@@ -77,24 +63,28 @@
     aria-current={isRowActive(position) || menu.states.isMenuActive}
 >
     {#if editRow}
-        <NewEntry initialState={editState} disableAutofocus />
+        <NewEntry {expense} forceFocus={editRow} onBlur={handleOnEditMode(null)} disableAutofocus />
     {:else}
         <td class={baseTdStyles('w-32 shrink-0')} tabindex="0">
-            <button class="cursor-text text-left outline-none" onclick={handleOnEditMode}>
+            <button class="cursor-text text-left outline-none" onclick={handleOnEditMode('date')}>
                 {expense.date ? new Date(expense.date).toLocaleDateString() : ''}
             </button>
         </td>
-        <td class={baseTdStyles('w-32 shrink-0')} tabindex="0" onclick={handleOnEditMode}>
+        <td class={baseTdStyles('w-32 shrink-0')} tabindex="0" onclick={handleOnEditMode('amount')}>
             <button class="w-full cursor-text text-left outline-none">
                 &euro; {expense.amount?.toFixed(2)}
             </button>
         </td>
-        <td class={baseTdStyles('w-full min-w-64')} tabindex="0" onclick={handleOnEditMode}>
+        <td
+            class={baseTdStyles('w-full min-w-64')}
+            tabindex="0"
+            onclick={handleOnEditMode('comment')}
+        >
             <button class="w-full cursor-text truncate text-left outline-none">
                 {expense.comment}
             </button>
         </td>
-        <td class={baseTdStyles('min-w-24 md:min-w-40')} tabindex="0" onclick={handleOnEditMode}>
+        <td class={baseTdStyles('min-w-24 md:min-w-40')} tabindex="0" onclick={console.log}>
             {#each expense.tags as tag (tag.id)}
                 <Chip color={tag.color}>{tag.name}</Chip>
             {/each}

@@ -55,6 +55,24 @@ export const createPage = async (client: Client, { name, book }: NewPageData) =>
       .throwOnError()
   ).data;
 
+export type NewExpenseData = {
+  id?: number;
+  page: number;
+  date: string;
+  amount: number;
+  comment: string;
+  tags?: number[];
+};
+export const createExpense = async (client: Client, { page, ...data }: NewExpenseData) =>
+  (
+    await client
+      .schema('finances')
+      .from('expense')
+      .upsert([{ page_id: page, ...data }])
+      .select()
+      .throwOnError()
+  ).data;
+
 export type NewTagData = { book: number; name: string; color: string };
 export const createTag = async (client: Client, { book, ...data }: NewTagData) =>
   (

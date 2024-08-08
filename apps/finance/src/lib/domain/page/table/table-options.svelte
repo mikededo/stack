@@ -58,16 +58,16 @@
         color="secondary"
         class="mr-auto w-full max-w-96 text-sm"
     />
-    <Menu class="hidden lg:flex" label="Filter" Icon={ListFilter}>
+    <Menu wrapperClass="hidden lg:flex" label="Filter" Icon={ListFilter}>
         {@render filterContent()}
     </Menu>
-    <Menu class="flex lg:hidden" Icon={ListFilter}>
+    <Menu wrapperClass="flex lg:hidden" Icon={ListFilter}>
         {@render filterContent()}
     </Menu>
-    <Menu class="hidden lg:flex" label="Tags" Icon={Tag}>
+    <Menu wrapperClass="hidden lg:flex" label="Tags" Icon={Tag}>
         {@render tagsContent()}
     </Menu>
-    <Menu class="flex lg:hidden" Icon={Tag} loading={$tagsQuery.isLoading}>
+    <Menu wrapperClass="flex lg:hidden" Icon={Tag} loading={$tagsQuery.isLoading}>
         {@render tagsContent()}
     </Menu>
 </div>
