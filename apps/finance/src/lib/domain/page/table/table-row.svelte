@@ -28,8 +28,8 @@
     import NewEntry from './new-entry.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
 
-    type Props = { expense: Expense; expenses: Expense[]; position: number };
-    let { expense, expenses, position }: Props = $props();
+    type Props = { expense: Expense; position: number };
+    let { expense, position }: Props = $props();
 
     let menu = createContextMenu();
     let editRow = $state(false);
@@ -58,7 +58,6 @@
         });
 
     const handleOnEditMode = () => {
-        console.log('handleOnEditMode');
         editRow = true;
     };
 
@@ -78,7 +77,7 @@
     aria-current={isRowActive(position) || menu.states.isMenuActive}
 >
     {#if editRow}
-        <NewEntry {expenses} initialState={editState} disableAutofocus />
+        <NewEntry initialState={editState} disableAutofocus />
     {:else}
         <td class={baseTdStyles('w-32 shrink-0')} tabindex="0">
             <button class="cursor-text text-left outline-none" onclick={handleOnEditMode}>

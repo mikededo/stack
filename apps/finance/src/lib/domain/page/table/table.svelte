@@ -9,7 +9,6 @@
 
     type Props = { page: Page };
     let { page }: Props = $props();
-    let expenses = $derived(page.expenses);
 </script>
 
 <PageTableOptions book={page.book_id} />
@@ -20,10 +19,10 @@
     <tbody class="text-left text-sm">
         {#each page.expenses as expense, i (expense.id)}
             {#if tableState.newRowIndex === i}
-                <NewEntry {expenses} />
+                <NewEntry />
             {/if}
-            <TableRow position={i} {expense} {expenses} />
+            <TableRow position={i} {expense} />
         {/each}
-        <NewEntry {expenses} disableAutofocus />
+        <NewEntry disableAutofocus />
     </tbody>
 </table>

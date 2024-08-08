@@ -4,7 +4,7 @@
     import { Loader2 } from 'lucide-svelte';
 
     import { pathTo } from '$lib/config';
-    import { PageTable } from '$lib/domain/page/table';
+    import { PageTable, initPageContext, setContextPage } from '$lib/domain/page';
     import { useBookPages } from '$lib/hooks';
 
     import type { PageData } from './$types';
@@ -13,6 +13,14 @@
     let { data }: Props = $props();
 
     const query = useBookPages(data.supabase, data.params.book, data.params.page);
+    query.subscribe(({ data }) => {
+        if (data) {
+            setContextPage(data);
+        }
+    });
+
+    const ctx = initPageContext();
+    $inspect(ctx);
 
     let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
         if (!$query.data || !$query.data.book) {

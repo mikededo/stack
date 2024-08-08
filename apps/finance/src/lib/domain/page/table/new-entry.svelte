@@ -1,16 +1,17 @@
 <script lang="ts">
     import { useMoneyMask } from '@mstack/actions';
 
-    import type { Expense } from '$lib/db';
-
+    import { getPageExpenses } from './context.svelte';
     import { Comment, Date } from './new-expense';
 
     type IntialState = { date: string; amount: string; comment: string };
-    type Props = { disableAutofocus?: boolean; expenses: Expense[]; initialState?: IntialState };
-    let { disableAutofocus, initialState, expenses }: Props = $props();
+    type Props = { disableAutofocus?: boolean; initialState?: IntialState };
+    let { disableAutofocus, initialState }: Props = $props();
+
+    let expenses = getPageExpenses();
 </script>
 
-<tr class="group flex w-full items-stretch">
+<tr class="group flex w-full items-stretch hover:bg-secondary-50">
     <td class=" relative w-32 shrink-0 border-b border-secondary-100 p-3">
         <Date {disableAutofocus} defaultValue={initialState?.date} />
     </td>
