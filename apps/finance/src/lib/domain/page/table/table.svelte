@@ -21,7 +21,7 @@
             {#if tableState.newRowIndex === i}
                 <NewEntry />
             {/if}
-            <TableRow {expense} position={i} />
+            <TableRow position={i} {expense} />
         {/each}
         <NewEntry disableAutofocus />
     </tbody>

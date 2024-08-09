@@ -20,12 +20,12 @@
 
 {#snippet footer()}
     <div class="ui-flex ui-items-center ui-justify-end ui-gap-2">
-        <Button onclick={onConfirm} color="destructive" disabled={disableConfirm}>Delete</Button>
-        <Button onclick={onCancel} color="secondary" disabled={disableCancel}>Cancel</Button>
+        <Button color="destructive" disabled={disableConfirm} onclick={onConfirm}>Delete</Button>
+        <Button color="secondary" disabled={disableCancel} onclick={onCancel}>Cancel</Button>
     </div>
 {/snippet}
 
-<Dialog onClose={onCancel} {footer} {header}>
+<Dialog {footer} {header} onClose={onCancel}>
     {#if children}
         {@render children()}
     {:else}

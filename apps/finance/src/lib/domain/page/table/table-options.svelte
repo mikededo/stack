@@ -28,10 +28,10 @@
 </script>
 
 {#snippet filterContent()}
-    <MenuOption onClick={console.log} Icon={TrendingUp} label="Amount (Ascending)" />
-    <MenuOption onClick={console.log} Icon={TrendingDown} label="Amount (Descending)" />
-    <MenuOption onClick={console.log} Icon={CalendarArrowUp} label="Date (Asc)" />
-    <MenuOption onClick={console.log} Icon={CalendarArrowDown} label="Date (Desc)" />
+    <MenuOption Icon={TrendingUp} label="Amount (Ascending)" onClick={console.log} />
+    <MenuOption Icon={TrendingDown} label="Amount (Descending)" onClick={console.log} />
+    <MenuOption Icon={CalendarArrowUp} label="Date (Asc)" onClick={console.log} />
+    <MenuOption Icon={CalendarArrowDown} label="Date (Desc)" onClick={console.log} />
 {/snippet}
 
 {#snippet tagsContent()}
@@ -43,9 +43,9 @@
             >
                 <MenuOption
                     class={getTagClasses(tag.id % 2 === 0)}
-                    onClick={console.log}
                     Icon={tag.id % 2 === 0 ? CircleCheck : Circle}
                     label={tag.name}
+                    onClick={console.log}
                 />
             </button>
         {/each}

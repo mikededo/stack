@@ -66,10 +66,10 @@
         {#if editMode}
             <NameInput
                 bind:value={name}
-                onCancel={handleOnEditMode()}
-                onConfirm={handleOnConfirm}
                 autofocus={editMode === 'name'}
                 use={[[clickAway, handleOnEditMode()]]}
+                onCancel={handleOnEditMode()}
+                onConfirm={handleOnConfirm}
             />
         {:else}
             <button class="cursor-text outline-none" onclick={handleOnEditMode('name')}>
@@ -82,10 +82,10 @@
         {#if editMode}
             <ColorInput
                 bind:value={color}
-                onCancel={handleOnEditMode()}
-                onConfirm={handleOnConfirm}
                 autofocus={editMode === 'color'}
                 use={[[clickAway, handleOnEditMode()]]}
+                onCancel={handleOnEditMode()}
+                onConfirm={handleOnConfirm}
             />
         {:else}
             <button
@@ -99,4 +99,4 @@
     </div>
 </ListItem>
 
-<ContextMenu {options} menu={menu.menu} />
+<ContextMenu menu={menu.menu} {options} />

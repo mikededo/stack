@@ -36,8 +36,8 @@
     {...restProps}
     class={classes}
     use:useActions={use}
-    transition:fade={{ duration: 150, easing: cubicInOut }}
     style={positionStyle}
+    transition:fade={{ duration: 150, easing: cubicInOut }}
 >
     {@render children()}
 </div>

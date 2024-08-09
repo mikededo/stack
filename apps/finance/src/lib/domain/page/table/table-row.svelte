@@ -70,12 +70,12 @@
 >
     {#if editRow}
         <NewEntry
-            onBlur={handleOnEditMode(null)}
-            onUpdateExpense={handleonUpdateExpense}
-            disableAutofocus
-            nested
             expense={internalExpense}
             forceFocus={editRow}
+            disableAutofocus
+            nested
+            onBlur={handleOnEditMode(null)}
+            onUpdateExpense={handleonUpdateExpense}
         />
     {:else}
         <td class={baseTdStyles('w-32 shrink-0')} tabindex="0">
@@ -83,21 +83,21 @@
                 {parseDate(internalExpense.date)}
             </button>
         </td>
-        <td class={baseTdStyles('w-32 shrink-0')} onclick={handleOnEditMode('amount')} tabindex="0">
+        <td class={baseTdStyles('w-32 shrink-0')} tabindex="0" onclick={handleOnEditMode('amount')}>
             <button class="w-full cursor-text text-left outline-none">
                 &euro; {internalExpense.amount?.toFixed(2)}
             </button>
         </td>
         <td
             class={baseTdStyles('w-full min-w-64')}
-            onclick={handleOnEditMode('comment')}
             tabindex="0"
+            onclick={handleOnEditMode('comment')}
         >
             <button class="w-full cursor-text truncate text-left outline-none">
                 {internalExpense.comment}
             </button>
         </td>
-        <td class={baseTdStyles('min-w-24 md:min-w-40')} onclick={console.log} tabindex="0">
+        <td class={baseTdStyles('min-w-24 md:min-w-40')} tabindex="0" onclick={console.log}>
             {#each expense.tags as tag (tag.id)}
                 <Chip color={tag.color}>{tag.name}</Chip>
             {/each}

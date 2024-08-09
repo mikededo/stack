@@ -30,7 +30,7 @@
 </script>
 
 {#snippet content()}
-    <input {...rest} class={classes} bind:value {name} aria-invalid={invalid} />
+    <input {...rest} class={classes} bind:value aria-invalid={invalid} {name} />
 {/snippet}
 
 {#if label}

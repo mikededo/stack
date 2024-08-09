@@ -114,9 +114,9 @@
     <td class=" relative h-[45px] w-full min-w-64 border-b border-secondary-100 p-3">
         <Comment
             bind:value={comment}
-            {expenses}
             autofocus={forceFocus === 'comment'}
             use={[useUpsertExpense]}
+            {expenses}
         />
     </td>
     <td class="min-w-24 border-b border-secondary-100 p-3 md:min-w-40"> </td>

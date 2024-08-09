@@ -86,9 +86,9 @@
 <div class="flex items-center gap-2 py-2">
     <Button
         class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-        onclick={handleOnAddPage}
         color="muted"
         disabled={newPage}
+        onclick={handleOnAddPage}
     >
         <FilePlus class="size-4" strokeWidth={2.5} />
         <span>Add a new page</span>

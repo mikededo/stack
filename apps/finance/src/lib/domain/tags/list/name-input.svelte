@@ -37,6 +37,6 @@
     class="w-full bg-transparent outline-none"
     bind:value
     use:useActions={[...use, withAutofocus]}
-    onkeydown={handleOnNameKeydown}
     placeholder="Tag name..."
+    onkeydown={handleOnNameKeydown}
 />

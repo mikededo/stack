@@ -84,10 +84,10 @@
 {:else}
     <button
         class="w-full truncate text-left outline-none"
+        name="comment"
+        class:text-secondary-300={!value}
         onclick={handleOnShowTextarea}
         onfocus={handleOnShowTextarea}
-        class:text-secondary-300={!value}
-        name="comment"
     >
         {value ? value : 'What was this expense for...?'}
     </button>

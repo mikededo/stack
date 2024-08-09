@@ -68,9 +68,10 @@ const perfectionistRules = {
         'style-props',
         'class',
         ['bind-directives', 'use-directives'],
-        'effects',
+        'unknown',
         ['shorthand', 'svelte-shorthand'],
-        'multiline'
+        'multiline',
+        'effects'
       ],
       customGroups: {
         'style-props': '--style-props',

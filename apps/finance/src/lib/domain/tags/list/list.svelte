@@ -77,10 +77,10 @@
     <ListHeader />
     {#each book.tag as tag (tag.id)}
         <TagListItem
+            {tag}
             onDeleteTag={handleOnConfirmDelete}
             onDuplicateTag={handleOnDuplicateTag}
             onUpdateTag={handleOnUpdateTag}
-            {tag}
         />
     {/each}
     {#if newTag}
@@ -96,9 +96,9 @@
 <div class="flex items-center gap-2 py-2">
     <Button
         class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-        onclick={handleOnAddTag}
         color="muted"
         disabled={newTag}
+        onclick={handleOnAddTag}
     >
         <Plus class="size-4" strokeWidth={2.5} />
         <span>New tag</span>
@@ -107,9 +107,9 @@
         <div transition:fade={{ duration: 100 }}>
             <Button
                 class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-                onclick={handleOnCreateNewTag}
                 color="primary"
                 disabled={!canSubmit}
+                onclick={handleOnCreateNewTag}
             >
                 Save tag
             </Button>

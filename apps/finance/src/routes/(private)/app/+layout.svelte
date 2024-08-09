@@ -32,9 +32,9 @@
                         <li>
                             <a
                                 class="block w-full cursor-pointer rounded px-3 py-2 font-semibold text-secondary-800 transition-colors aria-current:bg-secondary-100 aria-not-current:hover:bg-secondary-100"
-                                {href}
                                 aria-current={isNestedPath(href, 'app')}
                                 role="tab"
+                                {href}
                             >
                                 {name}
                             </a>

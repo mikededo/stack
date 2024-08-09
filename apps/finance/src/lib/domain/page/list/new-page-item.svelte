@@ -32,9 +32,9 @@
         <input
             class="w-full bg-transparent outline-none"
             use:useAutofocus
+            placeholder="Page name..."
             onblur={handleOnBlur}
             onkeydown={handleOnKeydown}
-            placeholder="Page name..."
         />
     {/snippet}
 </PageItem>

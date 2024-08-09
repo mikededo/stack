@@ -89,9 +89,9 @@
 <div class={wrapperClasses}>
     <Button
         class={buttonClasses}
-        onclick={handleOnToggle}
         color="secondary"
         disabled={showMenu || loading}
+        onclick={handleOnToggle}
     >
         {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
         {#if Icon && !loading}<svelte:component this={Icon} class="size-4" />{/if}
@@ -101,11 +101,11 @@
     {#if showMenu}
         <FloatingCard
             class="ui-box-border ui-max-h-96 ui-overflow-y-auto ui-overflow-x-hidden"
-            onClickAway={handleOnHide}
-            onkeydown={handleOnNavigation}
             role="menu"
             tabindex={1}
             use={[useFocusableElements, [clickAway, handleOnHide]]}
+            onClickAway={handleOnHide}
+            onkeydown={handleOnNavigation}
         >
             {@render children()}
         </FloatingCard>

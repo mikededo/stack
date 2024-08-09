@@ -36,8 +36,8 @@
     {#if opt.onClick}
         <button
             class={getOptionClasses(opt)}
-            onclick={handleOnClick(opt.onClick)}
             disabled={opt.disabled}
+            onclick={handleOnClick(opt.onClick)}
         >
             {@render content(opt)}
         </button>
@@ -53,8 +53,8 @@
         class="ui-fixed ui-z-10 ui-flex ui-w-48 ui-origin-top-left ui-flex-col ui-items-start ui-gap-[1px] ui-rounded-lg ui-border ui-border-secondary-100 ui-bg-white ui-p-1 ui-shadow-md"
         use:clickAway={menu.hide}
         use:portal={'portal'}
-        transition:scale={{ duration: 150, easing: cubicInOut }}
         style="top: {menu.state.y}px; left: {menu.state.x}px;"
+        transition:scale={{ duration: 150, easing: cubicInOut }}
     >
         {#each options as o}
             {#if o === 'divider'}

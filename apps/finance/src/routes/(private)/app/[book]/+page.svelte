@@ -48,7 +48,7 @@
     </div>
 
     <PageListOptions>
-        <TextIconButton {...buttonProps} onclick={onToggleView} color="secondary" />
+        <TextIconButton {...buttonProps} color="secondary" onclick={onToggleView} />
     </PageListOptions>
     <section>
         {#if listState.view === 'pages'}

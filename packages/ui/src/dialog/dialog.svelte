@@ -26,20 +26,20 @@
 
 <div
     class="ui-fixed ui-inset-0 ui-bg-black/50"
-    transition:fade={{ duration: 150 }}
     role="presentation"
+    transition:fade={{ duration: 150 }}
 ></div>
 <div
     class="ui-fixed ui-inset-0 ui-z-50 ui-flex ui-items-center ui-justify-center"
-    transition:fade={{ duration: 150 }}
     role="dialog"
+    transition:fade={{ duration: 150 }}
 >
     <div class={classes} aria-modal="true">
         <div class="ui-flex ui-w-full ui-items-center ui-justify-between ui-p-4">
             <h2 class="ui-text-xl ui-font-semibold">
                 {@render header()}
             </h2>
-            <IconButton on:click={onClose} color="muted" Icon={X} />
+            <IconButton color="muted" Icon={X} on:click={onClose} />
         </div>
         <div class="ui-relative ui-flex ui-flex-1 ui-flex-col ui-gap-4 ui-overflow-y-auto ui-px-4">
             {@render children()}
