@@ -15,7 +15,7 @@
 
     const classes = $derived(
         twMerge(
-            'outline-none ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm hover:ui-bg-secondary-50 focus:ui-bg-secondary-50 active:ui-bg-secondary-50',
+            'outline-none hover:ui-bg-secondary-50 focus:ui-bg-secondary-50 active:ui-bg-secondary-50 ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm',
             active && 'ui-bg-secondary-50 ui-font-semibold',
             restProps.class
         )
