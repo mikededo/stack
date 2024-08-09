@@ -19,6 +19,7 @@
 
     import type { Expense } from '$lib/db';
 
+    import { parseDate } from './helpers';
     import NewEntry, { type ForceFocus } from './new-entry.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
 
@@ -26,6 +27,7 @@
     let { expense, position }: Props = $props();
 
     let menu = createContextMenu();
+    let internalExpense = $state(expense);
     let editRow = $state<ForceFocus>(null);
 
     const menuProxy: ProxyFn = (cb) => () => {
@@ -47,6 +49,10 @@
         editRow = focusMode;
     };
 
+    const handleonUpdateExpense = (expense: Expense) => {
+        internalExpense = expense;
+    };
+
     const cmOptions: ContextMenuOption[] = [
         { Icon: ArrowUpToLine, onClick: handleOnNewRow('above'), text: 'New row (above)' },
         { Icon: ArrowDownToLine, onClick: handleOnNewRow('under'), text: 'New row (under)' },
@@ -65,20 +71,21 @@
     {#if editRow}
         <NewEntry
             onBlur={handleOnEditMode(null)}
+            onUpdateExpense={handleonUpdateExpense}
             disableAutofocus
-            {expense}
             nested
+            expense={internalExpense}
             forceFocus={editRow}
         />
     {:else}
         <td class={baseTdStyles('w-32 shrink-0')} tabindex="0">
             <button class="cursor-text text-left outline-none" onclick={handleOnEditMode('date')}>
-                {expense.date ? new Date(expense.date).toLocaleDateString() : ''}
+                {parseDate(internalExpense.date)}
             </button>
         </td>
         <td class={baseTdStyles('w-32 shrink-0')} onclick={handleOnEditMode('amount')} tabindex="0">
             <button class="w-full cursor-text text-left outline-none">
-                &euro; {expense.amount?.toFixed(2)}
+                &euro; {internalExpense.amount?.toFixed(2)}
             </button>
         </td>
         <td
@@ -87,7 +94,7 @@
             tabindex="0"
         >
             <button class="w-full cursor-text truncate text-left outline-none">
-                {expense.comment}
+                {internalExpense.comment}
             </button>
         </td>
         <td class={baseTdStyles('min-w-24 md:min-w-40')} onclick={console.log} tabindex="0">

@@ -6,22 +6,14 @@
         forceFocus?: ForceFocus;
         nested?: boolean;
         onBlur?: () => void;
-    };
-
-    const parseDate = (date?: null | string) => {
-        if (!date) {
-            return '';
-        }
-
-        const [year, month, day] = date.split('-');
-        return `${day}/${month}/${year}`;
+        onUpdateExpense?: (expense: Expense) => void;
     };
 </script>
 
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    import { getSupabaseClient } from '@mstack/svelte-supabase';
+    import { getSupabaseClient, getUserDataContext } from '@mstack/svelte-supabase';
 
     import { useQueryClient } from '@tanstack/svelte-query';
 
@@ -34,14 +26,16 @@
         onInitLoading,
         onStopLoading
     } from './context.svelte';
-    import { hasExpenseChanged, isExpenseValid } from './helpers';
+    import { hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
     import { useExpenseMutation } from './hooks';
     import { Amount, Comment, Date } from './new-expense';
 
-    let { disableAutofocus, expense, forceFocus, nested, onBlur }: Props = $props();
+    let { disableAutofocus, expense, forceFocus, nested, onBlur, onUpdateExpense }: Props =
+        $props();
 
     let supabase = getSupabaseClient();
     let queryClient = useQueryClient();
+    let { id: userId } = getUserDataContext();
     let expenses = getPageExpenses();
     let page = getPageId();
     let amount = $state(`${expense?.amount?.toFixed(2) ?? ''}`);
@@ -52,7 +46,8 @@
         client: supabase,
         onMutate: onInitLoading,
         onSettled: onStopLoading,
-        queryClient
+        queryClient,
+        userId
     });
 
     const useUpsertExpense: Action<HTMLElement> = (node) => {
@@ -62,24 +57,31 @@
                 return;
             }
 
+            if (event.key !== 'Enter') {
+                return;
+            }
+
             const newExpense = { amount, comment, date };
-            if (event.key !== 'Enter' || !isExpenseValid(newExpense) || !page) {
+            if (!isExpenseValid(newExpense) || !page) {
                 return;
             }
 
             event.preventDefault();
-
             if (expense && !hasExpenseChanged(expense, newExpense)) {
                 return;
             }
 
-            $expenseMutation.mutate({
-                amount: Number(amount),
+            const updatedFields = {
+                amount: Number(amount.startsWith('€ ') ? amount.slice(1) : amount),
                 comment,
-                date,
-                id: expense?.id ?? undefined,
-                page
-            });
+                date
+            };
+            $expenseMutation.mutate({ ...updatedFields, id: expense?.id ?? undefined, page });
+            if (expense) {
+                // Update current expense to improve ux
+                onUpdateExpense?.({ ...expense, ...updatedFields });
+            }
+
             node.blur();
             onBlur?.();
         };

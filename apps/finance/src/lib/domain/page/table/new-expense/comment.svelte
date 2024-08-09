@@ -12,11 +12,10 @@
     type Props = {
         autofocus?: boolean;
         expenses: Expense[];
-        onClickAway?: () => void;
         use?: ActionArray;
         value?: string;
     };
-    let { autofocus, expenses, onClickAway, use = [], value = $bindable('') }: Props = $props();
+    let { autofocus, expenses, use = [], value = $bindable('') }: Props = $props();
 
     let textarea = $state(autofocus ?? false);
     let textareaNode = $state<HTMLTextAreaElement | null>(null);
@@ -62,7 +61,6 @@
 
     const handleOnClickAway = () => {
         textarea = false;
-        onClickAway?.();
     };
 
     let autocompleteActions = $derived<ActionArray>([
