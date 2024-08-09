@@ -2,7 +2,7 @@
     type ProxyFn = <F extends (...args: any) => any = () => void>(cb: F) => () => void;
 
     const baseTdStyles = (styles?: string) =>
-        twMerge('border-secondary-100 focus:bg-secondary-50 border-b p-3 outline-none', styles);
+        twMerge('border-b border-primary-100 p-3 outline-none focus:bg-primary-50', styles);
 </script>
 
 <script lang="ts">
@@ -64,7 +64,7 @@
 </script>
 
 <tr
-    class="hover:bg-secondary-50 aria-current:bg-secondary-50 group flex w-full items-stretch"
+    class="group flex w-full items-stretch hover:bg-primary-50 aria-current:bg-primary-50"
     use:menu.trigger
     aria-current={isRowActive(position) || menu.states.isMenuActive}
 >

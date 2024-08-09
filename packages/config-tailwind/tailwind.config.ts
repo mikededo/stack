@@ -1,46 +1,39 @@
 import type { Config } from 'tailwindcss';
+
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
 export const theme: Config['theme'] = {
+  borderRadius: {
+    '2xl': '1rem',
+    DEFAULT: '0.5rem',
+    full: '9999px',
+    lg: 'calc(0.5rem + 2px)',
+    md: 'calc(0.5rem - 2px)',
+    sm: 'calc(0.5rem - 4px)',
+    xl: 'calc(0.5rem + 4px)'
+  },
   container: {
     center: true,
-    screens: { xl: '1100px', '2xl': '1360px' }
+    screens: { '2xl': '1360px', xl: '1100px' }
   },
   extend: {
-    fontFamily: {
-      sans: ['var(--font-sans)', ...fontFamily.sans],
-      mono: ['var(--font-mono)', ...fontFamily.mono]
-    },
     borderColor: { DEFAULT: '#dee3e7' },
     colors: {
       background: 'var(--background)',
+      destructive: {
+        50: '#fde9ee',
+        100: '#fbd3dc',
+        200: '#faa9b8',
+        300: '#fa7e91',
+        400: '#fa4a67',
+        500: '#e61947',
+        600: '#c0123c',
+        700: '#9b0c36',
+        800: '#76072f',
+        900: '#4e0322'
+      },
       foreground: 'var(--foreground)',
-      primary: {
-        DEFAULT: '#7F58BE',
-        '50': '#F8F9FE',
-        '100': '#E7E5FC',
-        '200': '#C6C0E9',
-        '300': '#AE9DDE',
-        '400': '#9B7AD8',
-        '500': '#7F58BE',
-        '600': '#5F4199',
-        '700': '#4A2D7F',
-        '800': '#362164',
-        '900': '#20144C'
-      },
-      secondary: {
-        50: '#F7FAFC',
-        100: '#E3E8EE',
-        200: '#C1C9D2',
-        300: '#A3ACB9',
-        400: '#8792A2',
-        500: '#697386',
-        600: '#4F566B',
-        700: '#3C4257',
-        800: '#2A2F45',
-        900: '#1A1F36'
-      },
       info: {
         '50': '#EEFDFE',
         '100': '#CFF3FB',
@@ -52,18 +45,6 @@ export const theme: Config['theme'] = {
         '700': '#154876',
         '800': '#0F3451',
         '900': '#082530'
-      },
-      positive: {
-        '50': '#F2FEEE',
-        '100': '#CFF7C9',
-        '200': '#91E396',
-        '300': '#52D080',
-        '400': '#3EB574',
-        '500': '#288D60',
-        '600': '#216B44',
-        '700': '#18533A',
-        '800': '#113B34',
-        '900': '#0A2627'
       },
       orange: {
         50: '#fceeb5',
@@ -77,28 +58,48 @@ export const theme: Config['theme'] = {
         800: '#701b01',
         900: '#4a0f02'
       },
-      destructive: {
-        50: '#fde9ee',
-        100: '#fbd3dc',
-        200: '#faa9b8',
-        300: '#fa7e91',
-        400: '#fa4a67',
-        500: '#e61947',
-        600: '#c0123c',
-        700: '#9b0c36',
-        800: '#76072f',
-        900: '#4e0322'
+      positive: {
+        '50': '#F2FEEE',
+        '100': '#CFF7C9',
+        '200': '#91E396',
+        '300': '#52D080',
+        '400': '#3EB574',
+        '500': '#288D60',
+        '600': '#216B44',
+        '700': '#18533A',
+        '800': '#113B34',
+        '900': '#0A2627'
+      },
+      primary: {
+        '50': '#F8F9FE',
+        '100': '#E7E5FC',
+        '200': '#C6C0E9',
+        '300': '#AE9DDE',
+        '400': '#9B7AD8',
+        '500': '#7F58BE',
+        '600': '#5F4199',
+        '700': '#4A2D7F',
+        '800': '#362164',
+        '900': '#20144C',
+        DEFAULT: '#7F58BE'
+      },
+      secondary: {
+        50: '#FAFAF9',
+        100: '#F6F6F4', // Base color
+        200: '#EDEDEA',
+        300: '#DCDCD8',
+        400: '#C4C4BE',
+        500: '#A7A7A0',
+        600: '#8B8B83',
+        700: '#6F6F67',
+        800: '#53534B',
+        900: '#373733'
       }
+    },
+    fontFamily: {
+      mono: ['var(--font-mono)', ...fontFamily.mono],
+      sans: ['var(--font-sans)', ...fontFamily.sans]
     }
-  },
-  borderRadius: {
-    DEFAULT: '0.5rem',
-    '2xl': '1rem',
-    xl: 'calc(0.5rem + 4px)',
-    lg: 'calc(0.5rem + 2px)',
-    md: 'calc(0.5rem - 2px)',
-    sm: 'calc(0.5rem - 4px)',
-    full: '9999px'
   }
 };
 

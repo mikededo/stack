@@ -95,23 +95,25 @@
         };
     };
 
+    $inspect(forceFocus);
+
     // TODO: Create an event that will blur the fields when
     // the user clicks outside any field of the table - maybe its
     // easier to just detect clicks outside the tr
 </script>
 
 {#snippet content()}
-    <td class="border-secondary-100 relative w-32 shrink-0 border-b p-3">
+    <td class="relative w-32 shrink-0 border-b border-primary-100 p-3">
         <Date
             bind:value={date}
             disableAutofocus={forceFocus !== 'date' || disableAutofocus}
             use={[useUpsertExpense]}
         />
     </td>
-    <td class=" border-secondary-100 w-32 shrink-0 border-b p-3">
+    <td class=" w-32 shrink-0 border-b border-primary-100 p-3">
         <Amount bind:value={amount} forceFocus={forceFocus === 'amount'} use={[useUpsertExpense]} />
     </td>
-    <td class=" border-secondary-100 relative h-[45px] w-full min-w-64 border-b p-3">
+    <td class=" relative h-[45px] w-full min-w-64 border-b border-primary-100 p-3">
         <Comment
             bind:value={comment}
             autofocus={forceFocus === 'comment'}
@@ -119,13 +121,13 @@
             {expenses}
         />
     </td>
-    <td class="border-secondary-100 min-w-24 border-b p-3 md:min-w-40"> </td>
+    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-40"> </td>
 {/snippet}
 
 {#if nested}
     {@render content()}
 {:else}
-    <tr class="hover:bg-secondary-50 group flex w-full items-stretch">
+    <tr class="group flex w-full items-stretch hover:bg-primary-50">
         {@render content()}
     </tr>
 {/if}

@@ -1,3 +1,5 @@
+@import url('@mstack/ui/styles');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -23,10 +25,6 @@ html {
 
   color: var(--foreground);
   stroke: var(--foreground);
-}
-
-::placeholder {
-  color: theme('colors.secondary.300');
 }
 
 @font-face {

@@ -1,5 +1,5 @@
 <li
-    class="bg-secondary-50 flex items-center justify-between py-1.5 pl-4 pr-3 text-xs font-semibold uppercase"
+    class="flex items-center justify-between bg-primary-50 py-1.5 pl-4 pr-3 text-xs font-semibold uppercase"
 >
     <p>Page name</p>
     <div class="flex items-center gap-4">

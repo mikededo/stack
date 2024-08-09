@@ -10,7 +10,7 @@
 </script>
 
 <input
-    class="hover:bg-secondary-50 group-hover:bg-secondary-50 group-aria-current:bg-secondary-50 w-full outline-none aria-invalid:text-destructive-500"
+    class="w-full outline-none hover:bg-primary-50 group-hover:bg-primary-50 aria-invalid:text-destructive-500 group-aria-current:bg-primary-50"
     bind:value
     use:useActions={actions}
     name="date"

@@ -43,7 +43,7 @@ const perfectionistRules = {
         'unknown'
       ],
       customGroups: {
-        value: { repo: ['@mstack/**'] },
+        value: { style: ['@mstack/**/styles'], repo: ['@mstack/**'] },
         type: { 'repo-type': ['@mstack/**'] }
       },
       environment: 'bun'

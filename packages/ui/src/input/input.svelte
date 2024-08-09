@@ -15,7 +15,7 @@
     const COLORS: Record<InputColor, string> = {
         primary: 'focus:ui-border-primary active:ui-border-primary input',
         secondary:
-            'ui-bg-primary-50 ui-border-transparent hover:ui-border-secondary-100 active:ui-border-secondary'
+            'ui-bg-secondary-50 ui-border-transparent hover:ui-border-secondary-200 active:ui-border-secondary-200'
     };
 
     let classes = $derived(

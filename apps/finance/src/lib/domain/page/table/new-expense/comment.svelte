@@ -35,7 +35,7 @@
     });
 
     $effect(() => {
-        if (autofocus && textareaNode && document.activeElement !== textareaNode) {
+        if (textareaNode && document.activeElement !== textareaNode) {
             textareaNode.focus();
         }
     });
@@ -72,7 +72,7 @@
 
 {#if textarea}
     <textarea
-        class="hover:bg-secondary-50 group-hover:bg-secondary-50 w-full resize-none outline-none"
+        class="w-full resize-none outline-none hover:bg-primary-50 group-hover:bg-primary-50"
         bind:this={textareaNode}
         bind:value
         use:useActions={autocompleteActions}
@@ -85,7 +85,7 @@
     <button
         class="w-full truncate text-left outline-none"
         name="comment"
-        class:text-secondary-300={!value}
+        class:text-[#979797]={!value}
         onclick={handleOnShowTextarea}
         onfocus={handleOnShowTextarea}
     >
@@ -105,7 +105,7 @@
         >
             {#each autocompleteOptions as { expense, html } (expense.id)}
                 <button
-                    class="hover:bg-secondary-50 focus:bg-secondary-50 active:bg-secondary-50 w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors"
+                    class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
                     onclick={() => {
                         value = expense.comment!;
                     }}

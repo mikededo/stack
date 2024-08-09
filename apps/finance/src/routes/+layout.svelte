@@ -4,7 +4,6 @@
     import type { Snippet } from 'svelte';
 
     import { setSupabaseClient } from '@mstack/svelte-supabase';
-    import '@mstack/ui/styles';
 
     import { QueryClientProvider } from '@tanstack/svelte-query';
     import { SvelteQueryDevtools } from '@tanstack/svelte-query-devtools';
