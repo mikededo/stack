@@ -19,7 +19,7 @@
 <div class="flex h-screen w-full flex-col overflow-hidden bg-background md:flex-row">
     <!-- Desktop navigation-->
     <div
-        class="hidden h-screen overflow-x-hidden border-r border-secondary-100 bg-secondary-50 md:block md:min-w-64"
+        class="border-secondary-100 bg-secondary-50 hidden h-screen overflow-x-hidden border-r md:block md:min-w-64"
     >
         <div class="flex h-full flex-col gap-1 px-6 py-10">
             <header class="mb-12 flex items-center justify-between gap-2">
@@ -31,7 +31,7 @@
                     {#each tabs as { href, name } (href)}
                         <li>
                             <a
-                                class="block w-full cursor-pointer rounded px-3 py-2 font-semibold text-secondary-800 transition-colors aria-current:bg-secondary-100 aria-not-current:hover:bg-secondary-100"
+                                class="text-secondary-800 aria-current:bg-secondary-100 aria-not-current:hover:bg-secondary-100 block w-full cursor-pointer rounded px-3 py-2 font-semibold transition-colors"
                                 aria-current={isNestedPath(href, 'app')}
                                 role="tab"
                                 {href}
@@ -46,7 +46,7 @@
     </div>
 
     <!-- Mobile navigation -->
-    <header class="block border-b border-secondary-100 bg-secondary-50 md:hidden">
+    <header class="border-secondary-100 bg-secondary-50 block border-b md:hidden">
         <nav class="flex h-10 items-center justify-between px-6">
             <div class="flex items-center gap-2">
                 <Wallet class="size-4" strokeWidth={2.5} />

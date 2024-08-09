@@ -10,7 +10,7 @@
 </script>
 
 <input
-    class="w-full outline-none hover:bg-secondary-50 group-hover:bg-secondary-50 group-aria-current:bg-secondary-50"
+    class="hover:bg-secondary-50 group-hover:bg-secondary-50 group-aria-current:bg-secondary-50 w-full outline-none"
     bind:value
     use:useActions={actions}
     name="amount"

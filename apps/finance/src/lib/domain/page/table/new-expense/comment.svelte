@@ -72,7 +72,7 @@
 
 {#if textarea}
     <textarea
-        class="w-full resize-none outline-none hover:bg-secondary-50 group-hover:bg-secondary-50"
+        class="hover:bg-secondary-50 group-hover:bg-secondary-50 w-full resize-none outline-none"
         bind:this={textareaNode}
         bind:value
         use:useActions={autocompleteActions}
@@ -105,7 +105,7 @@
         >
             {#each autocompleteOptions as { expense, html } (expense.id)}
                 <button
-                    class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-secondary-50 focus:bg-secondary-50 active:bg-secondary-50"
+                    class="hover:bg-secondary-50 focus:bg-secondary-50 active:bg-secondary-50 w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors"
                     onclick={() => {
                         value = expense.comment!;
                     }}

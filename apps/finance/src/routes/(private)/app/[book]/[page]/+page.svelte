@@ -59,7 +59,7 @@
 
             {#if pageContext.state.saveStatus !== null}
                 <div
-                    class="flex items-center gap-1 text-sm text-secondary-300"
+                    class="text-secondary-300 flex items-center gap-1 text-sm"
                     transition:fade={{ duration: 100 }}
                 >
                     {#if pageContext.state.saveStatus === 'saving'}

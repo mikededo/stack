@@ -24,7 +24,7 @@
 
 {#each books as book, i (i)}
     <button
-        class="flex w-full cursor-pointer items-center justify-between border-b border-secondary-100 px-3 py-2 transition-colors last-of-type:border-0 hover:bg-secondary-100/50 active:bg-secondary-100"
+        class="border-secondary-100 hover:bg-secondary-100/50 active:bg-secondary-100 flex w-full cursor-pointer items-center justify-between border-b px-3 py-2 transition-colors last-of-type:border-0"
         aria-current={openedBooks.has(book.id)}
         class:bg-secondary-50={i % 2 === 1}
         onclick={handleOnToggleBook(book.id)}
