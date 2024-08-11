@@ -25,22 +25,22 @@
     "@mstack/ui": "workspace:*",
     "@mstack/utils": "workspace:*",
     "@supabase/ssr": "0.4.0",
-    "@supabase/supabase-js": "2.44.4",
-    "@tanstack/svelte-query": "5.51.11",
-    "lucide-svelte": "0.417.0"
+    "@supabase/supabase-js": "2.45.1",
+    "@tanstack/svelte-query": "5.51.21",
+    "lucide-svelte": "0.427.0"
   },
   "devDependencies": {
     "@mstack/tailwind-config": "workspace:*",
     "@mstack/typescript-config": "workspace:*",
-    "@playwright/test": "1.28.1",
-    "@sveltejs/adapter-auto": "3.0.0",
-    "@sveltejs/kit": "2.5.18",
+    "@playwright/test": "1.46.0",
+    "@sveltejs/adapter-auto": "3.2.3",
+    "@sveltejs/kit": "2.5.21",
     "@sveltejs/vite-plugin-svelte": "4.0.0-next.4",
-    "@tanstack/svelte-query-devtools": "5.51.11",
+    "@tanstack/svelte-query-devtools": "5.51.21",
     "svelte": "5.0.0-next.192",
-    "svelte-check": "3.8.4",
-    "tslib": "2.4.1",
-    "vite": "5.3.4",
-    "vitest": "2.0.3"
+    "svelte-check": "3.8.5",
+    "tslib": "2.6.3",
+    "vite": "5.4.0",
+    "vitest": "2.0.5"
   }
 }

@@ -1,10 +1,6 @@
-import type { Database, Result } from '@mstack/svelte-supabase';
-
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Client, Result } from '@mstack/svelte-supabase';
 
 import { withUnauthorizedRedirect } from '@mstack/svelte-supabase';
-
-type Client = SupabaseClient<Database>;
 
 export const getBooksWithPagesQuery = (client: Client) =>
   client.schema('finances').from('book').select('*, page(*)');

@@ -27,8 +27,8 @@
   "devDependencies": {
     "@mstack/tailwind-config": "workspace:*",
     "@mstack/typescript-config": "workspace:*",
-    "@sveltejs/kit": "2.5.18",
-    "@sveltejs/package": "2.3.2",
+    "@sveltejs/kit": "2.5.21",
+    "@sveltejs/package": "2.3.3",
     "@sveltejs/vite-plugin-svelte": "4.0.0-next.4"
   }
 }

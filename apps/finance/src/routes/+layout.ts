@@ -7,17 +7,17 @@ import { browser, dev } from '$app/environment';
 import type { LayoutLoad } from './$types';
 
 // TBD
-const supabaseURl = dev ? import.meta.env.MSTACK_DEV_SUPABASE_URL : '';
+const supabaseUrl = dev ? import.meta.env.MSTACK_DEV_SUPABASE_URL : '';
 const supabaseAnonKey = dev ? import.meta.env.MSTACK_DEV_SUPABASE_ANON_KEY : '';
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   depends('supabase:auth');
 
   const supabase = isBrowser()
-    ? createBrowserClient<Database>(supabaseURl, supabaseAnonKey, {
+    ? createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
         global: { fetch }
       })
-    : createServerClient<Database>(supabaseURl, supabaseAnonKey, {
+    : createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
         cookies: {
           getAll() {
             return data.cookies;

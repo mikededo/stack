@@ -4,12 +4,13 @@ import type { RequestEvent } from '@sveltejs/kit';
 import { createServerClient } from '@supabase/ssr';
 
 import type { Database } from './database';
+import type { Client } from './types';
 
 export const createSupabaseServerClient = (
   supabseUrl: string,
   supabaseAnonKey: string,
   event: RequestEvent
-) =>
+): Client =>
   createServerClient<Database>(supabseUrl, supabaseAnonKey, {
     cookies: {
       getAll: () => event.cookies.getAll(),

@@ -1,8 +1,8 @@
 export const Keys = {
-  Enter: 'Enter',
-  Escape: 'Escape',
+  ArrowDown: 'ArrowDown',
   ArrowLeft: 'ArrowLeft',
-  ArrowUp: 'ArrowUp',
   ArrowRight: 'ArrowRight',
-  ArrowDown: 'ArrowDown'
+  ArrowUp: 'ArrowUp',
+  Enter: 'Enter',
+  Escape: 'Escape'
 };

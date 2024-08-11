@@ -1,15 +1,8 @@
-import type {
-  PostgrestSingleResponse,
-  QueryData,
-  SupabaseClient
-} from '@supabase/supabase-js';
+import type { PostgrestSingleResponse } from '@supabase/supabase-js';
 
 import { isBrowser } from '@supabase/ssr';
 
-import type { Database } from './database';
-
-export type Client = SupabaseClient<Database>;
-export type Result<T extends (...args: any) => any> = QueryData<ReturnType<T>>;
+import type { Client, Result } from './types.ts';
 
 type UnauthorizedRedirectOptions = {
   onBrowserRedirect?: () => void;
@@ -20,8 +13,8 @@ type UnauthorizedRedirectOptions = {
  * Helper handler that checks for unauthorized responses and provides callbacks for redirecting the user.
  * Works for both browser and server.
  */
-export const withUnauthorizedRedirect = async <T, S extends keyof Database>(
-  client: SupabaseClient<Database, S>,
+export const withUnauthorizedRedirect = async <T>(
+  client: Client,
   response: PostgrestSingleResponse<T>,
   { onBrowserRedirect, onServerRedirect }: UnauthorizedRedirectOptions = {}
 ) => {
