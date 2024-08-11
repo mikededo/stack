@@ -21,17 +21,19 @@
     ];
 </script>
 
-<div class="flex h-screen w-full flex-col overflow-hidden bg-background md:flex-row">
+<div
+    class="flex h-screen w-full flex-col overflow-hidden bg-background bg-secondary-100 md:flex-row"
+>
     <!-- Desktop navigation-->
     <div
-        class="my-auto hidden h-[calc(100vh_-_4rem)] overflow-x-hidden rounded-r-[2rem] bg-secondary-100 md:block md:min-w-64"
+        class="my-auto hidden h-[calc(100vh_-_4rem)] overflow-x-hidden rounded-r-[2rem] bg-white md:block md:min-w-64"
     >
         <nav class="h-full gap-1 px-6 py-10">
             <ul class="flex w-full flex-col gap-1">
                 {#each tabs as { href, Icon, name } (href)}
                     <li>
                         <a
-                            class="flex w-full cursor-pointer items-center justify-between rounded px-3 py-2 font-semibold transition-colors aria-current:bg-secondary-200 aria-not-current:hover:bg-secondary-200"
+                            class="flex w-full cursor-pointer items-center justify-between rounded px-3 py-2 font-semibold transition-colors aria-current:bg-primary-100 aria-not-current:hover:bg-primary-100"
                             aria-current={isNestedPath(href, 'app')}
                             role="tab"
                             {href}
@@ -57,7 +59,7 @@
     </header>
 
     <main
-        class="flex h-top-bar-sm flex-1 flex-col gap-4 p-6 pb-0 md:h-screen md:max-w-[calc(100vw_-_256px)] md:px-10 md:pt-8"
+        class="flex h-top-bar-sm flex-1 flex-col gap-4 overflow-hidden border border-transparent bg-white p-6 py-8 md:m-6 md:mt-8 md:h-[calc(100vh_-_4rem)] md:max-w-[calc(100vw_-_256px)] md:gap-8 md:rounded-[2rem] md:px-10"
     >
         {@render children()}
     </main>

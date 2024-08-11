@@ -13,7 +13,7 @@
     let listState = getListContext();
 </script>
 
-<div class="flex flex-row items-center justify-end gap-0.5 md:gap-1">
+<div class="flex flex-row items-center justify-end gap-2">
     {#if listState.view === 'pages'}
         <div class="mr-auto w-full" transition:fade={{ duration: 100 }}>
             <Input

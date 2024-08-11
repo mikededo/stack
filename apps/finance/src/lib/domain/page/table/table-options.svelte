@@ -52,7 +52,7 @@
     {/if}
 {/snippet}
 
-<div class="flex flex-row items-center justify-end gap-0.5 md:gap-1">
+<div class="flex flex-row items-center justify-end gap-2">
     <Input
         class="mr-auto w-full max-w-96 text-sm"
         color="secondary"

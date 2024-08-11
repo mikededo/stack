@@ -22,10 +22,10 @@
 </svelte:head>
 
 <h1>Dashboard</h1>
-{#if $query.isLoading}
-    <p>Loading...</p>
-{:else if $query.data}
-    <section class="md:mt-8">
+<section class="h-full">
+    {#if $query.isLoading}
+        <p>Loading...</p>
+    {:else if $query.data}
         <BookAccordion books={$query.data} />
-    </section>
-{/if}
+    {/if}
+</section>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Breadcrumbs, type Crumbs, TextIconButton } from '@mstack/ui';
+    import { Breadcrumbs, Button, type Crumbs, TextIconButton } from '@mstack/ui';
 
     import { File, Tag } from 'lucide-svelte';
 
@@ -47,14 +47,24 @@
         {/if}
     </div>
 
-    <PageListOptions>
-        <TextIconButton {...buttonProps} color="secondary" onclick={onToggleView} />
-    </PageListOptions>
-    <section>
-        {#if listState.view === 'pages'}
-            <PageList book={$query.data} />
-        {:else}
-            <TagList book={$query.data} />
-        {/if}
+    <section class="flex h-full flex-col gap-4">
+        <PageListOptions>
+            <TextIconButton
+                class="hidden md:flex"
+                {...buttonProps}
+                color="secondary"
+                onclick={onToggleView}
+            />
+            <Button class="block h-10 md:hidden" color="secondary" onclick={onToggleView}>
+                <svelte:component this={buttonProps.Icon} class="size-4" />
+            </Button>
+        </PageListOptions>
+        <div>
+            {#if listState.view === 'pages'}
+                <PageList book={$query.data} />
+            {:else}
+                <TagList book={$query.data} />
+            {/if}
+        </div>
     </section>
 {/if}

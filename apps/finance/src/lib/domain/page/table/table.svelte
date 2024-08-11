@@ -11,18 +11,20 @@
     let { page }: Props = $props();
 </script>
 
-<PageTableOptions book={page.book_id} />
+<section class="flex h-full flex-col gap-4">
+    <PageTableOptions book={page.book_id} />
 
-<table class="relative -mx-6 flex max-h-[72vh] flex-col overflow-auto md:mx-0 md:max-h-[50vh]">
-    <PageTableHead />
+    <table class="relative -mx-6 flex max-h-[72vh] flex-col overflow-auto md:mx-0 md:max-h-[50vh]">
+        <PageTableHead />
 
-    <tbody class="text-left text-sm">
-        {#each page.expenses as expense, i (expense.id)}
-            {#if tableState.newRowIndex === i}
-                <NewEntry />
-            {/if}
-            <TableRow position={i} {expense} />
-        {/each}
-        <NewEntry disableAutofocus />
-    </tbody>
-</table>
+        <tbody class="text-left text-sm">
+            {#each page.expenses as expense, i (expense.id)}
+                {#if tableState.newRowIndex === i}
+                    <NewEntry />
+                {/if}
+                <TableRow position={i} {expense} />
+            {/each}
+            <NewEntry disableAutofocus />
+        </tbody>
+    </table>
+</section>
