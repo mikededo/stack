@@ -3,7 +3,7 @@ import type { ComponentType } from 'svelte';
 
 import { twMerge } from 'tailwind-merge';
 
-export type IconButtonColor = 'destructive' | 'muted' | 'primary' | 'secondary';
+export type IconButtonColor = 'destructive' | 'muted' | 'primary' | 'surface';
 export type IconButtonSizes = 'default' | 'large' | 'small';
 export type BaseProps = {
   color?: IconButtonColor;
@@ -31,11 +31,11 @@ const COLORS: Record<IconButtonColor, string> = {
   destructive:
     'ui-bg-destructive ui-text-destructive-foreground hover:ui-bg-destructive/90 ui-stroke-destructive',
   muted:
-    'ui-bg-transparent ui-text-foreground hover:ui-bg-secondary-50 ui-stroke-foreground dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-secondary-900 disabled:ui-bg-secondary-50 disabled:ui-text-secondary-200',
+    'ui-bg-transparent ui-text-foreground hover:ui-bg-surface-50 ui-stroke-foreground dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-surface-900 disabled:ui-bg-surface-50 disabled:ui-text-surface-200',
   primary:
     'ui-bg-primary dark:ui-bg-primary-800 ui-text-white hover:ui-bg-primary/90 hover:dark:ui-bg-primary-800/90 ui-stroke-white disabled:ui-bg-primary/75 dark:disabled:ui-bg-primary-800/75',
-  secondary:
-    'ui-bg-secondary-50 dark:ui-bg-secondary-900 dark:ui-text-white dark:ui-stroke-white hover:ui-bg-secondary/80 dark:hover:ui-bg-secondary-900/90 ui-border ui-border-transparent hover:ui-border-secondary-100 dark:hover:ui-border-secondary-700'
+  surface:
+    'ui-bg-surface-50 dark:ui-bg-surface-900 dark:ui-text-white dark:ui-stroke-white hover:ui-bg-surface/80 dark:hover:ui-bg-surface-900/90 ui-border ui-border-transparent hover:ui-border-surface-100 dark:hover:ui-border-surface-700'
 };
 
 export const getWrapperClasses = ({

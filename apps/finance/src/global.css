@@ -13,6 +13,7 @@
 
     /* TODO: Extract when creating a package for the layouts */
     --sm-top-bar-h: 2.5rem;
+    --md-top-bar-h: 3.5rem;
   }
 
   .dark {

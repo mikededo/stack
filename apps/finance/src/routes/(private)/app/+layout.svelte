@@ -24,12 +24,21 @@
     ];
 </script>
 
+<header class="hidden h-12 w-full border-b border-surface-100 bg-white md:flex">
+    <div
+        class="hidden h-full overflow-x-hidden border-r border-surface-100 md:block md:min-w-64"
+    ></div>
+    <div class="flex h-full w-full items-center justify-end bg-surface-50 pr-10">
+        <span class="text-sm text-surface-700">Welcome back, Miquel!</span>
+    </div>
+</header>
+
 <div
-    class="flex h-screen w-full flex-col overflow-hidden bg-background bg-secondary-100 md:flex-row"
+    class="flex h-screen w-full flex-col overflow-hidden bg-background bg-surface-100 md:h-top-bar-md md:flex-row"
 >
     <!-- Desktop navigation-->
     <div
-        class="my-auto hidden h-[calc(100vh_-_4rem)] overflow-x-hidden rounded-r-2xl bg-white md:block md:min-w-64"
+        class="hidden h-top-bar-md overflow-x-hidden border-r border-surface-100 bg-white md:block md:min-w-64"
     >
         <nav class="h-full gap-1 px-6 py-10">
             <ul class="flex w-full flex-col gap-1">
@@ -51,7 +60,7 @@
     </div>
 
     <!-- Mobile navigation -->
-    <header class="block border-b border-secondary-100 bg-secondary-50 md:hidden">
+    <header class="block border-b border-surface-100 bg-surface-50 md:hidden">
         <nav class="flex h-10 items-center justify-between px-6">
             <div class="flex items-center gap-2">
                 <Wallet class="size-4" strokeWidth={2.5} />
@@ -62,11 +71,11 @@
     </header>
 
     <main
-        class="h-top-bar-sm flex-1 overflow-hidden border border-transparent bg-white p-6 py-8 md:m-6 md:mt-8 md:h-[calc(100vh_-_4rem)] md:max-w-[calc(100vw_-_256px)] md:rounded-2xl md:px-10"
+        class="h-top-bar-sm flex-1 overflow-hidden border border-transparent bg-white p-6 py-8 md:h-top-bar-md md:max-w-[calc(100vw_-_256px)] md:px-10"
     >
         {#key data.pathname}
             <div
-                class="flex flex-col gap-4 md:gap-8"
+                class="flex flex-col gap-4"
                 in:fade={{ delay: 100, duration: 100 }}
                 out:fade={{ duration: 100 }}
             >

@@ -53,10 +53,10 @@
             <TextIconButton
                 class="hidden md:flex"
                 {...buttonProps}
-                color="secondary"
+                color="surface"
                 onclick={onToggleView}
             />
-            <Button class="block h-10 md:hidden" color="secondary" onclick={onToggleView}>
+            <Button class="block h-10 md:hidden" color="surface" onclick={onToggleView}>
                 <svelte:component this={buttonProps.Icon} class="size-4" />
             </Button>
         </PageListOptions>

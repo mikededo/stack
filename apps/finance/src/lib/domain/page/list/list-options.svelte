@@ -19,7 +19,7 @@
             <Input
                 class="w-full max-w-96 text-sm"
                 bind:value={listState.keywords}
-                color="secondary"
+                color="surface"
                 placeholder="Search pages"
             />
         </div>

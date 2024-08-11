@@ -3,7 +3,7 @@
 
     import { twMerge } from 'tailwind-merge';
 
-    type InputColor = 'primary' | 'secondary';
+    type InputColor = 'primary' | 'surface';
 
     type Props = {
         color?: InputColor;
@@ -14,8 +14,8 @@
 
     const COLORS: Record<InputColor, string> = {
         primary: 'focus:ui-border-primary active:ui-border-primary input',
-        secondary:
-            'ui-bg-secondary-50 ui-border-transparent hover:ui-border-secondary-200 active:ui-border-secondary-200'
+        surface:
+            'ui-bg-surface-50 ui-border-transparent hover:ui-border-surface-200 active:ui-border-surface-200'
     };
 
     let classes = $derived(

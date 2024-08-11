@@ -55,7 +55,7 @@
 <div class="flex flex-row items-center justify-end gap-2">
     <Input
         class="mr-auto w-full max-w-96 text-sm"
-        color="secondary"
+        color="surface"
         placeholder="Search comments or amounts"
     />
     <Menu Icon={ListFilter} label="Filter" wrapperClass="hidden lg:flex">

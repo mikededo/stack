@@ -6,7 +6,7 @@
 </script>
 
 <nav aria-label="Breadcrumbs">
-    <ol class="ui-flex ui-flex-row ui-gap-1 ui-text-sm ui-text-secondary-500 ui-duration-75">
+    <ol class="ui-flex ui-flex-row ui-gap-1 ui-text-sm ui-text-surface-500 ui-duration-75">
         {#each breadcrumbs as crumb, i (i)}
             {#if crumb.href && i < breadcrumbs.length - 1}
                 <li>

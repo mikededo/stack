@@ -3,7 +3,7 @@ import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements
 import { twMerge } from 'tailwind-merge';
 
 export type ButtonVariant = 'condensed' | 'default' | 'expanded';
-export type ButtonColor = 'destructive' | 'muted' | 'primary' | 'secondary';
+export type ButtonColor = 'destructive' | 'muted' | 'primary' | 'surface';
 type BaseProps = { color?: ButtonColor; disabled?: boolean; variant?: ButtonVariant };
 export type Props = (
   | ({ href: string } & HTMLAnchorAttributes)
@@ -20,11 +20,11 @@ const COLORS: Record<ButtonColor, string> = {
   destructive:
     'ui-bg-destructive-500 ui-text-white hover:ui-bg-destructive-500/90 ui-stroke-destructive',
   muted:
-    'ui-bg-transparent ui-text-foreground hover:ui-bg-secondary-50 ui-stroke-foreground dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-secondary-900 disabled:ui-bg-secondary-50 disabled:ui-text-secondary-200',
+    'ui-bg-transparent ui-text-foreground hover:ui-bg-surface-50 ui-stroke-foreground dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-surface-900 disabled:ui-bg-surface-50 disabled:ui-text-surface-200',
   primary:
     'ui-bg-primary dark:ui-bg-primary-800 ui-text-white hover:ui-bg-primary/90 hover:dark:ui-bg-primary-800/90 ui-stroke-white disabled:ui-bg-primary/75 dark:disabled:ui-bg-primary-800/75',
-  secondary:
-    'ui-bg-secondary-50 dark:ui-bg-secondary-900 dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-secondary-900/90 ui-border ui-border-transparent hover:ui-border-secondary-100 dark:hover:ui-border-secondary-700 disabled:ui-bg-secondary-50 disabled:ui-text-secondary-400 disabled:hover:ui-border-secondary-50'
+  surface:
+    'ui-bg-surface-50 dark:ui-bg-surface-900 dark:ui-text-white dark:ui-stroke-white dark:hover:ui-bg-surface-900/90 ui-border ui-border-transparent hover:ui-border-surface-100 dark:hover:ui-border-surface-700 disabled:ui-bg-surface-50 disabled:ui-text-surface-400 disabled:hover:ui-border-surface-50'
 };
 
 export const sharedClasses = ({

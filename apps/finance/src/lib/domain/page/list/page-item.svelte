@@ -52,7 +52,7 @@
             {createdAt.toLocaleDateString()}
         </span>
         <Link2
-            class={`size-4 rotate-45 ${!isShared ? 'text-secondary-200' : ''}`}
+            class={`size-4 rotate-45 ${!isShared ? 'text-surface-200' : ''}`}
             strokeWidth={2.5}
         />
     </div>

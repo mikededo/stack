@@ -89,7 +89,7 @@
 <div class={wrapperClasses}>
     <Button
         class={buttonClasses}
-        color="secondary"
+        color="surface"
         disabled={showMenu || loading}
         onclick={handleOnToggle}
     >
