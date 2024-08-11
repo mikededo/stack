@@ -2,6 +2,7 @@
     import { Breadcrumbs, Button, type Crumbs, TextIconButton } from '@mstack/ui';
 
     import { File, Tag } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
     import { pathTo } from '$lib/config';
     import { initListContext, PageList, PageListOptions } from '$lib/domain/page';
@@ -59,12 +60,14 @@
                 <svelte:component this={buttonProps.Icon} class="size-4" />
             </Button>
         </PageListOptions>
-        <div>
-            {#if listState.view === 'pages'}
+        {#if listState.view === 'pages'}
+            <div in:fade={{ delay: 150, duration: 150 }} out:fade={{ duration: 150 }}>
                 <PageList book={$query.data} />
-            {:else}
+            </div>
+        {:else}
+            <div in:fade={{ delay: 150, duration: 150 }} out:fade={{ duration: 150 }}>
                 <TagList book={$query.data} />
-            {/if}
-        </div>
+            </div>
+        {/if}
     </section>
 {/if}

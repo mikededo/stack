@@ -15,7 +15,7 @@
 
 <div class="flex flex-row items-center justify-end gap-2">
     {#if listState.view === 'pages'}
-        <div class="mr-auto w-full" transition:fade={{ duration: 100 }}>
+        <div class="mr-auto w-full" transition:fade={{ duration: 150 }}>
             <Input
                 class="w-full max-w-96 text-sm"
                 bind:value={listState.keywords}

@@ -8,11 +8,14 @@
         Icon as LucideIcon,
         Wallet
     } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
     import { isNestedPath, pathTo } from '$lib/config';
 
-    type Props = { children: Snippet };
-    let { children }: Props = $props();
+    import type { LayoutData } from './$types';
+
+    type Props = { children: Snippet; data: LayoutData };
+    let { children, data }: Props = $props();
 
     type Tab = { href: string; Icon: ComponentType<LucideIcon>; name: string };
     const tabs: Tab[] = [
@@ -26,7 +29,7 @@
 >
     <!-- Desktop navigation-->
     <div
-        class="my-auto hidden h-[calc(100vh_-_4rem)] overflow-x-hidden rounded-r-[2rem] bg-white md:block md:min-w-64"
+        class="my-auto hidden h-[calc(100vh_-_4rem)] overflow-x-hidden rounded-r-2xl bg-white md:block md:min-w-64"
     >
         <nav class="h-full gap-1 px-6 py-10">
             <ul class="flex w-full flex-col gap-1">
@@ -59,8 +62,16 @@
     </header>
 
     <main
-        class="flex h-top-bar-sm flex-1 flex-col gap-4 overflow-hidden border border-transparent bg-white p-6 py-8 md:m-6 md:mt-8 md:h-[calc(100vh_-_4rem)] md:max-w-[calc(100vw_-_256px)] md:gap-8 md:rounded-[2rem] md:px-10"
+        class="h-top-bar-sm flex-1 overflow-hidden border border-transparent bg-white p-6 py-8 md:m-6 md:mt-8 md:h-[calc(100vh_-_4rem)] md:max-w-[calc(100vw_-_256px)] md:rounded-2xl md:px-10"
     >
-        {@render children()}
+        {#key data.pathname}
+            <div
+                class="flex flex-col gap-4 md:gap-8"
+                in:fade={{ delay: 100, duration: 100 }}
+                out:fade={{ duration: 100 }}
+            >
+                {@render children()}
+            </div>
+        {/key}
     </main>
 </div>
