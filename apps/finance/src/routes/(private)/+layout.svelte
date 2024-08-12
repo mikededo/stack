@@ -1,14 +1,42 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
-    import { setUserDataContext } from '@mstack/svelte-supabase';
+    import { afterNavigate, beforeNavigate, onNavigate } from '$app/navigation';
 
-    import type { LayoutData } from './$types';
+    type Props = { children: Snippet };
+    let { children }: Props = $props();
 
-    type Props = { children: Snippet; data: LayoutData };
-    let { children, data }: Props = $props();
+    let loaderWidth = $state(0);
+    let loaderOpacity = $state(100);
 
-    setUserDataContext(data.user);
+    beforeNavigate(() => {
+        loaderOpacity = 100;
+        loaderWidth = 25;
+    });
+
+    onNavigate(() => {
+        // Random number between 45 and 75
+        loaderWidth = Math.floor(Math.random() * 45 + 55);
+    });
+
+    afterNavigate(() => {
+        loaderWidth = 100;
+        let opacityTimeout = setTimeout(() => {
+            loaderOpacity = 0;
+        }, 500);
+        let widthTimeout = setTimeout(() => {
+            loaderWidth = 0;
+        }, 550);
+
+        return () => {
+            clearTimeout(opacityTimeout);
+            clearTimeout(widthTimeout);
+        };
+    });
 </script>
 
+<div
+    class="fixed left-0 top-0 h-1 bg-primary transition-all"
+    style="width: {loaderWidth}%; opacity: {loaderOpacity}%"
+></div>
 {@render children()}

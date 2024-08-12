@@ -61,11 +61,11 @@
             </Button>
         </PageListOptions>
         {#if listState.view === 'pages'}
-            <div in:fade={{ delay: 150, duration: 150 }} out:fade={{ duration: 150 }}>
+            <div in:fade={{ delay: 100, duration: 100 }} out:fade={{ duration: 100 }}>
                 <PageList book={$query.data} />
             </div>
         {:else}
-            <div in:fade={{ delay: 150, duration: 150 }} out:fade={{ duration: 150 }}>
+            <div in:fade={{ delay: 100, duration: 100 }} out:fade={{ duration: 100 }}>
                 <TagList book={$query.data} />
             </div>
         {/if}

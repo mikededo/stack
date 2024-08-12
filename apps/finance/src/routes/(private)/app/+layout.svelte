@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { ComponentType, Snippet } from 'svelte';
 
+    import { setUserDataContext } from '@mstack/svelte-supabase';
+
     import {
         DollarSign,
         Ellipsis,
@@ -16,6 +18,8 @@
 
     type Props = { children: Snippet; data: LayoutData };
     let { children, data }: Props = $props();
+
+    setUserDataContext(data.user);
 
     type Tab = { href: string; Icon: ComponentType<LucideIcon>; name: string };
     const tabs: Tab[] = [

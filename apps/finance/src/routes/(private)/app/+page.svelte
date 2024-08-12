@@ -1,7 +1,8 @@
 <script lang="ts">
     import { Pin } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
-    import { BookAccordion } from '$lib/domain/books';
+    import { BookAccordion, BookAccordionSkeleton } from '$lib/domain/books';
     import { useBooks } from '$lib/hooks';
 
     import type { PageData } from './$types';
@@ -25,7 +26,7 @@
 
 <h1 class="md:mb-4">Dashboard</h1>
 
-<section class="flex flex-col gap-2 md:mb-4">
+<section class="flex flex-col gap-3 md:mb-4">
     <p class="text-sm">Pinned pages</p>
     <div class="flex gap-2">
         {#each { length: 5 } as _, i (i)}
@@ -40,13 +41,18 @@
     </div>
 </section>
 
-<section class="flex h-full flex-col gap-4">
+<section class="flex h-full flex-col gap-3">
     <h2 class="text-2xl">Your books</h2>
     <div>
+        <!-- <BookAccordionSkeleton /> -->
         {#if $query.isLoading}
-            <p>Loading...</p>
+            <div transition:fade={{ duration: 100 }}>
+                <BookAccordionSkeleton />
+            </div>
         {:else if $query.data}
-            <BookAccordion books={$query.data} />
+            <div transition:fade={{ delay: 100, duration: 100 }}>
+                <BookAccordion books={$query.data} />
+            </div>
         {/if}
     </div>
 </section>
