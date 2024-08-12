@@ -19,7 +19,9 @@
     "type-check": "turbo type-check"
   },
   "dependencies": {
-    "lucide-svelte": "0.427.0"
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6",
+    "lucide-svelte": "0.427.0",
+    "svelte": "^5.0.0-next.216"
   },
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",

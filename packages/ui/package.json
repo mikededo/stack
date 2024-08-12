@@ -28,12 +28,12 @@
   "dependencies": {
     "@mstack/actions": "workspace:*",
     "lucide-svelte": "0.427.0",
-    "svelte": "5.0.0-next.192",
+    "svelte": "^5.0.0-next.216",
     "tailwind-merge": "2.4.0"
   },
   "devDependencies": {
     "@mstack/tailwind-config": "workspace:*",
     "@mstack/typescript-config": "workspace:*",
-    "@sveltejs/vite-plugin-svelte": "4.0.0-next.4"
+    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
   }
 }

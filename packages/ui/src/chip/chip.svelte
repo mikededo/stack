@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
+    import type { SvelteHTMLElements } from 'svelte/elements';
 
-    import { type SvelteHTMLElements } from 'svelte/elements';
     import { twMerge } from 'tailwind-merge';
 
     type Props = { children: Snippet; color: string } & SvelteHTMLElements['span'];
