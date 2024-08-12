@@ -60,15 +60,15 @@ export type NewExpenseData = {
   page: number;
   tags?: number[];
 };
-export const createExpense = async (client: Client, { page, ...data }: NewExpenseData) =>
-  (
-    await client
-      .schema('finances')
-      .from('expense')
-      .upsert([{ page_id: page, ...data }])
-      .select()
-      .throwOnError()
-  ).data;
+export const createExpense = async (client: Client, { page, ...data }: NewExpenseData) => {
+  const expense = { page_id: page, ...data };
+  const q = client.schema('finances').from('expense');
+  if (data.id) {
+    return (await q.upsert([expense]).select().throwOnError()).data;
+  }
+
+  return (await q.insert(expense).select().throwOnError()).data;
+};
 
 export type NewTagData = { book: number; color: string; name: string };
 export const createTag = async (client: Client, { book, ...data }: NewTagData) =>

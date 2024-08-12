@@ -35,26 +35,31 @@ export const getNewEntryMatches = (expenses: Expense[], value: string) => {
 
   const escapedValue = value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-  return expenses.reduce<{ expense: Expense; html: string }[]>((acc, expense) => {
-    if (!expense.comment || !value) {
+  const result = expenses.reduce<Map<string, { expense: Expense; html: string }>>(
+    (acc, expense) => {
+      if (!expense.comment || !value) {
+        return acc;
+      }
+
+      const match = expense.comment.match(new RegExp(escapedValue, 'gi'));
+      if (!match) {
+        return acc;
+      }
+
+      const html = expense.comment
+        .split(new RegExp(`(${escapedValue})`, 'gi'))
+        .reduce(
+          (acc, slice, i) =>
+            `${acc}${i % 2 === 0 ? slice : `<span class="font-semibold">${slice}</span>`}`,
+          ''
+        );
+
+      acc.set(expense.comment, { expense: expense, html });
       return acc;
-    }
-
-    const match = expense.comment.match(new RegExp(escapedValue, 'gi'));
-    if (!match) {
-      return acc;
-    }
-
-    const html = expense.comment
-      .split(new RegExp(`(${escapedValue})`, 'gi'))
-      .reduce(
-        (acc, slice, i) =>
-          `${acc}${i % 2 === 0 ? slice : `<span class="font-semibold">${slice}</span>`}`,
-        ''
-      );
-
-    return [...acc, { expense: expense, html }];
-  }, []);
+    },
+    new Map()
+  );
+  return [...result.values()];
 };
 
 type ExpenseValidation = { amount: string; comment: string; date: string };
