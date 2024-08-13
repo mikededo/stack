@@ -1,9 +1,19 @@
 import type { Client } from '@mstack/svelte-supabase';
 
-import { createQuery } from '@tanstack/svelte-query';
+import type { QueryClient } from '@tanstack/svelte-query';
+
+import { createMutation, createQuery } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { getBook, getBooksWithPages, getBookTags, getPage } from '$lib/db';
+import {
+  clickPinnedPage,
+  type ClickPinnedPageData,
+  getBook,
+  getBooksWithPages,
+  getBookTags,
+  getPage,
+  getPinnedPages
+} from '$lib/db';
 
 export const useBooks = (client: Client) =>
   createQuery({
@@ -27,4 +37,18 @@ export const useBookTags = (client: Client, book: string) =>
   createQuery({
     queryFn: () => getBookTags(client, +book),
     queryKey: Keys.BOOK_TAGS(book)
+  });
+
+export const usePinnedPages = (client: Client) =>
+  createQuery({
+    queryFn: () => getPinnedPages(client),
+    queryKey: Keys.PINNED_PAGES
+  });
+export const useClickPinnedPage = (client: Client, queryClient: QueryClient) =>
+  createMutation({
+    mutationFn: async ({ page, userId }: ClickPinnedPageData) =>
+      await clickPinnedPage(client, { page, userId }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: Keys.PINNED_PAGES });
+    }
   });

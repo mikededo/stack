@@ -40,6 +40,17 @@ export const getBookTags = async (client: Client, id: number) =>
   (await withUnauthorizedRedirect(client, await getBookTagsQuery(client, id))).data;
 export type Tags = Result<typeof getBookTagsQuery>;
 
+export const getPinnedPagesQuery = (client: Client) =>
+  client
+    .schema('finances')
+    .from('pinned_pages')
+    .select('page(*)')
+    .order('last_clicked', { ascending: false });
+export const getPinnedPages = async (client: Client) =>
+  (await withUnauthorizedRedirect(client, await getPinnedPagesQuery(client))).data;
+export type PinnedPages = Result<typeof getPinnedPagesQuery>;
+export type PinnedPage = PinnedPages[number]['page'];
+
 // Mutations
 export type NewPageData = { book: number; name: string };
 export const createPage = async (client: Client, { book, name }: NewPageData) =>
@@ -51,6 +62,15 @@ export const createPage = async (client: Client, { book, name }: NewPageData) =>
       .select()
       .throwOnError()
   ).data;
+
+export type ClickPinnedPageData = { page: number; userId: string };
+export const clickPinnedPage = async (client: Client, { page, userId }: ClickPinnedPageData) =>
+  await client
+    .schema('finances')
+    .from('pinned_pages')
+    .update({ last_clicked: new Date().toISOString() })
+    .eq('page_id', page)
+    .eq('user_id', userId);
 
 export type NewExpenseData = {
   amount: number;

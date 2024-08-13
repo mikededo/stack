@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { Pin } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
     import { BookAccordion, BookAccordionSkeleton } from '$lib/domain/books';
+    import { PinnedPages } from '$lib/domain/page';
     import { useBooks } from '$lib/hooks';
 
     import type { PageData } from './$types';
@@ -10,7 +10,7 @@
     type Props = { data: PageData };
     let { data }: Props = $props();
 
-    const query = useBooks(data.supabase);
+    const booksQuery = useBooks(data.supabase);
 </script>
 
 <svelte:head>
@@ -26,32 +26,18 @@
 
 <h1 class="md:mb-4">Dashboard</h1>
 
-<section class="flex flex-col gap-3 md:mb-4">
-    <p class="text-sm">Pinned pages</p>
-    <div class="flex gap-2">
-        {#each { length: 5 } as _, i (i)}
-            <div class="flex w-60 flex-col gap-1 rounded-lg border border-surface-200 bg-white p-3">
-                <div class="flex items-center justify-between">
-                    <p class="text-sm font-semibold">Book 1</p>
-                    <Pin class="size-4 rotate-45  stroke-primary" strokeWidth={2} />
-                </div>
-                <span class="text-xs italic">Last updated yesterday</span>
-            </div>
-        {/each}
-    </div>
-</section>
-
+<PinnedPages />
 <section class="flex h-full flex-col gap-3">
     <h2 class="text-2xl">Your books</h2>
     <div>
         <!-- <BookAccordionSkeleton /> -->
-        {#if $query.isLoading}
+        {#if $booksQuery.isLoading}
             <div transition:fade={{ duration: 100 }}>
                 <BookAccordionSkeleton />
             </div>
-        {:else if $query.data}
+        {:else if $booksQuery.data}
             <div transition:fade={{ delay: 100, duration: 100 }}>
-                <BookAccordion books={$query.data} />
+                <BookAccordion books={$booksQuery.data} />
             </div>
         {/if}
     </div>

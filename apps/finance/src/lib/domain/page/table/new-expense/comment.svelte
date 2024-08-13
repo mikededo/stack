@@ -72,7 +72,7 @@
 
 {#if textarea}
     <textarea
-        class="w-full resize-none outline-none hover:bg-primary-50 group-hover:bg-primary-50"
+        class="w-full resize-none outline-none group-hover:bg-primary-50 hover:bg-primary-50"
         bind:this={textareaNode}
         bind:value
         use:useActions={autocompleteActions}

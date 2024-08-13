@@ -36,7 +36,7 @@
 </script>
 
 <div
-    class="fixed left-0 top-0 h-1 bg-primary transition-all"
+    class="fixed left-0 top-0 h-0.5 bg-primary transition-all"
     style="width: {loaderWidth}%; opacity: {loaderOpacity}%"
 ></div>
 {@render children()}

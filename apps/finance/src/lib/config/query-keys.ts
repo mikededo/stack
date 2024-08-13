@@ -3,5 +3,6 @@ export const Keys = {
   BOOK_TAGS: (book: string) => ['books', book, 'tags'],
   BOOKS: ['books'],
   PAGE: (book: string, page: string) => ['books', book, 'page', page],
+  PINNED_PAGES: ['pinned-pages'],
   USER: ['user']
 };

@@ -78,11 +78,7 @@
         class="h-top-bar-sm flex-1 overflow-hidden border border-transparent bg-white p-6 py-8 md:h-top-bar-md md:max-w-[calc(100vw_-_256px)] md:px-10"
     >
         {#key data.pathname}
-            <div
-                class="flex flex-col gap-4"
-                in:fade={{ delay: 100, duration: 100 }}
-                out:fade={{ duration: 100 }}
-            >
+            <div class="flex flex-col gap-4">
                 {@render children()}
             </div>
         {/key}

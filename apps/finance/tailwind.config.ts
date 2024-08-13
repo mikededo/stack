@@ -1,11 +1,11 @@
 import type { Config } from 'tailwindcss';
 
-import { theme, typography } from '@mstack/tailwind-config';
+import { scrollbars, theme, typography } from '@mstack/tailwind-config';
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   darkMode: 'class',
-  plugins: [typography()],
+  plugins: [typography(), scrollbars()],
   presets: [{ theme }],
   theme: {
     extend: {
