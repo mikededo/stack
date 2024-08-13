@@ -10,6 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@mstack/typescript-config": "workspace:*"
+    "@mstack/typescript-config": "workspace:*",
+    "tailwind-scrollbar": "3.1.0"
   }
 }

@@ -115,6 +115,8 @@ export const theme: Config['theme'] = {
   }
 };
 
+export const scrollbars = () => require('tailwind-scrollbar');
+
 export const typography = () =>
   plugin((api) => {
     const { addBase, theme } = api;
