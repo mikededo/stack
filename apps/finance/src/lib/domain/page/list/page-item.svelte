@@ -9,30 +9,58 @@
         ClipboardPlusIcon,
         File,
         Link2,
-        PencilIcon
+        PencilIcon,
+        Pin,
+        PinOff
     } from 'lucide-svelte';
 
+    import type { BooksWithPages } from '$lib/db';
+
+    import { usePinnedPages } from './hooks';
+
     type Props = {
-        createdAt: Date;
-        href?: string;
         isShared?: boolean;
         name: Snippet;
         owner: string;
+        page: BooksWithPages[number]['page'][number];
     };
-    let { createdAt, href, isShared, name, owner }: Props = $props();
+    let { isShared, name, owner, page }: Props = $props();
 
-    let menu = createContextMenu();
+    let isPinned = $state(false);
+
+    const menu = createContextMenu();
+    const { pin, query: pinnedPages, unpin } = usePinnedPages();
+    pinnedPages.subscribe(({ data, isLoading }) => {
+        if ((!data || isLoading) && isPinned) {
+            isPinned = false;
+        }
+
+        isPinned = !!data?.some(({ page: current }) => current?.id === page.id);
+    });
 
     const handleOnClick = () => {
         window.alert('Under development');
     };
 
-    const cmOptions: ContextMenuOption[] = [
+    const handleOnTogglePin = () => {
+        if (isPinned) {
+            $unpin.mutate(page.id);
+        } else {
+            $pin.mutate(page.id);
+        }
+    };
+
+    const cmOptions: ContextMenuOption[] = $derived([
+        {
+            Icon: isPinned ? PinOff : Pin,
+            onClick: handleOnTogglePin,
+            text: isPinned ? 'Unpin page' : 'Pin page'
+        },
         { Icon: ClipboardCopyIcon, onClick: handleOnClick, text: 'Copy' },
         { Icon: ClipboardPlusIcon, onClick: handleOnClick, text: 'Duplicate' },
         { Icon: ClipboardPasteIcon, onClick: handleOnClick, text: 'Paste' },
         { Icon: PencilIcon, onClick: handleOnClick, text: 'Rename' }
-    ];
+    ]);
 </script>
 
 {#snippet content()}
@@ -49,7 +77,7 @@
             </span>
         </div>
         <span class="hidden w-20 text-center text-xs md:block">
-            {createdAt.toLocaleDateString()}
+            {new Date(page.created_at).toLocaleDateString()}
         </span>
         <Link2
             class={`size-4 rotate-45 ${!isShared ? 'text-surface-200' : ''}`}
@@ -58,16 +86,14 @@
     </div>
 {/snippet}
 
-{#if href}
-    <ListItem hoverable>
-        <a class="flex w-full items-center justify-between gap-2 px-3 py-2" use:menu.trigger {href}>
-            {@render content()}
-        </a>
-    </ListItem>
-{:else}
-    <ListItem class="flex w-full items-center justify-between gap-2 px-3 py-2" hoverable>
+<ListItem hoverable>
+    <a
+        class="flex w-full items-center justify-between gap-2 px-3 py-2"
+        use:menu.trigger
+        href={`/app/${page.book_id}/${page.id}`}
+    >
         {@render content()}
-    </ListItem>
-{/if}
+    </a>
+</ListItem>
 
 <ContextMenu menu={menu.menu} options={cmOptions} />

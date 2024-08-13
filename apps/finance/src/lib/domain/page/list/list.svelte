@@ -68,12 +68,7 @@
 <ul>
     <ListHeader />
     {#each book.page as page (page.id)}
-        <PageItem
-            createdAt={new Date(page.created_at)}
-            href={`/app/${book.id}/${page.id}`}
-            isShared={page.created_by !== user.id}
-            owner={user.first_name[0]}
-        >
+        <PageItem isShared={page.created_by !== user.id} owner={user.first_name[0]} {page}>
             {#snippet name()}
                 <span>{page.name}</span>
             {/snippet}

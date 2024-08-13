@@ -1,6 +1,11 @@
+<script>
+    import { fade } from 'svelte/transition';
+</script>
+
 {#each { length: 3 } as _, i (i)}
     <div
         class="flex w-60 shrink-0 animate-pulse flex-col gap-2 rounded-lg border border-surface-200 bg-white p-3"
+        transition:fade|global={{ duration: 200 }}
     >
         <div class="flex items-center justify-between">
             <div class="h-5 w-24 rounded-md bg-surface-200"></div>

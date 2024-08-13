@@ -12,7 +12,10 @@ import {
   getBooksWithPages,
   getBookTags,
   getPage,
-  getPinnedPages
+  getPinnedPages,
+  type PinnedPages,
+  pinPage,
+  unpinPage
 } from '$lib/db';
 
 export const useBooks = (client: Client) =>
@@ -43,6 +46,41 @@ export const usePinnedPages = (client: Client) =>
   createQuery({
     queryFn: () => getPinnedPages(client),
     queryKey: Keys.PINNED_PAGES
+  });
+export const usePinPage = (client: Client, queryClient: QueryClient) =>
+  createMutation({
+    mutationFn: async (page: number) => await pinPage(client, page),
+    onSuccess: (data) => {
+      if (!data) {
+        return;
+      }
+
+      const newPin = data[0];
+      if (!newPin) {
+        return;
+      }
+
+      queryClient.setQueryData<PinnedPages>(Keys.PINNED_PAGES, (prev) => {
+        if (!prev) {
+          return prev;
+        }
+
+        return [newPin, ...prev];
+      });
+    }
+  });
+export const useUnpinPage = (client: Client, queryClient: QueryClient) =>
+  createMutation({
+    mutationFn: async (page: number) => await unpinPage(client, page),
+    onSuccess: (_, page) => {
+      queryClient.setQueryData<PinnedPages>(Keys.PINNED_PAGES, (prev) => {
+        if (!prev) {
+          return prev;
+        }
+
+        return prev.filter(({ page: current }) => current?.id !== page);
+      });
+    }
   });
 export const useClickPinnedPage = (client: Client, queryClient: QueryClient) =>
   createMutation({

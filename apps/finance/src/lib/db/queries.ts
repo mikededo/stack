@@ -63,6 +63,17 @@ export const createPage = async (client: Client, { book, name }: NewPageData) =>
       .throwOnError()
   ).data;
 
+export const pinPage = async (client: Client, page: number) =>
+  (
+    await client
+      .schema('finances')
+      .from('pinned_pages')
+      .insert([{ page_id: page }])
+      .select('page(*)')
+      .throwOnError()
+  ).data;
+export const unpinPage = async (client: Client, page: number) =>
+  await client.schema('finances').from('pinned_pages').delete().eq('page_id', page).throwOnError();
 export type ClickPinnedPageData = { page: number; userId: string };
 export const clickPinnedPage = async (client: Client, { page, userId }: ClickPinnedPageData) =>
   await client
