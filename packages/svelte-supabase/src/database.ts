@@ -864,7 +864,7 @@ export type Database = {
         Insert: {
           last_clicked?: null | string;
           page_id: number;
-          user_id: string;
+          user_id?: string;
         };
         Relationships: [
           {
