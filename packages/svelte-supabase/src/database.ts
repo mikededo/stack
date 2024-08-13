@@ -860,6 +860,39 @@ export type Database = {
           name?: string;
         };
       };
+      pinned_pages: {
+        Insert: {
+          last_clicked?: null | string;
+          page_id: number;
+          user_id: string;
+        };
+        Relationships: [
+          {
+            columns: ['page_id'];
+            foreignKeyName: 'pinned_pages_page_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'page';
+          },
+          {
+            columns: ['user_id'];
+            foreignKeyName: 'pinned_pages_user_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          }
+        ];
+        Row: {
+          last_clicked: null | string;
+          page_id: number;
+          user_id: string;
+        };
+        Update: {
+          last_clicked?: null | string;
+          page_id?: number;
+          user_id?: string;
+        };
+      };
       tag: {
         Insert: {
           book_id: number;
