@@ -33,7 +33,12 @@
         class="hidden h-full overflow-x-hidden border-r border-surface-100 md:block md:min-w-64"
     ></div>
     <div class="flex h-full w-full items-center justify-end bg-surface-50 pr-10">
-        <span class="text-sm text-surface-700">Welcome back, Miquel!</span>
+        <!-- TODO: Add user preferences -->
+        <span
+            class="cursor-pointer text-sm text-surface-700 underline decoration-transparent underline-offset-1 transition-colors hover:decoration-surface-700"
+        >
+            Welcome back, {data.user.first_name}!
+        </span>
     </div>
 </header>
 
