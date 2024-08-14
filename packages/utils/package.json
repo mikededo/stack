@@ -16,12 +16,14 @@
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "prettier --write . && eslint --fix .",
+    "test:unit": "vitest --run",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@tanstack/svelte-query": "5.51.21"
   },
   "devDependencies": {
-    "@mstack/typescript-config": "workspace:*"
+    "@mstack/typescript-config": "workspace:*",
+    "vitest": "2.0.5"
   }
 }
