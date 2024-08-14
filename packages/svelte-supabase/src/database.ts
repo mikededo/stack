@@ -701,7 +701,12 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      [_ in never]: never;
+      log_last_accessed_page: {
+        Args: {
+          page: number;
+        };
+        Returns: undefined;
+      };
     };
     Tables: {
       book: {
@@ -819,6 +824,39 @@ export type Database = {
         Update: {
           expense_id?: number;
           tag_id?: number;
+        };
+      };
+      last_accessed_pages: {
+        Insert: {
+          last_accessed?: null | string;
+          page_id: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            columns: ['page_id'];
+            foreignKeyName: 'last_accessed_pages_page_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'page';
+          },
+          {
+            columns: ['user_id'];
+            foreignKeyName: 'last_accessed_pages_user_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          }
+        ];
+        Row: {
+          last_accessed: null | string;
+          page_id: number;
+          user_id: string;
+        };
+        Update: {
+          last_accessed?: null | string;
+          page_id?: number;
+          user_id?: string;
         };
       };
       page: {
