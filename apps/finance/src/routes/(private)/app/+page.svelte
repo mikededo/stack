@@ -2,6 +2,7 @@
     import { fade } from 'svelte/transition';
 
     import { BookAccordion, BookAccordionSkeleton } from '$lib/domain/books';
+    import { LastViewedPages, QuickActions } from '$lib/domain/dashboard';
     import { PinnedPages } from '$lib/domain/page';
     import { useBooks } from '$lib/hooks';
 
@@ -26,6 +27,8 @@
 
 <h1 class="md:mb-4">Dashboard</h1>
 
+<QuickActions />
+<LastViewedPages />
 <PinnedPages />
 <section class="flex h-full flex-col gap-3">
     <h2 class="text-2xl">Your books</h2>

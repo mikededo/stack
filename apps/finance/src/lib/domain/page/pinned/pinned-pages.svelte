@@ -42,13 +42,16 @@
             {#each $pinnedPagesQuery.data as { page } (page?.id)}
                 {#if page}
                     <button
-                        class="flex w-60 shrink-0 flex-col items-start gap-1 overflow-x-hidden rounded-lg border border-surface-200 bg-white p-3 transition-all duration-100 hover:border-primary-300 active:scale-[0.98]"
-                        transition:fade|global={{ duration }}
+                        class="group flex w-60 shrink-0 flex-col items-start gap-1 overflow-x-hidden rounded-lg border border-surface-200 bg-white p-3 transition-all duration-100 hover:border-primary-300 active:scale-[0.98]"
+                        transition:fade|global={{ delay: 100, duration }}
                         onclick={handleOnClick(page)}
                     >
                         <div class="flex w-full items-center justify-between">
                             <p class="text-sm font-semibold">{page.name}</p>
-                            <Pin class="size-4 rotate-45  stroke-primary" strokeWidth={2} />
+                            <Pin
+                                class="size-4 rotate-45 stroke-primary transition-all group-hover:rotate-0"
+                                strokeWidth={2}
+                            />
                         </div>
                         <span class="text-xs italic text-surface-700"> Last updated tomorrow </span>
                     </button>

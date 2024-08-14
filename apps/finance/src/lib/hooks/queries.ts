@@ -1,8 +1,9 @@
-import type { Client } from '@mstack/svelte-supabase';
-
+// FIXME: This file is a mess, needs to be refactored
 import type { QueryClient } from '@tanstack/svelte-query';
 
-import { createMutation, createQuery } from '@tanstack/svelte-query';
+import { type Client, getSupabaseClient } from '@mstack/svelte-supabase';
+
+import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
 import {
@@ -11,10 +12,12 @@ import {
   getBook,
   getBooksWithPages,
   getBookTags,
+  getLastAccessedPages,
   getPage,
   getPinnedPages,
   type PinnedPages,
   pinPage,
+  trackPageView,
   unpinPage
 } from '$lib/db';
 
@@ -95,3 +98,23 @@ export const useClickPinnedPage = (client: Client, queryClient: QueryClient) =>
       queryClient.invalidateQueries({ queryKey: Keys.PINNED_PAGES });
     }
   });
+
+export const useLastViewedPages = () => {
+  const supabase = getSupabaseClient();
+
+  return createQuery({
+    queryFn: () => getLastAccessedPages(supabase),
+    queryKey: Keys.LAST_VIEWED_PAGES
+  });
+};
+export const useTrackViewedPage = () => {
+  const queryClient = useQueryClient();
+  const supabase = getSupabaseClient();
+
+  return createMutation({
+    mutationFn: async (page: number) => await trackPageView(supabase, page),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: Keys.LAST_VIEWED_PAGES });
+    }
+  });
+};

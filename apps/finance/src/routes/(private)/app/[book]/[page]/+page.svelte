@@ -1,18 +1,20 @@
 <script lang="ts">
     import { Breadcrumbs, type Crumbs } from '@mstack/ui';
 
+    import { afterNavigate } from '$app/navigation';
     import { Check, Loader2, SaveOff } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
     import { pathTo } from '$lib/config';
     import { initPageContext, PageTable, setContextPage } from '$lib/domain/page';
-    import { useBookPages } from '$lib/hooks';
+    import { useBookPages, useTrackViewedPage } from '$lib/hooks';
 
     import type { PageData } from './$types';
 
     type Props = { data: PageData };
     let { data }: Props = $props();
 
+    const trackPageView = useTrackViewedPage();
     const query = useBookPages(data.supabase, data.params.book, data.params.page);
     query.subscribe(({ data }) => {
         if (data) {
@@ -36,6 +38,13 @@
             },
             { label: $query.data.name }
         ];
+    });
+
+    afterNavigate(({ to }) => {
+        // Track only when entering the page
+        if (to?.url.pathname === pathTo('page', data.params)) {
+            $trackPageView.mutate(Number(data.params.page));
+        }
     });
 </script>
 
