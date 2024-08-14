@@ -32,7 +32,7 @@
 </script>
 
 <section class="flex flex-col gap-3 md:mb-4">
-    <p class="text-sm">Pinned pages</p>
+    <p class="text-sm font-semibold">Pinned pages</p>
     <div
         class="flex h-20 items-start gap-2 overflow-x-auto scrollbar-thin scrollbar-track-transparent scrollbar-thumb-surface-200 hover:scrollbar-thumb-surface-400"
     >

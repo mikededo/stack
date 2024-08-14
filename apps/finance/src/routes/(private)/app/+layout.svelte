@@ -49,12 +49,12 @@
     <div
         class="hidden h-top-bar-md overflow-x-hidden border-r border-surface-100 bg-white md:block md:min-w-64"
     >
-        <nav class="h-full gap-1 px-6 py-10">
+        <nav class="h-full gap-1 py-10">
             <ul class="flex w-full flex-col gap-1">
                 {#each tabs as { href, Icon, name } (href)}
                     <li>
                         <a
-                            class="flex w-full cursor-pointer items-center justify-between rounded px-3 py-2 font-semibold transition-colors aria-current:bg-primary-100 aria-not-current:hover:bg-primary-100"
+                            class="flex w-full cursor-pointer items-center justify-between border-l-4 border-transparent px-3 py-2 text-sm font-semibold transition-colors aria-current:border-primary aria-current:bg-primary-100 aria-current:text-primary aria-not-current:hover:bg-primary-100"
                             aria-current={isNestedPath(href, 'app')}
                             role="tab"
                             {href}
