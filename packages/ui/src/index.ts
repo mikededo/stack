@@ -1,3 +1,4 @@
+export { Autocomplete } from './autocomplete/index.js';
 export { Breadcrumbs, type Crumbs } from './breadcrumbs/index.js';
 export { Button, TextIconButton } from './button/index.js';
 export { Chip } from './chip/index.js';
