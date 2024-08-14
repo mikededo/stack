@@ -1,9 +1,11 @@
+import type { MutationResult } from '@mstack/utils';
+
 import { type Client } from '@mstack/svelte-supabase';
 
 import { createMutation, type QueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { createExpense, type Expense, type NewExpenseData, type Page } from '$lib/db';
+import { createExpense, type Expense, type Page } from '$lib/db';
 
 // FIXME: Omitting tags as not yet implemented
 const updateExistingExpense =
@@ -11,15 +13,6 @@ const updateExistingExpense =
     updatedExpense.id === expense.id ? { ...expense, ...updatedExpense } : expense;
 
 type MutationContext = { cachedPage: null | Page; isNewExpense: boolean };
-// TODO: Extract into helper type
-type Result = ReturnType<
-  typeof createMutation<
-    Awaited<ReturnType<typeof createExpense>>,
-    Error,
-    NewExpenseData,
-    MutationContext
-  >
->;
 type UseExpenseMutationArgs = {
   bookId?: number;
   client: Client;
@@ -28,6 +21,7 @@ type UseExpenseMutationArgs = {
   queryClient: QueryClient;
   userId: string;
 };
+type Result = MutationResult<typeof createExpense, MutationContext>;
 export const useExpenseMutation = ({
   bookId,
   client,
@@ -56,7 +50,7 @@ export const useExpenseMutation = ({
       }
 
       // Restablish page, as the query failed and the new expense has not been added
-      queryClient.setQueryData<Page>(
+      queryClient.setQueryData(
         Keys.PAGE(`${bookId}`, `${context.cachedPage.id}`),
         context.cachedPage
       );

@@ -1,3 +1,14 @@
+<script context="module" lang="ts">
+    type Props = {
+        isShared?: boolean;
+        name: Snippet;
+        owner: string;
+    } & (
+        | { createdAt: Date; page?: never }
+        | { createdAt?: never; page: BooksWithPages[number]['page'][number] }
+    );
+</script>
+
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
@@ -18,19 +29,17 @@
 
     import { usePinnedPages } from './hooks';
 
-    type Props = {
-        isShared?: boolean;
-        name: Snippet;
-        owner: string;
-        page: BooksWithPages[number]['page'][number];
-    };
-    let { isShared, name, owner, page }: Props = $props();
+    let { createdAt, isShared, name, owner, page }: Props = $props();
 
     let isPinned = $state(false);
 
     const menu = createContextMenu();
     const { pin, query: pinnedPages, unpin } = usePinnedPages();
     pinnedPages.subscribe(({ data, isLoading }) => {
+        if (!page) {
+            return;
+        }
+
         if ((!data || isLoading) && isPinned) {
             isPinned = false;
         }
@@ -43,6 +52,10 @@
     };
 
     const handleOnTogglePin = () => {
+        if (!page) {
+            return;
+        }
+
         if (isPinned) {
             $unpin.mutate(page.id);
         } else {
@@ -56,10 +69,10 @@
             onClick: handleOnTogglePin,
             text: isPinned ? 'Unpin page' : 'Pin page'
         },
-        { Icon: ClipboardCopyIcon, onClick: handleOnClick, text: 'Copy' },
-        { Icon: ClipboardPlusIcon, onClick: handleOnClick, text: 'Duplicate' },
-        { Icon: ClipboardPasteIcon, onClick: handleOnClick, text: 'Paste' },
-        { Icon: PencilIcon, onClick: handleOnClick, text: 'Rename' }
+        { disabled: true, Icon: ClipboardCopyIcon, onClick: handleOnClick, text: 'Copy' },
+        { disabled: true, Icon: ClipboardPlusIcon, onClick: handleOnClick, text: 'Duplicate' },
+        { disabled: true, Icon: ClipboardPasteIcon, onClick: handleOnClick, text: 'Paste' },
+        { disabled: true, Icon: PencilIcon, onClick: handleOnClick, text: 'Rename' }
     ]);
 </script>
 
@@ -77,7 +90,11 @@
             </span>
         </div>
         <span class="hidden w-20 text-center text-xs md:block">
-            {new Date(page.created_at).toLocaleDateString()}
+            {#if page}
+                {new Date(page.created_at).toLocaleDateString()}
+            {:else if createdAt}
+                {createdAt.toLocaleDateString()}
+            {/if}
         </span>
         <Link2
             class={`size-4 rotate-45 ${!isShared ? 'text-surface-200' : ''}`}
@@ -86,14 +103,19 @@
     </div>
 {/snippet}
 
-<ListItem hoverable>
-    <a
-        class="flex w-full items-center justify-between gap-2 px-3 py-2"
-        use:menu.trigger
-        href={`/app/${page.book_id}/${page.id}`}
-    >
+{#if page}
+    <ListItem hoverable>
+        <a
+            class="flex w-full items-center justify-between gap-2 px-3 py-2"
+            use:menu.trigger
+            href={`/app/${page.book_id}/${page.id}`}
+        >
+            {@render content()}
+        </a>
+    </ListItem>
+    <ContextMenu menu={menu.menu} options={cmOptions} />
+{:else}
+    <ListItem class="flex w-full items-center justify-between gap-2 px-3 py-2" hoverable>
         {@render content()}
-    </a>
-</ListItem>
-
-<ContextMenu menu={menu.menu} options={cmOptions} />
+    </ListItem>
+{/if}

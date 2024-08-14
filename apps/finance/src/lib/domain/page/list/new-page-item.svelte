@@ -8,21 +8,18 @@
 
     type Props = {
         onCancel?: () => void;
-        onConfirm?: (pageName: string) => void;
+        onConfirm?: () => void;
+        value?: string;
     };
-    let { onCancel, onConfirm }: Props = $props();
+    let { onCancel, onConfirm, value = $bindable() }: Props = $props();
 
     let user = getUserDataContext();
-
-    const handleOnBlur = () => {
-        onCancel?.();
-    };
 
     const handleOnKeydown: KeyboardEventHandler<HTMLInputElement> = (event) => {
         if (event.key === 'Escape') {
             onCancel?.();
         } else if (event.key === 'Enter') {
-            onConfirm?.(event.currentTarget.value);
+            onConfirm?.();
         }
     };
 </script>
@@ -31,9 +28,9 @@
     {#snippet name()}
         <input
             class="w-full bg-transparent outline-none"
+            bind:value
             use:useAutofocus
             placeholder="Page name..."
-            onblur={handleOnBlur}
             onkeydown={handleOnKeydown}
         />
     {/snippet}
