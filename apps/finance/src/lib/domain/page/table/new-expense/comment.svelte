@@ -1,9 +1,8 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    import { type ActionArray, clickAway, portal, useActions } from '@mstack/actions';
-    import { FloatingCard } from '@mstack/ui';
-    import { Keys } from '@mstack/utils';
+    import { type ActionArray } from '@mstack/actions';
+    import { Autocomplete } from '@mstack/ui';
 
     import type { Expense } from '$lib/db';
 
@@ -17,103 +16,53 @@
     };
     let { autofocus, expenses, use = [], value = $bindable('') }: Props = $props();
 
-    let textarea = $state(autofocus ?? false);
-    let textareaNode = $state<HTMLTextAreaElement | null>(null);
-    let autocompleteOptionsNode = $state<HTMLDivElement | null>(null);
-    let autocompleteOptions = $derived(textarea ? getNewEntryMatches(expenses, value) : []);
-    let autocompletePosition = $derived.by(() => {
-        if (!textareaNode) {
-            return undefined;
+    let show = $state(autofocus ?? false);
+    let autocompleteOptions = $derived(show ? getNewEntryMatches(expenses, value) : []);
+
+    const handleOnShowAutocomplete = () => {
+        show = true;
+    };
+
+    const handleOnHideAutocomplete = () => {
+        show = false;
+    };
+
+    const handleOnOptionClick = (comment: string) => () => {
+        value = comment;
+    };
+
+    const fieldAutofocus: Action = (node) => {
+        if (autofocus) {
+            node.focus();
         }
-
-        let client = textareaNode.getBoundingClientRect();
-        return {
-            left: client.x,
-            top: client.y + client.height + 8, // 8 as padding
-            width: client.width
-        };
-    });
-
-    $effect(() => {
-        if (textareaNode && document.activeElement !== textareaNode) {
-            textareaNode.focus();
-        }
-    });
-
-    const useAutocomplete: Action = (node) => {
-        node.addEventListener('keydown', (event) => {
-            if (!autocompleteOptionsNode) {
-                return;
-            }
-
-            const children = autocompleteOptionsNode.children;
-            if (event.key === Keys.ArrowDown) {
-                (children[0] as HTMLElement).focus();
-            } else if (event.key === Keys.ArrowUp) {
-                (children[children.length - 1] as HTMLElement).focus();
-            }
-        });
     };
-
-    const handleOnShowTextarea = () => {
-        textarea = true;
-    };
-
-    const handleOnClickAway = () => {
-        textarea = false;
-    };
-
-    let autocompleteActions = $derived<ActionArray>([
-        ...use,
-        [clickAway, handleOnClickAway],
-        useAutocomplete
-    ]);
 </script>
 
-{#if textarea}
+<Autocomplete
+    show={!!autocompleteOptions.length && show}
+    {use}
+    onClickAway={handleOnHideAutocomplete}
+>
     <textarea
         class="w-full resize-none outline-none group-hover:bg-primary-50 hover:bg-primary-50"
-        bind:this={textareaNode}
         bind:value
-        use:useActions={autocompleteActions}
+        use:fieldAutofocus
         name="comment"
         placeholder="What was this expense for...?"
         rows={1}
         style="field-sizing: content"
+        onfocus={handleOnShowAutocomplete}
     ></textarea>
-{:else}
-    <button
-        class="w-full truncate text-left outline-none"
-        name="comment"
-        class:text-[#979797]={!value}
-        onclick={handleOnShowTextarea}
-        onfocus={handleOnShowTextarea}
-    >
-        {value ? value : 'What was this expense for...?'}
-    </button>
-{/if}
 
-{#if textarea && autocompleteOptions.length}
-    <FloatingCard
-        class="rounded-0 overflow-hidden p-0"
-        position={autocompletePosition}
-        use={[[portal, '']]}
-    >
-        <div
-            class="flex max-h-44 w-full flex-col gap-[1px] overflow-y-auto overflow-x-hidden p-1"
-            bind:this={autocompleteOptionsNode}
-        >
-            {#each autocompleteOptions as { expense, html } (expense.id)}
-                <button
-                    class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
-                    onclick={() => {
-                        value = expense.comment!;
-                    }}
-                >
-                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                    {@html html}
-                </button>
-            {/each}
-        </div>
-    </FloatingCard>
-{/if}
+    {#snippet options()}
+        {#each autocompleteOptions as { expense, html } (expense.id)}
+            <button
+                class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
+                onclick={handleOnOptionClick(expense.comment!)}
+            >
+                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                {@html html}
+            </button>
+        {/each}
+    {/snippet}
+</Autocomplete>

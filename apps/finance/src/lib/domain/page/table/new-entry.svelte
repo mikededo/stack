@@ -95,8 +95,6 @@
         };
     };
 
-    $inspect(forceFocus);
-
     // TODO: Create an event that will blur the fields when
     // the user clicks outside any field of the table - maybe its
     // easier to just detect clicks outside the tr
