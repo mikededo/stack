@@ -18,6 +18,9 @@
     "lint:fix": "prettier --write . && eslint --fix .",
     "type-check": "tsc --noEmit"
   },
+  "dependencies": {
+    "@tanstack/svelte-query": "5.51.21"
+  },
   "devDependencies": {
     "@mstack/typescript-config": "workspace:*"
   }
