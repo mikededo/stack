@@ -4,5 +4,6 @@ export const Keys = {
   ArrowRight: 'ArrowRight',
   ArrowUp: 'ArrowUp',
   Enter: 'Enter',
-  Escape: 'Escape'
+  Escape: 'Escape',
+  Tab: 'Tab'
 };
