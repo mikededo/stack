@@ -14,6 +14,7 @@
     import type { Action } from 'svelte/action';
 
     import { getSupabaseClient, getUserDataContext } from '@mstack/svelte-supabase';
+    import { Keys } from '@mstack/utils';
 
     import { useQueryClient } from '@tanstack/svelte-query';
 
@@ -57,7 +58,7 @@
                 return;
             }
 
-            if (event.key !== 'Enter') {
+            if (event.key !== Keys.Enter) {
                 return;
             }
 
@@ -77,6 +78,7 @@
                 date
             };
             $expenseMutation.mutate({ ...updatedFields, id: expense?.id ?? undefined, page });
+
             if (expense) {
                 // Update current expense to improve ux
                 onUpdateExpense?.({ ...expense, ...updatedFields });

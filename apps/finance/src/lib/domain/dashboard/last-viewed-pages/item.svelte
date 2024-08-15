@@ -69,7 +69,7 @@
             <span class="truncate">{page?.name}</span>
             {#if page?.book?.name}
                 <ChevronRight class="size-4 shrink-0 text-surface-800" strokeWidth={2.5} />
-                <span class="shrink-0 text-surface-600">{page.book.name}</span>
+                <span class="shrink-0 text-surface-800">{page.book.name}</span>
             {/if}
         </p>
     </div>

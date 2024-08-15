@@ -51,6 +51,7 @@
 
     const handleonUpdateExpense = (expense: Expense) => {
         internalExpense = expense;
+        handleOnEditMode(null)();
     };
 
     const cmOptions: ContextMenuOption[] = [
@@ -68,41 +69,14 @@
     use:menu.trigger
     aria-current={isRowActive(position) || menu.states.isMenuActive}
 >
-    {#if editRow}
-        <NewEntry
-            expense={internalExpense}
-            forceFocus={editRow}
-            disableAutofocus
-            nested
-            onBlur={handleOnEditMode(null)}
-            onUpdateExpense={handleonUpdateExpense}
-        />
-    {:else}
-        <td class={baseTdStyles('w-32 shrink-0')} tabindex="0">
-            <button class="cursor-text text-left outline-none" onclick={handleOnEditMode('date')}>
-                {parseDate(internalExpense.date)}
-            </button>
-        </td>
-        <td class={baseTdStyles('w-32 shrink-0')} tabindex="0" onclick={handleOnEditMode('amount')}>
-            <button class="w-full cursor-text text-left outline-none">
-                &euro; {internalExpense.amount?.toFixed(2)}
-            </button>
-        </td>
-        <td
-            class={baseTdStyles('w-full min-w-64')}
-            tabindex="0"
-            onclick={handleOnEditMode('comment')}
-        >
-            <button class="w-full cursor-text truncate text-left outline-none">
-                {internalExpense.comment}
-            </button>
-        </td>
-        <td class={baseTdStyles('min-w-24 md:min-w-40')} tabindex="0" onclick={console.log}>
-            {#each expense.tags as tag (tag.id)}
-                <Chip color={tag.color}>{tag.name}</Chip>
-            {/each}
-        </td>
-    {/if}
+    <NewEntry
+        expense={internalExpense}
+        forceFocus={editRow}
+        disableAutofocus
+        nested
+        onBlur={handleOnEditMode(null)}
+        onUpdateExpense={handleonUpdateExpense}
+    />
 </tr>
 
 <ContextMenu menu={menu.menu} options={cmOptions} />

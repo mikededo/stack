@@ -1,8 +1,9 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    import { type ActionArray } from '@mstack/actions';
+    import { type ActionArray, useActions } from '@mstack/actions';
     import { Autocomplete } from '@mstack/ui';
+    import { Keys } from '@mstack/utils';
 
     import type { Expense } from '$lib/db';
 
@@ -35,18 +36,34 @@
         if (autofocus) {
             node.focus();
         }
+
+        const onKeydown = (event: KeyboardEvent) => {
+            if (event.key === Keys.Tab) {
+                handleOnHideAutocomplete();
+            }
+        };
+
+        const onBlur = () => {
+            handleOnHideAutocomplete();
+        };
+
+        node.addEventListener('keydown', onKeydown);
+        node.addEventListener('blur', onBlur);
+
+        return {
+            destroy() {
+                node.removeEventListener('keydown', onKeydown);
+                node.removeEventListener('blur', onBlur);
+            }
+        };
     };
 </script>
 
-<Autocomplete
-    show={!!autocompleteOptions.length && show}
-    {use}
-    onClickAway={handleOnHideAutocomplete}
->
+<Autocomplete show={!!autocompleteOptions.length && show} onClickAway={handleOnHideAutocomplete}>
     <textarea
         class="w-full resize-none outline-none group-hover:bg-primary-50 hover:bg-primary-50"
         bind:value
-        use:fieldAutofocus
+        use:useActions={[...use, fieldAutofocus]}
         name="comment"
         placeholder="What was this expense for...?"
         rows={1}
