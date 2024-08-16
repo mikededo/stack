@@ -1,4 +1,4 @@
-import { getSupabaseClient } from '@mstack/svelte-supabase';
+import { getSupabaseClient } from '@stack/svelte-supabase';
 
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 

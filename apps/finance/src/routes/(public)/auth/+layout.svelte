@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-    <title>Authentication | Finance · MStack</title>
+    <title>Authentication | Finance · stack</title>
     <meta content="Sign in or sign up to access your Finance account" name="description" />
     <meta content="noindex, nofollow" name="robots" />
     <meta content="#ffffff" name="theme-color" />
@@ -15,7 +15,7 @@
     <meta content="Lang Hub" name="application-name" />
     <meta content="website" property="og:type" />
     <meta content="TBD" property="og:url" />
-    <meta content="Authentication | Finance · MStack" property="og:title" />
+    <meta content="Authentication | Finance · stack" property="og:title" />
     <meta content="Sign in or sign up to access your Finance account" property="og:description" />
     <meta content="TBD" property="og:image" />
     <meta content="1200" property="og:image:width" />

@@ -1,7 +1,7 @@
 // FIXME: This file is a mess, needs to be refactored
 import type { QueryClient } from '@tanstack/svelte-query';
 
-import { type Client, getSupabaseClient } from '@mstack/svelte-supabase';
+import { type Client, getSupabaseClient } from '@stack/svelte-supabase';
 
 import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
 

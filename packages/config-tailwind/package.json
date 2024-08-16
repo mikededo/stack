@@ -1,5 +1,5 @@
 {
-  "name": "@mstack/tailwind-config",
+  "name": "@stack/tailwind-config",
   "private": true,
   "version": "0.0.0",
   "exports": {
@@ -10,7 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "devDependencies": {
-    "@mstack/typescript-config": "workspace:*",
+    "@stack/typescript-config": "workspace:*",
     "tailwind-scrollbar": "3.1.0"
   }
 }

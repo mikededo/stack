@@ -1,5 +1,5 @@
 {
-  "name": "@mstack/svelte-supabase",
+  "name": "@stack/svelte-supabase",
   "version": "0.0.0",
   "type": "module",
   "exports": {
@@ -18,7 +18,7 @@
     "@supabase/supabase-js": "2.45.1"
   },
   "devDependencies": {
-    "@mstack/typescript-config": "workspace:*",
+    "@stack/typescript-config": "workspace:*",
     "svelte": "^5.0.0-next.216"
   }
 }

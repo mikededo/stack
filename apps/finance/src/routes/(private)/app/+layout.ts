@@ -1,4 +1,4 @@
-import { getUserData } from '@mstack/svelte-supabase';
+import { getUserData } from '@stack/svelte-supabase';
 
 import { redirect } from '@sveltejs/kit';
 

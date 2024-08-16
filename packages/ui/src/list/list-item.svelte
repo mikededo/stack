@@ -1,9 +1,9 @@
 <script lang="ts">
-    import type { ActionArray } from '@mstack/actions';
+    import type { ActionArray } from '@stack/actions';
 
     import type { HTMLLiAttributes } from 'svelte/elements';
 
-    import { useActions } from '@mstack/actions';
+    import { useActions } from '@stack/actions';
 
     import { twMerge } from 'tailwind-merge';
 

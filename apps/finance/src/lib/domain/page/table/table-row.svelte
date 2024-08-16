@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-    import { Chip, ContextMenu, type ContextMenuOption, createContextMenu } from '@mstack/ui';
+    import { Chip, ContextMenu, type ContextMenuOption, createContextMenu } from '@stack/ui';
 
     import {
         ArrowDownToLine,

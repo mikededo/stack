@@ -2,7 +2,7 @@
     import type { Action } from 'svelte/action';
     import type { HTMLInputAttributes, KeyboardEventHandler } from 'svelte/elements';
 
-    import { type ActionArray, useActions, useAutofocus } from '@mstack/actions';
+    import { type ActionArray, useActions, useAutofocus } from '@stack/actions';
 
     type Props = {
         onCancel?: () => void;

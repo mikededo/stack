@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { Breadcrumbs, type Crumbs } from '@mstack/ui';
+    import { Breadcrumbs, type Crumbs } from '@stack/ui';
 
-    import { afterNavigate } from '$app/navigation';
     import { Check, Loader2, SaveOff } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
+    import { afterNavigate } from '$app/navigation';
     import { pathTo } from '$lib/config';
     import { initPageContext, PageTable, setContextPage } from '$lib/domain/page';
     import { useBookPages, useTrackViewedPage } from '$lib/hooks';

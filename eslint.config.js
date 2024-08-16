@@ -25,7 +25,7 @@ const perfectionistRules = {
     {
       type: 'alphabetical',
       order: 'asc',
-      internalPattern: ['$lib/**'],
+      internalPattern: ['$*/**'],
       ignoreCase: true,
       newlinesBetween: 'always',
       maxLineLength: undefined,
@@ -43,8 +43,8 @@ const perfectionistRules = {
         'unknown'
       ],
       customGroups: {
-        value: { style: ['@mstack/**/styles'], repo: ['@mstack/**'] },
-        type: { 'repo-type': ['@mstack/**'] }
+        value: { style: ['@stack/**/styles'], repo: ['@stack/**'] },
+        type: { 'repo-type': ['@stack/**'] }
       },
       environment: 'bun'
     }

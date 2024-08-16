@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { clickAway } from '@mstack/actions';
+    import { clickAway } from '@stack/actions';
     import {
         Chip,
         ContextMenu,
         type ContextMenuOption,
         createContextMenu,
         ListItem
-    } from '@mstack/ui';
+    } from '@stack/ui';
 
     import { Layers2, Tag as TagIcon, Trash2 } from 'lucide-svelte';
 

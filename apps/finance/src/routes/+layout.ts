@@ -1,17 +1,18 @@
-import type { Database } from '@mstack/svelte-supabase';
+import type { Database } from '@stack/svelte-supabase';
 
 import { createBrowserClient, createServerClient, isBrowser } from '@supabase/ssr';
 import { QueryClient } from '@tanstack/svelte-query';
+
 import { browser, dev } from '$app/environment';
 
 import type { LayoutLoad } from './$types';
 
 const supabaseUrl = dev
-  ? import.meta.env.MSTACK_DEV_SUPABASE_URL
-  : import.meta.env.MSTACK_PROD_SUPABASE_URL;
+  ? import.meta.env.STACK_DEV_SUPABASE_URL
+  : import.meta.env.STACK_PROD_SUPABASE_URL;
 const supabaseAnonKey = dev
-  ? import.meta.env.MSTACK_DEV_SUPABASE_ANON_KEY
-  : import.meta.env.MSTACK_PROD_SUPABASE_ANON_KEY;
+  ? import.meta.env.STACK_DEV_SUPABASE_ANON_KEY
+  : import.meta.env.STACK_PROD_SUPABASE_ANON_KEY;
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   depends('supabase:auth');

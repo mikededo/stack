@@ -1,4 +1,4 @@
-import { type Client, type Result, withUnauthorizedRedirect } from '@mstack/svelte-supabase';
+import { type Client, type Result, withUnauthorizedRedirect } from '@stack/svelte-supabase';
 
 export const getLastAccessedPagesQuery = (client: Client) =>
   client

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { clickAway, portal } from '@mstack/actions';
+    import { clickAway, portal } from '@stack/actions';
 
     import { cubicInOut } from 'svelte/easing';
     import { scale } from 'svelte/transition';

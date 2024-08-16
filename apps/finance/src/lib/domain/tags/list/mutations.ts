@@ -1,4 +1,4 @@
-import type { Client } from '@mstack/svelte-supabase';
+import type { Client } from '@stack/svelte-supabase';
 
 import type { QueryClient } from '@tanstack/svelte-query';
 

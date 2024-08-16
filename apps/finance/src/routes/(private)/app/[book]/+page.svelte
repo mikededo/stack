@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Breadcrumbs, Button, type Crumbs, TextIconButton } from '@mstack/ui';
+    import { Breadcrumbs, Button, type Crumbs, TextIconButton } from '@stack/ui';
 
     import { File, Tag } from 'lucide-svelte';
     import { fade } from 'svelte/transition';

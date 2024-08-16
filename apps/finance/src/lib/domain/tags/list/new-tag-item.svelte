@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Chip, ListItem } from '@mstack/ui';
+    import { Chip, ListItem } from '@stack/ui';
 
     import { Tag } from 'lucide-svelte';
 

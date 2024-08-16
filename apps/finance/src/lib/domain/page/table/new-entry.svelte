@@ -13,8 +13,8 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    import { getSupabaseClient, getUserDataContext } from '@mstack/svelte-supabase';
-    import { Keys } from '@mstack/utils';
+    import { getSupabaseClient, getUserDataContext } from '@stack/svelte-supabase';
+    import { Keys } from '@stack/utils';
 
     import { useQueryClient } from '@tanstack/svelte-query';
 

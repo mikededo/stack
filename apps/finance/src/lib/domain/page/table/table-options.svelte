@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { getSupabaseClient } from '@mstack/svelte-supabase';
-    import { Input, Menu, MenuOption } from '@mstack/ui';
+    import { getSupabaseClient } from '@stack/svelte-supabase';
+    import { Input, Menu, MenuOption } from '@stack/ui';
 
     import {
         CalendarArrowDown,

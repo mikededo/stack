@@ -6,8 +6,8 @@
     import type { Action } from 'svelte/action';
     import type { HTMLInputAttributes, KeyboardEventHandler } from 'svelte/elements';
 
-    import { type ActionArray, useActions, useAutofocus } from '@mstack/actions';
-    import { HEX_REGEX } from '@mstack/utils';
+    import { type ActionArray, useActions, useAutofocus } from '@stack/actions';
+    import { HEX_REGEX } from '@stack/utils';
 
     type Props = {
         onCancel?: () => void;

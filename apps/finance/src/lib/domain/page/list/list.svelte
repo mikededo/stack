@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { clickAway } from '@mstack/actions';
-    import { getUserDataContext } from '@mstack/svelte-supabase';
-    import { Button } from '@mstack/ui';
+    import { clickAway } from '@stack/actions';
+    import { getUserDataContext } from '@stack/svelte-supabase';
+    import { Button } from '@stack/ui';
 
     import { FilePlus } from 'lucide-svelte';
     import { fade } from 'svelte/transition';

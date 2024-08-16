@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
-    import { Input } from '@mstack/ui';
+    import { Input } from '@stack/ui';
 
     import { fade } from 'svelte/transition';
 

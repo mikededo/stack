@@ -1,8 +1,8 @@
 <script lang="ts">
     import type { KeyboardEventHandler } from 'svelte/elements';
 
-    import { useAutofocus } from '@mstack/actions';
-    import { getUserDataContext } from '@mstack/svelte-supabase';
+    import { useAutofocus } from '@stack/actions';
+    import { getUserDataContext } from '@stack/svelte-supabase';
 
     import PageItem from './page-item.svelte';
 

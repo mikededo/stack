@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { type ActionArray, useActions, useAutofocus, useDateMask } from '@mstack/actions';
+    import { type ActionArray, useActions, useAutofocus, useDateMask } from '@stack/actions';
 
     type Props = { disableAutofocus?: boolean; use?: ActionArray; value?: string };
     let { disableAutofocus, use = [], value = $bindable('') }: Props = $props();

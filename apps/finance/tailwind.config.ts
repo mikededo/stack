@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss';
 
-import { scrollbars, theme, typography } from '@mstack/tailwind-config';
+import { scrollbars, theme, typography } from '@stack/tailwind-config';
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],

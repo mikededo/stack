@@ -1,5 +1,5 @@
 {
-  "name": "@mstack/finance",
+  "name": "@stack/finance",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,19 +20,19 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@mstack/actions": "workspace:*",
-    "@mstack/svelte-supabase": "workspace:*",
-    "@mstack/ui": "workspace:*",
-    "@mstack/utils": "workspace:*",
+    "@stack/actions": "workspace:*",
+    "@stack/svelte-supabase": "workspace:*",
+    "@stack/ui": "workspace:*",
+    "@stack/utils": "workspace:*",
     "@supabase/ssr": "0.4.0",
     "@supabase/supabase-js": "2.45.1",
     "@tanstack/svelte-query": "5.51.21",
     "lucide-svelte": "0.427.0"
   },
   "devDependencies": {
-    "@mstack/tailwind-config": "workspace:*",
-    "@mstack/typescript-config": "workspace:*",
     "@playwright/test": "1.46.0",
+    "@stack/tailwind-config": "workspace:*",
+    "@stack/typescript-config": "workspace:*",
     "@sveltejs/adapter-auto": "3.2.3",
     "@sveltejs/adapter-node": "5.2.2",
     "@sveltejs/kit": "2.5.21",

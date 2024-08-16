@@ -1,6 +1,6 @@
-import type { MutationResult } from '@mstack/utils';
+import type { MutationResult } from '@stack/utils';
 
-import { type Client } from '@mstack/svelte-supabase';
+import { type Client } from '@stack/svelte-supabase';
 
 import { createMutation, type QueryClient } from '@tanstack/svelte-query';
 

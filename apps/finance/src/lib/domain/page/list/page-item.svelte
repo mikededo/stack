@@ -12,7 +12,7 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
-    import { ContextMenu, type ContextMenuOption, createContextMenu, ListItem } from '@mstack/ui';
+    import { ContextMenu, type ContextMenuOption, createContextMenu, ListItem } from '@stack/ui';
 
     import {
         ClipboardCopyIcon,

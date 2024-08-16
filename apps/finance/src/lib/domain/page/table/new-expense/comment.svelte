@@ -1,9 +1,9 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    import { type ActionArray, useActions } from '@mstack/actions';
-    import { Autocomplete } from '@mstack/ui';
-    import { Keys } from '@mstack/utils';
+    import { type ActionArray, useActions } from '@stack/actions';
+    import { Autocomplete } from '@stack/ui';
+    import { Keys } from '@stack/utils';
 
     import type { Expense } from '$lib/db';
 

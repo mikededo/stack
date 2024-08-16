@@ -1,5 +1,5 @@
 {
-  "name": "@mstack/utils",
+  "name": "@stack/utils",
   "version": "0.0.0",
   "type": "module",
   "exports": {
@@ -23,7 +23,7 @@
     "@tanstack/svelte-query": "5.51.21"
   },
   "devDependencies": {
-    "@mstack/typescript-config": "workspace:*",
+    "@stack/typescript-config": "workspace:*",
     "vitest": "2.0.5"
   }
 }

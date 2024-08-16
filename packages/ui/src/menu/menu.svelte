@@ -7,8 +7,8 @@
 </script>
 
 <script lang="ts">
-    import { clickAway } from '@mstack/actions';
-    import { getFocusableElements, Keys } from '@mstack/utils';
+    import { clickAway } from '@stack/actions';
+    import { getFocusableElements, Keys } from '@stack/utils';
 
     import { Loader, type Icon as LucideIcon } from 'lucide-svelte';
     import { type ComponentType, type Snippet } from 'svelte';

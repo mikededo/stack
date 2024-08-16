@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { ComponentType, Snippet } from 'svelte';
 
-    import { setUserDataContext } from '@mstack/svelte-supabase';
+    import { setUserDataContext } from '@stack/svelte-supabase';
 
     import {
         DollarSign,

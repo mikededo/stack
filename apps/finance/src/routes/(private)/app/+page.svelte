@@ -15,13 +15,13 @@
 </script>
 
 <svelte:head>
-    <title>Expenses | Finances · MStack</title>
+    <title>Expenses | Finances · stack</title>
     <meta content="Welcome to your finances!" name="description" />
     <meta content="#ffffff" name="theme-color" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <meta content="Financed · MStack" name="apple-mobile-web-app-title" />
-    <meta content="Financed · MStack" name="application-name" />
-    <meta content="Expenses | Finances · MStack" property="og:title" />
+    <meta content="Financed · stack" name="apple-mobile-web-app-title" />
+    <meta content="Financed · stack" name="application-name" />
+    <meta content="Expenses | Finances · stack" property="og:title" />
     <meta content="Welcome to your finances!" property="og:description" />
 </svelte:head>
 

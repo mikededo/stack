@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { getSupabaseClient, type SignInData, signInUser } from '@mstack/svelte-supabase';
-    import { Button, Input } from '@mstack/ui';
-    import { EMAIL_REGEX, PASSWORD_REGEX } from '@mstack/utils';
+    import { getSupabaseClient, type SignInData, signInUser } from '@stack/svelte-supabase';
+    import { Button, Input } from '@stack/ui';
+    import { EMAIL_REGEX, PASSWORD_REGEX } from '@stack/utils';
 
     import { createMutation } from '@tanstack/svelte-query';
-    import { goto } from '$app/navigation';
 
+    import { goto } from '$app/navigation';
     import { pathTo } from '$lib/config';
 
     const supabaseClient = getSupabaseClient();

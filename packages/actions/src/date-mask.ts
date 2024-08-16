@@ -1,6 +1,6 @@
 import type { Action } from 'svelte/action';
 
-import { isValidDate } from '@mstack/utils';
+import { isValidDate } from '@stack/utils';
 
 export const useDateMask: Action = (node) => {
   const onInput = (event: Event) => {

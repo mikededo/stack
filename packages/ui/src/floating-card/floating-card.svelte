@@ -1,10 +1,10 @@
 <script lang="ts">
-    import type { ActionArray } from '@mstack/actions';
+    import type { ActionArray } from '@stack/actions';
 
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
 
-    import { clickAway, useActions } from '@mstack/actions';
+    import { clickAway, useActions } from '@stack/actions';
 
     import { cubicInOut } from 'svelte/easing';
     import { fade } from 'svelte/transition';

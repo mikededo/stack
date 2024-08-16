@@ -1,4 +1,4 @@
-import { isValidDate } from '@mstack/utils';
+import { isValidDate } from '@stack/utils';
 
 import type { Expense } from '$lib/db';
 

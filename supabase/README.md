@@ -1,7 +1,7 @@
-# MStack database
+# stack database
 
-The `mstack` uses [Supabase](https://supabase.com/) to store data and avoid the
-need to develop a backend. The `mstack` can either be run locally or in the
+The `stack` uses [Supabase](https://supabase.com/) to store data and avoid the
+need to develop a backend. The `stack` can either be run locally or in the
 cloud, yet this is currently set up to run locally.
 
 ## Local setup
@@ -9,7 +9,7 @@ cloud, yet this is currently set up to run locally.
 After having cloned the repository, run the following commands:
 
 ```bash
-cd mstack/supabase
+cd stack/supabase
 bunx supabase start
 ```
 

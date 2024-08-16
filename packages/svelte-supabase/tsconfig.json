@@ -1,3 +1,3 @@
 {
-  "extends": "@mstack/typescript-config/svelte.json"
+  "extends": "@stack/typescript-config/svelte.json"
 }
