@@ -15,6 +15,7 @@ const supabaseAnonKey = dev
   : process.env.STACK_PROD_SUPABASE_ANON_KEY;
 
 export const handle: Handle = async ({ event, resolve }) => {
+  console.log(process.env);
   if (!supabaseUrl || !supabaseAnonKey) {
     console.error(
       JSON.stringify({
