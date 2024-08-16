@@ -6,9 +6,12 @@ import { browser, dev } from '$app/environment';
 
 import type { LayoutLoad } from './$types';
 
-// TBD
-const supabaseUrl = dev ? import.meta.env.MSTACK_DEV_SUPABASE_URL : '';
-const supabaseAnonKey = dev ? import.meta.env.MSTACK_DEV_SUPABASE_ANON_KEY : '';
+const supabaseUrl = dev
+  ? import.meta.env.MSTACK_DEV_SUPABASE_URL
+  : import.meta.env.MSTACK_PROD_SUPABASE_URL;
+const supabaseAnonKey = dev
+  ? import.meta.env.MSTACK_DEV_SUPABASE_ANON_KEY
+  : import.meta.env.MSTACK_PROD_SUPABASE_ANON_KEY;
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   depends('supabase:auth');
