@@ -58,7 +58,6 @@
     };
 
     const handleOnClickAway = () => {
-        console.log('onClickAway');
         // Since the autocomplete does not provide an input, the show state is
         // always delegated to whoever renders the autocomplete
         onClickAway?.();
@@ -76,11 +75,7 @@
 </div>
 
 {#if show && options.length}
-    <FloatingCard
-        class="ui-rounded-0 ui-overflow-hidden ui-p-0"
-        position={autocompletePosition}
-        use={[[portal, '']]}
-    >
+    <FloatingCard class="ui-overflow-hidden" position={autocompletePosition} use={[[portal, '']]}>
         <div
             class="ui-flex ui-max-h-44 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1"
             bind:this={optionsWrapperNode}
