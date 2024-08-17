@@ -22,13 +22,13 @@
   },
   "dependencies": {
     "@stack/utils": "workspace:*",
-    "svelte": "^5.0.0-next.216"
+    "svelte": "5.0.0-next.216"
   },
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",
     "@stack/typescript-config": "workspace:*",
-    "@sveltejs/kit": "2.5.21",
-    "@sveltejs/package": "2.3.3",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
+    "@sveltejs/kit": "2.5.22",
+    "@sveltejs/package": "2.3.4",
+    "@sveltejs/vite-plugin-svelte": "4.0.0-next.6"
   }
 }

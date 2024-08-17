@@ -27,13 +27,13 @@
   },
   "dependencies": {
     "@stack/actions": "workspace:*",
-    "lucide-svelte": "0.427.0",
-    "svelte": "^5.0.0-next.216",
-    "tailwind-merge": "2.4.0"
+    "lucide-svelte": "0.428.0",
+    "svelte": "5.0.0-next.216",
+    "tailwind-merge": "2.5.2"
   },
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",
     "@stack/typescript-config": "workspace:*",
-    "@sveltejs/vite-plugin-svelte": "^4.0.0-next.6"
+    "@sveltejs/vite-plugin-svelte": "4.0.0-next.6"
   }
 }
