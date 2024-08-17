@@ -20,13 +20,13 @@
             errorMessage = e.message;
         },
         onSuccess: () => {
-            console.log('success');
-            goto(pathTo('app'));
+            goto(pathTo('app'), {});
         }
     });
 
     const handleOnSubmit = (e: Event) => {
         e.preventDefault();
+
         const form = e.target as HTMLFormElement;
         const { email, password } = Object.fromEntries(new FormData(form)) as {
             email: string;
