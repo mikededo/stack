@@ -40,7 +40,6 @@ export function pathTo<T extends Routes>(route: T, params?: Route[T]): string {
       Paths[route]
     );
   } else {
-    console.log(route, params, Paths[route]);
     return Paths[route];
   }
 }

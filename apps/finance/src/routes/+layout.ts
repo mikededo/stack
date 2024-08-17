@@ -12,18 +12,27 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   depends('supabase:auth');
 
   const { supabaseAnonKey, supabaseUrl } = getEnv();
-  const supabase = isBrowser()
-    ? createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
-        global: { fetch }
-      })
-    : createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
-        cookies: {
-          getAll() {
-            return data.cookies;
-          }
-        },
-        global: { fetch }
-      });
+  let supabase;
+  try {
+    supabase = isBrowser()
+      ? createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
+          global: { fetch }
+        })
+      : createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
+          cookies: {
+            getAll() {
+              return data.cookies;
+            }
+          },
+          global: { fetch }
+        });
+  } catch (e) {
+    console.log('layout error', e);
+  }
+
+  if (!supabase) {
+    throw new Error('Supabase client not set');
+  }
 
   /**
    * It's fine to use `getSession` here, because on the client, `getSession` is

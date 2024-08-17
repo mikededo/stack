@@ -10,8 +10,12 @@ import { getEnv, pathTo } from '$lib/config';
 export const handle: Handle = async ({ event, resolve }) => {
   const { supabaseAnonKey, supabaseUrl } = getEnv();
 
-  event.locals.supabase = createSupabaseServerClient(supabaseUrl, supabaseAnonKey, event);
-  event.locals.safeGetSession = async () => getSession(event.locals.supabase);
+  try {
+    event.locals.supabase = createSupabaseServerClient(supabaseUrl, supabaseAnonKey, event);
+    event.locals.safeGetSession = async () => getSession(event.locals.supabase);
+  } catch (e) {
+    console.log('hooks error', e);
+  }
 
   if (event.url.pathname === '/') {
     throw redirect(302, pathTo('app'));
@@ -23,3 +27,5 @@ export const handle: Handle = async ({ event, resolve }) => {
     }
   });
 };
+
+export const handleError = (e) => console.log(e);
