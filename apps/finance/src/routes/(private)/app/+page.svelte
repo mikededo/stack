@@ -1,17 +1,12 @@
 <script lang="ts">
     import { fade } from 'svelte/transition';
 
-    import { BookAccordion, BookAccordionSkeleton } from '$lib/domain/books';
+    import { BookAccordion, BookAccordionSkeleton, EmptyBookState } from '$lib/domain/books';
     import { LastViewedPages, QuickActions } from '$lib/domain/dashboard';
     import { PinnedPages } from '$lib/domain/page';
     import { useBooks } from '$lib/hooks';
 
-    import type { PageData } from './$types';
-
-    type Props = { data: PageData };
-    let { data }: Props = $props();
-
-    const booksQuery = useBooks(data.supabase);
+    const booksQuery = useBooks();
 </script>
 
 <svelte:head>
@@ -38,10 +33,12 @@
             <div transition:fade={{ duration: 100 }}>
                 <BookAccordionSkeleton />
             </div>
-        {:else if $booksQuery.data}
+        {:else if $booksQuery.data?.length}
             <div transition:fade={{ delay: 100, duration: 100 }}>
                 <BookAccordion books={$booksQuery.data} />
             </div>
+        {:else if !$booksQuery.isError}
+            <EmptyBookState />
         {/if}
     </div>
 </section>

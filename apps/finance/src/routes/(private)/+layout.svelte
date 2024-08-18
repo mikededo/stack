@@ -6,20 +6,34 @@
     type Props = { children: Snippet };
     let { children }: Props = $props();
 
+    let paramChanges = $state(false);
     let loaderWidth = $state(0);
     let loaderOpacity = $state(100);
 
-    beforeNavigate(() => {
+    beforeNavigate(({ from, to }) => {
+        if (to?.url.pathname === from?.url.pathname && to?.url.search !== from?.url.search) {
+            paramChanges = true;
+            return;
+        }
+
         loaderOpacity = 100;
         loaderWidth = 25;
     });
 
     onNavigate(() => {
+        if (paramChanges) {
+            return;
+        }
         // Random number between 45 and 75
         loaderWidth = Math.floor(Math.random() * 45 + 55);
     });
 
     afterNavigate(() => {
+        if (paramChanges) {
+            paramChanges = false;
+            return;
+        }
+
         loaderWidth = 100;
         let opacityTimeout = setTimeout(() => {
             loaderOpacity = 0;

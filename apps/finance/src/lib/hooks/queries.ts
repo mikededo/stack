@@ -10,7 +10,6 @@ import {
   clickPinnedPage,
   type ClickPinnedPageData,
   getBook,
-  getBooksWithPages,
   getBookTags,
   getLastAccessedPages,
   getPage,
@@ -25,12 +24,6 @@ import {
  * This includes hooks that are re-used at the app level. In order to keep things more
  * scoped and organised, try to keep specific hooks in the domain
  */
-
-export const useBooks = (client: Client) =>
-  createQuery({
-    queryFn: () => getBooksWithPages(client),
-    queryKey: Keys.BOOKS
-  });
 
 export const useBook = (client: Client, book: string) =>
   createQuery({
