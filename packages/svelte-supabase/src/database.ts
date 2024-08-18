@@ -15,7 +15,7 @@ export type Database = {
       aal_level: 'aal1' | 'aal2' | 'aal3';
       code_challenge_method: 'plain' | 's256';
       factor_status: 'unverified' | 'verified';
-      factor_type: 'totp' | 'webauthn';
+      factor_type: 'phone' | 'totp' | 'webauthn';
       one_time_token_type:
         | 'confirmation_token'
         | 'email_change_token_current'
@@ -218,6 +218,7 @@ export type Database = {
           factor_id: string;
           id: string;
           ip_address: unknown;
+          otp_code?: null | string;
           verified_at?: null | string;
         };
         Relationships: [
@@ -234,6 +235,7 @@ export type Database = {
           factor_id: string;
           id: string;
           ip_address: unknown;
+          otp_code: null | string;
           verified_at: null | string;
         };
         Update: {
@@ -241,6 +243,7 @@ export type Database = {
           factor_id?: string;
           id?: string;
           ip_address?: unknown;
+          otp_code?: null | string;
           verified_at?: null | string;
         };
       };
@@ -250,6 +253,8 @@ export type Database = {
           factor_type: Database['auth']['Enums']['factor_type'];
           friendly_name?: null | string;
           id: string;
+          last_challenged_at?: null | string;
+          phone?: null | string;
           secret?: null | string;
           status: Database['auth']['Enums']['factor_status'];
           updated_at: string;
@@ -269,6 +274,8 @@ export type Database = {
           factor_type: Database['auth']['Enums']['factor_type'];
           friendly_name: null | string;
           id: string;
+          last_challenged_at: null | string;
+          phone: null | string;
           secret: null | string;
           status: Database['auth']['Enums']['factor_status'];
           updated_at: string;
@@ -279,6 +286,8 @@ export type Database = {
           factor_type?: Database['auth']['Enums']['factor_type'];
           friendly_name?: null | string;
           id?: string;
+          last_challenged_at?: null | string;
+          phone?: null | string;
           secret?: null | string;
           status?: Database['auth']['Enums']['factor_status'];
           updated_at?: string;
@@ -713,7 +722,7 @@ export type Database = {
         Insert: {
           archived?: boolean | null;
           created_at?: string;
-          created_by: string;
+          created_by?: string;
           id?: number;
           last_viewed?: string;
           name: string;
