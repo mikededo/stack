@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-    <title>Expenses | Finances · stack</title>
+    <title>Expenses | Finances · Stack</title>
     <meta content="Welcome to your finances!" name="description" />
     <meta content="#ffffff" name="theme-color" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />

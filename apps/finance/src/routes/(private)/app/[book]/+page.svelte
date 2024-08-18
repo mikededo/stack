@@ -40,7 +40,7 @@
     {#if $query.isLoading}
         <title>Loading book...</title>
     {:else if $query.data}
-        <title>Editing: {$query.data.name}</title>
+        <title>Book: {$query.data.name}</title>
     {/if}
 </svelte:head>
 

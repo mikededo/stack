@@ -49,8 +49,10 @@
 </script>
 
 <svelte:head>
-    {#if $query.data}
-        <title>Editing: {$query.data.name} - {$query.data.book?.name}</title>
+    {#if $query.isLoading}
+        <title>Loading page...</title>
+    {:else if $query.data}
+        <title>Editing: {$query.data.name} · {$query.data.book?.name}</title>
     {/if}
 </svelte:head>
 

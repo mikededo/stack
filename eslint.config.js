@@ -171,7 +171,7 @@ export default tsEslint.config(
       '.git',
       '**/*/.svelte-kit',
       '.vercel',
-      './src/app.html',
+      '**/*/src/app.html',
       '**/*/build/',
       '**/*/dist/',
       'node_modules/',

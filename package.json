@@ -53,7 +53,7 @@
     "node": ">=18"
   },
   "lint-staged": {
-    "*.{ts,svelte,html}": [
+    "*.{ts,svelte}": [
       "prettier --check",
       "eslint --max-warnings 0"
     ],
