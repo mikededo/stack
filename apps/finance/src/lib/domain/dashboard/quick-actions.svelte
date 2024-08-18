@@ -7,6 +7,18 @@
     import { useLastViewedPages } from '$lib/hooks';
 
     const lastViewedPages = useLastViewedPages();
+    const lastViewedPageSubtitle = $derived.by(() => {
+        if (!$lastViewedPages.data?.length) {
+            return;
+        }
+
+        const lastViewedPage = $lastViewedPages.data[0];
+        if (!lastViewedPage.page) {
+            return;
+        }
+
+        return `${lastViewedPage.page.name} · ${lastViewedPage.page?.book?.name}`;
+    });
 
     const onNewBookClick = () => {
         showDialog('CREATE_BOOK');
@@ -45,7 +57,7 @@
             loading: $lastViewedPages.isLoading,
             name: 'Open last viewed page',
             onClick: onOpenLastViewedPage,
-            subtitle: `${$lastViewedPages.data?.[0].page?.name} · ${$lastViewedPages.data?.[0]?.page?.book?.name}`
+            subtitle: lastViewedPageSubtitle
         }
     ]);
 </script>
