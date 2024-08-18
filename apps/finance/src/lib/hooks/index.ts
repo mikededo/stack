@@ -1,2 +1,3 @@
 export * from './books';
-export * from './queries';
+export * from './last-viewed-pages';
+export * from './pinned-pages';

@@ -16,7 +16,7 @@
 
     let listState = initListContext();
 
-    let query = useBook(data.supabase, data.params.book);
+    let query = useBook(data.params.book);
     let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
         if (!$query.data) {
             return;

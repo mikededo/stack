@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { getSupabaseClient, getUserDataContext } from '@stack/svelte-supabase';
+    import { getUserDataContext } from '@stack/svelte-supabase';
 
-    import { useQueryClient } from '@tanstack/svelte-query';
     import { Pin } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
@@ -13,11 +12,9 @@
     import PinPlaceholder from './pin-placeholder.svelte';
     import PinSkeleton from './pin-skeleton.svelte';
 
-    const supabase = getSupabaseClient();
-    const queryClient = useQueryClient();
     const user = getUserDataContext();
-    const pinnedPagesQuery = usePinnedPages(supabase);
-    const pinnedPageClickMutation = useClickPinnedPage(supabase, queryClient);
+    const pinnedPagesQuery = usePinnedPages();
+    const pinnedPageClickMutation = useClickPinnedPage();
 
     let duration = $state(200);
 

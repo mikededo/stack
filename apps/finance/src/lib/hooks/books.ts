@@ -3,7 +3,40 @@ import { getSupabaseClient } from '@stack/svelte-supabase';
 import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { type BooksWithPages, createBook, getBooksWithPages } from '$lib/db';
+import {
+  type BooksWithPages,
+  createBook,
+  getBook,
+  getBooksWithPages,
+  getBookTags,
+  getPage
+} from '$lib/db';
+
+export const useBook = (book: string) => {
+  const client = getSupabaseClient();
+
+  return createQuery({
+    queryFn: () => getBook(client, +book),
+    queryKey: Keys.BOOK(book)
+  });
+};
+
+export const useBookPages = (book: string, page: string) => {
+  const client = getSupabaseClient();
+  return createQuery({
+    queryFn: () => getPage(client, +page),
+    queryKey: Keys.PAGE(book, page)
+  });
+};
+
+export const useBookTags = (book: string) => {
+  const client = getSupabaseClient();
+
+  return createQuery({
+    queryFn: () => getBookTags(client, +book),
+    queryKey: Keys.BOOK_TAGS(book)
+  });
+};
 
 export const useBooks = () => {
   const client = getSupabaseClient();

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { getSupabaseClient } from '@stack/svelte-supabase';
     import { Input, Menu, MenuOption } from '@stack/ui';
 
     import {
@@ -17,9 +16,8 @@
 
     type Props = { book: number };
     let { book }: Props = $props();
-    const supabase = getSupabaseClient();
 
-    const tagsQuery = useBookTags(supabase, `${book}`);
+    const tagsQuery = useBookTags(`${book}`);
 
     const getTagClasses = (active?: boolean) =>
         `text-[var(--tag-color)] hover:bg-[var(--tag-color-hover)] active:bg-[var(--tag-color-hover)] ${

@@ -15,7 +15,7 @@
     let { data }: Props = $props();
 
     const trackPageView = useTrackViewedPage();
-    const query = useBookPages(data.supabase, data.params.book, data.params.page);
+    const query = useBookPages(data.params.book, data.params.page);
     query.subscribe(({ data }) => {
         if (data) {
             setContextPage(data);
