@@ -36,6 +36,14 @@
     };
 </script>
 
+<svelte:head>
+    {#if $query.isLoading}
+        <title>Loading book...</title>
+    {:else if $query.data}
+        <title>Editing: {$query.data.name}</title>
+    {/if}
+</svelte:head>
+
 {#if $query.isLoading}
     <div class="flex h-full w-full items-center justify-center">
         <div class="flex h-full w-full items-center justify-center">Loading...</div>

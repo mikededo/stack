@@ -53,11 +53,6 @@
             </div>
         {/snippet}
 
-        <Input
-            class="w-full text-sm"
-            bind:value={name}
-            color="surface"
-            placeholder="Book name..."
-        />
+        <Input class="w-full text-sm" bind:value={name} placeholder="Book name..." />
     </Dialog>
 {/if}

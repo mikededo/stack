@@ -2,7 +2,7 @@
     import { CircleSlash2 } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
-    import { CreateBookDialog, showDialog } from '$lib/domain/dialog';
+    import { showDialog } from '$lib/domain/dialog';
 
     const onClick = () => {
         showDialog('CREATE_BOOK');
@@ -17,5 +17,3 @@
     <CircleSlash2 class="size-4" />
     <p>Empty books?! Create a new one!</p>
 </button>
-
-<CreateBookDialog />

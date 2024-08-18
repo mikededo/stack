@@ -3,6 +3,7 @@
 
     import { BookAccordion, BookAccordionSkeleton, EmptyBookState } from '$lib/domain/books';
     import { LastViewedPages, QuickActions } from '$lib/domain/dashboard';
+    import { CreateBookDialog } from '$lib/domain/dialog';
     import { PinnedPages } from '$lib/domain/page';
     import { useBooks } from '$lib/hooks';
 
@@ -42,3 +43,5 @@
         {/if}
     </div>
 </section>
+
+<CreateBookDialog />
