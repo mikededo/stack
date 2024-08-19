@@ -5,6 +5,10 @@ Monorepo setup for the current side projects that I'm working on, made with
 Self-hosted on a [Coolify](https://coolify.io) instance, with
 [Supabase](https://supabase.com) as the backend.
 
+> Some of the projects that I plan on adding are simply because I plan on
+> learning in different subjects, which could seem unnecessary for the overall
+> project.
+
 ## Running locally
 
 In order to run the project locally, there's no need to configure Coolify, as
