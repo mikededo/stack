@@ -26,7 +26,7 @@
                 return;
             }
 
-            position = { h: client.height, w: client.width, x: node.offsetLeft };
+            position = { w: client.width, x: node.offsetLeft };
         };
 
         node.addEventListener('click', onClick);
