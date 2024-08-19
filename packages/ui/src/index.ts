@@ -9,3 +9,4 @@ export { IconButton } from './icon-button/index.js';
 export { Input } from './input/index.js';
 export { ListItem } from './list/index.js';
 export { Menu, MenuOption } from './menu/index.js';
+export { type Tab, Tabs } from './tabs/index.js';
