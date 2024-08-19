@@ -1,0 +1,3 @@
+{
+  "extends": "@stack/typescript-config/server.json"
+}
