@@ -1,6 +1,6 @@
 import { getContext, setContext } from 'svelte';
 
-type ListState = {
+export type ListState = {
   keywords: string;
   sort?: 'date-asc' | 'date-desc' | 'name-asc' | 'name-desc';
   view: 'pages' | 'tags';

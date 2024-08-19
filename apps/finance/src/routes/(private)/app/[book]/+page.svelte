@@ -1,11 +1,11 @@
 <script lang="ts">
-    import { Breadcrumbs, Button, type Crumbs, TextIconButton } from '@stack/ui';
+    import { Breadcrumbs, type Crumbs, type Tab, Tabs } from '@stack/ui';
 
     import { File, Tag } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
     import { pathTo } from '$lib/config';
-    import { initListContext, PageList, PageListOptions } from '$lib/domain/page';
+    import { initListContext, type ListState, PageList, PageListOptions } from '$lib/domain/page';
     import { TagList } from '$lib/domain/tags';
     import { useBook } from '$lib/hooks';
 
@@ -25,15 +25,14 @@
         return [{ href: pathTo('app'), label: 'Dashboard' }, { label: $query.data.name }];
     });
 
-    let buttonProps = $derived(
-        listState.view === 'pages'
-            ? { Icon: Tag, label: 'Edit tags' }
-            : { Icon: File, label: 'See pages' }
-    );
-
-    const onToggleView = () => {
-        listState.view = listState.view === 'pages' ? 'tags' : 'pages';
+    const onClickTab = (view: ListState['view']) => () => {
+        listState.view = view;
     };
+
+    let tabs = $derived<Tab[]>([
+        { Icon: File, name: 'Page list', onClick: onClickTab('pages') },
+        { Icon: Tag, name: 'Tag list', onClick: onClickTab('tags') }
+    ]);
 </script>
 
 <svelte:head>
@@ -58,15 +57,7 @@
 
     <section class="flex h-full flex-col gap-4">
         <PageListOptions>
-            <TextIconButton
-                class="hidden md:flex"
-                {...buttonProps}
-                color="surface"
-                onclick={onToggleView}
-            />
-            <Button class="block h-10 md:hidden" color="surface" onclick={onToggleView}>
-                <svelte:component this={buttonProps.Icon} class="size-4" />
-            </Button>
+            <Tabs {tabs} />
         </PageListOptions>
         {#if listState.view === 'pages'}
             <div in:fade={{ delay: 100, duration: 100 }} out:fade={{ duration: 100 }}>
