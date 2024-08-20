@@ -1,4 +1,7 @@
-# stack database
+# Stack database
+
+> Important: Before starting, make sure you read the [Supabase
+> setup](../README.md#supabase-setup) section.
 
 The `stack` uses [Supabase](https://supabase.com/) to store data and avoid the
 need to develop a backend. The `stack` can either be run locally or in the
