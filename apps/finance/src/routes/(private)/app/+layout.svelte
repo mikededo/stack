@@ -45,7 +45,7 @@
     </div>
 </header>
 
-<div class="flex h-screen w-full flex-col overflow-hidden bg-background bg-surface-50 md:flex-row">
+<div class="flex w-full flex-col overflow-hidden bg-background bg-surface-50 md:flex-row">
     <!-- Desktop navigation-->
     <div class="hidden h-top-bar-md overflow-x-hidden px-2 md:block md:min-w-64">
         <nav class="h-full gap-1 py-10">
@@ -80,11 +80,11 @@
 
     <div class="h-full w-full px-2 pb-2 pt-0">
         <main
-            class="h-top-bar-md flex-1 overflow-hidden overflow-y-auto rounded-lg border border-surface-200 bg-white p-6 py-8 md:h-top-bar-md md:max-w-[calc(100vw_-_274px)] md:px-10"
+            class="flex-1 overflow-hidden rounded-lg border border-surface-200 bg-white md:h-top-bar-md md:max-w-[calc(100vw_-_274px)]"
         >
             {#key data.pathname}
                 <div
-                    class="flex flex-col gap-4"
+                    class="flex h-top-bar-md flex-col gap-4 overflow-y-auto p-6 py-8 md:px-10"
                     in:fade={{ delay: 100, duration: 100 }}
                     out:fade={{ duration: 100 }}
                 >

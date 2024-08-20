@@ -15,7 +15,7 @@ export default {
         'not-current': 'current="false"'
       },
       height: {
-        'top-bar-md': 'calc(100vh - 48px)'
+        'top-bar-md': 'calc(100vh - 56px)'
       }
     }
   }
