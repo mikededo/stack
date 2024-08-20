@@ -66,7 +66,7 @@
 >
     <div class="flex w-full items-center justify-between">
         <p class="flex items-center gap-0.5 truncate text-sm font-semibold">
-            <span class="truncate">{page?.name}</span>
+            <span class="shrink-0 truncate">{page?.name}</span>
             {#if page?.book?.name}
                 <ChevronRight class="size-4 shrink-0 text-surface-800" strokeWidth={2.5} />
                 <span class="shrink-0 text-surface-800">{page.book.name}</span>

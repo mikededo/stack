@@ -2,7 +2,9 @@
     import type { ComponentType, Snippet } from 'svelte';
 
     import { setUserDataContext } from '@stack/svelte-supabase';
+    import { Logo } from '@stack/ui';
 
+    import { Layers } from 'lucide-svelte';
     import {
         DollarSign,
         Ellipsis,
@@ -28,11 +30,12 @@
     ];
 </script>
 
-<header class="hidden h-12 w-full border-b border-surface-100 bg-white md:flex">
-    <div
-        class="hidden h-full overflow-x-hidden border-r border-surface-100 md:block md:min-w-64"
-    ></div>
-    <div class="flex h-full w-full items-center justify-end bg-surface-50 pr-10">
+<header class="hidden h-12 w-full bg-surface-50 md:flex">
+    <div class="hidden h-full items-center gap-2 bg-transparent px-4 md:flex md:min-w-64">
+        <Logo />
+        <p class="font-bold">Stack</p>
+    </div>
+    <div class="flex h-full w-full items-center justify-end pr-3">
         <!-- TODO: Add user preferences -->
         <span
             class="cursor-pointer text-sm text-surface-700 underline decoration-transparent underline-offset-1 transition-colors hover:decoration-surface-700"
@@ -42,19 +45,15 @@
     </div>
 </header>
 
-<div
-    class="flex h-screen w-full flex-col overflow-hidden bg-background bg-surface-100 md:h-top-bar-md md:flex-row"
->
+<div class="flex h-screen w-full flex-col overflow-hidden bg-background bg-surface-50 md:flex-row">
     <!-- Desktop navigation-->
-    <div
-        class="hidden h-top-bar-md overflow-x-hidden border-r border-surface-100 bg-white md:block md:min-w-64"
-    >
+    <div class="hidden h-top-bar-md overflow-x-hidden px-2 md:block md:min-w-64">
         <nav class="h-full gap-1 py-10">
             <ul class="flex w-full flex-col gap-1">
                 {#each tabs as { href, Icon, name } (href)}
                     <li>
                         <a
-                            class="flex w-full cursor-pointer items-center justify-between border-l-4 border-transparent px-3 py-2 text-sm font-semibold transition-colors aria-current:border-primary aria-current:bg-primary-100 aria-current:text-primary aria-not-current:hover:bg-primary-100"
+                            class="flex w-full cursor-pointer items-center justify-between rounded px-3 py-2 text-sm font-semibold transition-colors aria-current:bg-primary-100 aria-current:text-primary aria-not-current:hover:bg-primary-100"
                             aria-current={isNestedPath(href, 'app')}
                             role="tab"
                             {href}
@@ -69,27 +68,29 @@
     </div>
 
     <!-- Mobile navigation -->
-    <header class="block border-b border-surface-100 bg-surface-50 md:hidden">
-        <nav class="flex h-10 items-center justify-between px-6">
+    <header class="block bg-surface-50 md:hidden">
+        <nav class="flex h-10 items-center justify-between px-2">
             <div class="flex items-center gap-2">
-                <Wallet class="size-4" strokeWidth={2.5} />
-                <p class="text-lg font-semibold">Finance</p>
+                <Logo />
+                <p class="font-bold">Stack</p>
             </div>
             <Ellipsis class="size-4" strokeWidth={2.5} />
         </nav>
     </header>
 
-    <main
-        class="h-top-bar-sm flex-1 overflow-hidden border border-transparent bg-white p-6 py-8 md:h-top-bar-md md:max-w-[calc(100vw_-_256px)] md:px-10"
-    >
-        {#key data.pathname}
-            <div
-                class="flex flex-col gap-4"
-                in:fade={{ delay: 100, duration: 100 }}
-                out:fade={{ duration: 100 }}
-            >
-                {@render children()}
-            </div>
-        {/key}
-    </main>
+    <div class="h-full w-full px-2 pb-2 pt-0">
+        <main
+            class="h-top-bar-md flex-1 overflow-hidden overflow-y-auto rounded-lg border border-surface-200 bg-white p-6 py-8 md:h-top-bar-md md:max-w-[calc(100vw_-_274px)] md:px-10"
+        >
+            {#key data.pathname}
+                <div
+                    class="flex flex-col gap-4"
+                    in:fade={{ delay: 100, duration: 100 }}
+                    out:fade={{ duration: 100 }}
+                >
+                    {@render children()}
+                </div>
+            {/key}
+        </main>
+    </div>
 </div>
