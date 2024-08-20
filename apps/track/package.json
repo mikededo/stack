@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "bun --watch run ./src/index.ts"
+    "dev": "bun --watch run ./src/index.ts",
+    "lint:fix": "prettier --check . && eslint . --fix"
   },
   "dependencies": {
     "@clickhouse/client": "1.4.1",
