@@ -8,5 +8,6 @@ export { FloatingCard } from './floating-card/index.js';
 export { IconButton } from './icon-button/index.js';
 export { Input } from './input/index.js';
 export { ListItem } from './list/index.js';
+export { Logo } from './logo/index.js';
 export { Menu, MenuOption } from './menu/index.js';
 export { type Tab, Tabs } from './tabs/index.js';
