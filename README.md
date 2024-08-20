@@ -32,6 +32,10 @@ PUBLIC_SUPABASE_URL=
 PUBLIC_SUPABASE_ANON_KEY=
 ```
 
+All migrations are stored in [`supabase/migrations`](./supabase/migrations). On
+starting the database with `bunx supabase start`, the migrations will be
+applied automatically.
+
 > In order to know the url and anon key, you can run: `bunx supabase status`
 
 ## Running with Coolify
