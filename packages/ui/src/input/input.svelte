@@ -15,12 +15,12 @@
     const COLORS: Record<InputColor, string> = {
         primary: 'focus:ui-border-primary active:ui-border-primary input',
         surface:
-            'ui-bg-surface-50 ui-border-transparent hover:ui-border-surface-200 active:ui-border-surface-200'
+            'ui-bg-surface-50 ui-border-transparent hover:ui-border-surface-200 active:ui-border-surface-200 disabled:ui-bg-surface-100'
     };
 
     let classes = $derived(
         twMerge(
-            'ui-h-10 ui-rounded ui-border ui-px-4 ui-outline-none ui-transition-colors',
+            'ui-h-10 ui-rounded ui-border ui-px-4 ui-outline-none ui-transition-colors disabled:ui-cursor-not-allowed',
             COLORS[color ?? 'primary'],
             invalid &&
                 'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
