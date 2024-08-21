@@ -4,16 +4,16 @@
     import { setUserDataContext } from '@stack/svelte-supabase';
     import { Logo } from '@stack/ui';
 
-    import { Layers } from 'lucide-svelte';
     import {
         DollarSign,
         Ellipsis,
         LayoutDashboard,
         Icon as LucideIcon,
-        Wallet
+        PiggyBank
     } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
+    import { page } from '$app/stores';
     import { isNestedPath, pathTo } from '$lib/config';
 
     import type { LayoutData } from './$types';
@@ -23,10 +23,11 @@
 
     setUserDataContext(data.user);
 
-    type Tab = { href: string; Icon: ComponentType<LucideIcon>; name: string };
+    type Tab = { disabled?: boolean; href: string; Icon: ComponentType<LucideIcon>; name: string };
     const tabs: Tab[] = [
         { href: pathTo('app'), Icon: LayoutDashboard, name: 'Dashboard' },
-        { href: '/expenses', Icon: DollarSign, name: 'Expenses' }
+        { href: pathTo('budget'), Icon: PiggyBank, name: 'Budget' },
+        { disabled: true, href: '/expenses', Icon: DollarSign, name: 'Expenses' }
     ];
 </script>
 
@@ -47,16 +48,18 @@
 
 <div class="flex w-full flex-col overflow-hidden bg-background bg-surface-50 md:flex-row">
     <!-- Desktop navigation-->
-    <div class="hidden h-top-bar-md overflow-x-hidden px-2 md:block md:min-w-64">
+    <div class="hidden h-content-md overflow-x-hidden px-2 md:block md:min-w-64">
         <nav class="h-full gap-1 py-10">
             <ul class="flex w-full flex-col gap-1">
-                {#each tabs as { href, Icon, name } (href)}
+                {#each tabs as { disabled, href, Icon, name } (href)}
                     <li>
                         <a
-                            class="flex w-full cursor-pointer items-center justify-between rounded px-3 py-2 text-sm font-semibold transition-colors aria-current:bg-primary-100 aria-current:text-primary aria-not-current:hover:bg-primary-100"
-                            aria-current={isNestedPath(href, 'app')}
+                            class="flex w-full cursor-pointer items-center justify-between rounded px-3 py-2 text-sm font-semibold transition-colors aria-disabled:pointer-events-none aria-disabled:text-surface-400 aria-current:bg-primary-100 aria-current:text-primary aria-not-current:hover:bg-primary-100"
+                            aria-disabled={disabled}
                             role="tab"
                             {href}
+                            aria-current={href === $page.url.pathname ||
+                                isNestedPath(href, $page.url.pathname)}
                         >
                             <span>{name}</span>
                             <svelte:component this={Icon} class="size-4" strokeWidth={2} />
@@ -69,7 +72,7 @@
 
     <!-- Mobile navigation -->
     <header class="block bg-surface-50 md:hidden">
-        <nav class="flex h-10 items-center justify-between px-2">
+        <nav class="flex h-12 items-center justify-between px-2">
             <div class="flex items-center gap-2">
                 <Logo />
                 <p class="font-bold">Stack</p>
@@ -78,13 +81,13 @@
         </nav>
     </header>
 
-    <div class="h-full w-full px-2 pb-2 pt-0">
+    <div class="h-full w-full px-2 pb-2 pt-0 md:pb-4 md:pl-4">
         <main
-            class="flex-1 overflow-hidden rounded-lg border border-surface-200 bg-white md:h-top-bar-md md:max-w-[calc(100vw_-_274px)]"
+            class="w-full flex-1 overflow-hidden rounded-lg border border-surface-200 bg-white md:w-content-md"
         >
             {#key data.pathname}
                 <div
-                    class="flex h-top-bar-md flex-col gap-4 overflow-y-auto p-6 py-8 md:px-10"
+                    class="flex h-content flex-col gap-4 overflow-y-auto p-6 md:h-content-md md:px-10 md:py-8"
                     in:fade={{ delay: 100, duration: 100 }}
                     out:fade={{ duration: 100 }}
                 >
