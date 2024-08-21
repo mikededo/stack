@@ -10,6 +10,7 @@ export const theme: Config['theme'] = {
     full: '9999px',
     lg: 'calc(0.5rem + 2px)',
     md: 'calc(0.5rem - 2px)',
+    none: '0',
     sm: 'calc(0.5rem - 4px)',
     xl: 'calc(0.5rem + 4px)'
   },
