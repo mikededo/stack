@@ -9,6 +9,10 @@
 
     type Props = { page: Page };
     let { page }: Props = $props();
+
+    const onClickAway = () => {
+        tableState.newRowIndex = null;
+    };
 </script>
 
 <section class="flex h-full flex-col gap-4">
@@ -20,11 +24,11 @@
         <tbody class="text-left text-sm">
             {#each page.expenses as expense, i (expense.id)}
                 {#if tableState.newRowIndex === i}
-                    <NewEntry />
+                    <NewEntry forceFocus="date" {onClickAway} />
                 {/if}
                 <TableRow position={i} {expense} />
             {/each}
-            <NewEntry disableAutofocus />
+            <NewEntry forceFocus="date" />
         </tbody>
     </table>
 </section>

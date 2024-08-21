@@ -6,6 +6,7 @@
         forceFocus?: ForceFocus;
         nested?: boolean;
         onBlur?: () => void;
+        onClickAway?: () => void;
         onUpdateExpense?: (expense: Expense) => void;
     };
 </script>
@@ -13,10 +14,9 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    import { getSupabaseClient, getUserDataContext } from '@stack/svelte-supabase';
+    import { clickAway } from '@stack/actions';
+    import { getUserDataContext } from '@stack/svelte-supabase';
     import { Keys } from '@stack/utils';
-
-    import { useQueryClient } from '@tanstack/svelte-query';
 
     import type { Expense } from '$lib/db';
 
@@ -29,13 +29,18 @@
     } from './context.svelte';
     import { hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
     import { useExpenseMutation } from './hooks';
-    import { Amount, Comment, Date } from './new-expense';
+    import { Amount, Comment, COMMENT_AUTOCOMPLETE_ID, Date } from './new-expense';
 
-    let { disableAutofocus, expense, forceFocus, nested, onBlur, onUpdateExpense }: Props =
-        $props();
+    let {
+        disableAutofocus,
+        expense,
+        forceFocus,
+        nested,
+        onBlur,
+        onClickAway,
+        onUpdateExpense
+    }: Props = $props();
 
-    let supabase = getSupabaseClient();
-    let queryClient = useQueryClient();
     let { id: userId } = getUserDataContext();
     let expenses = getPageExpenses();
     let page = getPageId();
@@ -44,10 +49,8 @@
     let date = $state(parseDate(expense?.date));
     let expenseMutation = useExpenseMutation({
         bookId: getPageBookId(),
-        client: supabase,
         onMutate: onInitLoading,
         onSettled: onStopLoading,
-        queryClient,
         userId
     });
 
@@ -77,7 +80,17 @@
                 comment,
                 date
             };
-            $expenseMutation.mutate({ ...updatedFields, id: expense?.id ?? undefined, page });
+            $expenseMutation.mutate(
+                { ...updatedFields, id: expense?.id ?? undefined, page },
+                {
+                    onSuccess: () => {
+                        // Restart the fields
+                        amount = `${expense?.amount?.toFixed(2) ?? ''}`;
+                        comment = expense?.comment ?? '';
+                        date = parseDate(expense?.date);
+                    }
+                }
+            );
 
             if (expense) {
                 // Update current expense to improve ux
@@ -95,6 +108,15 @@
                 node.removeEventListener('keydown', onKeydown);
             }
         };
+    };
+
+    const onInternalClickAway = (event: MouseEvent) => {
+        // Special check in case the user clicks one of the autocomplete options
+        if (event.target instanceof HTMLElement && event.target.closest(COMMENT_AUTOCOMPLETE_ID)) {
+            return;
+        }
+
+        onClickAway?.();
     };
 
     // TODO: Create an event that will blur the fields when
@@ -121,13 +143,16 @@
             {expenses}
         />
     </td>
-    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-40"> </td>
+    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-40"></td>
 {/snippet}
 
 {#if nested}
     {@render content()}
 {:else}
-    <tr class="group flex w-full items-stretch hover:bg-primary-50">
+    <tr
+        class="group flex w-full items-stretch hover:bg-primary-50"
+        use:clickAway={onInternalClickAway}
+    >
         {@render content()}
     </tr>
 {/if}

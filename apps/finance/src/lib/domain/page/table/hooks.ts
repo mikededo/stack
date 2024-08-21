@@ -1,8 +1,8 @@
 import type { MutationResult } from '@stack/utils';
 
-import { type Client } from '@stack/svelte-supabase';
+import { getSupabaseClient } from '@stack/svelte-supabase';
 
-import { createMutation, type QueryClient } from '@tanstack/svelte-query';
+import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
 import { createExpense, type Expense, type Page } from '$lib/db';
@@ -15,22 +15,21 @@ const updateExistingExpense =
 type MutationContext = { cachedPage: null | Page; isNewExpense: boolean };
 type UseExpenseMutationArgs = {
   bookId?: number;
-  client: Client;
   onMutate?: () => void;
   onSettled?: () => void;
-  queryClient: QueryClient;
   userId: string;
 };
 type Result = MutationResult<typeof createExpense, MutationContext>;
 export const useExpenseMutation = ({
   bookId,
-  client,
   onMutate,
   onSettled,
-  queryClient,
   userId
-}: UseExpenseMutationArgs): Result =>
-  createMutation({
+}: UseExpenseMutationArgs): Result => {
+  const supabase = getSupabaseClient();
+  const queryClient = useQueryClient();
+
+  return createMutation({
     mutationFn: async (data) => {
       // Supabase expects mm/dd/yyyy and we provide dd/mm/yyyy
       const date = data.date.split('/');
@@ -38,7 +37,7 @@ export const useExpenseMutation = ({
       date[1] = date[0];
       date[0] = month;
 
-      return await createExpense(client, { ...data, date: date.join('/') });
+      return await createExpense(supabase, { ...data, date: date.join('/') });
     },
     // FIXME: Find a better mutationkey
     mutationKey: ['upsertExpense'],
@@ -99,20 +98,25 @@ export const useExpenseMutation = ({
       // I can ensure integrity
       onSettled?.();
     },
-    onSuccess: (data) => {
+    onSuccess: (data, _, { isNewExpense }) => {
       if (!data || !bookId) {
         return;
       }
 
-      const newExpense = data[0];
+      const newExpense = { ...data[0], tags: [] };
       queryClient.setQueryData<Page>(Keys.PAGE(`${bookId}`, `${newExpense.page_id}`), (prev) => {
         if (!prev) {
           return prev;
         }
 
         const updated = { ...prev };
-        updated.expenses = prev.expenses.map(updateExistingExpense(newExpense));
+        if (!isNewExpense) {
+          updated.expenses = [...updated.expenses, newExpense];
+        } else {
+          updated.expenses = prev.expenses.map(updateExistingExpense(newExpense));
+        }
         return updated;
       });
     }
   });
+};

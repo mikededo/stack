@@ -1,3 +1,7 @@
+<script context="module" lang="ts">
+    export const COMMENT_AUTOCOMPLETE_ID = 'comment-autocomplete';
+</script>
+
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
@@ -59,9 +63,13 @@
     };
 </script>
 
-<Autocomplete show={!!autocompleteOptions.length && show} onClickAway={handleOnHideAutocomplete}>
+<Autocomplete
+    id={COMMENT_AUTOCOMPLETE_ID}
+    show={!!autocompleteOptions.length && show}
+    onClickAway={handleOnHideAutocomplete}
+>
     <textarea
-        class="w-full resize-none outline-none group-hover:bg-primary-50 hover:bg-primary-50"
+        class="w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
         bind:value
         use:useActions={[...use, fieldAutofocus]}
         name="comment"
