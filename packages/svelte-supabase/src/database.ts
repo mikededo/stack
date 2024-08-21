@@ -753,6 +753,73 @@ export type Database = {
           name?: string;
         };
       };
+      budget_allocation: {
+        Insert: {
+          amount?: null | number;
+          budget_plan_id: number;
+          id?: number;
+          name: string;
+          percentage?: null | number;
+        };
+        Relationships: [
+          {
+            columns: ['budget_plan_id'];
+            foreignKeyName: 'budget_allocation_budget_plan_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'budget_plan';
+          }
+        ];
+        Row: {
+          amount: null | number;
+          budget_plan_id: number;
+          id: number;
+          name: string;
+          percentage: null | number;
+        };
+        Update: {
+          amount?: null | number;
+          budget_plan_id?: number;
+          id?: number;
+          name?: string;
+          percentage?: null | number;
+        };
+      };
+      budget_plan: {
+        Insert: {
+          created_at?: null | string;
+          id?: number;
+          name: string;
+          total_income: number;
+          updated_at?: null | string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            columns: ['user_id'];
+            foreignKeyName: 'budget_plan_user_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          }
+        ];
+        Row: {
+          created_at: null | string;
+          id: number;
+          name: string;
+          total_income: number;
+          updated_at: null | string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: null | string;
+          id?: number;
+          name?: string;
+          total_income?: number;
+          updated_at?: null | string;
+          user_id?: string;
+        };
+      };
       expense: {
         Insert: {
           amount: number;
@@ -938,6 +1005,59 @@ export type Database = {
           last_clicked?: null | string;
           page_id?: number;
           user_id?: string;
+        };
+      };
+      preset_budget_allocation: {
+        Insert: {
+          amount?: null | number;
+          id?: number;
+          name: string;
+          percentage?: null | number;
+          preset_plan_id: number;
+        };
+        Relationships: [
+          {
+            columns: ['preset_plan_id'];
+            foreignKeyName: 'preset_budget_allocation_preset_plan_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'preset_budget_plan';
+          }
+        ];
+        Row: {
+          amount: null | number;
+          id: number;
+          name: string;
+          percentage: null | number;
+          preset_plan_id: number;
+        };
+        Update: {
+          amount?: null | number;
+          id?: number;
+          name?: string;
+          percentage?: null | number;
+          preset_plan_id?: number;
+        };
+      };
+      preset_budget_plan: {
+        Insert: {
+          created_at?: null | string;
+          description?: null | string;
+          id?: number;
+          name: string;
+        };
+        Relationships: [];
+        Row: {
+          created_at: null | string;
+          description: null | string;
+          id: number;
+          name: string;
+        };
+        Update: {
+          created_at?: null | string;
+          description?: null | string;
+          id?: number;
+          name?: string;
         };
       };
       tag: {
