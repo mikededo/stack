@@ -13,12 +13,13 @@
 
     type Props = {
         children: Snippet;
+        id?: string;
         onClickAway?: () => void;
         options: Snippet;
         show?: boolean;
         use?: ActionArray;
     };
-    let { children, onClickAway, options, show: showAutocomplete, use = [] }: Props = $props();
+    let { children, id, onClickAway, options, show: showAutocomplete, use = [] }: Props = $props();
 
     let show = $derived(showAutocomplete ?? false);
     let wrapperNode = $state<HTMLDivElement | null>(null);
@@ -75,7 +76,12 @@
 </div>
 
 {#if show && options.length}
-    <FloatingCard class="ui-overflow-hidden" position={autocompletePosition} use={[[portal, '']]}>
+    <FloatingCard
+        class="ui-overflow-hidden"
+        position={autocompletePosition}
+        use={[[portal, '']]}
+        {id}
+    >
         <div
             class="ui-flex ui-max-h-44 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1"
             bind:this={optionsWrapperNode}
