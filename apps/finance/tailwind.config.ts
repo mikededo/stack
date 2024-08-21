@@ -15,7 +15,11 @@ export default {
         'not-current': 'current="false"'
       },
       height: {
-        'top-bar-md': 'calc(100vh - 56px)'
+        content: 'calc(100vh - 56px)',
+        'content-md': 'calc(100vh - 72px)'
+      },
+      width: {
+        'content-md': 'calc(100vw - 290px)'
       }
     }
   }
