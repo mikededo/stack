@@ -1,5 +1,7 @@
 import { getContext, setContext } from 'svelte';
 
+import type { BudgetPresets } from '$lib/db';
+
 export type Allocation = {
   amount: string;
   id?: number;
@@ -8,6 +10,7 @@ export type Allocation = {
 };
 
 type BudgetPlanState = {
+  activePreset: BudgetPresets[number] | null;
   allocations: Allocation[];
   budget: string;
   name: string;
@@ -18,6 +21,7 @@ const randomLocalId = () => Math.floor(Math.random() * 1000);
 const CONTEXT_KEY = 'budget-plan';
 
 let state = $state<BudgetPlanState>({
+  activePreset: null,
   allocations: [{ amount: '', id: randomLocalId(), name: '', percentage: '' }],
   budget: '',
   name: ''
@@ -70,6 +74,15 @@ export const totalSalaryAllocated = () => {
   );
 
   return total.toFixed(total === 0 || total === 100 ? 0 : 2);
+};
+
+export const toggleActivePreset = (preset: BudgetPresets[number]) => {
+  if (state.activePreset?.id === preset.id) {
+    state.activePreset = null;
+    return;
+  }
+
+  state.activePreset = preset;
 };
 
 // HELPERS
