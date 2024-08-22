@@ -1,5 +1,9 @@
 <script lang="ts">
+    import type { ActionArray } from '@stack/actions';
+
     import type { HTMLInputAttributes } from 'svelte/elements';
+
+    import { useActions } from '@stack/actions';
 
     import { twMerge } from 'tailwind-merge';
 
@@ -9,8 +13,17 @@
         color?: InputColor;
         invalid?: boolean;
         label?: string;
+        use?: ActionArray;
     } & HTMLInputAttributes;
-    let { color, invalid, label, name, value = $bindable<string>(''), ...rest }: Props = $props();
+    let {
+        color,
+        invalid,
+        label,
+        name,
+        use = [],
+        value = $bindable<string>(''),
+        ...rest
+    }: Props = $props();
 
     const COLORS: Record<InputColor, string> = {
         primary: 'focus:ui-border-primary active:ui-border-primary input',
@@ -30,7 +43,14 @@
 </script>
 
 {#snippet content()}
-    <input {...rest} class={classes} bind:value aria-invalid={invalid} {name} />
+    <input
+        {...rest}
+        class={classes}
+        bind:value
+        use:useActions={use}
+        aria-invalid={invalid}
+        {name}
+    />
 {/snippet}
 
 {#if label}
