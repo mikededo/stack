@@ -16,7 +16,7 @@ export default {
       },
       height: {
         content: 'calc(100vh - 56px)',
-        'content-md': 'calc(100vh - 72px)'
+        'content-md': 'calc(100vh - 66px)'
       },
       width: {
         'content-md': 'calc(100vw - 290px)'

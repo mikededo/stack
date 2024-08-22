@@ -36,7 +36,7 @@
         <Logo />
         <p class="font-bold">Stack</p>
     </div>
-    <div class="flex h-full w-full items-center justify-end pr-3">
+    <div class="flex h-full w-full items-center justify-end pr-5">
         <!-- TODO: Add user preferences -->
         <span
             class="cursor-pointer text-sm text-surface-700 underline decoration-transparent underline-offset-1 transition-colors hover:decoration-surface-700"
