@@ -1,8 +1,9 @@
 <script lang="ts">
     import type { Icon as LucideIcon } from 'lucide-svelte';
     import type { ComponentType, Snippet } from 'svelte';
+    import type { Action } from 'svelte/action';
 
-    import { portal } from '@stack/actions';
+    import { portal, useActions } from '@stack/actions';
 
     import { LayoutTemplate, X } from 'lucide-svelte';
     import { spring } from 'svelte/motion';
@@ -45,6 +46,24 @@
         onClose?.();
     };
 
+    const useOnClick: Action = (node) => {
+        const onClick = (event: MouseEvent) => {
+            if (!node.contains(event.target as HTMLElement)) {
+                return;
+            }
+
+            onClose?.();
+        };
+
+        node.addEventListener('click', onClick);
+
+        return {
+            destroy() {
+                node.removeEventListener('click', onClick);
+            }
+        };
+    };
+
     $effect(() => {
         if (show) {
             internalShow = true;
@@ -61,7 +80,7 @@
 {#if internalShow}
     <div
         class="bg-black/30 ui-fixed ui-inset-0"
-        use:portal={''}
+        use:useActions={[[portal, ''], useOnClick]}
         style="opacity: {$position / 480}"
     ></div>
 {/if}
