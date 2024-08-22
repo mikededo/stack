@@ -1,5 +1,7 @@
 import type { Action } from 'svelte/action';
 
+import { Keys } from '@stack/utils';
+
 const TYPE_SPEED_MS = 38;
 const TYPE_PAUSE_MS = 2500;
 const DELETE_SPEED_MS = 15;
@@ -18,7 +20,12 @@ const PLACEHOLDERS = [
   'Luxury spending control'
 ];
 
-export const useAnimatedPlaceholder: Action<HTMLInputElement> = (node) => {
+export const useAnimatedPlaceholder: Action = (node) => {
+  // TS check, as the action is only used on input elements
+  if (!(node instanceof HTMLInputElement)) {
+    return;
+  }
+
   let timeout = $state<number | undefined>();
   let placeholderIndex = $state(0);
   let charIndex = $state(0);
@@ -80,6 +87,47 @@ export const useAnimatedPlaceholder: Action<HTMLInputElement> = (node) => {
       if (timeout) {
         window.clearTimeout(timeout);
       }
+    }
+  };
+};
+
+export const useUpDownArrows: Action<HTMLElement, string> = (node, prefix) => {
+  // TS check, as the action is only used on input elements
+  if (!(node instanceof HTMLInputElement)) {
+    return;
+  }
+
+  const onKeydown = (event: KeyboardEvent) => {
+    if (event.key === Keys.ArrowUp) {
+      if (node.value) {
+        const [_, value] = node.value.split(prefix);
+        const num = Number(value) + 1;
+        node.value = `${prefix}${num}`;
+      } else {
+        node.value = '€ 1';
+      }
+
+      // Dispatch an input event to trigger the oninput handler
+      node.dispatchEvent(new InputEvent('input', { bubbles: true }));
+    }
+
+    if (event.key === Keys.ArrowDown) {
+      if (node.value) {
+        const [_, value] = node.value.split(prefix);
+        const num = Math.max(0, Number(value) - 1);
+        node.value = `${prefix}${num}`;
+      }
+
+      // Dispatch an input event to trigger the oninput handler
+      node.dispatchEvent(new InputEvent('input', { bubbles: true }));
+    }
+  };
+
+  node.addEventListener('keydown', onKeydown);
+
+  return {
+    destroy() {
+      node.removeEventListener('keydown', onKeydown);
     }
   };
 };

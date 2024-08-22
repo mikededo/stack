@@ -1,7 +1,12 @@
 <script>
-    import { Input } from '@stack/ui';
+    import {
+        initBudgetPlanContext,
+        PlanAllocations,
+        PlanBudget,
+        PlanName
+    } from '$lib/domain/budget';
 
-    import { Allocations, PlanName } from '$lib/domain/budget';
+    initBudgetPlanContext();
 </script>
 
 <div class="md:mb-4">
@@ -13,15 +18,5 @@
 </div>
 
 <PlanName />
-<Input class="w-full" label="Total income" placeholder="€ 1000" />
-<div class="flex flex-col gap-4 rounded-lg border border-surface-200 p-6 pt-4">
-    <div>
-        <h2 class="text-xl font-semibold">Budget allocations</h2>
-        <p class="text-sm italic text-surface-700">
-            Here you can see the allocations of your budget. You can add new allocations or edit the
-            ones that you already have.
-        </p>
-    </div>
-
-    <Allocations />
-</div>
+<PlanBudget />
+<PlanAllocations />
