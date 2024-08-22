@@ -1,7 +1,7 @@
 <script>
     import { Input } from '@stack/ui';
 
-    import { Allocations } from '$lib/domain/budget';
+    import { Allocations, PlanName } from '$lib/domain/budget';
 </script>
 
 <div class="md:mb-4">
@@ -12,6 +12,7 @@
     </p>
 </div>
 
+<PlanName />
 <Input class="w-full" label="Total income" placeholder="€ 1000" />
 <div class="flex flex-col gap-4 rounded-lg border border-surface-200 p-6 pt-4">
     <div>
