@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="bg-surface-50">
     <head>
         <meta charset="utf-8" />
         <link
@@ -10,7 +10,11 @@
         %sveltekit.head%
     </head>
     <body data-sveltekit-preload-data="hover">
-        <div style="display: contents">%sveltekit.body%</div>
+        <div style="display: contents">
+            <div id="content" class="scale-100 overflow-hidden transition-all duration-150">
+                %sveltekit.body%
+            </div>
+        </div>
         <div id="portal"></div>
     </body>
 </html>
