@@ -7,7 +7,7 @@
 
     import { twMerge } from 'tailwind-merge';
 
-    type InputColor = 'primary' | 'surface';
+    type InputColor = 'destructive' | 'primary' | 'surface';
 
     type Props = {
         color?: InputColor;
@@ -26,6 +26,7 @@
     }: Props = $props();
 
     const COLORS: Record<InputColor, string> = {
+        destructive: 'ui-bg-destructive-50 ui-border-destructive-500 ui-text-destructive-500',
         primary: 'focus:ui-border-primary active:ui-border-primary input',
         surface:
             'ui-bg-surface-50 ui-border-transparent hover:ui-border-surface-200 focus:ui-border-surface-200 active:ui-border-surface-200 disabled:ui-bg-surface-100'
