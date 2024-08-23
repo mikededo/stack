@@ -710,6 +710,14 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      create_budget_plan: {
+        Args: {
+          allocations: Json;
+          name: string;
+          total_income: number;
+        };
+        Returns: number;
+      };
       log_last_accessed_page: {
         Args: {
           page: number;
