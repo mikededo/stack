@@ -4,14 +4,24 @@
 
     import { twMerge } from 'tailwind-merge';
 
-    type Props = { children: Snippet; color: string } & SvelteHTMLElements['span'];
-    let { children, color, ...restProps }: Props = $props();
+    type ChipVariant = 'primary';
 
-    let classes = $derived(
-        twMerge('ui-rounded-full ui-px-2 ui-py-1 ui-text-xs ui-font-semibold', restProps.class)
+    type BaseProps = {
+        children: Snippet;
+    } & ({ color: string; variant?: never } | { color?: never; variant: ChipVariant });
+    type Props = BaseProps & SvelteHTMLElements['span'];
+    let { children, color, variant, ...restProps }: Props = $props();
+
+    const classes = $derived(
+        twMerge(
+            'ui-rounded-full ui-px-2 ui-py-1 ui-text-xs ui-font-semibold',
+            variant === 'primary' && 'ui-bg-primary/25 ui-text-primary',
+            restProps.class
+        )
     );
+    const style = $derived(variant ? undefined : `background-color: ${color}44; color: ${color}`);
 </script>
 
-<span class={classes} style="background-color: {color}44; color: {color}" {...restProps}>
+<span {...restProps} class={classes} {style}>
     {@render children()}
 </span>
