@@ -14,7 +14,7 @@ export const usePercentageMask: Action = (node) => {
 
     // Convert to number and limit to 0-100
     const numericValue = parseInt(value, 10);
-    if (!isNaN(numericValue) && numericValue >= 1 && numericValue <= 100) {
+    if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
       node.value = numericValue.toString();
     } else {
       node.value = '';
