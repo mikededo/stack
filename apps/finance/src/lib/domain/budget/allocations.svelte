@@ -17,18 +17,25 @@
         getAmountPlaceholder,
         getBudgetPlanContext,
         getPercentagePlaceholder,
+        isAmountOverBudget,
         onChangeAllocationProperty,
         onDeleteAllocation,
         onNewAllocation,
         totalSalaryAllocated
     } from './context.svelte';
+    import { useCreatePlan } from './hooks';
 
-    let ctx = getBudgetPlanContext();
-    let duration = $state(100);
+    const ctx = getBudgetPlanContext();
+    const createPlan = useCreatePlan();
     const allocatedAmount = $derived(totalSalaryAllocated());
     const canPlanBeSaved = $derived(
         areAllocationNamesValid() && allocatedAmount === '100' && ctx.name && ctx.budget
     );
+    let duration = $state(100);
+
+    const onSavePlan = () => {
+        $createPlan.mutate();
+    };
 
     beforeNavigate(() => {
         duration = 0;
@@ -46,27 +53,33 @@
 
     <div class="flex flex-col gap-3">
         {#each ctx.allocations as { amount, id, name, percentage }, i (id)}
-            <div class="flex gap-16" transition:fade|global={{ duration }}>
-                <div class="flex w-full flex-col justify-between">
+            <div
+                class="flex flex-col gap-4 sm:flex-row sm:gap-8 md:flex-col md:gap-2 lg:flex-row lg:gap-16"
+                transition:fade|global={{ duration }}
+            >
+                <div
+                    class="flex w-full flex-col justify-between gap-2 md:flex-row md:items-center lg:flex-col lg:items-start"
+                >
                     <input
-                        class="text-sm font-semibold outline-none"
+                        class="shrink-0 text-sm font-semibold outline-none md:w-60 lg:w-auto"
                         placeholder="Allocation name"
                         value={name}
                         oninput={onChangeAllocationProperty(i, 'name')}
                     />
-                    <div class="h-2.5 w-full overflow-hidden rounded-full bg-surface-100">
+                    <div class="h-2.5 w-full overflow-hidden rounded-full bg-surface-100 lg:block">
                         <div
                             class="h-full w-0 rounded-full bg-secondary-500 transition-all"
                             style="width: {getAllocationPercentage(percentage, amount)}%"
                         ></div>
                     </div>
                 </div>
-                <div class="flex items-center gap-4">
+                <div class="flex items-center justify-between gap-4 lg:flex-row">
                     <div class="flex">
                         <Input
-                            class="w-20 rounded-r-none border-r border-r-surface-200"
-                            color="surface"
+                            class="w-40 rounded-r-none border-r border-r-surface-200 aria-invalid:border-r-destructive-500"
+                            color={isAmountOverBudget(amount) ? 'destructive' : 'surface'}
                             disabled={Number(percentage) !== 0}
+                            invalid={isAmountOverBudget(amount)}
                             name="amount"
                             placeholder={getAmountPlaceholder(percentage)}
                             use={[[useUpDownArrows, '€ '], useMoneyMask]}
@@ -94,7 +107,11 @@
             </div>
         {/each}
 
-        <p class="color-surface-600 ml-auto text-sm italic">
+        <p
+            class="color-surface-600 ml-auto text-sm italic"
+            class:text-destructive-500={Number(allocatedAmount) > Number('100')}
+            class:text-secondary-500={Number(allocatedAmount) < Number('100')}
+        >
             Total income allocated: {allocatedAmount}%
         </p>
         <TextIconButton
@@ -114,5 +131,5 @@
     disabled={!canPlanBeSaved}
     Icon={Save}
     label="Save plan"
-    onclick={console.log}
+    onclick={onSavePlan}
 />
