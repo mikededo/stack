@@ -12,8 +12,9 @@ type PlanAllocation = {
   amount: null | number | string;
   budget_plan_id?: BudgetPlanAllocation['budget_plan_id'];
   id: `local-${number}` | number;
+  name: string;
   percentage: null | number | string;
-} & Omit<BudgetPlanAllocation, 'budget_plan_id' | 'id'>;
+};
 
 /**
  * The same state is used for both the plan and the preset allocations. Since we
@@ -71,14 +72,19 @@ export const onNewAllocation = () => {
 };
 
 export const onChangeAllocationProperty =
-  (i: number, property: keyof Omit<PresetAllocation, 'id'>, preset: boolean = false) =>
+  (i: number, property: 'amount' | 'name' | 'percentage', preset: boolean = false) =>
   (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (preset) {
       const updated = [...state.presetAllocations];
       updated[i][property] = target.value;
       state.presetAllocations = updated;
+      return;
     }
+
+    const updated = [...state.planAllocations];
+    updated[i][property] = target.value;
+    state.planAllocations = updated;
   };
 
 export const onDeleteAllocation =
@@ -117,16 +123,7 @@ export const applyActivePreset = () => {
 
 export const onToggleSavedPlan = (plan: BudgetPlan) => {
   if (state.id === plan.id) {
-    // When toggled, we simply remove the id and also remove the id from the allocations
-    state.id = undefined;
-    state.planAllocations = state.planAllocations.map(({ amount, name, percentage }) => ({
-      amount,
-      budget_plan_id: undefined,
-      id: randomLocalId(),
-      name,
-      percentage
-    }));
-
+    removeActivePlan();
     return;
   }
 
@@ -134,6 +131,18 @@ export const onToggleSavedPlan = (plan: BudgetPlan) => {
   state.name = plan.name;
   state.budget = `€ ${plan.total_income}`;
   state.id = plan.id;
+};
+
+export const removeActivePlan = () => {
+  // When toggled, we simply remove the id and also remove the id from the allocations
+  state.id = undefined;
+  state.planAllocations = state.planAllocations.map(({ amount, name, percentage }) => ({
+    amount,
+    budget_plan_id: undefined,
+    id: randomLocalId(),
+    name,
+    percentage
+  }));
 };
 
 // HELPERS

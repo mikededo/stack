@@ -24,10 +24,10 @@
         onNewAllocation,
         totalSalaryAllocated
     } from './context.svelte';
-    import { useCreatePlan } from './hooks';
+    import { useUpsertPlan } from './hooks';
 
     const ctx = getBudgetPlanContext();
-    const createPlan = useCreatePlan();
+    const createPlan = useUpsertPlan();
     const allocatedAmount = $derived(totalSalaryAllocated());
     const canPlanBeSaved = $derived(
         areAllocationNamesValid() && allocatedAmount === '100' && ctx.name && ctx.budget

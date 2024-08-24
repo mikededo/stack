@@ -6,14 +6,14 @@ import { Keys } from '$lib/config';
 import {
   type BudgetPlan,
   type BudgetPlans,
-  createBudgetPlan,
   deleteBudgetPlan,
-  getBudgetPlans
+  getBudgetPlans,
+  upsertBudgetPlan
 } from '$lib/db';
 
 import { getAllocations, getBudgetPlanContext, splitOrNumber } from './context.svelte';
 
-export const useCreatePlan = () => {
+export const useUpsertPlan = () => {
   const supabase = getSupabaseClient();
   const queryClient = useQueryClient();
   const ctx = getBudgetPlanContext();
@@ -22,32 +22,40 @@ export const useCreatePlan = () => {
     mutationFn: async () => {
       const [_, budget] = ctx.budget.split('€ ');
       const data = {
-        allocations: getAllocations().map(({ amount, name, percentage }) => {
+        allocations: getAllocations().map(({ amount, id, name, percentage }) => {
+          const validId = typeof id === 'number' ? id : null;
+
           if (amount) {
             const [, value] = splitOrNumber(amount, '€ ');
-            return { amount: Number(value), name, percentage: 0 };
+            return { amount: Number(value), id: validId, name, percentage: 0 };
           } else if (percentage) {
             const [, value] = splitOrNumber(percentage, '% ');
-            return { amount: 0, name, percentage: Number(value) };
+            return { amount: 0, id: validId, name, percentage: Number(value) };
           }
 
-          // TODO: This is not valid
-          return { amount: 0, name, percentage: 0 };
+          return { amount: 0, id: null, name, percentage: 0 }; // This should never happen
         }),
         budget: Number(budget),
+        id: ctx.id ?? null,
         name: ctx.name
       };
 
-      return await createBudgetPlan(supabase, data);
+      return await upsertBudgetPlan(supabase, data);
     },
-    onSuccess: (data) => {
+    // Pass to the context if the plan is being created or updated
+    onMutate: () => ctx.id,
+    onSuccess: (data, _, prevId) => {
       queryClient.setQueryData<BudgetPlans>(Keys.BUDGET_PLANS, (prev) => {
         if (!prev || !data) {
           return prev;
         }
 
-        // @ts-expect-error Suapabse is not capable of properly typing custom function data
-        return [...prev, data as BudgetPlan];
+        if (!prevId) {
+          // @ts-expect-error Suapabse is not capable of properly typing custom function data
+          return [...prev, data as BudgetPlan];
+        } else {
+          return prev.map((plan) => (prevId === plan.id ? { ...plan, ...data } : plan));
+        }
       });
     }
   });

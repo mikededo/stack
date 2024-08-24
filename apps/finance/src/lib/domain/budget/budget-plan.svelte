@@ -15,7 +15,7 @@
     let { onDeletePlan, plan }: Props = $props();
 
     const ctx = getBudgetPlanContext();
-    let { allocations, name, total_income } = plan;
+    let { allocations, name, total_income } = $derived(plan);
 
     let confirmDelete = $state(false);
     let duration = $state(100);
