@@ -724,6 +724,15 @@ export type Database = {
         };
         Returns: undefined;
       };
+      update_budget_plan: {
+        Args: {
+          allocations: Json;
+          plan_id: number;
+          plan_name: string;
+          plan_total_income: number;
+        };
+        Returns: Json;
+      };
     };
     Tables: {
       book: {
