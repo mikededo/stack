@@ -1,0 +1,19 @@
+{
+  "name": "@stack/track",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "bun --watch run ./src/index.ts",
+    "lint:fix": "prettier --check . && eslint . --fix"
+  },
+  "dependencies": {
+    "@clickhouse/client": "1.4.1",
+    "@hattip/adapter-bun": "0.0.47",
+    "@hattip/response": "0.0.47",
+    "@hattip/router": "0.0.47"
+  },
+  "devDependencies": {
+    "@stack/typescript-config": "workspace:*",
+    "@types/bun": "1.1.6"
+  }
+}
