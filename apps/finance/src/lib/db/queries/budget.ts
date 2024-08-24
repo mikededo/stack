@@ -29,6 +29,8 @@ export type NewBudgetPlanData = {
   name: string;
 };
 
+// MUTATIONS
+
 export const createBudgetPlan = async (
   client: Client,
   { allocations, budget, name }: NewBudgetPlanData
@@ -44,3 +46,6 @@ export const createBudgetPlan = async (
       .select()
       .throwOnError()
   ).data;
+
+export const deleteBudgetPlan = async (client: Client, id: number) =>
+  await client.schema('finances').from('budget_plan').delete().eq('id', id).select().throwOnError();

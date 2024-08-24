@@ -1,7 +1,8 @@
 <!-- Specific plan render for the saved plans -->
 <script lang="ts">
-    import { Chip } from '@stack/ui';
+    import { Chip, ContextMenu, createContextMenu, DangerDialog } from '@stack/ui';
 
+    import { Trash2 } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
     import type { BudgetPlan } from '$lib/db';
@@ -10,12 +11,15 @@
 
     import { getBudgetPlanContext, onToggleSavedPlan } from './context.svelte';
 
-    type Props = { plan: BudgetPlan };
-    let { plan }: Props = $props();
+    type Props = { onDeletePlan: (id: number) => void; plan: BudgetPlan };
+    let { onDeletePlan, plan }: Props = $props();
 
     const ctx = getBudgetPlanContext();
     let { allocations, name, total_income } = plan;
+
+    let confirmDelete = $state(false);
     let duration = $state(100);
+    const menu = createContextMenu();
 
     const getAllocationWidth = (
         percentage: null | number,
@@ -33,13 +37,29 @@
         onToggleSavedPlan(plan);
     };
 
+    const onConfirmDelete = () => {
+        confirmDelete = true;
+    };
+
+    const onCancelDelete = () => {
+        confirmDelete = false;
+    };
+
+    const onInternalDeletePlan = () => {
+        confirmDelete = false;
+        onDeletePlan(plan.id);
+    };
+
     beforeNavigate(() => {
         duration = 0;
     });
+
+    const options = [{ destructive: true, Icon: Trash2, onClick: onConfirmDelete, text: 'Delete' }];
 </script>
 
 <button
     class="group group w-full rounded border border-surface-200 p-3 text-left transition-all aria-checked:border-solid aria-checked:border-primary aria-checked:bg-primary-50 hover:border-solid hover:border-primary"
+    use:menu.trigger
     aria-checked={ctx.id === plan.id}
     role="checkbox"
     transition:fade|global={{ duration }}
@@ -65,3 +85,11 @@
         </div>
     {/each}
 </button>
+
+<ContextMenu menu={menu.menu} {options} />
+
+{#if confirmDelete}
+    <DangerDialog onCancel={onCancelDelete} onConfirm={onInternalDeletePlan}>
+        <p>Do you really want to delete the <strong>{name}</strong> plan and it's allocations?</p>
+    </DangerDialog>
+{/if}
