@@ -20,8 +20,8 @@
 
 {#snippet footer()}
     <div class="ui-flex ui-items-center ui-justify-end ui-gap-2">
-        <Button color="destructive" disabled={disableConfirm} onclick={onConfirm}>Delete</Button>
         <Button color="surface" disabled={disableCancel} onclick={onCancel}>Cancel</Button>
+        <Button color="destructive" disabled={disableConfirm} onclick={onConfirm}>Delete</Button>
     </div>
 {/snippet}
 
