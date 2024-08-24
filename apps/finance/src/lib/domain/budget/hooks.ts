@@ -1,14 +1,15 @@
 import { getSupabaseClient } from '@stack/svelte-supabase';
 
-import { createMutation, createQuery } from '@tanstack/svelte-query';
+import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { createBudgetPlan, getBudgetPlans } from '$lib/db';
+import { type BudgetPlan, type BudgetPlans, createBudgetPlan, getBudgetPlans } from '$lib/db';
 
 import { getBudgetPlanContext } from './context.svelte';
 
 export const useCreatePlan = () => {
   const supabase = getSupabaseClient();
+  const queryClient = useQueryClient();
   const ctx = getBudgetPlanContext();
 
   return createMutation({
@@ -33,8 +34,15 @@ export const useCreatePlan = () => {
 
       return await createBudgetPlan(supabase, data);
     },
-    onSuccess: () => {
-      // TODO: Update the saved plans query data
+    onSuccess: (data) => {
+      queryClient.setQueryData<BudgetPlans>(Keys.BUDGET_PLANS, (prev) => {
+        if (!prev || !data) {
+          return prev;
+        }
+
+        // @ts-expect-error Suapabse is not capable of properly typing custom function data
+        return [...prev, data as BudgetPlan];
+      });
     }
   });
 };

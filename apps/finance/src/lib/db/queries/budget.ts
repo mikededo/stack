@@ -27,6 +27,7 @@ export type NewBudgetPlanData = {
   budget: number;
   name: string;
 };
+
 export const createBudgetPlan = async (
   client: Client,
   { allocations, budget, name }: NewBudgetPlanData

@@ -37,7 +37,7 @@
     <div>Loading</div>
 {:else if $query.data}
     <div class="hidden gap-4 xl:grid xl:grid-cols-3">
-        {#each xlGroups as group (group)}
+        {#each xlGroups as group}
             <div class="flex flex-col gap-4">
                 {#each group as plan (plan.id)}
                     <BudgetPlan {plan} />
@@ -49,7 +49,7 @@
     <div
         class="hidden grid-cols-2 gap-4 sm:grid md:hidden lg:grid lg:grid-cols-2 lg:gap-2 xl:hidden"
     >
-        {#each smGroups as group (group)}
+        {#each smGroups as group}
             <div class="flex flex-col gap-4 md:gap-2">
                 {#each group as plan (plan.id)}
                     <BudgetPlan {plan} />
