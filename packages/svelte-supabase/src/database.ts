@@ -716,7 +716,7 @@ export type Database = {
           name: string;
           total_income: number;
         };
-        Returns: number;
+        Returns: Json;
       };
       log_last_accessed_page: {
         Args: {
@@ -825,6 +825,41 @@ export type Database = {
           name?: string;
           total_income?: number;
           updated_at?: null | string;
+          user_id?: string;
+        };
+      };
+      budget_subscription: {
+        Insert: {
+          amount: number;
+          created_at?: null | string;
+          id?: never;
+          name: string;
+          payment_interval: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            columns: ['user_id'];
+            foreignKeyName: 'fk_user_id';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          }
+        ];
+        Row: {
+          amount: number;
+          created_at: null | string;
+          id: number;
+          name: string;
+          payment_interval: string;
+          user_id: string;
+        };
+        Update: {
+          amount?: number;
+          created_at?: null | string;
+          id?: never;
+          name?: string;
+          payment_interval?: string;
           user_id?: string;
         };
       };
