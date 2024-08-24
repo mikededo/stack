@@ -2,10 +2,12 @@
     import type { BudgetPlan as BudgetPlanType } from '$lib/db';
 
     import BudgetPlan from './budget-plan.svelte';
-    import { useSavedBudgetPlans } from './hooks';
+    import { useDeletePlan, useSavedBudgetPlans } from './hooks';
     import PlanSkeleton from './plan-skeleton.svelte';
 
     const query = useSavedBudgetPlans();
+    const deleteMutation = useDeletePlan();
+
     const xlGroups = $derived.by(() => {
         const groups: [BudgetPlanType[], BudgetPlanType[], BudgetPlanType[]] = [[], [], []];
         if (!$query.data) {
@@ -28,6 +30,10 @@
         });
         return groups;
     });
+
+    const onDeletePlan = (id: number) => {
+        $deleteMutation.mutate(id);
+    };
 </script>
 
 <div class="flex flex-col gap-1 md:mb-1">
@@ -47,7 +53,7 @@
         {#each xlGroups as group}
             <div class="flex flex-col gap-4">
                 {#each group as plan (plan.id)}
-                    <BudgetPlan {plan} />
+                    <BudgetPlan {plan} {onDeletePlan} />
                 {/each}
             </div>
         {/each}
@@ -59,7 +65,7 @@
         {#each smGroups as group}
             <div class="flex flex-col gap-4 md:gap-2">
                 {#each group as plan (plan.id)}
-                    <BudgetPlan {plan} />
+                    <BudgetPlan {plan} {onDeletePlan} />
                 {/each}
             </div>
         {/each}
@@ -67,7 +73,7 @@
 
     <div class="flex flex-col gap-2 sm:hidden md:flex md:gap-4 lg:hidden">
         {#each $query.data as plan (plan.id)}
-            <BudgetPlan {plan} />
+            <BudgetPlan {plan} {onDeletePlan} />
         {/each}
     </div>
 {/if}

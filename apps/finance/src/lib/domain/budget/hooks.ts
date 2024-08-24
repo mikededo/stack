@@ -3,7 +3,13 @@ import { getSupabaseClient } from '@stack/svelte-supabase';
 import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { type BudgetPlan, type BudgetPlans, createBudgetPlan, getBudgetPlans } from '$lib/db';
+import {
+  type BudgetPlan,
+  type BudgetPlans,
+  createBudgetPlan,
+  deleteBudgetPlan,
+  getBudgetPlans
+} from '$lib/db';
 
 import { getAllocations, getBudgetPlanContext, splitOrNumber } from './context.svelte';
 
@@ -42,6 +48,28 @@ export const useCreatePlan = () => {
 
         // @ts-expect-error Suapabse is not capable of properly typing custom function data
         return [...prev, data as BudgetPlan];
+      });
+    }
+  });
+};
+
+export const useDeletePlan = () => {
+  const supabase = getSupabaseClient();
+  const queryClient = useQueryClient();
+
+  return createMutation({
+    mutationFn: async (id: number) => await deleteBudgetPlan(supabase, id),
+    onSuccess: (_, id) => {
+      queryClient.setQueryData<BudgetPlans>(Keys.BUDGET_PLANS, (prev) => {
+        if (!prev) {
+          return prev;
+        }
+
+        if (prev.length === 1) {
+          return [];
+        }
+
+        return prev.filter(({ id: current }) => current !== id);
       });
     }
   });
