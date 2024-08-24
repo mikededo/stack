@@ -1,5 +1,12 @@
 import { type Client, type Result, withUnauthorizedRedirect } from '@stack/svelte-supabase';
 
+export const getBudgetPlansQuery = (client: Client) =>
+  client.schema('finances').from('budget_plan').select('*, allocations:budget_allocation(*)');
+export const getBudgetPlans = async (client: Client) =>
+  (await withUnauthorizedRedirect(client, await getBudgetPlansQuery(client))).data;
+export type BudgetPlans = Result<typeof getBudgetPlansQuery>;
+export type BudgetPlan = BudgetPlans[number];
+
 export const getBudgetPresetsQuery = (client: Client) =>
   client
     .schema('finances')
