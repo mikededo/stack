@@ -44,7 +44,7 @@ let state = $state<BudgetPlanState>({
   budget: '',
   id: undefined,
   name: '',
-  planAllocations: [] as PlanAllocation[],
+  planAllocations: [{ amount: '', id: randomLocalId(), name: '', percentage: '' }],
   presetAllocations: [{ amount: '', id: randomLocalId(), name: '', percentage: '' }]
 });
 
@@ -64,11 +64,19 @@ export const getBudgetPlanContext = () => {
 // MODIFIERS
 
 export const onNewAllocation = () => {
+  if (state.id) {
+    // Add to the plan allocations
+    state.planAllocations = [
+      ...state.planAllocations,
+      { amount: '', id: randomLocalId(), name: '', percentage: '' }
+    ];
+    return;
+  }
+
   state.presetAllocations = [
     ...state.presetAllocations,
     { amount: '', id: randomLocalId(), name: '', percentage: '' }
   ];
-  state.planAllocations.map((p) => p.percentage);
 };
 
 export const onChangeAllocationProperty =
