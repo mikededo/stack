@@ -20,32 +20,44 @@ export type BudgetPresets = Result<typeof getBudgetPresetsQuery>;
 
 export type NewBudgetAllocationData = {
   amount: null | number;
+  id: null | number;
   name: string;
   percentage: null | number;
+  // Budget plan id is not required as the plan id cannot be updated
 };
-export type NewBudgetPlanData = {
+export type BudgetPlanData = {
   allocations: NewBudgetAllocationData[];
   budget: number;
+  id: null | number;
   name: string;
 };
 
 // MUTATIONS
 
-export const createBudgetPlan = async (
+export const upsertBudgetPlan = async (
   client: Client,
-  { allocations, budget, name }: NewBudgetPlanData
-) =>
-  (
-    await client
-      .schema('finances')
-      .rpc('create_budget_plan', {
+  { allocations, budget, id, name }: BudgetPlanData
+) => {
+  const args = id
+    ? {
+        allocations,
+        plan_id: id,
+        plan_name: name,
+        plan_total_income: budget
+      }
+    : {
         allocations,
         name,
         total_income: budget
-      })
+      };
+  return (
+    await client
+      .schema('finances')
+      .rpc(id ? 'update_budget_plan' : 'create_budget_plan', args)
       .select()
       .throwOnError()
   ).data;
+};
 
 export const deleteBudgetPlan = async (client: Client, id: number) =>
   await client.schema('finances').from('budget_plan').delete().eq('id', id).select().throwOnError();

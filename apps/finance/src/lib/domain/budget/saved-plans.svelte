@@ -2,6 +2,7 @@
     import type { BudgetPlan as BudgetPlanType } from '$lib/db';
 
     import BudgetPlan from './budget-plan.svelte';
+    import { removeActivePlan } from './context.svelte';
     import { useDeletePlan, useSavedBudgetPlans } from './hooks';
     import PlanSkeleton from './plan-skeleton.svelte';
 
@@ -33,6 +34,7 @@
 
     const onDeletePlan = (id: number) => {
         $deleteMutation.mutate(id);
+        removeActivePlan();
     };
 </script>
 
