@@ -1,31 +1,50 @@
 import { getContext, setContext } from 'svelte';
 
-import type { BudgetPresets } from '$lib/db';
+import type { BudgetPlan, BudgetPlanAllocation, BudgetPresets } from '$lib/db';
 
-export type Allocation = {
+export type PresetAllocation = {
   amount: string;
   id?: `local-${number}` | number;
   name: string;
   percentage: string;
 };
+type PlanAllocation = {
+  amount: null | number | string;
+  budget_plan_id?: BudgetPlanAllocation['budget_plan_id'];
+  id: `local-${number}` | number;
+  percentage: null | number | string;
+} & Omit<BudgetPlanAllocation, 'budget_plan_id' | 'id'>;
 
+/**
+ * The same state is used for both the plan and the preset allocations. Since we
+ * have different components for each, we can keep the logic in the context helpers
+ * functions, and each plan component can used the state without being coupled
+ * to specific state.
+ */
 type BudgetPlanState = {
   activePreset: BudgetPresets[number] | null;
-  allocations: Allocation[];
   budget: string;
+  id?: number;
   name: string;
+  planAllocations: PlanAllocation[]; // Differentiate state to simplify logic
+  presetAllocations: PresetAllocation[];
 };
 
 // Prefix with local so we can detect if we are updating an allocation or creating a new one
-const randomLocalId = () => `local-${Math.floor(Math.random() * 1000)}` as const;
+const randomLocalId = () => `local-${Math.floor(Math.random() * 10000)}` as const;
+
+export const splitOrNumber = (value: number | string, split: string) =>
+  typeof value === 'string' ? value.split(split) : [null, value];
 
 const CONTEXT_KEY = 'budget-plan';
 
 let state = $state<BudgetPlanState>({
   activePreset: null,
-  allocations: [{ amount: '', id: randomLocalId(), name: '', percentage: '' }],
   budget: '',
-  name: ''
+  id: undefined,
+  name: '',
+  planAllocations: [] as PlanAllocation[],
+  presetAllocations: [{ amount: '', id: randomLocalId(), name: '', percentage: '' }]
 });
 
 export const initBudgetPlanContext = () => setContext<BudgetPlanState>(CONTEXT_KEY, state);
@@ -44,25 +63,34 @@ export const getBudgetPlanContext = () => {
 // MODIFIERS
 
 export const onNewAllocation = () => {
-  state.allocations = [
-    ...state.allocations,
+  state.presetAllocations = [
+    ...state.presetAllocations,
     { amount: '', id: randomLocalId(), name: '', percentage: '' }
   ];
+  state.planAllocations.map((p) => p.percentage);
 };
 
 export const onChangeAllocationProperty =
-  (i: number, property: keyof Omit<Allocation, 'id'>) => (event: Event) => {
+  (i: number, property: keyof Omit<PresetAllocation, 'id'>, preset: boolean = false) =>
+  (event: Event) => {
     const target = event.target as HTMLInputElement;
-    const updated = [...state.allocations];
-    updated[i][property] = target.value;
-    state.allocations = updated;
+    if (preset) {
+      const updated = [...state.presetAllocations];
+      updated[i][property] = target.value;
+      state.presetAllocations = updated;
+    }
   };
 
-export const onDeleteAllocation = (i: number) => () => {
-  const updated = [...state.allocations];
-  updated.splice(i, 1);
-  state.allocations = updated;
-};
+export const onDeleteAllocation =
+  (i: number, preset: boolean = false) =>
+  () => {
+    if (preset) {
+      const updated = [...state.presetAllocations];
+      updated.splice(i, 1);
+      state.presetAllocations = updated;
+      return;
+    }
+  };
 
 export const toggleActivePreset = (preset: BudgetPresets[number]) => {
   if (state.activePreset?.id === preset.id) {
@@ -78,7 +106,7 @@ export const applyActivePreset = () => {
     return;
   }
 
-  state.allocations = state.activePreset.allocations.map(({ amount, name, percentage }) => ({
+  state.presetAllocations = state.activePreset.allocations.map(({ amount, name, percentage }) => ({
     amount: amount ? `€ ${amount}` : '',
     id: randomLocalId(),
     name,
@@ -87,16 +115,43 @@ export const applyActivePreset = () => {
   state.name = state.activePreset.name;
 };
 
+export const onToggleSavedPlan = (plan: BudgetPlan) => {
+  if (state.id === plan.id) {
+    // When toggled, we simply remove the id and also remove the id from the allocations
+    state.id = undefined;
+    state.planAllocations = state.planAllocations.map(({ amount, name, percentage }) => ({
+      amount,
+      budget_plan_id: undefined,
+      id: randomLocalId(),
+      name,
+      percentage
+    }));
+
+    return;
+  }
+
+  state.planAllocations = plan.allocations;
+  state.name = plan.name;
+  state.budget = `€ ${plan.total_income}`;
+  state.id = plan.id;
+};
+
 // HELPERS
 
-export const areAllocationNamesValid = () => state.allocations.every(({ name }) => !!name);
+export const getAllocations = () =>
+  state.planAllocations.length ? state.planAllocations : state.presetAllocations;
+
+export const areAllocationNamesValid = () => getAllocations().every(({ name }) => !!name);
 
 export const totalSalaryAllocated = () => {
   if (state.budget === '' || Number(state.budget) === 0) {
     return 0;
   }
 
-  const total = state.allocations.reduce(
+  const allocations = state.planAllocations.length
+    ? state.planAllocations
+    : state.presetAllocations;
+  const total = allocations.reduce(
     (acc, { amount, percentage }) => acc + getAllocationPercentage(percentage, amount),
     0
   );
@@ -105,24 +160,24 @@ export const totalSalaryAllocated = () => {
 };
 
 export const getAllocationPercentage = (
-  percentage: string | undefined,
-  amount: string | undefined
+  percentage?: null | number | string,
+  amount?: null | number | string
 ) => {
   if (!percentage && !amount) {
     return 0;
   }
 
   if (percentage) {
-    const [, value] = percentage.split('% ');
+    const [, value] = splitOrNumber(percentage, '% ');
     return Number(value);
   }
 
-  const [, value] = amount!.split('€ ');
+  const [, value] = splitOrNumber(amount!, '€ ');
   const [, budget] = state.budget.split('€ ');
   return (Number(value) / Number(budget)) * 100;
 };
 
-export const getAmountPlaceholder = (percentage: string | undefined) => {
+export const getAmountPlaceholder = (percentage?: null | number | string) => {
   if (!percentage) {
     return '€ 450';
   }
@@ -132,17 +187,17 @@ export const getAmountPlaceholder = (percentage: string | undefined) => {
     return '€ 450';
   }
 
-  const [, value] = percentage.split('% ');
+  const [, value] = splitOrNumber(percentage, '% ');
 
   return `€ ${(Number(budget) * Number(value)) / 100}`;
 };
 
-export const getPercentagePlaceholder = (amount: string | undefined) => {
+export const getPercentagePlaceholder = (amount?: null | number | string) => {
   if (!amount) {
     return '50%';
   }
 
-  const [, value] = amount.split('€ ');
+  const [, value] = splitOrNumber(amount, '€ ');
   if (!value) {
     return '50%';
   }
@@ -151,12 +206,12 @@ export const getPercentagePlaceholder = (amount: string | undefined) => {
   return `${Math.min((Number(value) / Number(budget)) * 100, 100)}%`;
 };
 
-export const isAmountOverBudget = (amount: string | undefined) => {
+export const isAmountOverBudget = (amount?: null | number | string) => {
   if (!amount) {
     return false;
   }
 
-  const [, value] = amount.split('€ ');
+  const [, value] = splitOrNumber(amount, '€ ');
   if (!value) {
     return false;
   }

@@ -6,6 +6,7 @@ export const getBudgetPlans = async (client: Client) =>
   (await withUnauthorizedRedirect(client, await getBudgetPlansQuery(client))).data;
 export type BudgetPlans = Result<typeof getBudgetPlansQuery>;
 export type BudgetPlan = BudgetPlans[number];
+export type BudgetPlanAllocation = BudgetPlan['allocations'][number];
 
 export const getBudgetPresetsQuery = (client: Client) =>
   client

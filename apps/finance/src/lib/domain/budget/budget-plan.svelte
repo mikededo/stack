@@ -1,13 +1,19 @@
 <!-- Specific plan render for the saved plans -->
 <script lang="ts">
+    import { Chip } from '@stack/ui';
+
     import { fade } from 'svelte/transition';
 
     import type { BudgetPlan } from '$lib/db';
 
     import { beforeNavigate } from '$app/navigation';
 
+    import { getBudgetPlanContext, onToggleSavedPlan } from './context.svelte';
+
     type Props = { plan: BudgetPlan };
     let { plan }: Props = $props();
+
+    const ctx = getBudgetPlanContext();
     let { allocations, name, total_income } = plan;
     let duration = $state(100);
 
@@ -23,17 +29,26 @@
         return percentage ? percentage : (amount! / budget) * 100;
     };
 
+    const onClick = () => {
+        onToggleSavedPlan(plan);
+    };
+
     beforeNavigate(() => {
         duration = 0;
     });
 </script>
 
 <button
-    class="group w-full rounded border border-surface-200 p-3 text-left transition-all hover:border-solid hover:border-primary"
+    class="group group w-full rounded border border-surface-200 p-3 text-left transition-all aria-checked:border-solid aria-checked:border-primary aria-checked:bg-primary-50 hover:border-solid hover:border-primary"
+    aria-checked={ctx.id === plan.id}
+    role="checkbox"
     transition:fade|global={{ duration }}
+    onclick={onClick}
 >
-    <p class="truncate text-lg font-semibold">{name}</p>
-    <p class="mb-0.5">€ {total_income}</p>
+    <div class="w-ful mb-1 flex items-center justify-between gap-2">
+        <p class="w-ful truncate text-lg font-semibold">{name}</p>
+        <Chip class="shrink-0" variant="primary">€ {total_income}</Chip>
+    </div>
     {#each allocations as { amount, name, percentage } (name)}
         <div class="flex items-center justify-between text-sm">
             <p class="w-full truncate italic text-surface-700">
