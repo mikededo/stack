@@ -5,7 +5,7 @@ import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-qu
 import { Keys } from '$lib/config';
 import { type BudgetPlan, type BudgetPlans, createBudgetPlan, getBudgetPlans } from '$lib/db';
 
-import { getBudgetPlanContext } from './context.svelte';
+import { getAllocations, getBudgetPlanContext, splitOrNumber } from './context.svelte';
 
 export const useCreatePlan = () => {
   const supabase = getSupabaseClient();
@@ -16,12 +16,12 @@ export const useCreatePlan = () => {
     mutationFn: async () => {
       const [_, budget] = ctx.budget.split('€ ');
       const data = {
-        allocations: ctx.allocations.map(({ amount, name, percentage }) => {
+        allocations: getAllocations().map(({ amount, name, percentage }) => {
           if (amount) {
-            const [, value] = amount.split('€ ');
+            const [, value] = splitOrNumber(amount, '€ ');
             return { amount: Number(value), name, percentage: 0 };
           } else if (percentage) {
-            const [, value] = percentage.split('% ');
+            const [, value] = splitOrNumber(percentage, '% ');
             return { amount: 0, name, percentage: Number(value) };
           }
 

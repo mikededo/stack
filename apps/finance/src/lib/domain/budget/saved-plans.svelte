@@ -39,7 +39,7 @@
 {#if $query.isLoading}
     <div class="hidden gap-4 xl:grid xl:grid-cols-3">
         {#each { length: 3 } as _, i (i)}
-            <PlanSkeleton />
+            <PlanSkeleton chip />
         {/each}
     </div>
 {:else if $query.data}

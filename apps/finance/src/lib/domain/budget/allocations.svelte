@@ -14,6 +14,7 @@
     import {
         areAllocationNamesValid,
         getAllocationPercentage,
+        getAllocations,
         getAmountPlaceholder,
         getBudgetPlanContext,
         getPercentagePlaceholder,
@@ -52,10 +53,11 @@
     </div>
 
     <div class="flex flex-col gap-3">
-        {#each ctx.allocations as { amount, id, name, percentage }, i (id)}
+        {#each getAllocations() as { amount, id, name, percentage }, i (id)}
             <div
                 class="flex flex-col gap-4 sm:flex-row sm:gap-8 md:flex-col md:gap-2 lg:flex-row lg:gap-16"
-                transition:fade|global={{ duration }}
+                in:fade|global={{ duration }}
+                out:fade|global={{ duration: 0 }}
             >
                 <div
                     class="flex w-full flex-col justify-between gap-2 md:flex-row md:items-center lg:flex-col lg:items-start"
@@ -130,6 +132,6 @@
     color="primary"
     disabled={!canPlanBeSaved}
     Icon={Save}
-    label="Save plan"
+    label={ctx.id ? 'Update plan' : 'Create plan'}
     onclick={onSavePlan}
 />
