@@ -1,4 +1,8 @@
 <script lang="ts">
+    import { TextIconButton } from '@stack/ui';
+
+    import { ArrowDown, ArrowUp } from 'lucide-svelte';
+
     import type { BudgetPlan as BudgetPlanType } from '$lib/db';
 
     import BudgetPlan from './budget-plan.svelte';
@@ -8,6 +12,8 @@
 
     const query = useSavedBudgetPlans();
     const deleteMutation = useDeletePlan();
+
+    let seeMore = $state(false);
 
     const xlGroups = $derived.by(() => {
         const groups: [BudgetPlanType[], BudgetPlanType[], BudgetPlanType[]] = [[], [], []];
@@ -36,6 +42,10 @@
         $deleteMutation.mutate(id);
         removeActivePlan();
     };
+
+    const onToggleAllSavedPlans = () => {
+        seeMore = !seeMore;
+    };
 </script>
 
 <div class="flex flex-col gap-1 md:mb-1">
@@ -54,7 +64,7 @@
     <div class="hidden gap-4 xl:grid xl:grid-cols-3">
         {#each xlGroups as group}
             <div class="flex flex-col gap-4">
-                {#each group as plan (plan.id)}
+                {#each group.slice(0, seeMore ? undefined : 1) as plan (plan.id)}
                     <BudgetPlan {plan} {onDeletePlan} />
                 {/each}
             </div>
@@ -66,7 +76,7 @@
     >
         {#each smGroups as group}
             <div class="flex flex-col gap-4 md:gap-2">
-                {#each group as plan (plan.id)}
+                {#each group.slice(0, seeMore ? undefined : 1) as plan (plan.id)}
                     <BudgetPlan {plan} {onDeletePlan} />
                 {/each}
             </div>
@@ -74,8 +84,18 @@
     </div>
 
     <div class="flex flex-col gap-2 sm:hidden md:flex md:gap-4 lg:hidden">
-        {#each $query.data as plan (plan.id)}
+        {#each $query.data.slice(0, seeMore ? undefined : 2) as plan (plan.id)}
             <BudgetPlan {plan} {onDeletePlan} />
         {/each}
     </div>
+
+    {#if $query.data.length > 2 || xlGroups[0].length > 1}
+        <TextIconButton
+            class="mx-auto"
+            color="muted"
+            Icon={seeMore ? ArrowUp : ArrowDown}
+            label={seeMore ? 'See less' : 'See more'}
+            onclick={onToggleAllSavedPlans}
+        />
+    {/if}
 {/if}
