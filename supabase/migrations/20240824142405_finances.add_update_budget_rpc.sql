@@ -1,4 +1,3 @@
-DROP function finances.update_budget_plan;
 CREATE OR REPLACE FUNCTION finances.update_budget_plan(
     plan_id NUMERIC,
     plan_name TEXT,
