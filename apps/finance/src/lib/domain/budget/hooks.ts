@@ -1,8 +1,9 @@
 import { getSupabaseClient } from '@stack/svelte-supabase';
 
-import { createMutation } from '@tanstack/svelte-query';
+import { createMutation, createQuery } from '@tanstack/svelte-query';
 
-import { createBudgetPlan } from '$lib/db';
+import { Keys } from '$lib/config';
+import { createBudgetPlan, getBudgetPlans } from '$lib/db';
 
 import { getBudgetPlanContext } from './context.svelte';
 
@@ -35,5 +36,14 @@ export const useCreatePlan = () => {
     onSuccess: () => {
       // TODO: Update the saved plans query data
     }
+  });
+};
+
+export const useSavedBudgetPlans = () => {
+  const supabase = getSupabaseClient();
+
+  return createQuery({
+    queryFn: () => getBudgetPlans(supabase),
+    queryKey: Keys.BUDGET_PLANS
   });
 };

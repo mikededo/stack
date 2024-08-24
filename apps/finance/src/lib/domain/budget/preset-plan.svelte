@@ -1,3 +1,4 @@
+<!-- Specific plan render for the preset plans -->
 <script lang="ts">
     import type { BudgetPresets } from '$lib/db';
 

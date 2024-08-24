@@ -13,7 +13,8 @@
         PlanAllocations,
         PlanBudget,
         PlanName,
-        PresetPlan
+        PresetPlan,
+        SavedBudgetPlans
     } from '$lib/domain/budget';
 
     const ctx = initBudgetPlanContext();
@@ -59,6 +60,7 @@
 <PlanName />
 <PlanBudget />
 <PlanAllocations />
+<SavedBudgetPlans />
 
 <Drawer header="Premade plans" Icon={LayoutTemplate} {show} onClose={onHidePresets}>
     {#snippet subtitle()}
