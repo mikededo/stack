@@ -4,7 +4,7 @@ import type { BudgetPresets } from '$lib/db';
 
 export type Allocation = {
   amount: string;
-  id?: number;
+  id?: `local-${number}` | number;
   name: string;
   percentage: string;
 };
@@ -16,7 +16,8 @@ type BudgetPlanState = {
   name: string;
 };
 
-const randomLocalId = () => Math.floor(Math.random() * 1000);
+// Prefix with local so we can detect if we are updating an allocation or creating a new one
+const randomLocalId = () => `local-${Math.floor(Math.random() * 1000)}` as const;
 
 const CONTEXT_KEY = 'budget-plan';
 
@@ -63,6 +64,33 @@ export const onDeleteAllocation = (i: number) => () => {
   state.allocations = updated;
 };
 
+export const toggleActivePreset = (preset: BudgetPresets[number]) => {
+  if (state.activePreset?.id === preset.id) {
+    state.activePreset = null;
+    return;
+  }
+
+  state.activePreset = preset;
+};
+
+export const applyActivePreset = () => {
+  if (!state.activePreset) {
+    return;
+  }
+
+  state.allocations = state.activePreset.allocations.map(({ amount, name, percentage }) => ({
+    amount: amount ? `€ ${amount}` : '',
+    id: randomLocalId(),
+    name,
+    percentage: percentage ? `% ${percentage}` : ''
+  }));
+  state.name = state.activePreset.name;
+};
+
+// HELPERS
+
+export const areAllocationNamesValid = () => state.allocations.every(({ name }) => !!name);
+
 export const totalSalaryAllocated = () => {
   if (state.budget === '' || Number(state.budget) === 0) {
     return 0;
@@ -73,21 +101,8 @@ export const totalSalaryAllocated = () => {
     0
   );
 
-  return total.toFixed(total === 0 || total === 100 ? 0 : 2);
+  return total.toFixed(0);
 };
-
-export const toggleActivePreset = (preset: BudgetPresets[number]) => {
-  if (state.activePreset?.id === preset.id) {
-    state.activePreset = null;
-    return;
-  }
-
-  state.activePreset = preset;
-};
-
-// HELPERS
-
-export const areAllocationNamesValid = () => state.allocations.every(({ name }) => !!name);
 
 export const getAllocationPercentage = (
   percentage: string | undefined,
@@ -133,5 +148,19 @@ export const getPercentagePlaceholder = (amount: string | undefined) => {
   }
 
   const [, budget] = state.budget.split('€ ');
-  return `${(Number(value) / Number(budget)) * 100}%`;
+  return `${Math.min((Number(value) / Number(budget)) * 100, 100)}%`;
+};
+
+export const isAmountOverBudget = (amount: string | undefined) => {
+  if (!amount) {
+    return false;
+  }
+
+  const [, value] = amount.split('€ ');
+  if (!value) {
+    return false;
+  }
+
+  const [, budget] = state.budget.split('€ ');
+  return Number(value) > Number(budget);
 };

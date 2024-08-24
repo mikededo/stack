@@ -8,6 +8,7 @@
     import { Keys } from '$lib/config';
     import { getBudgetPresets } from '$lib/db/queries';
     import {
+        applyActivePreset,
         initBudgetPlanContext,
         PlanAllocations,
         PlanBudget,
@@ -30,6 +31,11 @@
 
     const onHidePresets = () => {
         show = false;
+    };
+
+    const onApplyPreset = () => {
+        applyActivePreset();
+        onHidePresets();
     };
 </script>
 
@@ -68,7 +74,9 @@
             {/each}
             <div class="ml-auto mt-auto flex items-center gap-2">
                 <Button color="muted" onclick={onHidePresets}>Cancel</Button>
-                <Button color="primary" disabled={!ctx.activePreset}>Use selected</Button>
+                <Button color="primary" disabled={!ctx.activePreset} onclick={onApplyPreset}>
+                    Apply selected
+                </Button>
             </div>
         </div>
     {/if}
