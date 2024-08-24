@@ -3,6 +3,7 @@
 
     import BudgetPlan from './budget-plan.svelte';
     import { useSavedBudgetPlans } from './hooks';
+    import PlanSkeleton from './plan-skeleton.svelte';
 
     const query = useSavedBudgetPlans();
     const xlGroups = $derived.by(() => {
@@ -29,12 +30,18 @@
     });
 </script>
 
-<h2>Your saved plans</h2>
-<p class="text-sm italic text-surface-700">
-    All your saved plans are listed below. You can click on a plan to apply it.
-</p>
+<div class="flex flex-col gap-1 md:mb-1">
+    <h2 class="text-2xl">Your saved plans</h2>
+    <p class="text-sm italic text-surface-700">
+        All your saved plans are listed below. You can click on a plan to apply it.
+    </p>
+</div>
 {#if $query.isLoading}
-    <div>Loading</div>
+    <div class="hidden gap-4 xl:grid xl:grid-cols-3">
+        {#each { length: 3 } as _, i (i)}
+            <PlanSkeleton />
+        {/each}
+    </div>
 {:else if $query.data}
     <div class="hidden gap-4 xl:grid xl:grid-cols-3">
         {#each xlGroups as group}
