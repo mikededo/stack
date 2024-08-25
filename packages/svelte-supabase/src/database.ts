@@ -724,6 +724,12 @@ export type Database = {
         };
         Returns: undefined;
       };
+      set_active_plan: {
+        Args: {
+          plan_id: number;
+        };
+        Returns: undefined;
+      };
       update_budget_plan: {
         Args: {
           allocations: Json;
@@ -804,6 +810,7 @@ export type Database = {
       };
       budget_plan: {
         Insert: {
+          active?: boolean;
           created_at?: null | string;
           id?: number;
           name: string;
@@ -821,6 +828,7 @@ export type Database = {
           }
         ];
         Row: {
+          active: boolean;
           created_at: null | string;
           id: number;
           name: string;
@@ -829,46 +837,12 @@ export type Database = {
           user_id: string;
         };
         Update: {
+          active?: boolean;
           created_at?: null | string;
           id?: number;
           name?: string;
           total_income?: number;
           updated_at?: null | string;
-          user_id?: string;
-        };
-      };
-      budget_subscription: {
-        Insert: {
-          amount: number;
-          created_at?: null | string;
-          id?: never;
-          name: string;
-          payment_interval: string;
-          user_id?: string;
-        };
-        Relationships: [
-          {
-            columns: ['user_id'];
-            foreignKeyName: 'fk_user_id';
-            isOneToOne: false;
-            referencedColumns: ['id'];
-            referencedRelation: 'users';
-          }
-        ];
-        Row: {
-          amount: number;
-          created_at: null | string;
-          id: number;
-          name: string;
-          payment_interval: string;
-          user_id: string;
-        };
-        Update: {
-          amount?: number;
-          created_at?: null | string;
-          id?: never;
-          name?: string;
-          payment_interval?: string;
           user_id?: string;
         };
       };
@@ -1110,6 +1084,41 @@ export type Database = {
           description?: null | string;
           id?: number;
           name?: string;
+        };
+      };
+      subscriptions: {
+        Insert: {
+          amount: number;
+          created_at?: null | string;
+          id?: never;
+          name: string;
+          payment_interval: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            columns: ['user_id'];
+            foreignKeyName: 'fk_user_id';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          }
+        ];
+        Row: {
+          amount: number;
+          created_at: null | string;
+          id: number;
+          name: string;
+          payment_interval: string;
+          user_id: string;
+        };
+        Update: {
+          amount?: number;
+          created_at?: null | string;
+          id?: never;
+          name?: string;
+          payment_interval?: string;
+          user_id?: string;
         };
       };
       tag: {
