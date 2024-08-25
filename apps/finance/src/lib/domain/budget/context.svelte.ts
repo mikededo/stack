@@ -21,6 +21,10 @@ type PlanAllocation = {
  * have different components for each, we can keep the logic in the context helpers
  * functions, and each plan component can used the state without being coupled
  * to specific state.
+ *
+ * If the user uses a preset, the activePreset will be kept until the user saves
+ * the plan, therefore all operations can rely on the activePreset value, to know
+ * if the user is using a preset or not.
  */
 type BudgetPlanState = {
   activePreset: BudgetPresets[number] | null;
@@ -80,10 +84,9 @@ export const onNewAllocation = () => {
 };
 
 export const onChangeAllocationProperty =
-  (i: number, property: 'amount' | 'name' | 'percentage', preset: boolean = false) =>
-  (event: Event) => {
+  (i: number, property: 'amount' | 'name' | 'percentage') => (event: Event) => {
     const target = event.target as HTMLInputElement;
-    if (preset) {
+    if (state.activePreset) {
       const updated = [...state.presetAllocations];
       updated[i][property] = target.value;
       state.presetAllocations = updated;
@@ -95,16 +98,18 @@ export const onChangeAllocationProperty =
     state.planAllocations = updated;
   };
 
-export const onDeleteAllocation =
-  (i: number, preset: boolean = false) =>
-  () => {
-    if (preset) {
-      const updated = [...state.presetAllocations];
-      updated.splice(i, 1);
-      state.presetAllocations = updated;
-      return;
-    }
-  };
+export const onDeleteAllocation = (i: number) => () => {
+  if (state.activePreset) {
+    const updated = [...state.presetAllocations];
+    updated.splice(i, 1);
+    state.presetAllocations = updated;
+    return;
+  }
+
+  const updated = [...state.planAllocations];
+  updated.splice(i, 1);
+  state.planAllocations = updated;
+};
 
 export const toggleActivePreset = (preset: BudgetPresets[number]) => {
   if (state.activePreset?.id === preset.id) {
@@ -156,7 +161,7 @@ export const removeActivePlan = () => {
 // HELPERS
 
 export const getAllocations = () =>
-  state.planAllocations.length ? state.planAllocations : state.presetAllocations;
+  state.activePreset ? state.presetAllocations : state.planAllocations;
 
 export const areAllocationNamesValid = () => getAllocations().every(({ name }) => !!name);
 

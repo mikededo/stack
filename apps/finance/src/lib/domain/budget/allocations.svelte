@@ -56,8 +56,7 @@
         {#each getAllocations() as { amount, id, name, percentage }, i (id)}
             <div
                 class="flex flex-col gap-4 sm:flex-row sm:gap-8 md:flex-col md:gap-2 lg:flex-row lg:gap-16"
-                in:fade|global={{ duration }}
-                out:fade|global={{ duration: 0 }}
+                transition:fade|global={{ duration }}
             >
                 <div
                     class="flex w-full flex-col justify-between gap-2 md:flex-row md:items-center lg:flex-col lg:items-start"
