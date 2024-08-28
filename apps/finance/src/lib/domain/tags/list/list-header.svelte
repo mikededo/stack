@@ -1,5 +1,5 @@
 <li
-    class="flex items-center justify-between bg-surface-50 py-1.5 pl-4 pr-3 text-xs font-semibold uppercase"
+    class="flex items-center justify-between bg-primary-100 py-1.5 pl-4 pr-3 text-xs font-semibold uppercase text-primary"
 >
     <p>Tag name</p>
     <div class="flex items-center gap-4">
