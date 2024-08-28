@@ -42,43 +42,45 @@
     };
 </script>
 
-<ul>
-    <ListHeader />
-    {#each book.page as page (page.id)}
-        <PageItem isShared={page.created_by !== user.id} owner={user.first_name[0]} {page}>
-            {#snippet name()}
-                <span>{page.name}</span>
-            {/snippet}
-        </PageItem>
-    {/each}
-    {#if newPage}
-        <NewPageItem
-            bind:value={pageName}
-            onCancel={handleOnCancelNewPage}
-            onConfirm={handleOnConfirmNewPage}
-        />
-    {/if}
-</ul>
-<div class="flex items-center gap-2 py-2" use:clickAway={handleOnCancelNewPage}>
-    <Button
-        class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-        color="muted"
-        disabled={newPage}
-        onclick={handleOnAddPage}
-    >
-        <FilePlus class="size-4" strokeWidth={2.5} />
-        <span>Add a new page</span>
-    </Button>
-    {#if newPage}
-        <div transition:fade={{ duration: 100 }}>
-            <Button
-                class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
-                color="primary"
-                disabled={!pageName}
-                onclick={handleOnConfirmNewPage}
-            >
-                Save page
-            </Button>
-        </div>
-    {/if}
-</div>
+<section use:clickAway={handleOnCancelNewPage}>
+    <ul>
+        <ListHeader />
+        {#each book.page as page (page.id)}
+            <PageItem isShared={page.created_by !== user.id} owner={user.first_name[0]} {page}>
+                {#snippet name()}
+                    <span>{page.name}</span>
+                {/snippet}
+            </PageItem>
+        {/each}
+        {#if newPage}
+            <NewPageItem
+                bind:value={pageName}
+                onCancel={handleOnCancelNewPage}
+                onConfirm={handleOnConfirmNewPage}
+            />
+        {/if}
+    </ul>
+    <div class="flex items-center gap-2 py-2">
+        <Button
+            class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
+            color="muted"
+            disabled={newPage}
+            onclick={handleOnAddPage}
+        >
+            <FilePlus class="size-4" strokeWidth={2.5} />
+            <span>Add a new page</span>
+        </Button>
+        {#if newPage}
+            <div transition:fade={{ duration: 100 }}>
+                <Button
+                    class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
+                    color="primary"
+                    disabled={!pageName}
+                    onclick={handleOnConfirmNewPage}
+                >
+                    Save page
+                </Button>
+            </div>
+        {/if}
+    </div>
+</section>
