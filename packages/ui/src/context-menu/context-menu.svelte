@@ -11,7 +11,7 @@
     type Props = { menu: Menu; options: ContextMenuOption[] };
     let { menu, options }: Props = $props();
 
-    const handleOnClick = (onClick: Required<Option>['onClick']) => () => {
+    const onClick = (onClick: Required<Option>['onClick']) => () => {
         menu.hide();
         onClick();
     };
@@ -37,7 +37,7 @@
         <button
             class={getOptionClasses(opt)}
             disabled={opt.disabled}
-            onclick={handleOnClick(opt.onClick)}
+            onclick={onClick(opt.onClick)}
         >
             {@render content(opt)}
         </button>

@@ -7,8 +7,6 @@
     import { clickAway, portal, useActions } from '@stack/actions';
     import { Keys } from '@stack/utils';
 
-    import { fade } from 'svelte/transition';
-
     import { FloatingCard } from '../floating-card/index.js';
 
     type Props = {
@@ -19,7 +17,7 @@
         show?: boolean;
         use?: ActionArray;
     };
-    let { children, id, onClickAway, options, show: showAutocomplete, use = [] }: Props = $props();
+    let { children, id, options, show: showAutocomplete, use = [], ...restProps }: Props = $props();
 
     let show = $derived(showAutocomplete ?? false);
     let wrapperNode = $state<HTMLDivElement | null>(null);
@@ -58,15 +56,15 @@
         });
     };
 
-    const handleOnClickAway = () => {
+    const onClickAway = () => {
         // Since the autocomplete does not provide an input, the show state is
         // always delegated to whoever renders the autocomplete
-        onClickAway?.();
+        restProps.onClickAway?.();
     };
 
     let autocompleteActions = $derived<ActionArray>([
         ...use,
-        [clickAway, handleOnClickAway],
+        [clickAway, onClickAway],
         useAutocomplete
     ]);
 </script>

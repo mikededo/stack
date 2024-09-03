@@ -42,15 +42,15 @@
     );
     let wrapperClasses = $derived(twMerge('relative', restProps.wrapperClass));
 
-    const handleOnToggle = () => {
+    const onToggle = () => {
         showMenu = !showMenu;
     };
 
-    const handleOnHide = async () => {
+    const onHide = async () => {
         showMenu = false;
     };
 
-    const handleOnNavigation = (e: KeyboardEvent) => {
+    const onNavigation = (e: KeyboardEvent) => {
         if (menuState.focusableElements.length === 0) {
             return;
         }
@@ -58,7 +58,7 @@
         switch (e.key) {
             case Keys.Escape:
                 e.preventDefault();
-                handleOnHide();
+                onHide();
                 break;
             case Keys.ArrowDown:
                 e.preventDefault();
@@ -87,12 +87,7 @@
 </script>
 
 <div class={wrapperClasses}>
-    <Button
-        class={buttonClasses}
-        color="surface"
-        disabled={showMenu || loading}
-        onclick={handleOnToggle}
-    >
+    <Button class={buttonClasses} color="surface" disabled={showMenu || loading} onclick={onToggle}>
         {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
         {#if Icon && !loading}<svelte:component this={Icon} class="size-4" />{/if}
         {#if label}<span>{label}</span>{/if}
@@ -103,10 +98,10 @@
             class="ui-box-border ui-overflow-hidden"
             role="menu"
             tabindex={1}
-            use={[useFocusableElements, [clickAway, handleOnHide]]}
+            use={[useFocusableElements, [clickAway, onHide]]}
             noPadding
-            onClickAway={handleOnHide}
-            onkeydown={handleOnNavigation}
+            onClickAway={onHide}
+            onkeydown={onNavigation}
         >
             <div
                 class="ui-flex ui-max-h-96 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1 ui-scrollbar-thin"
