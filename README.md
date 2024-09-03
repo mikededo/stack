@@ -93,7 +93,10 @@ docker configuration is provided in this repo. Next, you will need to:
 - Optional but recommended: rename the service to `Stack - <App name>`
 - Update the domain to `<app-name>.<machine-name>.orb.local`
 - Modify the commands in the `General > Build` section to:
-  - Update the `Install command` command to `bun install --frozen-lockfile`
+  - Update the `Install command` command to `bun install --frozen-lockfile --production --ignore-scripts`.
+    We are ignoring the scripts because they are not needed for the application
+    to be executed in production more (`prepare` script currently only runs
+    `husky`, and therefore it is not required).
   - Update the `Build command` command to `turbo build --ui stream --filter @stack/<app-name>`
   - Update the `Start command` command to `bun --cwd apps/<app-name> ./build/index.js`
 - Update the port mapping to:
