@@ -10,12 +10,14 @@
         Icon?: ComponentType<LucideIcon>;
         label: string;
         onClick: () => void;
+        unstyled?: boolean;
     };
-    let { active, Icon, label, onClick, ...restProps }: Props = $props();
+    let { active, Icon, label, onClick, unstyled, ...restProps }: Props = $props();
 
     const classes = $derived(
         twMerge(
-            'outline-none ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm hover:ui-bg-surface-50 focus:ui-bg-surface-50 active:ui-bg-surface-50',
+            'outline-none ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm',
+            !unstyled && 'hover:ui-bg-surface-50 focus:ui-bg-surface-50 active:ui-bg-surface-50',
             active && 'ui-bg-surface-50 ui-font-semibold',
             restProps.class
         )

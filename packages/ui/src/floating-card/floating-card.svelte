@@ -12,11 +12,12 @@
 
     type Props = {
         children: Snippet;
+        noPadding?: boolean;
         onClickAway?: Parameters<typeof clickAway>[1];
         position?: { left: number; top: number; width: number };
         use?: ActionArray;
     } & HTMLAttributes<HTMLDivElement>;
-    let { children, onClickAway, position, use = [], ...restProps }: Props = $props();
+    let { children, noPadding, onClickAway, position, use = [], ...restProps }: Props = $props();
 
     let positionStyle = $derived(
         position
@@ -25,8 +26,9 @@
     );
     let classes = $derived(
         twMerge(
-            'ui-z-10 ui-flex ui-w-full ui-min-w-48 ui-origin-top-right ui-flex-col ui-items-start ui-gap-[1px] ui-rounded-lg ui-border ui-border-surface-100 ui-bg-white ui-p-1 ui-shadow-lg',
+            'ui-z-20 ui-flex ui-w-full ui-min-w-48 ui-origin-top-right ui-flex-col ui-items-start ui-gap-[1px] ui-rounded-lg ui-border ui-border-surface-100 ui-bg-white ui-shadow-lg',
             position ? 'ui-fixed' : 'ui-absolute -ui-bottom-2 ui-right-0 ui-translate-y-full',
+            noPadding ? 'ui-p-0' : 'ui-p-1',
             restProps.class
         )
     );

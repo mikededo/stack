@@ -4,6 +4,7 @@ export { Button, TextIconButton } from './button/index.js';
 export { Chip } from './chip/index.js';
 export { ContextMenu, type ContextMenuOption, createContextMenu } from './context-menu/index.js';
 export { DangerDialog, Dialog } from './dialog/index.js';
+export { DotIndicator } from './dot-indicator/index.js';
 export { Drawer } from './drawer/index.js';
 export { FloatingCard } from './floating-card/index.js';
 export { IconButton } from './icon-button/index.js';

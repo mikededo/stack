@@ -100,14 +100,19 @@
 
     {#if showMenu}
         <FloatingCard
-            class="ui-box-border ui-max-h-96 ui-overflow-y-auto ui-overflow-x-hidden"
+            class="ui-box-border ui-overflow-hidden"
             role="menu"
             tabindex={1}
             use={[useFocusableElements, [clickAway, handleOnHide]]}
+            noPadding
             onClickAway={handleOnHide}
             onkeydown={handleOnNavigation}
         >
-            {@render children()}
+            <div
+                class="ui-flex ui-max-h-96 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1 ui-scrollbar-thin"
+            >
+                {@render children()}
+            </div>
         </FloatingCard>
     {/if}
 </div>
