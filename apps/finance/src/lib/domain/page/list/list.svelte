@@ -21,11 +21,11 @@
     let newPage = $state(false);
     let pageName = $state('');
 
-    const handleOnAddPage = () => {
+    const onAddPage = () => {
         newPage = true;
     };
 
-    const handleOnConfirmNewPage = () => {
+    const onConfirmNewPage = () => {
         $newPageMutation.mutate(
             { book: book.id, name: pageName },
             {
@@ -37,12 +37,12 @@
         );
     };
 
-    const handleOnCancelNewPage = () => {
+    const onCancelNewPage = () => {
         newPage = false;
     };
 </script>
 
-<section use:clickAway={handleOnCancelNewPage}>
+<section use:clickAway={onCancelNewPage}>
     <ul>
         <ListHeader />
         {#each book.page as page (page.id)}
@@ -55,8 +55,8 @@
         {#if newPage}
             <NewPageItem
                 bind:value={pageName}
-                onCancel={handleOnCancelNewPage}
-                onConfirm={handleOnConfirmNewPage}
+                onCancel={onCancelNewPage}
+                onConfirm={onConfirmNewPage}
             />
         {/if}
     </ul>
@@ -65,7 +65,7 @@
             class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
             color="muted"
             disabled={newPage}
-            onclick={handleOnAddPage}
+            onclick={onAddPage}
         >
             <FilePlus class="size-4" strokeWidth={2.5} />
             <span>Add a new page</span>
@@ -76,7 +76,7 @@
                     class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
                     color="primary"
                     disabled={!pageName}
-                    onclick={handleOnConfirmNewPage}
+                    onclick={onConfirmNewPage}
                 >
                     Save page
                 </Button>

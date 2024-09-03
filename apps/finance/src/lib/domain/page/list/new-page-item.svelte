@@ -15,7 +15,7 @@
 
     let user = getUserDataContext();
 
-    const handleOnKeydown: KeyboardEventHandler<HTMLInputElement> = (event) => {
+    const onKeydown: KeyboardEventHandler<HTMLInputElement> = (event) => {
         if (event.key === 'Escape') {
             onCancel?.();
         } else if (event.key === 'Enter') {
@@ -31,7 +31,7 @@
             bind:value
             use:useAutofocus
             placeholder="Page name..."
-            onkeydown={handleOnKeydown}
+            onkeydown={onKeydown}
         />
     {/snippet}
 </PageItem>

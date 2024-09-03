@@ -29,16 +29,16 @@
     let color = $state(tag.color);
     let editMode = $state<'color' | 'name' | undefined>(undefined);
 
-    const handleOnFwdTag = (fn: (tag: Tag) => void) => () => {
+    const onFwdTag = (fn: (tag: Tag) => void) => () => {
         fn(tag);
     };
 
     const options: ContextMenuOption[] = [
-        { Icon: Layers2, onClick: handleOnFwdTag(onDuplicateTag), text: 'Duplicate' },
-        { destructive: true, Icon: Trash2, onClick: handleOnFwdTag(onDeleteTag), text: 'Delete' }
+        { Icon: Layers2, onClick: onFwdTag(onDuplicateTag), text: 'Duplicate' },
+        { destructive: true, Icon: Trash2, onClick: onFwdTag(onDeleteTag), text: 'Delete' }
     ];
 
-    const handleOnEditMode =
+    const onEditMode =
         (mode: typeof editMode = undefined) =>
         () => {
             editMode = mode;
@@ -48,7 +48,7 @@
             }
         };
 
-    const handleOnConfirm = () => {
+    const onConfirm = () => {
         if (isTagValid(name, color)) {
             onUpdateTag({ ...tag, color, name });
             editMode = undefined;
@@ -67,12 +67,12 @@
             <NameInput
                 bind:value={name}
                 autofocus={editMode === 'name'}
-                use={[[clickAway, handleOnEditMode()]]}
-                onCancel={handleOnEditMode()}
-                onConfirm={handleOnConfirm}
+                use={[[clickAway, onEditMode()]]}
+                onCancel={onEditMode()}
+                {onConfirm}
             />
         {:else}
-            <button class="cursor-text outline-none" onclick={handleOnEditMode('name')}>
+            <button class="cursor-text outline-none" onclick={onEditMode('name')}>
                 {tag.name}
             </button>
         {/if}
@@ -83,14 +83,14 @@
             <ColorInput
                 bind:value={color}
                 autofocus={editMode === 'color'}
-                use={[[clickAway, handleOnEditMode()]]}
-                onCancel={handleOnEditMode()}
-                onConfirm={handleOnConfirm}
+                use={[[clickAway, onEditMode()]]}
+                onCancel={onEditMode()}
+                {onConfirm}
             />
         {:else}
             <button
                 class="w-20 cursor-text text-right text-sm uppercase outline-none"
-                onclick={handleOnEditMode('color')}
+                onclick={onEditMode('color')}
             >
                 {tag.color}
             </button>

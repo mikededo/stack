@@ -34,32 +34,32 @@
         cb();
     };
 
-    const handleOnClick = menuProxy(() => {
+    const onClick = menuProxy(() => {
         window.alert('Under development');
     });
 
-    const handleOnNewRow = (type: 'above' | 'under') =>
+    const onNewRow = (type: 'above' | 'under') =>
         menuProxy(() => {
             newRowInto(type === 'above' ? position : position + 1);
             disableRow();
         });
 
-    const handleOnEditMode = (focusMode: ForceFocus) => () => {
+    const onEditMode = (focusMode: ForceFocus) => () => {
         editRow = focusMode;
     };
 
-    const handleonUpdateExpense = (expense: Expense) => {
+    const onUpdateExpense = (expense: Expense) => {
         internalExpense = expense;
-        handleOnEditMode(null)();
+        onEditMode(null)();
     };
 
     const cmOptions: ContextMenuOption[] = [
-        { Icon: ArrowUpToLine, onClick: handleOnNewRow('above'), text: 'New row (above)' },
-        { Icon: ArrowDownToLine, onClick: handleOnNewRow('under'), text: 'New row (under)' },
-        { disabled: true, Icon: ClipboardCopy, onClick: handleOnClick, text: 'Copy' },
+        { Icon: ArrowUpToLine, onClick: onNewRow('above'), text: 'New row (above)' },
+        { Icon: ArrowDownToLine, onClick: onNewRow('under'), text: 'New row (under)' },
+        { disabled: true, Icon: ClipboardCopy, onClick, text: 'Copy' },
         { disabled: true, Icon: ClipboardPaste, text: 'Paste' },
         'divider',
-        { destructive: true, Icon: Trash2, onClick: handleOnClick, text: 'Delete' }
+        { destructive: true, Icon: Trash2, onClick, text: 'Delete' }
     ];
 </script>
 
@@ -73,8 +73,8 @@
         forceFocus={editRow}
         disableAutofocus
         nested
-        onBlur={handleOnEditMode(null)}
-        onUpdateExpense={handleonUpdateExpense}
+        onBlur={onEditMode(null)}
+        {onUpdateExpense}
     />
 </tr>
 

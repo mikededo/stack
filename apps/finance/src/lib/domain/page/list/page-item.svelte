@@ -47,11 +47,11 @@
         isPinned = !!data?.some(({ page: current }) => current?.id === page.id);
     });
 
-    const handleOnClick = () => {
+    const onClick = () => {
         window.alert('Under development');
     };
 
-    const handleOnTogglePin = () => {
+    const onTogglePin = () => {
         if (!page) {
             return;
         }
@@ -66,13 +66,13 @@
     const cmOptions: ContextMenuOption[] = $derived([
         {
             Icon: isPinned ? PinOff : Pin,
-            onClick: handleOnTogglePin,
+            onClick: onTogglePin,
             text: isPinned ? 'Unpin page' : 'Pin page'
         },
-        { disabled: true, Icon: ClipboardCopyIcon, onClick: handleOnClick, text: 'Copy' },
-        { disabled: true, Icon: ClipboardPlusIcon, onClick: handleOnClick, text: 'Duplicate' },
-        { disabled: true, Icon: ClipboardPasteIcon, onClick: handleOnClick, text: 'Paste' },
-        { disabled: true, Icon: PencilIcon, onClick: handleOnClick, text: 'Rename' }
+        { disabled: true, Icon: ClipboardCopyIcon, onClick, text: 'Copy' },
+        { disabled: true, Icon: ClipboardPlusIcon, onClick, text: 'Duplicate' },
+        { disabled: true, Icon: ClipboardPasteIcon, onClick, text: 'Paste' },
+        { disabled: true, Icon: PencilIcon, onClick, text: 'Rename' }
     ]);
 </script>
 

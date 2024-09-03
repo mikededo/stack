@@ -20,7 +20,7 @@
 
     const withAutofocus: Action = (node) => (autofocus ? useAutofocus(node) : undefined);
 
-    const handleOnNameKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    const onNameKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
         if (e.key === 'Enter') {
             onConfirm?.();
             return;
@@ -38,5 +38,5 @@
     bind:value
     use:useActions={[...use, withAutofocus]}
     placeholder="Tag name..."
-    onkeydown={handleOnNameKeydown}
+    onkeydown={onNameKeydown}
 />

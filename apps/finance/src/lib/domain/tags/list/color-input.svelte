@@ -25,7 +25,7 @@
 
     const withAutofocus: Action = (node) => (autofocus ? useAutofocus(node) : undefined);
 
-    const handleOnColorKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    const onColorKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
         if (e.key === 'Enter') {
             onConfirm?.();
             return;
@@ -45,7 +45,7 @@
         e.preventDefault();
     };
 
-    const handleOnColorKeyup: KeyboardEventHandler<HTMLInputElement> = (e) => {
+    const onColorKeyup: KeyboardEventHandler<HTMLInputElement> = (e) => {
         // Check if the first char is a #
         if (e.currentTarget.value[0] !== '#') {
             e.currentTarget.value = '#' + e.currentTarget.value;
@@ -70,6 +70,6 @@
     class="w-20 bg-transparent text-right text-sm uppercase outline-none"
     bind:value
     use:useActions={[...use, withAutofocus]}
-    onkeydown={handleOnColorKeydown}
-    onkeyup={handleOnColorKeyup}
+    onkeydown={onColorKeydown}
+    onkeyup={onColorKeyup}
 />

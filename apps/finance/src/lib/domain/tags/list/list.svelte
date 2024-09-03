@@ -37,35 +37,35 @@
     const { createTagMutation, deleteTagMutation, updateTagMutation } =
         useTagMutations(mutationArgs);
 
-    const handleOnAddTag = () => {
+    const onAddTag = () => {
         newTag = true;
     };
 
-    const handleOnCreateNewTag = () => {
+    const onCreateNewTag = () => {
         $createTagMutation.mutate({ book: book.id, color, name });
     };
 
-    const handleOnDuplicateTag = (tag: Tag) => {
+    const onDuplicateTag = (tag: Tag) => {
         $createTagMutation.mutate({ book: book.id, color: tag.color, name: `${tag.name} (copy)` });
     };
 
-    const handleOnCancelNewTag = () => {
+    const onCancelNewTag = () => {
         newTag = false;
     };
 
-    const handleOnUpdateTag = (tag: Tag) => {
+    const onUpdateTag = (tag: Tag) => {
         $updateTagMutation.mutate(tag);
     };
 
-    const handleOnConfirmDelete = (tag: Tag) => {
+    const onConfirmDelete = (tag: Tag) => {
         confirmDelete = tag;
     };
 
-    const handleOnCancelDelete = () => {
+    const onCancelDelete = () => {
         confirmDelete = undefined;
     };
 
-    const handleOnDeleteTag = () => {
+    const onDeleteTag = () => {
         if (confirmDelete) {
             $deleteTagMutation.mutate(confirmDelete.id);
             confirmDelete = undefined;
@@ -76,20 +76,10 @@
 <ul>
     <ListHeader />
     {#each book.tag as tag (tag.id)}
-        <TagListItem
-            {tag}
-            onDeleteTag={handleOnConfirmDelete}
-            onDuplicateTag={handleOnDuplicateTag}
-            onUpdateTag={handleOnUpdateTag}
-        />
+        <TagListItem {tag} onDeleteTag={onConfirmDelete} {onDuplicateTag} {onUpdateTag} />
     {/each}
     {#if newTag}
-        <NewTagItem
-            bind:color
-            bind:name
-            onCancel={handleOnCancelNewTag}
-            onConfirm={handleOnCreateNewTag}
-        />
+        <NewTagItem bind:color bind:name onCancel={onCancelNewTag} onConfirm={onCreateNewTag} />
     {/if}
 </ul>
 
@@ -98,7 +88,7 @@
         class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
         color="muted"
         disabled={newTag}
-        onclick={handleOnAddTag}
+        onclick={onAddTag}
     >
         <Plus class="size-4" strokeWidth={2.5} />
         <span>New tag</span>
@@ -109,7 +99,7 @@
                 class="flex cursor-pointer items-center gap-2 px-3 py-2 transition-colors"
                 color="primary"
                 disabled={!canSubmit}
-                onclick={handleOnCreateNewTag}
+                onclick={onCreateNewTag}
             >
                 Save tag
             </Button>
@@ -118,5 +108,5 @@
 </div>
 
 {#if confirmDelete}
-    <DangerDialog onCancel={handleOnCancelDelete} onConfirm={handleOnDeleteTag} />
+    <DangerDialog onCancel={onCancelDelete} onConfirm={onDeleteTag} />
 {/if}

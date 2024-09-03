@@ -24,15 +24,15 @@
     let show = $state(autofocus ?? false);
     let autocompleteOptions = $derived(show ? getNewEntryMatches(expenses, value) : []);
 
-    const handleOnShowAutocomplete = () => {
+    const onShowAutocomplete = () => {
         show = true;
     };
 
-    const handleOnHideAutocomplete = () => {
+    const onHideAutocomplete = () => {
         show = false;
     };
 
-    const handleOnOptionClick = (comment: string) => () => {
+    const onOptionClick = (comment: string) => () => {
         value = comment;
     };
 
@@ -43,12 +43,12 @@
 
         const onKeydown = (event: KeyboardEvent) => {
             if (event.key === Keys.Tab) {
-                handleOnHideAutocomplete();
+                onHideAutocomplete();
             }
         };
 
         const onBlur = () => {
-            handleOnHideAutocomplete();
+            onHideAutocomplete();
         };
 
         node.addEventListener('keydown', onKeydown);
@@ -66,7 +66,7 @@
 <Autocomplete
     id={COMMENT_AUTOCOMPLETE_ID}
     show={!!autocompleteOptions.length && show}
-    onClickAway={handleOnHideAutocomplete}
+    onClickAway={onHideAutocomplete}
 >
     <textarea
         class="w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
@@ -76,14 +76,14 @@
         placeholder="What was this expense for...?"
         rows={1}
         style="field-sizing: content"
-        onfocus={handleOnShowAutocomplete}
+        onfocus={onShowAutocomplete}
     ></textarea>
 
     {#snippet options()}
         {#each autocompleteOptions as { expense, html } (expense.id)}
             <button
                 class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
-                onclick={handleOnOptionClick(expense.comment!)}
+                onclick={onOptionClick(expense.comment!)}
             >
                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                 {@html html}

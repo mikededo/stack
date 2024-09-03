@@ -18,7 +18,7 @@
 
     let duration = $state(200);
 
-    const handleOnClick = (page: NonNullable<PinnedPage>) => () => {
+    const onClick = (page: NonNullable<PinnedPage>) => () => {
         $pinnedPageClickMutation.mutate({ page: page.id, userId: user.id });
         goto(`/app/${page.book_id}/${page.id}`);
     };
@@ -41,7 +41,7 @@
                     <button
                         class="group flex w-60 shrink-0 flex-col items-start gap-1 overflow-x-hidden rounded-lg border border-surface-200 bg-white p-3 transition-all duration-100 hover:border-primary-300 active:scale-[0.98]"
                         transition:fade|global={{ delay: 100, duration }}
-                        onclick={handleOnClick(page)}
+                        onclick={onClick(page)}
                     >
                         <div class="flex w-full items-center justify-between">
                             <p class="text-sm font-semibold">{page.name}</p>
