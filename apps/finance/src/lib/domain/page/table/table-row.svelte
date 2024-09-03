@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-    import { Chip, ContextMenu, type ContextMenuOption, createContextMenu } from '@stack/ui';
+    import { ContextMenu, type ContextMenuOption, createContextMenu } from '@stack/ui';
 
     import {
         ArrowDownToLine,
@@ -19,7 +19,6 @@
 
     import type { Expense } from '$lib/db';
 
-    import { parseDate } from './helpers';
     import NewEntry, { type ForceFocus } from './new-entry.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
 

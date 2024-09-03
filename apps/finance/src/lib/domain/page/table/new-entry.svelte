@@ -118,10 +118,6 @@
 
         onClickAway?.();
     };
-
-    // TODO: Create an event that will blur the fields when
-    // the user clicks outside any field of the table - maybe its
-    // easier to just detect clicks outside the tr
 </script>
 
 {#snippet content()}
@@ -143,7 +139,7 @@
             {expenses}
         />
     </td>
-    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-40"></td>
+    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-40"> </td>
 {/snippet}
 
 {#if nested}

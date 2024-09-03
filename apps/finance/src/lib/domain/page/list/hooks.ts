@@ -3,7 +3,7 @@ import { getSupabaseClient } from '@stack/svelte-supabase';
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { type BooksWithPages, createPage, type NewPageData } from '$lib/db';
+import { type Book, type BooksWithPages, createPage, type NewPageData } from '$lib/db';
 import { usePinnedPages as usePinnedPagesQuery, usePinPage, useUnpinPage } from '$lib/hooks';
 
 export const usePinnedPages = () => {
@@ -25,6 +25,7 @@ export const useCreatePage = () => {
         return;
       }
 
+      const page = data[0];
       queryClient.setQueryData<BooksWithPages>(Keys.BOOKS, (prevBooks) => {
         // TS check only
         if (!prevBooks) {
@@ -32,13 +33,22 @@ export const useCreatePage = () => {
         }
 
         return prevBooks.map((book) => {
-          if (book.id !== book.id) {
+          if (page.book_id !== book.id) {
             return book;
           }
 
-          const pages = [...book.page, data[0]].filter((page) => page.id !== 0);
+          const pages = [...book.page, page].filter((page) => page.id !== 0);
           return { ...book, page: pages };
         });
+      });
+      queryClient.setQueryData<Book>(Keys.BOOK(`${page.book_id}`), (book) => {
+        if (!book) {
+          return book;
+        }
+
+        const updated = { ...book };
+        updated.page = [...updated.page, page];
+        return updated;
       });
     }
   });

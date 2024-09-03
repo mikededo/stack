@@ -83,7 +83,7 @@
 
     <div class="h-full w-full px-2 pb-2 pt-0 md:pb-4 md:pl-4">
         <main
-            class="w-full flex-1 overflow-hidden rounded-lg border border-surface-200 bg-white md:w-content-md"
+            class="w-full flex-1 overflow-hidden rounded-lg border border-surface-200 bg-white scrollbar-thin md:w-content-md lg:scrollbar"
         >
             {#key data.pathname}
                 <div
