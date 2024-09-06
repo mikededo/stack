@@ -36,7 +36,6 @@
 </script>
 
 <Chart
-    class="w-full"
     data={chartData}
     type="bar"
     options={{

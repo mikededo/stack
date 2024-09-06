@@ -33,12 +33,9 @@
         ],
         labels
     });
-</script>
 
-<Chart
-    data={chartData}
-    type="doughnut"
-    options={{
+    // Optinos are defined here as TS is not inferring the type correctly
+    const options = {
         animation: { animateRotate: false, animateScale: true },
         plugins: {
             legend: {
@@ -53,5 +50,7 @@
                 displayColors: false
             }
         }
-    } as ChartBaseProps<'doughnut'>['options']}
-/>
+    } as ChartBaseProps<'doughnut'>['options'];
+</script>
+
+<Chart data={chartData} options={options as any} type="doughnut" />
