@@ -21,7 +21,7 @@ export const useBook = (book: string) => {
   });
 };
 
-export const useBookPages = (book: string, page: string) => {
+export const useBookPage = (book: string, page: string) => {
   const client = getSupabaseClient();
   return createQuery({
     queryFn: () => getPage(client, +page),

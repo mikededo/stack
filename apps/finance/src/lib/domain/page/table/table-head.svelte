@@ -16,7 +16,7 @@
             Comment
         </th>
         <th
-            class="min-w-24 border-b border-primary-100 bg-primary-50 py-1.5 pl-3 font-semibold md:min-w-40"
+            class="min-w-24 border-b border-primary-100 bg-primary-50 py-1.5 pl-3 font-semibold md:min-w-64"
         >
             Tags
         </th>

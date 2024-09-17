@@ -4,21 +4,19 @@
     import {
         CalendarArrowDown,
         CalendarArrowUp,
-        Circle,
-        CircleCheck,
         ListFilter,
         Tag,
         TrendingDown,
         TrendingUp
     } from 'lucide-svelte';
 
+    import { TagMenuList } from '$lib/domain/tags';
     import { useBookTags } from '$lib/hooks';
 
     import type { Sort } from './context.svelte';
 
     import {
         areTagsActive,
-        getPageContext,
         isSortActive,
         isTagActive,
         onClickSort,
@@ -28,12 +26,7 @@
     type Props = { book: number };
     let { book }: Props = $props();
 
-    const ctx = getPageContext();
     const tagsQuery = useBookTags(`${book}`);
-
-    const onToggleTagWrapper = (tag: number) => () => {
-        onToggleTag(tag);
-    };
 
     const onClickSortWrapper = (sort: Sort) => () => {
         onClickSort(sort);
@@ -67,36 +60,6 @@
     />
 {/snippet}
 
-{#snippet tagsContent()}
-    {#if $tagsQuery.data}
-        {#each $tagsQuery.data as tag (tag.id)}
-            <div class="w-full" style="--tag-color: {tag.color}; --tag-color-hover: {tag.color}22;">
-                <MenuOption
-                    class="tag"
-                    active={isTagActive(tag.id)}
-                    Icon={isTagActive(tag.id) ? CircleCheck : Circle}
-                    label={tag.name}
-                    unstyled
-                    onClick={onToggleTagWrapper(tag.id)}
-                />
-            </div>
-        {/each}
-    {/if}
-
-    <style lang="postcss">
-        .tag {
-            color: var(--tag-color);
-
-            &[aria-current='true'] {
-                background-color: var(--tag-color-hover);
-            }
-        }
-        .tag:hover {
-            background-color: var(--tag-color-hover);
-        }
-    </style>
-{/snippet}
-
 <div class="flex flex-row items-center justify-end gap-2">
     <Input
         class="mr-auto w-full max-w-96 text-sm"
@@ -111,12 +74,12 @@
     </Menu>
     <DotIndicator containerClass="hidden lg:flex" show={areTagsActive()}>
         <Menu Icon={Tag} label="Tags">
-            {@render tagsContent()}
+            <TagMenuList book={`${book}`} {isTagActive} onClick={onToggleTag} />
         </Menu>
     </DotIndicator>
     <DotIndicator containerClass="flex lg:hidden" show={areTagsActive()}>
         <Menu Icon={Tag} loading={$tagsQuery.isLoading}>
-            {@render tagsContent()}
+            <TagMenuList book={`${book}`} {isTagActive} onClick={onToggleTag} />
         </Menu>
     </DotIndicator>
 </div>

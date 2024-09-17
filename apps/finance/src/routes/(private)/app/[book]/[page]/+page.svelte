@@ -8,7 +8,7 @@
     import { pathTo } from '$lib/config';
     import { BarChart, PieChart } from '$lib/domain/chart';
     import { initPageContext, PageTable, setContextPage } from '$lib/domain/page';
-    import { useBookPages, useTrackViewedPage } from '$lib/hooks';
+    import { useBookPage, useTrackViewedPage } from '$lib/hooks';
 
     import type { PageData } from './$types';
 
@@ -16,46 +16,48 @@
     let { data }: Props = $props();
 
     const trackPageView = useTrackViewedPage();
-    const query = useBookPages(data.params.book, data.params.page);
+    const query = useBookPage(data.params.book, data.params.page);
     let doughnutData = $state<{ data: number[]; labels: string[] }>({ data: [], labels: [] });
     let dailyData = $state<{ data: number[]; labels: string[] }>({ data: [], labels: [] });
-    query.subscribe(({ data }) => {
-        if (data) {
-            setContextPage(data);
-
-            const tagToExpense = new Map<string, number>();
-            const dailyToExpense = new Map<string, number>();
-            data.expenses.forEach((expense) => {
-                if (expense.date) {
-                    let agg = dailyToExpense.get(expense.date!);
-                    if (!agg) {
-                        dailyToExpense.set(expense.date!, expense.amount!);
-                    } else {
-                        dailyToExpense.set(expense.date!, agg + expense.amount!);
-                    }
-                }
-
-                if (expense.tags.length === 0 || !expense.amount) {
-                    return;
-                }
-                expense.tags.forEach((tag) => {
-                    let agg = tagToExpense.get(expense.tags[0].name);
-                    if (!agg) {
-                        tagToExpense.set(tag.name, expense.amount!);
-                    } else {
-                        tagToExpense.set(tag.name, agg + expense.amount!);
-                    }
-                });
-            });
-
-            doughnutData = { data: [...tagToExpense.values()], labels: [...tagToExpense.keys()] };
-            dailyData = { data: [...dailyToExpense.values()], labels: [...dailyToExpense.keys()] };
-        }
-    });
 
     const pageContext = initPageContext();
 
-    let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
+    query.subscribe(({ data }) => {
+        if (!data) {
+            return;
+        }
+        setContextPage(data);
+
+        const tagToExpense = new Map<string, number>();
+        const dailyToExpense = new Map<string, number>();
+        data.expenses.forEach((expense) => {
+            if (expense.date) {
+                let agg = dailyToExpense.get(expense.date!);
+                if (!agg) {
+                    dailyToExpense.set(expense.date!, expense.amount!);
+                } else {
+                    dailyToExpense.set(expense.date!, agg + expense.amount!);
+                }
+            }
+
+            if (expense.tags.length === 0 || !expense.amount) {
+                return;
+            }
+            expense.tags.forEach((tag) => {
+                let agg = tagToExpense.get(expense.tags[0].name);
+                if (!agg) {
+                    tagToExpense.set(tag.name, expense.amount!);
+                } else {
+                    tagToExpense.set(tag.name, agg + expense.amount!);
+                }
+            });
+        });
+
+        doughnutData = { data: [...tagToExpense.values()], labels: [...tagToExpense.keys()] };
+        dailyData = { data: [...dailyToExpense.values()], labels: [...dailyToExpense.keys()] };
+    });
+
+    const breadcrumbs = $derived.by<Crumbs | undefined>(() => {
         if (!$query.data || !$query.data.book) {
             return;
         }
@@ -125,7 +127,7 @@
         </div>
     </div>
 
-    <PageTable page={$query.data} />
+    <PageTable />
 {/if}
 
 <h2 class="mb-4 mt-8">Data display</h2>

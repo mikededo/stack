@@ -72,11 +72,17 @@ export const setContextPage = (page: Page) => {
 };
 
 // HELPERS
+const throwIfUndefined = <T>(value: T | undefined, message = 'Value is undefined'): T => {
+  if (value === undefined) {
+    throw new Error(message);
+  }
+  return value;
+};
 
 export const updateURL = (path: string) => goto(path, { keepFocus: true });
 
-export const getPageBookId = () => pageState.page?.book_id;
-export const getPageId = () => pageState.page?.id;
+export const getPageBookId = () => throwIfUndefined(pageState.page?.book_id);
+export const getPageId = () => throwIfUndefined(pageState.page?.id);
 export const getPageExpenses = () => pageState.page?.expenses ?? [];
 
 export const isTagActive = (tag: number) => pageState.filters.tags.has(tag);

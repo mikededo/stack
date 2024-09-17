@@ -1,28 +1,45 @@
-<script context="module" lang="ts">
-    export const COMMENT_AUTOCOMPLETE_ID = 'comment-autocomplete';
-</script>
-
 <script lang="ts">
-    import type { Action } from 'svelte/action';
-
+    import { useTrapFocus } from '@stack/actions';
     import { type ActionArray, useActions } from '@stack/actions';
     import { Autocomplete } from '@stack/ui';
-    import { Keys } from '@stack/utils';
 
     import type { Expense } from '$lib/db';
 
     import { getNewEntryMatches } from '../helpers';
+    import { useFieldAutofocus, useOptionButton } from './comment';
 
     type Props = {
         autofocus?: boolean;
+        cardRef?: HTMLDivElement;
         expenses: Expense[];
         use?: ActionArray;
         value?: string;
     };
-    let { autofocus, expenses, use = [], value = $bindable('') }: Props = $props();
+    let {
+        autofocus,
+        cardRef = $bindable(),
+        expenses,
+        use = [],
+        value = $bindable('')
+    }: Props = $props();
 
+    let previewValue = $state('');
     let show = $state(autofocus ?? false);
-    let autocompleteOptions = $derived(show ? getNewEntryMatches(expenses, value) : []);
+    let inputRef = $state<HTMLTextAreaElement>();
+    const autocompleteOptions = $derived(show ? getNewEntryMatches(expenses, value) : []);
+
+    const onValueChange = (updated: string, fromFocus?: boolean) => {
+        if (fromFocus) {
+            previewValue = updated;
+            return;
+        }
+
+        value = updated;
+    };
+
+    const onClearPreviewValue = () => {
+        previewValue = '';
+    };
 
     const onShowAutocomplete = () => {
         show = true;
@@ -30,64 +47,58 @@
 
     const onHideAutocomplete = () => {
         show = false;
-    };
-
-    const onOptionClick = (comment: string) => () => {
-        value = comment;
-    };
-
-    const fieldAutofocus: Action = (node) => {
-        if (autofocus) {
-            node.focus();
-        }
-
-        const onKeydown = (event: KeyboardEvent) => {
-            if (event.key === Keys.Tab) {
-                onHideAutocomplete();
-            }
-        };
-
-        const onBlur = () => {
-            onHideAutocomplete();
-        };
-
-        node.addEventListener('keydown', onKeydown);
-        node.addEventListener('blur', onBlur);
-
-        return {
-            destroy() {
-                node.removeEventListener('keydown', onKeydown);
-                node.removeEventListener('blur', onBlur);
-            }
-        };
+        onClearPreviewValue();
     };
 </script>
 
 <Autocomplete
-    id={COMMENT_AUTOCOMPLETE_ID}
+    class="relative"
+    bind:cardRef
     show={!!autocompleteOptions.length && show}
     onClickAway={onHideAutocomplete}
 >
     <textarea
         class="w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+        bind:this={inputRef}
         bind:value
-        use:useActions={[...use, fieldAutofocus]}
+        use:useActions={[
+            ...use,
+            [useFieldAutofocus, { autofocus, onClearPreviewValue, onHideAutocomplete }]
+        ]}
         name="comment"
         placeholder="What was this expense for...?"
         rows={1}
         style="field-sizing: content"
         onfocus={onShowAutocomplete}
     ></textarea>
+    {#if previewValue}
+        <!-- Preview needs to be handled here as the component does not handle the input  -->
+        <div
+            class="absolute inset-0 bg-white group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+            style="height: {inputRef?.getBoundingClientRect()?.height}px"
+        >
+            {previewValue}
+        </div>
+    {/if}
 
     {#snippet options()}
-        {#each autocompleteOptions as { expense, html } (expense.id)}
-            <button
-                class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
-                onclick={onOptionClick(expense.comment!)}
-            >
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html html}
-            </button>
-        {/each}
+        <div use:useTrapFocus>
+            {#each autocompleteOptions as { expense, html } (expense.id)}
+                {@const options = {
+                    comment: expense.comment!,
+                    inputRef,
+                    onHideAutocomplete,
+                    onValueChange
+                }}
+
+                <button
+                    class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
+                    use:useOptionButton={options}
+                >
+                    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                    {@html html}
+                </button>
+            {/each}
+        </div>
     {/snippet}
 </Autocomplete>

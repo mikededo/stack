@@ -15,12 +15,6 @@ export const getPage = async (client: Client, id: number) =>
 export type Page = Result<typeof getPageQuery>;
 export type Expense = Page['expenses'][number];
 
-export const getBookTagsQuery = (client: Client, id: number) =>
-  client.schema('finances').from('tag').select('*').eq('book_id', id);
-export const getBookTags = async (client: Client, id: number) =>
-  (await withUnauthorizedRedirect(client, await getBookTagsQuery(client, id))).data;
-export type Tags = Result<typeof getBookTagsQuery>;
-
 export const getPinnedPagesQuery = (client: Client) =>
   client
     .schema('finances')
@@ -63,39 +57,3 @@ export const clickPinnedPage = async (client: Client, { page, userId }: ClickPin
     .update({ last_clicked: new Date().toISOString() })
     .eq('page_id', page)
     .eq('user_id', userId);
-
-export type NewExpenseData = {
-  amount: number;
-  comment: string;
-  date: string;
-  id?: number;
-  page: number;
-  tags?: number[];
-};
-export const createExpense = async (client: Client, { page, ...data }: NewExpenseData) => {
-  const expense = { page_id: page, ...data };
-  const q = client.schema('finances').from('expense');
-  if (data.id) {
-    return (await q.upsert([expense]).select().throwOnError()).data;
-  }
-
-  return (await q.insert(expense).select().throwOnError()).data;
-};
-
-export type NewTagData = { book: number; color: string; name: string };
-export const createTag = async (client: Client, { book, ...data }: NewTagData) =>
-  (
-    await client
-      .schema('finances')
-      .from('tag')
-      .insert([{ book_id: book, ...data }])
-      .select()
-      .throwOnError()
-  ).data;
-export type UpdateTagData = { color: string; id: number; name: string };
-export const updateTag = async (client: Client, { id, ...data }: UpdateTagData) =>
-  (await client.schema('finances').from('tag').update(data).eq('id', id).select().throwOnError())
-    .data;
-export type DeleteTagData = { id: number };
-export const deleteTag = async (client: Client, id: number) =>
-  await client.schema('finances').from('tag').delete().eq('id', id).select().throwOnError();

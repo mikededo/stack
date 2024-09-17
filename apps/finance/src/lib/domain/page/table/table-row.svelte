@@ -1,10 +1,3 @@
-<script context="module" lang="ts">
-    type ProxyFn = <F extends (...args: any) => any = () => void>(cb: F) => () => void;
-
-    const baseTdStyles = (styles?: string) =>
-        twMerge('border-b border-primary-100 p-3 outline-none focus:bg-primary-50', styles);
-</script>
-
 <script lang="ts">
     import { ContextMenu, type ContextMenuOption, createContextMenu } from '@stack/ui';
 
@@ -15,18 +8,17 @@
         ClipboardPaste,
         Trash2
     } from 'lucide-svelte';
-    import { twMerge } from 'tailwind-merge';
 
     import type { Expense } from '$lib/db';
 
     import NewEntry, { type ForceFocus } from './new-entry.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
 
+    type ProxyFn = <F extends (...args: any) => any = () => void>(cb: F) => () => void;
     type Props = { expense: Expense; position: number };
     let { expense, position }: Props = $props();
 
     let menu = createContextMenu();
-    let internalExpense = $state(expense);
     let editRow = $state<ForceFocus>(null);
 
     const menuProxy: ProxyFn = (cb) => () => {
@@ -48,11 +40,6 @@
         editRow = focusMode;
     };
 
-    const onUpdateExpense = (expense: Expense) => {
-        internalExpense = expense;
-        onEditMode(null)();
-    };
-
     const cmOptions: ContextMenuOption[] = [
         { Icon: ArrowUpToLine, onClick: onNewRow('above'), text: 'New row (above)' },
         { Icon: ArrowDownToLine, onClick: onNewRow('under'), text: 'New row (under)' },
@@ -68,14 +55,7 @@
     use:menu.trigger
     aria-current={isRowActive(position) || menu.states.isMenuActive}
 >
-    <NewEntry
-        expense={internalExpense}
-        forceFocus={editRow}
-        disableAutofocus
-        nested
-        onBlur={onEditMode(null)}
-        {onUpdateExpense}
-    />
+    <NewEntry forceFocus={editRow} disableAutofocus {expense} nested onBlur={onEditMode(null)} />
 </tr>
 
 <ContextMenu menu={menu.menu} options={cmOptions} />

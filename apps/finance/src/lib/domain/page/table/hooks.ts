@@ -7,9 +7,12 @@ import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 import { Keys } from '$lib/config';
 import { createExpense, type Expense, type Page } from '$lib/db';
 
-// FIXME: Omitting tags as not yet implemented
+/**
+ * Merges updating all fields of the expense, except for the tags
+ */
 const updateExistingExpense =
-  (updatedExpense: Omit<Expense, 'created_by' | 'tags'>) => (expense: Expense) =>
+  ({ tags: _, ...updatedExpense }: Expense) =>
+  (expense: Expense) =>
     updatedExpense.id === expense.id ? { ...expense, ...updatedExpense } : expense;
 
 type MutationContext = { cachedPage: null | Page; isNewExpense: boolean };
@@ -39,8 +42,6 @@ export const useExpenseMutation = ({
 
       return await createExpense(supabase, { ...data, date: date.join('/') });
     },
-    // FIXME: Find a better mutationkey
-    mutationKey: ['upsertExpense'],
     onError: (_, __, context) => {
       // TODO: Handle global error - probably outside of the mutation
       if (!context || !context.cachedPage) {
@@ -81,7 +82,7 @@ export const useExpenseMutation = ({
         // New expense has id set to 0
         queryClient.setQueryData<Page>(queryKey, {
           ...cachedPage,
-          // FIXME: Currently all new expenses are appended, but in the future
+          // TODO: Currently all new expenses are appended, but in the future
           // they will have a position and should be inserted at that position
           expenses: [...cachedPage.expenses, optimisticExpense]
         });
@@ -89,7 +90,7 @@ export const useExpenseMutation = ({
 
       onMutate?.();
 
-      return { cachedPage, isNewExpense: !!expense.id };
+      return { cachedPage, isNewExpense: !expense.id };
     },
     // Always refetch after error or success:
     onSettled: () => {
@@ -103,18 +104,20 @@ export const useExpenseMutation = ({
         return;
       }
 
+      if (!isNewExpense) {
+        // Nothing needs to be done, as the expense is updated in the onMutate function
+        return;
+      }
+
       const newExpense = { ...data[0], tags: [] };
       queryClient.setQueryData<Page>(Keys.PAGE(`${bookId}`, `${newExpense.page_id}`), (prev) => {
         if (!prev) {
           return prev;
         }
 
+        // We append the new expense, as we know it's a new, not an updated expense
         const updated = { ...prev };
-        if (!isNewExpense) {
-          updated.expenses = [...updated.expenses, newExpense];
-        } else {
-          updated.expenses = prev.expenses.map(updateExistingExpense(newExpense));
-        }
+        updated.expenses = [...updated.expenses, newExpense];
         return updated;
       });
     }

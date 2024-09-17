@@ -1,0 +1,125 @@
+<script lang="ts">
+    import type { Action } from 'svelte/action';
+
+    import { portal, useTrapFocus } from '@stack/actions';
+    import { Chip, FloatingCard } from '@stack/ui';
+    import { getFocusableElements, Keys } from '@stack/utils';
+
+    import type { Tag } from '$lib/db';
+
+    import { TagAutocompleteMenuList } from '$lib/domain/tags';
+    import { useExpenseTagsModifiers } from '$lib/hooks';
+
+    import { getPageBookId, getPageId } from './context.svelte';
+
+    type Props = { expenseId?: null | number; tags: Tag[] };
+    let { expenseId, tags }: Props = $props();
+
+    const book = getPageBookId();
+    const page = getPageId();
+
+    let inputRef = $state<HTMLInputElement>();
+    let popupRef = $state<HTMLDivElement>();
+    let value = $state('');
+    let show = $state(false);
+    const position = $derived.by(() => {
+        if (!inputRef) {
+            return undefined;
+        }
+
+        let client = inputRef.getBoundingClientRect();
+        return {
+            left: client.x,
+            top: client.y + client.height + 4,
+            width: client.width
+        };
+    });
+    const filterTags = $derived(
+        (tag: Tag) => value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase())
+    );
+    const { add, remove } = useExpenseTagsModifiers({ book, page });
+
+    const onHideAutocomplete = () => {
+        show = false;
+    };
+
+    const useInput: Action = (node) => {
+        const onKeydown = (event: KeyboardEvent) => {
+            if (!popupRef) {
+                return;
+            }
+
+            const focusableElements = getFocusableElements(popupRef);
+            if (!focusableElements.length) {
+                return;
+            }
+
+            if (event.key === Keys.ArrowDown) {
+                focusableElements[0].focus();
+                event.preventDefault();
+            } else if (event.key === Keys.ArrowUp) {
+                focusableElements[focusableElements.length - 1].focus();
+                event.preventDefault();
+            }
+        };
+
+        const onFocus = () => {
+            show = true;
+        };
+
+        node.addEventListener('keydown', onKeydown);
+        node.addEventListener('focus', onFocus);
+
+        return {
+            destroy() {
+                node.removeEventListener('keydown', onKeydown);
+                node.removeEventListener('focus', onFocus);
+            }
+        };
+    };
+
+    const onToggleTag = (tag: number) => {
+        if (!expenseId) {
+            return;
+        }
+
+        if (tags.find(({ id }) => id === tag)) {
+            $remove.mutate({ expense: expenseId, tag });
+        } else {
+            $add.mutate({ expense: expenseId, tag });
+        }
+    };
+</script>
+
+<div>
+    {#each tags as tag (tag.id)}
+        <Chip color={tag.color}>{tag.name}</Chip>
+    {/each}
+    <input
+        class="w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+        bind:this={inputRef}
+        bind:value
+        use:useInput
+    />
+</div>
+
+{#if show && book}
+    <!-- Max height set to 156 as each menu option is 36 + y padding + gap -->
+    <FloatingCard
+        class="max-h-[156px] overflow-y-auto"
+        bind:ref={popupRef}
+        role="menu"
+        tabindex={1}
+        use={[[portal, ''], useTrapFocus]}
+        {position}
+    >
+        <TagAutocompleteMenuList
+            book={`${book}`}
+            isTagActive={() => false}
+            {filterTags}
+            {inputRef}
+            onClick={onToggleTag}
+            {onHideAutocomplete}
+        />
+    </FloatingCard>
+{/if}

@@ -29,25 +29,19 @@
     } from './context.svelte';
     import { hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
     import { useExpenseMutation } from './hooks';
-    import { Amount, Comment, COMMENT_AUTOCOMPLETE_ID, Date } from './new-expense';
+    import { Amount, Comment, Date } from './new-expense';
+    import TagCombobox from './tag-combobox.svelte';
 
-    let {
-        disableAutofocus,
-        expense,
-        forceFocus,
-        nested,
-        onBlur,
-        onClickAway,
-        onUpdateExpense
-    }: Props = $props();
+    let { disableAutofocus, expense, forceFocus, nested, onBlur, onClickAway }: Props = $props();
 
-    let { id: userId } = getUserDataContext();
-    let expenses = getPageExpenses();
-    let page = getPageId();
+    const { id: userId } = getUserDataContext();
+    const expenses = getPageExpenses();
+    const page = getPageId();
     let amount = $state(`${expense?.amount?.toFixed(2) ?? ''}`);
     let comment = $state(expense?.comment ?? '');
     let date = $state(parseDate(expense?.date));
-    let expenseMutation = useExpenseMutation({
+    let commentAutocompleteRef = $state<HTMLDivElement>();
+    const expenseMutation = useExpenseMutation({
         bookId: getPageBookId(),
         onMutate: onInitLoading,
         onSettled: onStopLoading,
@@ -92,11 +86,6 @@
                 }
             );
 
-            if (expense) {
-                // Update current expense to improve ux
-                onUpdateExpense?.({ ...expense, ...updatedFields });
-            }
-
             node.blur();
             onBlur?.();
         };
@@ -112,7 +101,11 @@
 
     const onInternalClickAway = (event: MouseEvent) => {
         // Special check in case the user clicks one of the autocomplete options
-        if (event.target instanceof HTMLElement && event.target.closest(COMMENT_AUTOCOMPLETE_ID)) {
+        if (
+            event.target instanceof HTMLElement &&
+            commentAutocompleteRef &&
+            commentAutocompleteRef.contains(event.target)
+        ) {
             return;
         }
 
@@ -128,18 +121,21 @@
             use={[useUpsertExpense]}
         />
     </td>
-    <td class=" w-32 shrink-0 border-b border-primary-100 p-3">
+    <td class="w-32 shrink-0 border-b border-primary-100 p-3">
         <Amount bind:value={amount} forceFocus={forceFocus === 'amount'} use={[useUpsertExpense]} />
     </td>
-    <td class=" relative h-[45px] w-full min-w-64 border-b border-primary-100 p-3">
+    <td class=" relative max-h-[45px] w-full min-w-64 border-b border-primary-100 p-3">
         <Comment
+            bind:cardRef={commentAutocompleteRef}
             bind:value={comment}
             autofocus={forceFocus === 'comment'}
             use={[useUpsertExpense]}
             {expenses}
         />
     </td>
-    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-40"> </td>
+    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-64">
+        <TagCombobox expenseId={expense?.id} tags={expense?.tags ?? []} />
+    </td>
 {/snippet}
 
 {#if nested}
