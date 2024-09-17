@@ -8,3 +8,4 @@ export { useBlockScroll } from './use-block-scroll.js';
 export { useMoneyMask } from './use-money-mask.js';
 export { usePercentageMask } from './use-percentage-mask.js';
 export { usePrefix } from './use-prefix.js';
+export { useTrapFocus } from './use-trap-focus.js';
