@@ -1,5 +1,9 @@
 <script lang="ts">
+    import type { ActionArray } from '@stack/actions';
+
     import type { ComponentType } from 'svelte';
+
+    import { useActions } from '@stack/actions';
 
     import { Icon as LucideIcon } from 'lucide-svelte';
     import { twMerge } from 'tailwind-merge';
@@ -9,10 +13,11 @@
         class?: string;
         Icon?: ComponentType<LucideIcon>;
         label: string;
-        onClick: () => void;
+        onClick?: () => void;
         unstyled?: boolean;
+        use?: ActionArray;
     };
-    let { active, Icon, label, onClick, unstyled, ...restProps }: Props = $props();
+    let { active, Icon, label, onClick, unstyled, use = [], ...restProps }: Props = $props();
 
     const classes = $derived(
         twMerge(
@@ -24,7 +29,7 @@
     );
 </script>
 
-<button class={classes} aria-current={active} onclick={onClick}>
+<button class={classes} use:useActions={use} aria-current={active} onclick={onClick}>
     <svelte:component this={Icon} class="ui-size-4 ui-shrink-0" strokeWidth={active ? 2.25 : 2} />
     <span class="ui-shrink-0">{label}</span>
 </button>

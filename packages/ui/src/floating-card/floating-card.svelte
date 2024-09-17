@@ -15,9 +15,18 @@
         noPadding?: boolean;
         onClickAway?: Parameters<typeof clickAway>[1];
         position?: { left: number; top: number; width: number };
+        ref?: HTMLDivElement;
         use?: ActionArray;
     } & HTMLAttributes<HTMLDivElement>;
-    let { children, noPadding, onClickAway, position, use = [], ...restProps }: Props = $props();
+    let {
+        children,
+        noPadding,
+        onClickAway,
+        position,
+        ref = $bindable(),
+        use = [],
+        ...restProps
+    }: Props = $props();
 
     let positionStyle = $derived(
         position
@@ -37,6 +46,7 @@
 <div
     {...restProps}
     class={classes}
+    bind:this={ref}
     use:useActions={use}
     style={positionStyle}
     transition:fade={{ duration: 150, easing: cubicInOut }}

@@ -5,24 +5,32 @@
     import type { Action } from 'svelte/action';
 
     import { clickAway, portal, useActions } from '@stack/actions';
-    import { Keys } from '@stack/utils';
+    import { getFocusableElements, Keys } from '@stack/utils';
 
     import { FloatingCard } from '../floating-card/index.js';
 
     type Props = {
+        cardRef?: HTMLDivElement;
         children: Snippet;
-        id?: string;
+        class?: string;
         onClickAway?: () => void;
         options: Snippet;
         show?: boolean;
         use?: ActionArray;
     };
-    let { children, id, options, show: showAutocomplete, use = [], ...restProps }: Props = $props();
+    let {
+        cardRef = $bindable(),
+        children,
+        options,
+        show: showAutocomplete,
+        use = [],
+        ...restProps
+    }: Props = $props();
 
     let show = $derived(showAutocomplete ?? false);
     let wrapperNode = $state<HTMLDivElement | null>(null);
     let optionsWrapperNode = $state<HTMLDivElement | null>(null);
-    let autocompletePosition = $derived.by(() => {
+    const autocompletePosition = $derived.by(() => {
         if (!wrapperNode) {
             return undefined;
         }
@@ -47,11 +55,17 @@
                 return;
             }
 
-            const children = optionsWrapperNode.children;
+            const focusableElements = getFocusableElements(optionsWrapperNode);
+            if (!focusableElements.length) {
+                return;
+            }
+
             if (event.key === Keys.ArrowDown) {
-                (children[0] as HTMLElement).focus();
+                focusableElements[0].focus();
+                event.preventDefault();
             } else if (event.key === Keys.ArrowUp) {
-                (children[children.length - 1] as HTMLElement).focus();
+                focusableElements[focusableElements.length - 1].focus();
+                event.preventDefault();
             }
         });
     };
@@ -62,23 +76,26 @@
         restProps.onClickAway?.();
     };
 
-    let autocompleteActions = $derived<ActionArray>([
+    const onAutocompleteOptionCheck = (event: MouseEvent) =>
+        !cardRef || (!cardRef.contains(event.target as HTMLElement) && !event.defaultPrevented);
+
+    const autocompleteActions: ActionArray = [
         ...use,
-        [clickAway, onClickAway],
+        [clickAway, [onClickAway, { shouldClickAway: onAutocompleteOptionCheck }]],
         useAutocomplete
-    ]);
+    ];
 </script>
 
-<div bind:this={wrapperNode} use:useActions={autocompleteActions}>
+<div class={restProps.class} bind:this={wrapperNode} use:useActions={autocompleteActions}>
     {@render children()}
 </div>
 
 {#if show && options.length}
     <FloatingCard
-        class="ui-overflow-hidden"
+        class="ui-overflow-hidden !ui-p-0"
+        bind:ref={cardRef}
         position={autocompletePosition}
         use={[[portal, '']]}
-        {id}
     >
         <div
             class="ui-flex ui-max-h-44 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1"
