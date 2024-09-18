@@ -6,8 +6,8 @@ export type NewExpenseData = {
   amount: number;
   comment: string;
   date: string;
-  id?: number;
   page: number;
+  id?: number;
   tags?: number[];
 };
 export const createExpense = async (client: Client, { page, ...data }: NewExpenseData) => {

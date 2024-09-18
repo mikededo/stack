@@ -1,10 +1,10 @@
 <script lang="ts">
     import { getUserDataContext } from '@stack/svelte-supabase';
 
+    import type { PinnedPage } from '$lib/db';
+
     import { Pin } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
-
-    import type { PinnedPage } from '$lib/db';
 
     import { beforeNavigate, goto } from '$app/navigation';
     import { useClickPinnedPage, usePinnedPages } from '$lib/hooks';

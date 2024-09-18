@@ -34,10 +34,11 @@ const perfectionistRules = {
         'repo-type',
         'type',
         'repo',
-        ['builtin', 'external'],
         'internal-type',
-        'internal',
         ['parent-type', 'sibling-type', 'index-type'],
+
+        ['builtin', 'external'],
+        'internal',
         ['parent', 'sibling', 'index'],
         'object',
         'unknown'

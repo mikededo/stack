@@ -1,7 +1,7 @@
+import type { LayoutLoad } from './$types';
+
 import { Keys } from '$lib/config';
 import { getBookTags } from '$lib/db';
-
-import type { LayoutLoad } from './$types';
 
 export const load: LayoutLoad = async ({ params, parent }) => {
   const { book } = params;

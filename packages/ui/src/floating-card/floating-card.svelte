@@ -6,11 +6,11 @@
 
     import { clickAway, useActions } from '@stack/actions';
 
+    import type { FloatingCardPosition } from './types';
+
     import { cubicInOut } from 'svelte/easing';
     import { fade } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
-
-    import type { FloatingCardPosition } from './types';
 
     type Props = {
         children: Snippet;

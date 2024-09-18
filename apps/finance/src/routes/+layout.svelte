@@ -5,10 +5,10 @@
 
     import { setSupabaseClient } from '@stack/svelte-supabase';
 
+    import type { LayoutData } from './$types.js';
+
     import { QueryClientProvider } from '@tanstack/svelte-query';
     import { SvelteQueryDevtools } from '@tanstack/svelte-query-devtools';
-
-    import type { LayoutData } from './$types.js';
 
     type Props = {
         children: Snippet;

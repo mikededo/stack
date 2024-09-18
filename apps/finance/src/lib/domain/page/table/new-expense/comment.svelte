@@ -9,11 +9,11 @@
     import { useFieldAutofocus, useOptionButton } from './comment';
 
     type Props = {
-        cardRef?: HTMLDivElement;
         expenses: Expense[];
-        onBlur?: () => void;
+        cardRef?: HTMLDivElement;
         use?: ActionArray;
         value?: string;
+        onBlur?: () => void;
     };
     let {
         cardRef = $bindable(),

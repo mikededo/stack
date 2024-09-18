@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { ChartType, DefaultDataPoint } from 'chart.js';
 
+    import type { ChartBaseProps } from './types';
+
     import {
         ArcElement,
         BarElement,
@@ -12,8 +14,6 @@
         Tooltip
     } from 'chart.js';
     import { onMount } from 'svelte';
-
-    import type { ChartBaseProps } from './types';
 
     interface Props<
         TType extends ChartType = ChartType,

@@ -7,9 +7,9 @@
     import PageItem from './page-item.svelte';
 
     type Props = {
+        value?: string;
         onCancel?: () => void;
         onConfirm?: () => void;
-        value?: string;
     };
     let { onCancel, onConfirm, value = $bindable() }: Props = $props();
 

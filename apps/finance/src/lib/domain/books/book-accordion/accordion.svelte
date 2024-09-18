@@ -1,8 +1,8 @@
 <script lang="ts">
+    import type { BooksWithPages } from '$lib/db';
+
     import { Book, ChevronDown } from 'lucide-svelte';
     import { slide } from 'svelte/transition';
-
-    import type { BooksWithPages } from '$lib/db';
 
     import { PageList } from '$lib/domain/page';
 

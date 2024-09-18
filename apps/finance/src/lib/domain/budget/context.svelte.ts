@@ -1,19 +1,19 @@
-import { getContext, setContext } from 'svelte';
-
 import type { BudgetPlan, BudgetPlanAllocation, BudgetPresets } from '$lib/db';
+
+import { getContext, setContext } from 'svelte';
 
 export type PresetAllocation = {
   amount: string;
-  id?: `local-${number}` | number;
   name: string;
   percentage: string;
+  id?: `local-${number}` | number;
 };
 type PlanAllocation = {
   amount: null | number | string;
-  budget_plan_id?: BudgetPlanAllocation['budget_plan_id'];
   id: `local-${number}` | number;
   name: string;
   percentage: null | number | string;
+  budget_plan_id?: BudgetPlanAllocation['budget_plan_id'];
 };
 
 /**
@@ -29,10 +29,10 @@ type PlanAllocation = {
 type BudgetPlanState = {
   activePreset: BudgetPresets[number] | null;
   budget: string;
-  id?: number;
   name: string;
   planAllocations: PlanAllocation[]; // Differentiate state to simplify logic
   presetAllocations: PresetAllocation[];
+  id?: number;
 };
 
 // Prefix with local so we can detect if we are updating an allocation or creating a new one

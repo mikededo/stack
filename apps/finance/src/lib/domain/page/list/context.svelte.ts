@@ -2,8 +2,8 @@ import { getContext, setContext } from 'svelte';
 
 export type ListState = {
   keywords: string;
-  sort?: 'date-asc' | 'date-desc' | 'name-asc' | 'name-desc';
   view: 'pages' | 'tags';
+  sort?: 'date-asc' | 'date-desc' | 'name-asc' | 'name-desc';
 };
 
 let listState = $state<ListState>({

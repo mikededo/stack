@@ -1,9 +1,9 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import { getContext, setContext } from 'svelte';
-
 import type { User } from './auth';
 import type { Database } from './database';
+
+import { getContext, setContext } from 'svelte';
 
 const CLIENT_CONTEXT_KEY = 'supabase:client';
 const USER_CONTEXT_KEY = 'supabase:user';

@@ -6,9 +6,9 @@ import type { Tag } from '$lib/db';
 
 type UseMenuOptionArgs = {
   inputRef: HTMLInputElement | undefined;
+  value: Tag;
   onHideAutocomplete: () => void;
   onValueChange: (id: Tag['id']) => void;
-  value: Tag;
 };
 
 export const useInputMenuOption: Action<HTMLElement, UseMenuOptionArgs> = (

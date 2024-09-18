@@ -17,9 +17,9 @@ import {
 
 type UseTagMutationArgs = {
   bookId: string;
-  onSettled?: () => void;
   queryClient: QueryClient;
   supabaseClient: Client;
+  onSettled?: () => void;
 };
 
 const updateBookTagsAndInvalidate = (

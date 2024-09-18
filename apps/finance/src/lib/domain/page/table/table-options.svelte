@@ -1,6 +1,8 @@
 <script lang="ts">
     import { DotIndicator, Input, Menu, MenuOption } from '@stack/ui';
 
+    import type { Sort } from './context.svelte';
+
     import {
         CalendarArrowDown,
         CalendarArrowUp,
@@ -12,8 +14,6 @@
 
     import { TagMenuList } from '$lib/domain/tags';
     import { useBookTags } from '$lib/hooks';
-
-    import type { Sort } from './context.svelte';
 
     import {
         areTagsActive,
