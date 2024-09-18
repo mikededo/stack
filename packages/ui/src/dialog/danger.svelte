@@ -5,11 +5,11 @@
     import Dialog from './dialog.svelte';
 
     type Props = {
+        onCancel: () => void;
+        onConfirm: () => void;
         children?: Snippet;
         disableCancel?: boolean;
         disableConfirm?: boolean;
-        onCancel: () => void;
-        onConfirm: () => void;
     };
     let { children, disableCancel, disableConfirm, onCancel, onConfirm }: Props = $props();
 </script>

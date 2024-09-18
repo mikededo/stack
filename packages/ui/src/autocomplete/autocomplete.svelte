@@ -12,14 +12,14 @@
     import { FloatingCard } from '../floating-card/index.js';
 
     type Props = {
+        children: Snippet;
+        options: Snippet;
         cardClasses?: string;
         cardRef?: HTMLDivElement;
-        children: Snippet;
         class?: string;
-        onClickAway?: () => void;
-        options: Snippet;
         show?: boolean;
         use?: ActionArray;
+        onClickAway?: () => void;
     };
     let {
         cardClasses,

@@ -6,9 +6,9 @@ import { twMerge } from 'tailwind-merge';
 export type IconButtonColor = 'destructive' | 'muted' | 'primary' | 'surface';
 export type IconButtonSizes = 'default' | 'large' | 'small';
 export type BaseProps = {
+  Icon: ComponentType<LucideIcon>;
   color?: IconButtonColor;
   href?: string;
-  Icon: ComponentType<LucideIcon>;
   iconClasses?: string;
   size?: IconButtonSizes;
   strokeWidth?: IconProps['strokeWidth'];
