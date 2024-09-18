@@ -9,22 +9,23 @@
     import { useFieldAutofocus, useOptionButton } from './comment';
 
     type Props = {
-        autofocus?: boolean;
         cardRef?: HTMLDivElement;
         expenses: Expense[];
+        onBlur?: () => void;
         use?: ActionArray;
         value?: string;
     };
     let {
-        autofocus,
         cardRef = $bindable(),
         expenses,
+        onBlur,
         use = [],
         value = $bindable('')
     }: Props = $props();
 
     let previewValue = $state('');
-    let show = $state(autofocus ?? false);
+    // We always show the autocomplete on load, as the input is autofocused
+    let show = $state(true);
     let inputRef = $state<HTMLTextAreaElement>();
     const autocompleteOptions = $derived(show ? getNewEntryMatches(expenses, value) : []);
 
@@ -48,23 +49,22 @@
     const onHideAutocomplete = () => {
         show = false;
         onClearPreviewValue();
+        onBlur?.();
     };
 </script>
 
 <Autocomplete
-    class="relative"
+    class="h-full w-full"
     bind:cardRef
+    cardClasses="!left-3"
     show={!!autocompleteOptions.length && show}
     onClickAway={onHideAutocomplete}
 >
     <textarea
-        class="w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+        class="h-full w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
         bind:this={inputRef}
         bind:value
-        use:useActions={[
-            ...use,
-            [useFieldAutofocus, { autofocus, onClearPreviewValue, onHideAutocomplete }]
-        ]}
+        use:useActions={[...use, [useFieldAutofocus, { onClearPreviewValue, onHideAutocomplete }]]}
         name="comment"
         placeholder="What was this expense for...?"
         rows={1}
@@ -74,8 +74,7 @@
     {#if previewValue}
         <!-- Preview needs to be handled here as the component does not handle the input  -->
         <div
-            class="absolute inset-0 bg-white group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
-            style="height: {inputRef?.getBoundingClientRect()?.height}px"
+            class="absolute inset-3 bg-white italic group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
         >
             {previewValue}
         </div>

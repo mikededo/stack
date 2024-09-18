@@ -1,25 +1,14 @@
-<script context="module" lang="ts">
-    export type ForceFocus = 'amount' | 'comment' | 'date' | null;
-    type Props = {
-        disableAutofocus?: boolean;
-        expense?: Expense;
-        forceFocus?: ForceFocus;
-        nested?: boolean;
-        onBlur?: () => void;
-        onClickAway?: () => void;
-        onUpdateExpense?: (expense: Expense) => void;
-    };
-</script>
-
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
     import { clickAway } from '@stack/actions';
     import { getUserDataContext } from '@stack/svelte-supabase';
+    import { Chip } from '@stack/ui';
     import { Keys } from '@stack/utils';
 
     import type { Expense } from '$lib/db';
 
+    import Cell from './cell.svelte';
     import {
         getPageBookId,
         getPageExpenses,
@@ -32,15 +21,17 @@
     import { Amount, Comment, Date } from './new-expense';
     import TagCombobox from './tag-combobox.svelte';
 
-    let { disableAutofocus, expense, forceFocus, nested, onBlur, onClickAway }: Props = $props();
+    type Props = {
+        expense?: Expense;
+        nested?: boolean;
+        onClickAway?: () => void;
+        onUpdateExpense?: (expense: Expense) => void;
+    };
+    let { expense, nested, onClickAway }: Props = $props();
 
     const { id: userId } = getUserDataContext();
     const expenses = getPageExpenses();
     const page = getPageId();
-    let amount = $state(`${expense?.amount?.toFixed(2) ?? ''}`);
-    let comment = $state(expense?.comment ?? '');
-    let date = $state(parseDate(expense?.date));
-    let commentAutocompleteRef = $state<HTMLDivElement>();
     const expenseMutation = useExpenseMutation({
         bookId: getPageBookId(),
         onMutate: onInitLoading,
@@ -48,10 +39,14 @@
         userId
     });
 
+    let amount = $state(`${expense?.amount?.toFixed(2) ?? ''}`);
+    let comment = $state(expense?.comment ?? '');
+    let date = $state(parseDate(expense?.date));
+    let commentAutocompleteRef = $state<HTMLDivElement>();
+
     const useUpsertExpense: Action<HTMLElement> = (node) => {
         const onKeydown = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
-                onBlur?.();
                 return;
             }
 
@@ -87,7 +82,6 @@
             );
 
             node.blur();
-            onBlur?.();
         };
 
         node.addEventListener('keydown', onKeydown);
@@ -114,37 +108,56 @@
 </script>
 
 {#snippet content()}
-    <td class="relative w-32 shrink-0 border-b border-primary-100 p-3">
-        <Date
-            bind:value={date}
-            disableAutofocus={forceFocus !== 'date' || disableAutofocus}
-            use={[useUpsertExpense]}
-        />
-    </td>
-    <td class="w-32 shrink-0 border-b border-primary-100 p-3">
-        <Amount bind:value={amount} forceFocus={forceFocus === 'amount'} use={[useUpsertExpense]} />
-    </td>
-    <td class=" relative max-h-[45px] w-full min-w-64 border-b border-primary-100 p-3">
-        <Comment
-            bind:cardRef={commentAutocompleteRef}
-            bind:value={comment}
-            autofocus={forceFocus === 'comment'}
-            use={[useUpsertExpense]}
-            {expenses}
-        />
-    </td>
-    <td class="min-w-24 border-b border-primary-100 p-3 md:min-w-64">
-        <TagCombobox expenseId={expense?.id} tags={expense?.tags ?? []} />
-    </td>
+    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3">
+        {#snippet edit()}
+            <Date bind:value={date} use={[useUpsertExpense]} />
+        {/snippet}
+
+        {date}
+    </Cell>
+
+    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3">
+        {#snippet edit()}
+            <Amount bind:value={amount} use={[useUpsertExpense]} />
+        {/snippet}
+
+        {#if amount}&euro; {amount}{/if}
+    </Cell>
+
+    <Cell class="relative w-full min-w-64 border-b border-primary-100 p-3">
+        {#snippet edit({ onFinishEditing })}
+            <Comment
+                bind:cardRef={commentAutocompleteRef}
+                bind:value={comment}
+                use={[useUpsertExpense]}
+                {expenses}
+                onBlur={onFinishEditing}
+            />
+        {/snippet}
+
+        {comment}
+    </Cell>
+
+    <Cell class="w-48 shrink-0 border-b border-primary-100 p-3 md:w-72">
+        {#snippet edit()}
+            <TagCombobox expenseId={expense?.id} tags={expense?.tags ?? []} />
+        {/snippet}
+
+        <div class="flex flex-wrap items-center gap-1">
+            {#each expense?.tags ?? [] as tag (tag.id)}
+                <Chip color={tag.color}>{tag.name}</Chip>
+            {/each}
+        </div>
+    </Cell>
 {/snippet}
 
 {#if nested}
     {@render content()}
 {:else}
-    <tr
+    <div
         class="group flex w-full items-stretch hover:bg-primary-50"
         use:clickAway={onInternalClickAway}
     >
         {@render content()}
-    </tr>
+    </div>
 {/if}

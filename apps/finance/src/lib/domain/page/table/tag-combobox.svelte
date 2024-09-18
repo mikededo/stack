@@ -1,4 +1,6 @@
 <script lang="ts">
+    import type { FloatingCardPosition } from '@stack/ui';
+
     import type { Action } from 'svelte/action';
 
     import { portal, useTrapFocus } from '@stack/actions';
@@ -18,32 +20,41 @@
     const book = getPageBookId();
     const page = getPageId();
 
-    let inputRef = $state<HTMLInputElement>();
+    let containerRef = $state<HTMLDivElement>();
     let popupRef = $state<HTMLDivElement>();
+    let inputRef = $state<HTMLInputElement>();
     let value = $state('');
     let show = $state(false);
-    const position = $derived.by(() => {
-        if (!inputRef) {
-            return undefined;
+    let position = $state<FloatingCardPosition | undefined>();
+    const filterTags = $derived(
+        (tag: Tag) => value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase())
+    );
+    const { add, remove } = useExpenseTagsModifiers({ book, page });
+
+    $effect(() => {
+        // Force update on tags update
+        tags;
+
+        if (!containerRef) {
+            return;
         }
 
-        let client = inputRef.getBoundingClientRect();
-        return {
+        let client = containerRef.getBoundingClientRect();
+
+        position = {
             left: client.x,
             top: client.y + client.height + 4,
             width: client.width
         };
     });
-    const filterTags = $derived(
-        (tag: Tag) => value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase())
-    );
-    const { add, remove } = useExpenseTagsModifiers({ book, page });
 
     const onHideAutocomplete = () => {
         show = false;
     };
 
     const useInput: Action = (node) => {
+        node.focus();
+
         const onKeydown = (event: KeyboardEvent) => {
             if (!popupRef) {
                 return;
@@ -61,6 +72,7 @@
                 focusableElements[focusableElements.length - 1].focus();
                 event.preventDefault();
             }
+            // TODO: Backspace
         };
 
         const onFocus = () => {
@@ -69,13 +81,7 @@
 
         node.addEventListener('keydown', onKeydown);
         node.addEventListener('focus', onFocus);
-
-        return {
-            destroy() {
-                node.removeEventListener('keydown', onKeydown);
-                node.removeEventListener('focus', onFocus);
-            }
-        };
+        node.addEventListener('blur', onHideAutocomplete);
     };
 
     const onToggleTag = (tag: number) => {
@@ -91,13 +97,12 @@
     };
 </script>
 
-<div>
+<div class="flex flex-wrap items-center gap-1" bind:this={containerRef}>
     {#each tags as tag (tag.id)}
         <Chip color={tag.color}>{tag.name}</Chip>
     {/each}
     <input
-        class="w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
-        bind:this={inputRef}
+        class="w-full min-w-12 flex-1 outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
         bind:value
         use:useInput
     />

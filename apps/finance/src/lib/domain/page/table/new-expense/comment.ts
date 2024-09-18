@@ -21,9 +21,11 @@ export const useOptionButton: Action<HTMLButtonElement, UseOptionButtonArgs> = (
   const onKeydown = (e: KeyboardEvent) => {
     if (e.key === Keys.Enter) {
       onOptionClick();
+      e.stopPropagation();
     } else if (e.key === Keys.Escape) {
       // Focus input again
       inputRef?.focus();
+      e.stopPropagation();
     }
   };
 
@@ -31,32 +33,21 @@ export const useOptionButton: Action<HTMLButtonElement, UseOptionButtonArgs> = (
     onValueChange(comment, true);
   };
 
-  node.addEventListener('keydown', onKeydown);
+  node.addEventListener('keydown', onKeydown, true);
   node.addEventListener('mousedown', onOptionClick);
   node.addEventListener('focus', onOptionFocus);
-
-  return {
-    destroy() {
-      node.removeEventListener('keydown', onKeydown);
-      node.removeEventListener('mousedown', onOptionClick);
-      node.removeEventListener('focus', onOptionFocus);
-    }
-  };
 };
 
 type UseFieldAutofocusArgs = {
-  autofocus: boolean | undefined;
   onClearPreviewValue: () => void;
   onHideAutocomplete: () => void;
 };
 
 export const useFieldAutofocus: Action<HTMLElement, UseFieldAutofocusArgs> = (
   node,
-  { autofocus, onClearPreviewValue, onHideAutocomplete }
+  { onClearPreviewValue, onHideAutocomplete }
 ) => {
-  if (autofocus) {
-    node.focus();
-  }
+  node.focus();
 
   const onKeydown = (event: KeyboardEvent) => {
     if (event.key === Keys.Tab) {
@@ -65,17 +56,10 @@ export const useFieldAutofocus: Action<HTMLElement, UseFieldAutofocusArgs> = (
   };
 
   const onFocus = () => {
-    // Clear the preview value anytim th textarea is focused
+    // Clear the preview value anytime the textarea is focused
     onClearPreviewValue();
   };
 
   node.addEventListener('keydown', onKeydown);
   node.addEventListener('focus', onFocus);
-
-  return {
-    destroy() {
-      node.removeEventListener('keydown', onKeydown);
-      node.removeEventListener('focus', onFocus);
-    }
-  };
 };
