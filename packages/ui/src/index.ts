@@ -6,7 +6,7 @@ export { ContextMenu, type ContextMenuOption, createContextMenu } from './contex
 export { DangerDialog, Dialog } from './dialog/index.js';
 export { DotIndicator } from './dot-indicator/index.js';
 export { Drawer } from './drawer/index.js';
-export { FloatingCard } from './floating-card/index.js';
+export { FloatingCard, type FloatingCardPosition } from './floating-card/index.js';
 export { IconButton } from './icon-button/index.js';
 export { Input } from './input/index.js';
 export { ListItem } from './list/index.js';
