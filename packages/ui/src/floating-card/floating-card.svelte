@@ -10,11 +10,13 @@
     import { fade } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
 
+    import type { FloatingCardPosition } from './types';
+
     type Props = {
         children: Snippet;
         noPadding?: boolean;
         onClickAway?: Parameters<typeof clickAway>[1];
-        position?: { left: number; top: number; width: number };
+        position?: FloatingCardPosition;
         ref?: HTMLDivElement;
         use?: ActionArray;
     } & HTMLAttributes<HTMLDivElement>;
