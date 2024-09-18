@@ -22,9 +22,9 @@
         children: Snippet;
         header: string;
         Icon?: ComponentType<LucideIcon>;
-        onClose?: () => void;
         show?: boolean;
         subtitle?: Snippet;
+        onClose?: () => void;
     };
     let { children, header, Icon, onClose, show, subtitle }: Props = $props();
 

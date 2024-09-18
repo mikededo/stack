@@ -9,9 +9,9 @@
     import Button from './button.svelte';
 
     type Props = {
-        children?: never;
         Icon: ComponentType<LucideIcon>;
         label: string;
+        children?: never;
     } & ButtonProps;
     let { Icon, label, ...props }: Props = $props();
 

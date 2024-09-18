@@ -57,6 +57,18 @@ const perfectionistRules = {
       ignoreCase: true
     }
   ],
+  'perfectionist/sort-object-types': [
+    'error',
+    {
+      type: 'alphabetical',
+      order: 'asc',
+      ignoreCase: true,
+      partitionByNewLine: true,
+      groupKind: 'required-first',
+      groups: ['unknown', 'callbacks', 'multiline'],
+      customGroups: { callbacks: 'on*' }
+    }
+  ],
   'perfectionist/sort-svelte-attributes': [
     'error',
     {

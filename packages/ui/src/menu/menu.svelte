@@ -24,7 +24,7 @@
         wrapperClass?: string;
     } & (
         | { Icon: ComponentType<LucideIcon>; label?: string }
-        | { Icon?: ComponentType<LucideIcon>; label: string }
+        | { label: string; Icon?: ComponentType<LucideIcon> }
     );
     let { children, Icon, label, loading, ...restProps }: Props = $props();
 

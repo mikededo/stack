@@ -9,13 +9,13 @@
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
+        label: string;
         active?: boolean;
         class?: string;
         Icon?: ComponentType<LucideIcon>;
-        label: string;
-        onClick?: () => void;
         unstyled?: boolean;
         use?: ActionArray;
+        onClick?: () => void;
     };
     let { active, Icon, label, onClick, unstyled, use = [], ...restProps }: Props = $props();
 

@@ -1,2 +1,2 @@
-type Crumb = { href?: string; label: string };
+type Crumb = { label: string; href?: string };
 export type Crumbs = Crumb[];

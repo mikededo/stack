@@ -12,7 +12,7 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    type Props = { initialTab?: number; tabs: Tab[] };
+    type Props = { tabs: Tab[]; initialTab?: number };
     let { initialTab = 0, tabs }: Props = $props();
 
     let initial = $state<HTMLButtonElement | undefined>();

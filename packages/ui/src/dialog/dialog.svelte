@@ -11,10 +11,10 @@
 
     type Props = {
         children: Snippet;
+        onClose: () => void;
         class?: string;
         footer?: Snippet;
         header?: Snippet;
-        onClose: () => void;
     };
     let { children, class: dialogClasses, footer, header, onClose }: Props = $props();
 

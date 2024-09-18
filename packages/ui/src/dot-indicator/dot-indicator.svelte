@@ -5,7 +5,7 @@
     import { scale } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
 
-    type Props = { children: Snippet; containerClass?: string; show: boolean };
+    type Props = { children: Snippet; show: boolean; containerClass?: string };
     let { children, containerClass, show }: Props = $props();
 </script>
 

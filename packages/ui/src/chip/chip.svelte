@@ -8,7 +8,7 @@
 
     type BaseProps = {
         children: Snippet;
-    } & ({ color: string; variant?: never } | { color?: never; variant: ChipVariant });
+    } & ({ color: string; variant?: never } | { variant: ChipVariant; color?: never });
     type Props = BaseProps & SvelteHTMLElements['span'];
     let { children, color, variant, ...restProps }: Props = $props();
 

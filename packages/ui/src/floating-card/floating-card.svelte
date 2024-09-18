@@ -15,10 +15,10 @@
     type Props = {
         children: Snippet;
         noPadding?: boolean;
-        onClickAway?: Parameters<typeof clickAway>[1];
         position?: FloatingCardPosition;
         ref?: HTMLDivElement;
         use?: ActionArray;
+        onClickAway?: Parameters<typeof clickAway>[1];
     } & HTMLAttributes<HTMLDivElement>;
     let {
         children,
