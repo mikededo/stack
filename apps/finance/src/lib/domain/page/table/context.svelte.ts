@@ -1,9 +1,9 @@
 import type { Page as PageStore } from '@sveltejs/kit';
 
+import type { Page } from '$lib/db';
+
 import { getContext, setContext } from 'svelte';
 import { get } from 'svelte/store';
-
-import type { Page } from '$lib/db';
 
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';

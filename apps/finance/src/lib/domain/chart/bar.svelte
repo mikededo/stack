@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { BarController, Chart as ChartJS } from 'chart.js';
-
     import type { ChartBaseProps } from './types';
+
+    import { BarController, Chart as ChartJS } from 'chart.js';
 
     import Chart from './base.svelte';
 

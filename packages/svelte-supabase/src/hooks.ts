@@ -1,10 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { RequestEvent } from '@sveltejs/kit';
 
-import { createServerClient } from '@supabase/ssr';
-
 import type { Database } from './database';
 import type { Client } from './types';
+
+import { createServerClient } from '@supabase/ssr';
 
 export const createSupabaseServerClient = (
   supabseUrl: string,

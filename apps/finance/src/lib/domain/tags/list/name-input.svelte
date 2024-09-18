@@ -5,9 +5,9 @@
     import { type ActionArray, useActions, useAutofocus } from '@stack/actions';
 
     type Props = {
+        use?: ActionArray;
         onCancel?: () => void;
         onConfirm?: () => void;
-        use?: ActionArray;
     } & HTMLInputAttributes;
     let {
         autofocus,

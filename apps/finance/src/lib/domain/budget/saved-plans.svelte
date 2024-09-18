@@ -1,9 +1,9 @@
 <script lang="ts">
     import { TextIconButton } from '@stack/ui';
 
-    import { ArrowDown, ArrowUp } from 'lucide-svelte';
-
     import type { BudgetPlan as BudgetPlanType } from '$lib/db';
+
+    import { ArrowDown, ArrowUp } from 'lucide-svelte';
 
     import BudgetPlan from './budget-plan.svelte';
     import { removeActivePlan } from './context.svelte';

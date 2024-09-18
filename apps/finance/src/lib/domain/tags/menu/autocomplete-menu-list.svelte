@@ -1,9 +1,9 @@
 <script lang="ts">
     import { MenuOption } from '@stack/ui';
 
-    import { Circle, CircleCheck } from 'lucide-svelte';
-
     import type { Tag } from '$lib/db';
+
+    import { Circle, CircleCheck } from 'lucide-svelte';
 
     import { useInputMenuOption } from './autocomplete-menu-list';
     import { useTagList } from './tag-list.svelte';

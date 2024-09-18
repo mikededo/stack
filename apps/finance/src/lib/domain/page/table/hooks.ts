@@ -17,10 +17,10 @@ const updateExistingExpense =
 
 type MutationContext = { cachedPage: null | Page; isNewExpense: boolean };
 type UseExpenseMutationArgs = {
+  userId: string;
   bookId?: number;
   onMutate?: () => void;
   onSettled?: () => void;
-  userId: string;
 };
 type Result = MutationResult<typeof createExpense, MutationContext>;
 export const useExpenseMutation = ({

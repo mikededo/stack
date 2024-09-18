@@ -10,9 +10,9 @@
     import { HEX_REGEX } from '@stack/utils';
 
     type Props = {
+        use?: ActionArray;
         onCancel?: () => void;
         onConfirm?: () => void;
-        use?: ActionArray;
     } & HTMLInputAttributes;
     let {
         autofocus,

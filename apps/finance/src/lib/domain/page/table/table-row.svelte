@@ -1,6 +1,8 @@
 <script lang="ts">
     import { ContextMenu, type ContextMenuOption, createContextMenu } from '@stack/ui';
 
+    import type { Expense } from '$lib/db';
+
     import {
         ArrowDownToLine,
         ArrowUpToLine,
@@ -8,8 +10,6 @@
         ClipboardPaste,
         Trash2
     } from 'lucide-svelte';
-
-    import type { Expense } from '$lib/db';
 
     import Entry from './entry.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';

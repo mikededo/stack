@@ -1,12 +1,12 @@
 <script lang="ts">
     import { clickAway, portal } from '@stack/actions';
 
+    import type { Menu } from './context.svelte.ts';
+    import type { ContextMenuOption, Option } from './types.js';
+
     import { cubicInOut } from 'svelte/easing';
     import { scale } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
-
-    import type { Menu } from './context.svelte.ts';
-    import type { ContextMenuOption, Option } from './types.js';
 
     type Props = { menu: Menu; options: ContextMenuOption[] };
     let { menu, options }: Props = $props();

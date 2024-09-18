@@ -43,15 +43,53 @@ export type Database = {
       };
     };
     Tables: {
-      audit_log_entries: {
+      one_time_tokens: {
         Insert: {
-          created_at?: null | string;
           id: string;
+          relates_to: string;
+          token_hash: string;
+          token_type: Database['auth']['Enums']['one_time_token_type'];
+          user_id: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            columns: ['user_id'];
+            foreignKeyName: 'one_time_tokens_user_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          }
+        ];
+        Row: {
+          created_at: string;
+          id: string;
+          relates_to: string;
+          token_hash: string;
+          token_type: Database['auth']['Enums']['one_time_token_type'];
+          updated_at: string;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          id?: string;
+          relates_to?: string;
+          token_hash?: string;
+          token_type?: Database['auth']['Enums']['one_time_token_type'];
+          updated_at?: string;
+          user_id?: string;
+        };
+      };
+      audit_log_entries: {
+        Relationships: [];
+        Insert: {
+          id: string;
+          created_at?: null | string;
           instance_id?: null | string;
           ip_address?: string;
           payload?: Json | null;
         };
-        Relationships: [];
         Row: {
           created_at: null | string;
           id: string;
@@ -68,21 +106,21 @@ export type Database = {
         };
       };
       flow_state: {
+        Relationships: [];
         Insert: {
           auth_code: string;
-          auth_code_issued_at?: null | string;
           authentication_method: string;
           code_challenge: string;
           code_challenge_method: Database['auth']['Enums']['code_challenge_method'];
-          created_at?: null | string;
           id: string;
+          provider_type: string;
+          auth_code_issued_at?: null | string;
+          created_at?: null | string;
           provider_access_token?: null | string;
           provider_refresh_token?: null | string;
-          provider_type: string;
           updated_at?: null | string;
           user_id?: null | string;
         };
-        Relationships: [];
         Row: {
           auth_code: string;
           auth_code_issued_at: null | string;
@@ -114,15 +152,15 @@ export type Database = {
       };
       identities: {
         Insert: {
+          identity_data: Json;
+          provider: string;
+          provider_id: string;
+          user_id: string;
           created_at?: null | string;
           email?: null | string;
           id?: string;
-          identity_data: Json;
           last_sign_in_at?: null | string;
-          provider: string;
-          provider_id: string;
           updated_at?: null | string;
-          user_id: string;
         };
         Relationships: [
           {
@@ -157,14 +195,14 @@ export type Database = {
         };
       };
       instances: {
+        Relationships: [];
         Insert: {
-          created_at?: null | string;
           id: string;
+          created_at?: null | string;
           raw_base_config?: null | string;
           updated_at?: null | string;
           uuid?: null | string;
         };
-        Relationships: [];
         Row: {
           created_at: null | string;
           id: string;
@@ -251,14 +289,14 @@ export type Database = {
         Insert: {
           created_at: string;
           factor_type: Database['auth']['Enums']['factor_type'];
-          friendly_name?: null | string;
           id: string;
-          last_challenged_at?: null | string;
-          phone?: null | string;
-          secret?: null | string;
           status: Database['auth']['Enums']['factor_status'];
           updated_at: string;
           user_id: string;
+          friendly_name?: null | string;
+          last_challenged_at?: null | string;
+          phone?: null | string;
+          secret?: null | string;
         };
         Relationships: [
           {
@@ -290,44 +328,6 @@ export type Database = {
           phone?: null | string;
           secret?: null | string;
           status?: Database['auth']['Enums']['factor_status'];
-          updated_at?: string;
-          user_id?: string;
-        };
-      };
-      one_time_tokens: {
-        Insert: {
-          created_at?: string;
-          id: string;
-          relates_to: string;
-          token_hash: string;
-          token_type: Database['auth']['Enums']['one_time_token_type'];
-          updated_at?: string;
-          user_id: string;
-        };
-        Relationships: [
-          {
-            columns: ['user_id'];
-            foreignKeyName: 'one_time_tokens_user_id_fkey';
-            isOneToOne: false;
-            referencedColumns: ['id'];
-            referencedRelation: 'users';
-          }
-        ];
-        Row: {
-          created_at: string;
-          id: string;
-          relates_to: string;
-          token_hash: string;
-          token_type: Database['auth']['Enums']['one_time_token_type'];
-          updated_at: string;
-          user_id: string;
-        };
-        Update: {
-          created_at?: string;
-          id?: string;
-          relates_to?: string;
-          token_hash?: string;
-          token_type?: Database['auth']['Enums']['one_time_token_type'];
           updated_at?: string;
           user_id?: string;
         };
@@ -378,14 +378,14 @@ export type Database = {
       };
       saml_providers: {
         Insert: {
-          attribute_mapping?: Json | null;
-          created_at?: null | string;
           entity_id: string;
           id: string;
-          metadata_url?: null | string;
           metadata_xml: string;
-          name_id_format?: null | string;
           sso_provider_id: string;
+          attribute_mapping?: Json | null;
+          created_at?: null | string;
+          metadata_url?: null | string;
+          name_id_format?: null | string;
           updated_at?: null | string;
         };
         Relationships: [
@@ -422,13 +422,13 @@ export type Database = {
       };
       saml_relay_states: {
         Insert: {
+          id: string;
+          request_id: string;
+          sso_provider_id: string;
           created_at?: null | string;
           flow_state_id?: null | string;
           for_email?: null | string;
-          id: string;
           redirect_to?: null | string;
-          request_id: string;
-          sso_provider_id: string;
           updated_at?: null | string;
         };
         Relationships: [
@@ -469,10 +469,10 @@ export type Database = {
         };
       };
       schema_migrations: {
+        Relationships: [];
         Insert: {
           version: string;
         };
-        Relationships: [];
         Row: {
           version: string;
         };
@@ -482,17 +482,17 @@ export type Database = {
       };
       sessions: {
         Insert: {
+          id: string;
+          user_id: string;
           aal?: Database['auth']['Enums']['aal_level'] | null;
           created_at?: null | string;
           factor_id?: null | string;
-          id: string;
           ip?: null | unknown;
           not_after?: null | string;
           refreshed_at?: null | string;
           tag?: null | string;
           updated_at?: null | string;
           user_agent?: null | string;
-          user_id: string;
         };
         Relationships: [
           {
@@ -532,10 +532,10 @@ export type Database = {
       };
       sso_domains: {
         Insert: {
-          created_at?: null | string;
           domain: string;
           id: string;
           sso_provider_id: string;
+          created_at?: null | string;
           updated_at?: null | string;
         };
         Relationships: [
@@ -563,13 +563,13 @@ export type Database = {
         };
       };
       sso_providers: {
+        Relationships: [];
         Insert: {
-          created_at?: null | string;
           id: string;
+          created_at?: null | string;
           resource_id?: null | string;
           updated_at?: null | string;
         };
-        Relationships: [];
         Row: {
           created_at: null | string;
           id: string;
@@ -584,7 +584,9 @@ export type Database = {
         };
       };
       users: {
+        Relationships: [];
         Insert: {
+          id: string;
           aud?: null | string;
           banned_until?: null | string;
           confirmation_sent_at?: null | string;
@@ -600,7 +602,6 @@ export type Database = {
           email_change_token_new?: null | string;
           email_confirmed_at?: null | string;
           encrypted_password?: null | string;
-          id: string;
           instance_id?: null | string;
           invited_at?: null | string;
           is_anonymous?: boolean;
@@ -621,7 +622,6 @@ export type Database = {
           role?: null | string;
           updated_at?: null | string;
         };
-        Relationships: [];
         Row: {
           aud: null | string;
           banned_until: null | string;
@@ -711,44 +711,44 @@ export type Database = {
     };
     Functions: {
       create_budget_plan: {
+        Returns: Json;
         Args: {
           allocations: Json;
           name: string;
           total_income: number;
         };
-        Returns: Json;
       };
       log_last_accessed_page: {
+        Returns: undefined;
         Args: {
           page: number;
         };
-        Returns: undefined;
       };
       set_active_plan: {
+        Returns: undefined;
         Args: {
           plan_id: number;
         };
-        Returns: undefined;
       };
       update_budget_plan: {
+        Returns: Json;
         Args: {
           allocations: Json;
           plan_id: number;
           plan_name: string;
           plan_total_income: number;
         };
-        Returns: Json;
       };
     };
     Tables: {
       book: {
         Insert: {
+          name: string;
           archived?: boolean | null;
           created_at?: string;
           created_by?: string;
           id?: number;
           last_viewed?: string;
-          name: string;
         };
         Relationships: [
           {
@@ -778,10 +778,10 @@ export type Database = {
       };
       budget_allocation: {
         Insert: {
-          amount?: null | number;
           budget_plan_id: number;
-          id?: number;
           name: string;
+          amount?: null | number;
+          id?: number;
           percentage?: null | number;
         };
         Relationships: [
@@ -810,11 +810,11 @@ export type Database = {
       };
       budget_plan: {
         Insert: {
+          name: string;
+          total_income: number;
           active?: boolean;
           created_at?: null | string;
           id?: number;
-          name: string;
-          total_income: number;
           updated_at?: null | string;
           user_id?: string;
         };
@@ -849,12 +849,12 @@ export type Database = {
       expense: {
         Insert: {
           amount: number;
+          date: string;
+          page_id: number;
           comment?: null | string;
           created_at?: string;
           created_by?: string;
-          date: string;
           id?: number;
-          page_id: number;
         };
         Relationships: [
           {
@@ -930,8 +930,8 @@ export type Database = {
       };
       last_accessed_pages: {
         Insert: {
-          last_accessed?: null | string;
           page_id: number;
+          last_accessed?: null | string;
           user_id?: string;
         };
         Relationships: [
@@ -964,10 +964,10 @@ export type Database = {
       page: {
         Insert: {
           book_id: number;
+          name: string;
           created_at?: string;
           created_by?: string;
           id?: number;
-          name: string;
         };
         Relationships: [
           {
@@ -1002,8 +1002,8 @@ export type Database = {
       };
       pinned_pages: {
         Insert: {
-          last_clicked?: null | string;
           page_id: number;
+          last_clicked?: null | string;
           user_id?: string;
         };
         Relationships: [
@@ -1035,11 +1035,11 @@ export type Database = {
       };
       preset_budget_allocation: {
         Insert: {
+          name: string;
+          preset_plan_id: number;
           amount?: null | number;
           id?: number;
-          name: string;
           percentage?: null | number;
-          preset_plan_id: number;
         };
         Relationships: [
           {
@@ -1066,13 +1066,13 @@ export type Database = {
         };
       };
       preset_budget_plan: {
+        Relationships: [];
         Insert: {
+          name: string;
           created_at?: null | string;
           description?: null | string;
           id?: number;
-          name: string;
         };
-        Relationships: [];
         Row: {
           created_at: null | string;
           description: null | string;
@@ -1089,10 +1089,10 @@ export type Database = {
       subscriptions: {
         Insert: {
           amount: number;
-          created_at?: null | string;
-          id?: never;
           name: string;
           payment_interval: string;
+          created_at?: null | string;
+          id?: never;
           user_id?: string;
         };
         Relationships: [
@@ -1125,9 +1125,9 @@ export type Database = {
         Insert: {
           book_id: number;
           color: string;
+          name: string;
           created_at?: string;
           id?: number;
-          name: string;
         };
         Relationships: [
           {
@@ -1156,8 +1156,8 @@ export type Database = {
       user_books: {
         Insert: {
           book_id: number;
-          is_admin?: boolean;
           user_id: string;
+          is_admin?: boolean;
         };
         Relationships: [
           {

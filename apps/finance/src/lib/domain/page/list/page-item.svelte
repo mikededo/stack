@@ -1,11 +1,11 @@
 <script context="module" lang="ts">
     type Props = {
-        isShared?: boolean;
         name: Snippet;
         owner: string;
+        isShared?: boolean;
     } & (
         | { createdAt: Date; page?: never }
-        | { createdAt?: never; page: BooksWithPages[number]['page'][number] }
+        | { page: BooksWithPages[number]['page'][number]; createdAt?: never }
     );
 </script>
 
@@ -13,6 +13,8 @@
     import type { Snippet } from 'svelte';
 
     import { ContextMenu, type ContextMenuOption, createContextMenu, ListItem } from '@stack/ui';
+
+    import type { BooksWithPages } from '$lib/db';
 
     import {
         ClipboardCopyIcon,
@@ -24,8 +26,6 @@
         Pin,
         PinOff
     } from 'lucide-svelte';
-
-    import type { BooksWithPages } from '$lib/db';
 
     import { usePinnedPages } from './hooks';
 

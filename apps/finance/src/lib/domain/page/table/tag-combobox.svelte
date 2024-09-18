@@ -14,7 +14,7 @@
 
     import { getPageBookId, getPageId } from './context.svelte';
 
-    type Props = { expenseId?: null | number; tags: Tag[] };
+    type Props = { tags: Tag[]; expenseId?: null | number };
     let { expenseId, tags }: Props = $props();
 
     const book = getPageBookId();

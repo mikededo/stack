@@ -2,14 +2,14 @@ import type { MutationResult } from '@stack/utils';
 
 import { getSupabaseClient } from '@stack/svelte-supabase';
 
+import type { Expense, Page, Tag } from '$lib/db';
+
 import {
   createMutation,
   type CreateMutationOptions,
   type QueryClient,
   useQueryClient
 } from '@tanstack/svelte-query';
-
-import type { Expense, Page, Tag } from '$lib/db';
 
 import { Keys } from '$lib/config';
 import { addExpenseTag, removeExpenseTag } from '$lib/db';

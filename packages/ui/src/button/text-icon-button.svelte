@@ -2,9 +2,9 @@
     import type { Icon as LucideIcon } from 'lucide-svelte';
     import type { ComponentType } from 'svelte';
 
-    import { twMerge } from 'tailwind-merge';
-
     import type { ButtonProps } from './index.js';
+
+    import { twMerge } from 'tailwind-merge';
 
     import Button from './button.svelte';
 

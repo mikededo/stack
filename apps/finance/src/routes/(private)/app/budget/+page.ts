@@ -1,7 +1,7 @@
+import type { PageLoad } from './$types';
+
 import { Keys } from '$lib/config';
 import { getBudgetPlans, getBudgetPresets } from '$lib/db/queries';
-
-import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ parent }) => {
   const { queryClient, supabase } = await parent();

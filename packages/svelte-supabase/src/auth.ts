@@ -1,8 +1,8 @@
 import type { PostgrestSingleResponse } from '@supabase/supabase-js';
 
-import { isBrowser } from '@supabase/ssr';
-
 import type { Client, Result } from './types.ts';
+
+import { isBrowser } from '@supabase/ssr';
 
 type UnauthorizedRedirectOptions = {
   onBrowserRedirect?: () => void;

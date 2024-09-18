@@ -8,19 +8,19 @@
         ListItem
     } from '@stack/ui';
 
-    import { Layers2, Tag as TagIcon, Trash2 } from 'lucide-svelte';
-
     import type { Tag } from '$lib/db';
+
+    import { Layers2, Tag as TagIcon, Trash2 } from 'lucide-svelte';
 
     import ColorInput from './color-input.svelte';
     import { isTagValid } from './helpers';
     import NameInput from './name-input.svelte';
 
     type Props = {
+        tag: Tag;
         onDeleteTag: (tag: Tag) => void;
         onDuplicateTag: (tag: Tag) => void;
         onUpdateTag: (tag: Tag) => void;
-        tag: Tag;
     };
     let { onDeleteTag, onDuplicateTag, onUpdateTag, tag }: Props = $props();
 

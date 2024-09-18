@@ -4,6 +4,8 @@
     import { setUserDataContext } from '@stack/svelte-supabase';
     import { Logo } from '@stack/ui';
 
+    import type { LayoutData } from './$types';
+
     import {
         DollarSign,
         Ellipsis,
@@ -16,14 +18,12 @@
     import { page } from '$app/stores';
     import { isNestedPath, pathTo } from '$lib/config';
 
-    import type { LayoutData } from './$types';
-
     type Props = { children: Snippet; data: LayoutData };
     let { children, data }: Props = $props();
 
     setUserDataContext(data.user);
 
-    type Tab = { disabled?: boolean; href: string; Icon: ComponentType<LucideIcon>; name: string };
+    type Tab = { href: string; Icon: ComponentType<LucideIcon>; name: string; disabled?: boolean };
     const tabs: Tab[] = [
         { href: pathTo('app'), Icon: LayoutDashboard, name: 'Dashboard' },
         { href: pathTo('budget'), Icon: PiggyBank, name: 'Budget' },

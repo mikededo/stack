@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { Chart as ChartJS, DoughnutController } from 'chart.js';
-
     import type { ChartBaseProps } from './types';
+
+    import { Chart as ChartJS, DoughnutController } from 'chart.js';
 
     import Chart from './base.svelte';
 

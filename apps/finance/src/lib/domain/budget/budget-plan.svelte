@@ -2,16 +2,16 @@
 <script lang="ts">
     import { Chip, ContextMenu, createContextMenu, DangerDialog } from '@stack/ui';
 
+    import type { BudgetPlan } from '$lib/db';
+
     import { Trash2 } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
-
-    import type { BudgetPlan } from '$lib/db';
 
     import { beforeNavigate } from '$app/navigation';
 
     import { getBudgetPlanContext, onToggleSavedPlan } from './context.svelte';
 
-    type Props = { onDeletePlan: (id: number) => void; plan: BudgetPlan };
+    type Props = { plan: BudgetPlan; onDeletePlan: (id: number) => void };
     let { onDeletePlan, plan }: Props = $props();
 
     const ctx = getBudgetPlanContext();
