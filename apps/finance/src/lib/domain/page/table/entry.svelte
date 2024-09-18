@@ -8,7 +8,7 @@
 
     import type { Expense } from '$lib/db';
 
-    import Cell from './cell.svelte';
+    import { Cell } from './cell';
     import {
         getPageBookId,
         getPageExpenses,
@@ -23,11 +23,10 @@
 
     type Props = {
         expense?: Expense;
-        nested?: boolean;
         onClickAway?: () => void;
         onUpdateExpense?: (expense: Expense) => void;
-    };
-    let { expense, nested, onClickAway }: Props = $props();
+    } & ({ nested: true; position?: never } | { position: number; nested?: false });
+    let { expense, nested, onClickAway, position }: Props = $props();
 
     const { id: userId } = getUserDataContext();
     const expenses = getPageExpenses();
@@ -108,7 +107,7 @@
 </script>
 
 {#snippet content()}
-    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3">
+    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3" aria-colindex={1}>
         {#snippet edit()}
             <Date bind:value={date} use={[useUpsertExpense]} />
         {/snippet}
@@ -116,7 +115,7 @@
         {date}
     </Cell>
 
-    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3">
+    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3" aria-colindex={2}>
         {#snippet edit()}
             <Amount bind:value={amount} use={[useUpsertExpense]} />
         {/snippet}
@@ -124,7 +123,7 @@
         {#if amount}&euro; {amount}{/if}
     </Cell>
 
-    <Cell class="relative w-full min-w-64 border-b border-primary-100 p-3">
+    <Cell class="relative w-full min-w-64 border-b border-primary-100 p-3" aria-colindex={3}>
         {#snippet edit({ onFinishEditing })}
             <Comment
                 bind:cardRef={commentAutocompleteRef}
@@ -138,7 +137,7 @@
         {comment}
     </Cell>
 
-    <Cell class="w-48 shrink-0 border-b border-primary-100 p-3 md:w-72">
+    <Cell class="w-48 shrink-0 border-b border-primary-100 p-3 md:w-72" aria-colindex={4}>
         {#snippet edit()}
             <TagCombobox expenseId={expense?.id} tags={expense?.tags ?? []} />
         {/snippet}
@@ -153,10 +152,12 @@
 
 {#if nested}
     {@render content()}
-{:else}
+{:else if position !== undefined}
     <div
         class="group flex w-full items-stretch hover:bg-primary-50"
         use:clickAway={onInternalClickAway}
+        aria-rowindex={position + 1}
+        role="row"
     >
         {@render content()}
     </div>
