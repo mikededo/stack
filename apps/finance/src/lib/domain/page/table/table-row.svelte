@@ -11,7 +11,7 @@
 
     import type { Expense } from '$lib/db';
 
-    import NewEntry, { type ForceFocus } from './new-entry.svelte';
+    import Entry from './entry.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
 
     type ProxyFn = <F extends (...args: any) => any = () => void>(cb: F) => () => void;
@@ -19,7 +19,6 @@
     let { expense, position }: Props = $props();
 
     let menu = createContextMenu();
-    let editRow = $state<ForceFocus>(null);
 
     const menuProxy: ProxyFn = (cb) => () => {
         activateRow(position);
@@ -36,10 +35,6 @@
             disableRow();
         });
 
-    const onEditMode = (focusMode: ForceFocus) => () => {
-        editRow = focusMode;
-    };
-
     const cmOptions: ContextMenuOption[] = [
         { Icon: ArrowUpToLine, onClick: onNewRow('above'), text: 'New row (above)' },
         { Icon: ArrowDownToLine, onClick: onNewRow('under'), text: 'New row (under)' },
@@ -50,12 +45,13 @@
     ];
 </script>
 
-<tr
+<div
     class="group flex w-full items-stretch aria-current:bg-primary-50 hover:bg-primary-50"
     use:menu.trigger
     aria-current={isRowActive(position) || menu.states.isMenuActive}
+    role="row"
 >
-    <NewEntry forceFocus={editRow} disableAutofocus {expense} nested onBlur={onEditMode(null)} />
-</tr>
+    <Entry {expense} nested />
+</div>
 
 <ContextMenu menu={menu.menu} options={cmOptions} />
