@@ -1,4 +1,4 @@
-<div class="sticky top-0 z-10 flex w-full text-left text-sm text-primary-500" role="row">
+<div class="sticky top-0 z-10 flex w-full text-left text-sm text-primary-500" role="rowheader">
     <div
         class="w-32 shrink-0 border-b border-primary-100 bg-primary-50 py-1.5 pl-3 font-semibold"
         role="columnheader"

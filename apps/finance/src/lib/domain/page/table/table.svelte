@@ -2,7 +2,7 @@
     import { CircleSlash2 } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
-    import { clearPageFilters, getPageContext } from './context.svelte';
+    import { clearPageFilters, getPageContext, updateGrid } from './context.svelte';
     import Entry from './entry.svelte';
     import { tableState } from './state.svelte';
     import PageTableHead from './table-head.svelte';
@@ -10,6 +10,7 @@
     import TableRow from './table-row.svelte';
 
     const ctx = getPageContext();
+    let gridNode = $state<HTMLDivElement>();
     const filteredExpenses = $derived.by(() => {
         if (!ctx.page) {
             // TS check
@@ -32,6 +33,15 @@
     const onClickAway = () => {
         tableState.newRowIndex = null;
     };
+
+    $effect(() => {
+        ctx.page?.expenses;
+        if (!gridNode) {
+            return;
+        }
+
+        updateGrid(gridNode);
+    });
 </script>
 
 {#if ctx.page}
@@ -40,6 +50,7 @@
 
         <div
             class="relative -mx-6 flex h-full max-h-[72vh] flex-col overflow-auto scrollbar-thin md:mx-0 md:max-h-[50vh]"
+            bind:this={gridNode}
             role="grid"
         >
             <PageTableHead />
@@ -47,20 +58,20 @@
             {#if filteredExpenses.length}
                 <div
                     class="text-left text-sm"
-                    role="gridcell"
+                    role="rowgroup"
                     in:fade={{ delay: 150, duration: 100 }}
                     out:fade={{ duration: 100 }}
                 >
                     {#each filteredExpenses as expense, i (expense.id)}
                         {#if tableState.newRowIndex === i}
-                            <Entry {onClickAway} />
+                            <Entry position={i} {onClickAway} />
                         {/if}
                         <TableRow position={i} {expense} />
                         {#if i === ctx.page.expenses.length - 1}
                             <!-- By having the new entry at the end of the list, we can ensure that this component -->
                             <!-- is always upadted, even after adding a new expense, ensuring the new entry -->
                             <!-- is autofocused -->
-                            <Entry />
+                            <Entry position={i + 1} />
                         {/if}
                     {/each}
                 </div>
@@ -68,7 +79,7 @@
                 <!-- TODO: Add a new empty entry -->
                 <div
                     class="h-full w-full py-4"
-                    role="gridcell"
+                    role="presentation"
                     in:fade={{ delay: 150, duration: 100 }}
                     out:fade={{ duration: 100 }}
                 >

@@ -16,6 +16,8 @@ type PageContextFilters = {
 };
 type PageContext = {
   filters: PageContextFilters;
+  // 2D array of grid cells
+  grid: HTMLDivElement[][];
   page: null | Page;
   saveStatus: SaveStatus;
 };
@@ -33,6 +35,7 @@ let pageState = $state<PageContext>({
     sort: 'date-asc',
     tags: new Set()
   },
+  grid: [],
   page: null,
   saveStatus: null
 });
@@ -98,6 +101,19 @@ export const clearPageFilters = () => {
 };
 
 // MODIFIERS
+export const updateGrid = (grid: HTMLDivElement) => {
+  const rows: HTMLDivElement[][] = [];
+  grid.querySelectorAll('div[role="row"]').forEach((row) => {
+    const cells: HTMLDivElement[] = [];
+    row.querySelectorAll('div[role="gridcell"]').forEach((cell) => {
+      cells.push(cell as HTMLDivElement);
+    });
+    rows.push(cells);
+  });
+  pageState.grid = rows;
+};
+
+export const getNextGridCell = (row: number, col: number) => pageState.grid[row]?.[col];
 
 export const onInitLoading = () => {
   pageState.saveStatus = 'saving';
