@@ -4,12 +4,15 @@
     import type { Snippet } from 'svelte';
     import type { Action } from 'svelte/action';
 
-    import { clickAway, portal, useActions } from '@stack/actions';
+    import { clickAway, useActions } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
+
+    import { twMerge } from 'tailwind-merge';
 
     import { FloatingCard } from '../floating-card/index.js';
 
     type Props = {
+        cardClasses?: string;
         cardRef?: HTMLDivElement;
         children: Snippet;
         class?: string;
@@ -19,6 +22,7 @@
         use?: ActionArray;
     };
     let {
+        cardClasses,
         cardRef = $bindable(),
         children,
         options,
@@ -27,20 +31,16 @@
         ...restProps
     }: Props = $props();
 
-    let show = $derived(showAutocomplete ?? false);
     let wrapperNode = $state<HTMLDivElement | null>(null);
     let optionsWrapperNode = $state<HTMLDivElement | null>(null);
+    const show = $derived(showAutocomplete ?? false);
     const autocompletePosition = $derived.by(() => {
         if (!wrapperNode) {
             return undefined;
         }
 
         let client = wrapperNode.getBoundingClientRect();
-        return {
-            left: client.x,
-            top: client.y + client.height + 4, // 8 as padding
-            width: client.width
-        };
+        return { left: 0, top: client.height + 8, width: client.width };
     });
 
     $effect(() => {
@@ -92,10 +92,9 @@
 
 {#if show && options.length}
     <FloatingCard
-        class="ui-overflow-hidden !ui-p-0"
+        class={twMerge('!ui-absolute !ui-z-50 !ui-mx-auto ui-overflow-hidden !ui-p-0', cardClasses)}
         bind:ref={cardRef}
         position={autocompletePosition}
-        use={[[portal, '']]}
     >
         <div
             class="ui-flex ui-max-h-44 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1"
