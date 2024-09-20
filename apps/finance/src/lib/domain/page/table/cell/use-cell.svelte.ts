@@ -11,6 +11,20 @@ type UseCellArgs = {
   onStopEdit: () => void;
 };
 
+type RowStaticPositions = 'row-end' | 'row-start';
+type GridStaticPositions = 'first-cell' | 'first-row' | 'last-cell' | 'last-row';
+type MoveArgs = { node: HTMLDivElement } & (
+  | {
+      x: number;
+      /**
+       * Passing an offset as the function gets the index from the cell
+       */
+      yOffset?: number;
+    }
+  | { position: GridStaticPositions }
+  | { position: RowStaticPositions; row: number }
+);
+
 /**
  * Returns the parent row index 0-based!
  */
@@ -36,8 +50,15 @@ const getParentRowIndex = (node: HTMLDivElement) => {
   return Number(rowIndexString) - 1;
 };
 
+/**
+ * Checks if the cell is in edit mode through `data-editing` attribute.
+ */
 const isCellInEditMode = (node: HTMLDivElement) => node.dataset.editing === 'true';
 
+/**
+ * Returns the cell row index 0-based. If no index is found, an error is
+ * thrown.
+ */
 const getCellRowIndex = (node: HTMLElement) => {
   const index = node.ariaColIndex;
   if (!index) {
@@ -57,19 +78,6 @@ const updateCellFocus = (node: HTMLDivElement, x: number, y: number) => {
   node.tabIndex = -1;
 };
 
-type RowStaticPositions = 'row-end' | 'row-start';
-type GridStaticPositions = 'first-cell' | 'first-row' | 'last-cell' | 'last-row';
-type MoveArgs = { node: HTMLDivElement } & (
-  | {
-      x: number;
-      /**
-       * Passing an offset as the function gets the index from the cell
-       */
-      yOffset?: number;
-    }
-  | { position: GridStaticPositions }
-  | { position: RowStaticPositions; row: number }
-);
 /**
  * Moves the focus to the next cell in the grid, based on the actual cell aria-colindex
  * (1-base) which is calculated from the given node, and the x coordinate.
