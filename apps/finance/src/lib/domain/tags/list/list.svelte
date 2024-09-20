@@ -34,8 +34,8 @@
         queryClient,
         supabaseClient
     };
-    const { createTagMutation, deleteTagMutation, updateTagMutation } =
-        useTagMutations(mutationArgs);
+    const { createTagMutation, deleteTagMutation, updateTagMutation }
+        = useTagMutations(mutationArgs);
 
     const onAddTag = () => {
         newTag = true;

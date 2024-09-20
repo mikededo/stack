@@ -99,9 +99,9 @@
     const onInternalClickAway = (event: MouseEvent) => {
         // Special check in case the user clicks one of the autocomplete options
         if (
-            event.target instanceof HTMLElement &&
-            commentAutocompleteRef &&
-            commentAutocompleteRef.contains(event.target)
+            event.target instanceof HTMLElement
+            && commentAutocompleteRef
+            && commentAutocompleteRef.contains(event.target)
         ) {
             return;
         }
@@ -155,7 +155,7 @@
             />
         {/snippet}
 
-        {@render value_or_placeholder(comment, "What's this expense about?")}
+        {@render value_or_placeholder(comment, 'What\'s this expense about?')}
     </Cell>
 
     <Cell class="w-48 shrink-0 border-b border-primary-100 p-3 md:w-72" aria-colindex={4}>

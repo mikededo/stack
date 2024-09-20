@@ -29,8 +29,8 @@
     const selectedTags = $derived(new Set(tags.map(({ id }) => id)));
     const filterTags = $derived(
         (tag: Tag) =>
-            (value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase())) &&
-            !selectedTags.has(tag.id)
+            (value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase()))
+            && !selectedTags.has(tag.id)
     );
     const { add, remove } = useExpenseTagsModifiers({ book, page });
 

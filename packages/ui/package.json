@@ -20,8 +20,8 @@
     "build:lib": "svelte-kit sync && svelte-package --input src",
     "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
     "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
-    "lint": "prettier --check . && eslint . --max-warnings=0",
-    "lint:fix": "prettier --write . && eslint --fix .",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint --fix .",
     "prepare": "svelte-kit sync",
     "type-check": "tsc --noEmit"
   },

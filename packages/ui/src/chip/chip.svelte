@@ -18,8 +18,8 @@
         twMerge(
             'ui-rounded-full ui-bg-current ui-px-2 ui-py-1 ui-text-xs ui-font-semibold',
             variant === 'primary' && 'ui-bg-primary/25 ui-text-primary',
-            onClick &&
-                'ui-flex ui-items-center ui-gap-1 ui-outline-none ui-transition-all hover:ui-opacity-90 focus:ui-ring-2 focus:ui-ring-current focus-visible:ui-scale-[0.975] focus-visible:ui-outline-none active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
+            onClick
+            && 'ui-flex ui-items-center ui-gap-1 ui-outline-none ui-transition-all hover:ui-opacity-90 focus:ui-ring-2 focus:ui-ring-current focus-visible:ui-scale-[0.975] focus-visible:ui-outline-none active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
             restProps.class
         )
     );

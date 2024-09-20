@@ -10,12 +10,12 @@ export default {
   theme: {
     extend: {
       aria: {
-        current: 'current="true"',
-        invalid: 'invalid="true"',
+        'current': 'current="true"',
+        'invalid': 'invalid="true"',
         'not-current': 'current="false"'
       },
       height: {
-        content: 'calc(100vh - 56px)',
+        'content': 'calc(100vh - 56px)',
         'content-md': 'calc(100vh - 66px)'
       },
       width: {

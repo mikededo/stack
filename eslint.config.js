@@ -1,34 +1,63 @@
-import path from 'path';
+// @ts-check
 
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-import eslint from '@eslint/js';
+import stylistic from '@stylistic/eslint-plugin';
+import tsEslint from '@typescript-eslint/eslint-plugin';
+import tsEslintParser from '@typescript-eslint/parser';
+import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginSvelte from 'eslint-plugin-svelte';
+import tailwind from 'eslint-plugin-tailwindcss';
 import globals from 'globals';
 import svelteEslintParser from 'svelte-eslint-parser';
-import perfectionist from 'eslint-plugin-perfectionist';
-import tsEslint from 'typescript-eslint';
 
-/** @type {import('eslint')Linter.RulesRecord} */
+const stylisticRules = stylistic.configs.customize({
+  arrowParens: true,
+  braceStyle: '1tbs',
+  commaDangle: 'never',
+  flat: true,
+  indent: 2,
+  quotes: 'single',
+  semi: true
+});
+  // noMultipleEmptyLines: true,
+  // objectCurlyNewline: true,
+  // quotes: 'single',
+  // semi: true
+  // '@stylistic/comma-dangle': ['error', 'never'],
+  // '@stylistic/indent': ['error', 2],
+  // '@stylistic/js/comma-style': ['error', 'last'],
+  // '@stylistic/no-multi-spaces': 'error',
+  // '@stylistic/no-multiple-empty-lines': ['error', {'max': 1, 'maxBOF': 0, 'maxEOF': 0}],
+  // '@stylistic/object-curly-newline': ['error', { consistent: true, 'multiline': true }],
+  // '@stylistic/quotes': ['error', 'single'],
+  // '@stylistic/semi': 'error'
+
 const sharedRules = {
   'arrow-body-style': ['error', 'as-needed'],
   'no-empty-function': ['error', { allow: ['arrowFunctions'] }],
-  'no-unused-vars': 'off',
   'no-undef': 'off',
-  'sort-imports': 'off'
+  'no-unused-vars': 'off',
+  'sort-imports': 'off',
+  ...(stylisticRules.rules ?? {})
 };
 
 const perfectionistRules = {
   ...perfectionist.configs['recommended-natural'].rules,
+  'perfectionist/sort-exports': [
+    'error',
+    {
+      ignoreCase: true,
+      order: 'asc',
+      type: 'alphabetical'
+    }
+  ],
   'perfectionist/sort-imports': [
     'error',
     {
-      type: 'alphabetical',
-      order: 'asc',
-      internalPattern: ['$*/**'],
-      ignoreCase: true,
-      newlinesBetween: 'always',
-      maxLineLength: undefined,
+      customGroups: {
+        type: { 'repo-type': ['@stack/**'] },
+        value: { repo: ['@stack/**'], style: ['@stack/**/styles'] }
+      },
+      environment: 'bun',
       groups: [
         'style',
         'repo-type',
@@ -43,39 +72,38 @@ const perfectionistRules = {
         'object',
         'unknown'
       ],
-      customGroups: {
-        value: { style: ['@stack/**/styles'], repo: ['@stack/**'] },
-        type: { 'repo-type': ['@stack/**'] }
-      },
-      environment: 'bun'
-    }
-  ],
-  'perfectionist/sort-exports': [
-    'error',
-    {
-      type: 'alphabetical',
+      ignoreCase: true,
+      internalPattern: ['$*/**'],
+      maxLineLength: undefined,
+      newlinesBetween: 'always',
       order: 'asc',
-      ignoreCase: true
+      type: 'alphabetical'
     }
   ],
   'perfectionist/sort-object-types': [
     'error',
     {
-      type: 'alphabetical',
-      order: 'asc',
-      ignoreCase: true,
-      partitionByNewLine: true,
+      customGroups: { callbacks: 'on*' },
       groupKind: 'required-first',
       groups: ['unknown', 'callbacks', 'multiline'],
-      customGroups: { callbacks: 'on*' }
+      ignoreCase: true,
+      order: 'asc',
+      partitionByNewLine: true,
+      type: 'alphabetical'
     }
   ],
   'perfectionist/sort-svelte-attributes': [
     'error',
     {
-      type: 'alphabetical',
-      order: 'asc',
-      ignoreCase: true,
+      customGroups: {
+        'bind-directives': 'bind:*',
+        'bind-this': 'bind:this',
+        'class': 'class',
+        'effects': 'on*',
+        'style-props': '--style-props',
+        'this': 'this',
+        'use-directives': 'use:*'
+      },
       groups: [
         ['this', 'bind-this'],
         'style-props',
@@ -86,68 +114,52 @@ const perfectionistRules = {
         'multiline',
         'effects'
       ],
-      customGroups: {
-        'style-props': '--style-props',
-        'bind-directives': 'bind:*',
-        'use-directives': 'use:*',
-        'bind-this': 'bind:this',
-        effects: 'on*',
-        class: 'class',
-        this: 'this'
-      }
+      ignoreCase: true,
+      order: 'asc',
+      type: 'alphabetical'
     }
   ]
 };
 
-const dirname = path.dirname(fileURLToPath(import.meta.url));
-const compat = new FlatCompat({
-  resolvePluginsRelativeTo: dirname,
-  baseDirectory: dirname,
-  recommendedConfig: eslint.configs.recommended,
-  allConfig: eslint.configs.all
-});
-
-export default tsEslint.config(
-  eslint.configs.recommended,
-  ...compat.extends('prettier'),
-  ...eslintPluginSvelte.configs['flat/recommended'].map(
-    ({ rules, ...rest }) => ({
-      // Workaround since svelte-eslint's typings are mismatched with ts-eslint's
-      rules: { ...rules },
-      ...rest
-    })
-  ),
-  { files: ['**/*.js'], rules: sharedRules },
+export default [
+  ...eslintPluginSvelte.configs['flat/recommended'],
+  ...tailwind.configs['flat/recommended'],
+  {
+    files: ['**/*.js'],
+    plugins: { '@stylistic': stylistic, perfectionist },
+    rules: { ...sharedRules, ...perfectionistRules }
+  },
   {
     files: ['**/*.ts'],
-    plugins: {
-      '@typescript-eslint': tsEslint.plugin,
-      perfectionist
-    },
     languageOptions: {
-      parser: tsEslint.parser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-        extraFileExtensions: ['.svelte']
-      },
       globals: {
         ...globals.browser,
         ...globals.node
+      },
+      parser: tsEslintParser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        extraFileExtensions: ['.svelte'],
+        sourceType: 'module'
       }
     },
+    plugins: {
+      '@stylistic': stylistic,
+      '@typescript-eslint': tsEslint,
+      perfectionist
+    },
     rules: {
+      ...perfectionistRules,
+      ...sharedRules,
+      '@typescript-eslint/consistent-type-imports': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
           argsIgnorePattern: '^(_|\\$\\$Props)',
-          varsIgnorePattern: '^(_|\\$\\$Props)',
-          caughtErrorsIgnorePattern: '^_'
+          caughtErrorsIgnorePattern: '^_',
+          varsIgnorePattern: '^(_|\\$\\$Props)'
         }
-      ],
-      '@typescript-eslint/consistent-type-imports': 'error',
-      ...perfectionistRules,
-      ...sharedRules
+      ]
     }
   },
   {
@@ -155,25 +167,28 @@ export default tsEslint.config(
     languageOptions: {
       parser: svelteEslintParser,
       parserOptions: {
-        parser: '@typescript-eslint/parser',
         globals: {
           ...globals.browser,
           ...globals.node
         },
-        svelteFeatures: {
-          // Whether to parse the `generics` attribute.
-          // See https://github.com/sveltejs/rfcs/pull/38
-          experimentalGenerics: true
-        }
+        parser: '@typescript-eslint/parser'
       }
     },
-    plugins: { perfectionist },
+    plugins: {
+      '@stylistic': stylistic,
+      perfectionist
+    },
     rules: {
-      ...sharedRules,
       ...perfectionistRules,
-      // FIXME: Temporary fix to be able to use $t
-      // https://github.com/sveltejs/eslint-plugin-svelte/issues/652
-      'svelte/valid-compile': 'off'
+      ...Object.fromEntries(Object.entries(stylisticRules.rules ?? {}).filter(([k]) => k !== '@stylistic/indent')),
+      '@stylistic/indent': ['error', 4],
+      '@stylistic/max-len': ['error', {
+        code: 100,
+        ignoreComments: true,
+        // Somewhow ignoreStrings not working with svelte files
+        ignorePattern: '(\".\"\*)|(<\!--.*-->)',
+        ignoreStrings: true
+      }]
     }
   },
   {
@@ -193,4 +208,4 @@ export default tsEslint.config(
       'tsconfig.tsbuildinfo'
     ]
   }
-);
+];

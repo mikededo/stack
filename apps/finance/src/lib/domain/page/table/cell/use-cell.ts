@@ -15,12 +15,12 @@ type RowStaticPositions = 'row-end' | 'row-start';
 type GridStaticPositions = 'first-cell' | 'first-row' | 'last-cell' | 'last-row';
 type MoveArgs = { node: HTMLDivElement } & (
   | {
-      x: number;
-      /**
-       * Passing an offset as the function gets the index from the cell
-       */
-      yOffset?: number;
-    }
+    x: number;
+    /**
+     * Passing an offset as the function gets the index from the cell
+     */
+    yOffset?: number;
+  }
   | { position: GridStaticPositions }
   | { position: RowStaticPositions; row: number }
 );
@@ -117,6 +117,7 @@ const onCellMove = ({ node, ...args }: MoveArgs) => {
       case 'last-cell': {
         const rowCount = Math.min(getGridRowCount() - 1);
         const lastCell = getGridRowCellCount(rowCount) - 1;
+
         if (lastCell < 0) {
           return;
         }

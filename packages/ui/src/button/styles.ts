@@ -9,7 +9,7 @@ export type Props = (
   | ({ href: string } & HTMLAnchorAttributes)
   | ({ href?: never } & HTMLButtonAttributes)
 ) &
-  BaseProps;
+BaseProps;
 
 const VARIANTS: Record<ButtonVariant, string> = {
   condensed: 'ui-py-1 ui-px-2.5 ui-h-unset ui-text-xs ui-font-normal',

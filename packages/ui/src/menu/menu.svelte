@@ -23,8 +23,8 @@
         loading?: boolean;
         wrapperClass?: string;
     } & (
-        | { Icon: ComponentType<LucideIcon>; label?: string }
-        | { label: string; Icon?: ComponentType<LucideIcon> }
+      | { Icon: ComponentType<LucideIcon>; label?: string }
+      | { label: string; Icon?: ComponentType<LucideIcon> }
     );
     let { children, Icon, label, loading, ...restProps }: Props = $props();
 
@@ -64,16 +64,16 @@
                 e.preventDefault();
                 e.stopPropagation();
                 menuState.focusableElements[menuState.focusIndex].focus();
-                menuState.focusIndex =
-                    menuState.focusIndex + 1 === menuState.focusableElements.length
+                menuState.focusIndex
+                    = menuState.focusIndex + 1 === menuState.focusableElements.length
                         ? 0
                         : menuState.focusIndex + 1;
                 break;
             case Keys.ArrowUp:
                 e.preventDefault();
                 menuState.focusableElements[menuState.focusIndex].focus();
-                menuState.focusIndex =
-                    menuState.focusIndex - 1 === -1
+                menuState.focusIndex
+                    = menuState.focusIndex - 1 === -1
                         ? menuState.focusableElements.length - 1
                         : menuState.focusIndex - 1;
                 break;

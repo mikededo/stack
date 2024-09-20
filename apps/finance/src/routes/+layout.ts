@@ -16,16 +16,16 @@ export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   try {
     supabase = isBrowser()
       ? createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
-          global: { fetch }
-        })
+        global: { fetch }
+      })
       : createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
-          cookies: {
-            getAll() {
-              return data.cookies;
-            }
-          },
-          global: { fetch }
-        });
+        cookies: {
+          getAll() {
+            return data.cookies;
+          }
+        },
+        global: { fetch }
+      });
   } catch (e) {
     console.log('layout error', e);
   }

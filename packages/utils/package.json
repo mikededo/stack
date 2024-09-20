@@ -14,8 +14,8 @@
     "dist"
   ],
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "prettier --write . && eslint --fix .",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint --fix .",
     "test:unit": "vitest --run",
     "type-check": "tsc --noEmit"
   },

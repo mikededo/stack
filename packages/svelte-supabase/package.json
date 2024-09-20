@@ -9,8 +9,8 @@
     }
   },
   "scripts": {
-    "lint": "prettier --check . && eslint . --max-warnings=0",
-    "lint:fix": "prettier --write . && eslint --fix .",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint --fix .",
     "type-check": "tsc --noEmit"
   },
   "dependencies": {

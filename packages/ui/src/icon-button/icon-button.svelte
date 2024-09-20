@@ -9,7 +9,7 @@
         | ({ href: string } & HTMLAnchorAttributes)
         | ({ href?: never } & HTMLButtonAttributes)
     ) &
-        BaseProps;
+    BaseProps;
 
     let {
         color = 'primary',

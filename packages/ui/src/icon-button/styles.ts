@@ -25,8 +25,8 @@ const ICON_WRAPPER_SIZES: Record<IconButtonSizes, string> = {
   large: 'ui-size-10',
   small: 'ui-size-6'
 };
-const ICON_WRAPPER_CLASSES =
-  'ui-flex ui-items-center ui-justify-center ui-rounded-full ui-hover:bg-muted ui-transition-colors ui-cursor-pointer';
+const ICON_WRAPPER_CLASSES
+  = 'ui-flex ui-items-center ui-justify-center ui-rounded-full ui-hover:bg-muted ui-transition-colors ui-cursor-pointer';
 const COLORS: Record<IconButtonColor, string> = {
   destructive: 'ui-text-destructive-500 hover:ui-bg-destructive-50 ui-stroke-destructive-500',
   muted:

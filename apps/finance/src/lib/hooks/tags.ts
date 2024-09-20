@@ -42,42 +42,42 @@ type UseExpenseTagsModifiersArgs = {
 // Therefore, we need to search for the expense in the query and then update the
 // tags from such expense
 
-const addExpenseTagMapper =
-  (expenseId: number, tag: Tag) =>
-  (expense: Expense): Expense => {
-    if (expense.id !== expenseId) {
-      return expense;
-    }
+const addExpenseTagMapper
+  = (expenseId: number, tag: Tag) =>
+    (expense: Expense): Expense => {
+      if (expense.id !== expenseId) {
+        return expense;
+      }
 
-    return { ...expense, tags: [...expense.tags, tag] };
-  };
-const removeExpenseTagMapper =
-  (expenseId: number, tagId: number) =>
-  (expense: Expense): Expense => {
-    if (expense.id !== expenseId) {
-      return expense;
-    }
-
-    return {
-      ...expense,
-      tags: expense.tags.filter((tag) => tag.id !== tagId)
+      return { ...expense, tags: [...expense.tags, tag] };
     };
-  };
+const removeExpenseTagMapper
+  = (expenseId: number, tagId: number) =>
+    (expense: Expense): Expense => {
+      if (expense.id !== expenseId) {
+        return expense;
+      }
+
+      return {
+        ...expense,
+        tags: expense.tags.filter((tag) => tag.id !== tagId)
+      };
+    };
 
 const pageUpdater = (page: Page, mapper: (tag: Expense) => Expense) => ({
   ...page,
   expenses: page.expenses.map(mapper)
 });
 
-const onResetContext =
-  (queryClient: QueryClient, book: number, page: number): OnError =>
-  (_, __, context) => {
-    if (!context || !context.fallback) {
-      return;
-    }
+const onResetContext
+  = (queryClient: QueryClient, book: number, page: number): OnError =>
+    (_, __, context) => {
+      if (!context || !context.fallback) {
+        return;
+      }
 
-    queryClient.setQueryData<Page>(Keys.PAGE(`${book}`, `${page}`), context.fallback);
-  };
+      queryClient.setQueryData<Page>(Keys.PAGE(`${book}`, `${page}`), context.fallback);
+    };
 
 export const useExpenseTagsModifiers = ({ book, page }: UseExpenseTagsModifiersArgs) => {
   const client = getSupabaseClient();

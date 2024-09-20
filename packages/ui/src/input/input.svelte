@@ -36,8 +36,8 @@
         twMerge(
             'ui-h-10 ui-rounded ui-border ui-px-4 ui-outline-none ui-transition-colors disabled:ui-cursor-not-allowed',
             COLORS[color ?? 'primary'],
-            invalid &&
-                'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
+            invalid
+            && 'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
             rest.class
         )
     );

@@ -4,8 +4,8 @@
         owner: string;
         isShared?: boolean;
     } & (
-        | { createdAt: Date; page?: never }
-        | { page: BooksWithPages[number]['page'][number]; createdAt?: never }
+      | { createdAt: Date; page?: never }
+      | { page: BooksWithPages[number]['page'][number]; createdAt?: never }
     );
 </script>
 

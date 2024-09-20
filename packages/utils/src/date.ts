@@ -21,8 +21,8 @@ export const isValidDate = (date: string): boolean => {
   }
 
   // Get the number of days in the month, considering leap years
-  const daysInMonth =
-    month === 2 && isLeapYear(year) ? 29 : DAYS_IN_MONTH[month - 1];
+  const daysInMonth
+    = month === 2 && isLeapYear(year) ? 29 : DAYS_IN_MONTH[month - 1];
 
   // Check the validity of the day
   if (day < 1 || day > daysInMonth) {

@@ -38,15 +38,15 @@
         { destructive: true, Icon: Trash2, onClick: onFwdTag(onDeleteTag), text: 'Delete' }
     ];
 
-    const onEditMode =
-        (mode: typeof editMode = undefined) =>
-        () => {
-            editMode = mode;
-            if (!mode) {
-                name = tag.name;
-                color = tag.color;
-            }
-        };
+    const onEditMode
+        = (mode: typeof editMode = undefined) =>
+            () => {
+                editMode = mode;
+                if (!mode) {
+                    name = tag.name;
+                    color = tag.color;
+                }
+            };
 
     const onConfirm = () => {
         if (isTagValid(name, color)) {

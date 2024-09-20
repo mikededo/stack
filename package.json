@@ -28,38 +28,36 @@
   "devDependencies": {
     "@eslint/eslintrc": "3.1.0",
     "@eslint/js": "9.10.0",
+    "@stylistic/eslint-plugin": "2.8.0",
+    "@stylistic/eslint-plugin-js": "2.8.0",
+    "@stylistic/eslint-plugin-ts": "2.8.0",
     "@types/eslint__js": "8.42.3",
     "@types/node": "22.5.5",
+    "@typescript-eslint/eslint-plugin": "8.6.0",
+    "@typescript-eslint/parser": "8.6.0",
     "autoprefixer": "10.4.20",
     "concurrently": "9.0.1",
     "eslint": "9.10.0",
-    "eslint-config-prettier": "9.1.0",
     "eslint-plugin-perfectionist": "3.6.0",
     "eslint-plugin-svelte": "2.44.0",
+    "eslint-plugin-tailwindcss": "3.17.4",
     "globals": "15.9.0",
     "husky": "9.1.6",
     "lint-staged": "15.2.10",
     "postcss": "8.4.47",
-    "prettier": "3.3.3",
-    "prettier-plugin-svelte": "3.2.6",
-    "prettier-plugin-tailwindcss": "0.6.6",
     "supabase": "1.192.5",
     "svelte-eslint-parser": "0.41.1",
     "syncpack": "13.0.0",
     "tailwindcss": "3.4.12",
     "turbo": "^2.1.1",
-    "typescript": "5.6.2",
-    "typescript-eslint": "8.6.0"
+    "typescript": "5.6.2"
   },
   "engines": {
     "node": ">=18"
   },
   "lint-staged": {
-    "*.{ts,svelte}": [
-      "prettier --check",
-      "eslint --max-warnings 0"
-    ],
-    "*.css": "prettier --check",
+    "*.{ts,svelte}": "eslint --max-warnings 0",
+    "*.css": "echo 'Find css linter' && true",
     "*package.json": [
       "bun run dep:check",
       "bun run dep:lint"

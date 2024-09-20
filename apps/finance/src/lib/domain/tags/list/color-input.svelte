@@ -25,25 +25,26 @@
 
     const withAutofocus: Action = (node) => (autofocus ? useAutofocus(node) : undefined);
 
-    const onColorKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-        if (e.key === 'Enter') {
-            onConfirm?.();
-            return;
-        }
+    const onColorKeydown: KeyboardEventHandler<HTMLInputElement>
+        = (e) => {
+            if (e.key === 'Enter') {
+                onConfirm?.();
+                return;
+            }
 
-        if (e.key === 'Escape') {
-            onCancel?.();
-            return;
-        }
+            if (e.key === 'Escape') {
+                onCancel?.();
+                return;
+            }
 
-        const length = e.currentTarget.value.length;
-        if ((length >= 7 && AllowedKeys.includes(e.key)) || length < 7) {
-            return;
-        }
+            const length = e.currentTarget.value.length;
+            if ((length >= 7 && AllowedKeys.includes(e.key)) || length < 7) {
+                return;
+            }
 
-        // Do not allow more thant 7 characters
-        e.preventDefault();
-    };
+            // Do not allow more thant 7 characters
+            e.preventDefault();
+        };
 
     const onColorKeyup: KeyboardEventHandler<HTMLInputElement> = (e) => {
         // Check if the first char is a #

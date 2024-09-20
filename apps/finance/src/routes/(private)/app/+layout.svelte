@@ -58,8 +58,8 @@
                             aria-disabled={disabled}
                             role="tab"
                             {href}
-                            aria-current={href === $page.url.pathname ||
-                                isNestedPath(href, $page.url.pathname)}
+                            aria-current={href === $page.url.pathname
+                            || isNestedPath(href, $page.url.pathname)}
                         >
                             <span>{name}</span>
                             <svelte:component this={Icon} class="size-4" strokeWidth={2} />
