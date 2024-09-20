@@ -3,6 +3,7 @@
 import stylistic from '@stylistic/eslint-plugin';
 import tsEslint from '@typescript-eslint/eslint-plugin';
 import tsEslintParser from '@typescript-eslint/parser';
+import css from 'eslint-plugin-css';
 import perfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginSvelte from 'eslint-plugin-svelte';
 import tailwind from 'eslint-plugin-tailwindcss';
@@ -18,18 +19,6 @@ const stylisticRules = stylistic.configs.customize({
   quotes: 'single',
   semi: true
 });
-  // noMultipleEmptyLines: true,
-  // objectCurlyNewline: true,
-  // quotes: 'single',
-  // semi: true
-  // '@stylistic/comma-dangle': ['error', 'never'],
-  // '@stylistic/indent': ['error', 2],
-  // '@stylistic/js/comma-style': ['error', 'last'],
-  // '@stylistic/no-multi-spaces': 'error',
-  // '@stylistic/no-multiple-empty-lines': ['error', {'max': 1, 'maxBOF': 0, 'maxEOF': 0}],
-  // '@stylistic/object-curly-newline': ['error', { consistent: true, 'multiline': true }],
-  // '@stylistic/quotes': ['error', 'single'],
-  // '@stylistic/semi': 'error'
 
 const sharedRules = {
   'arrow-body-style': ['error', 'as-needed'],
@@ -124,6 +113,7 @@ const perfectionistRules = {
 export default [
   ...eslintPluginSvelte.configs['flat/recommended'],
   ...tailwind.configs['flat/recommended'],
+  css.configs['flat/recommended'],
   {
     files: ['**/*.js'],
     plugins: { '@stylistic': stylistic, perfectionist },

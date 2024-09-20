@@ -1,4 +1,4 @@
-@import url('@stack/ui/styles');
+@import url("@stack/ui/styles");
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 @layer base {
   :root {
     --font-sans: Geist;
-    --font-mono: 'Geist Mono';
+    --font-mono: "Geist Mono";
     --background: #ffffff;
     --foreground: #333333;
   }
@@ -27,8 +27,8 @@ html {
 @font-face {
   font-family: Geist;
   src:
-    url('/fonts/Geist-Black.woff') format('woff'),
-    url('/fonts/Geist-Black.woff2') format('woff2');
+    url("/fonts/Geist-Black.woff") format("woff"),
+    url("/fonts/Geist-Black.woff2") format("woff2");
   font-display: swap;
   font-weight: 800;
   font-style: normal;
@@ -37,8 +37,8 @@ html {
 @font-face {
   font-family: Geist;
   src:
-    url('/fonts/Geist-Bold.woff') format('woff'),
-    url('/fonts/Geist-Bold.woff2') format('woff2');
+    url("/fonts/Geist-Bold.woff") format("woff"),
+    url("/fonts/Geist-Bold.woff2") format("woff2");
   font-display: swap;
   font-weight: 700;
   font-style: normal;
@@ -47,8 +47,8 @@ html {
 @font-face {
   font-family: Geist;
   src:
-    url('/fonts/Geist-SemiBold.woff') format('woff'),
-    url('/fonts/Geist-SemiBold.woff2') format('woff2');
+    url("/fonts/Geist-SemiBold.woff") format("woff"),
+    url("/fonts/Geist-SemiBold.woff2") format("woff2");
   font-display: swap;
   font-weight: 600;
   font-style: normal;
@@ -57,8 +57,8 @@ html {
 @font-face {
   font-family: Geist;
   src:
-    url('/fonts/Geist-Medium.woff') format('woff'),
-    url('/fonts/Geist-Medium.woff2') format('woff2');
+    url("/fonts/Geist-Medium.woff") format("woff"),
+    url("/fonts/Geist-Medium.woff2") format("woff2");
   font-display: swap;
   font-weight: 500;
   font-style: normal;
@@ -67,8 +67,8 @@ html {
 @font-face {
   font-family: Geist;
   src:
-    url('/fonts/Geist-Regular.woff') format('woff'),
-    url('/fonts/Geist-Regular.woff2') format('woff2');
+    url("/fonts/Geist-Regular.woff") format("woff"),
+    url("/fonts/Geist-Regular.woff2") format("woff2");
   font-display: swap;
   font-weight: 400;
   font-style: normal;
@@ -77,8 +77,8 @@ html {
 @font-face {
   font-family: Geist;
   src:
-    url('/fonts/Geist-Light.woff') format('woff'),
-    url('/fonts/Geist-Light.woff2') format('woff2');
+    url("/fonts/Geist-Light.woff") format("woff"),
+    url("/fonts/Geist-Light.woff2") format("woff2");
   font-display: swap;
   font-weight: 300;
   font-style: normal;
