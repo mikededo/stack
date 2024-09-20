@@ -3,7 +3,7 @@
 
     import { Circle, CircleCheck } from 'lucide-svelte';
 
-    import { useTagList } from './tag-list.svelte';
+    import { useBookTags } from '$lib/hooks';
 
     type Props = {
         book: string;
@@ -12,7 +12,7 @@
     };
     let { book, isTagActive, ...restProps }: Props = $props();
 
-    const { tags, tagsQuery } = useTagList({ book });
+    const tagsQuery = useBookTags(book);
 
     const onClick = (id: number) => () => {
         restProps.onClick(id);
@@ -20,7 +20,7 @@
 </script>
 
 {#if $tagsQuery.data}
-    {#each tags as tag (tag.id)}
+    {#each $tagsQuery.data as tag (tag.id)}
         <div class="w-full" style="--tag-color: {tag.color}; --tag-color-hover: {tag.color}22;">
             <MenuOption
                 class="tag text-[var(--tag-color)] aria-current:bg-[var(--tag-color-hover)] hover:bg-[var(--tag-color-hover)] focus:bg-[var(--tag-color-hover)]"

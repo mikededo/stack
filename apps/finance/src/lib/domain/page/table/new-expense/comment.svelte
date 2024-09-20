@@ -9,6 +9,7 @@
     import { useFieldAutofocus, useOptionButton } from './comment';
 
     type Props = {
+        // TODO: Replace expenses for context
         expenses: Expense[];
         cardRef?: HTMLDivElement;
         use?: ActionArray;
