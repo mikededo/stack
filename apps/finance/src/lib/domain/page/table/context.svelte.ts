@@ -113,6 +113,8 @@ export const updateGrid = (grid: HTMLDivElement) => {
   pageState.grid = rows;
 };
 
+export const getGridRowCount = () => pageState.grid.length;
+export const getGridRowCellCount = (row: number) => pageState.grid[row]?.length ?? 0;
 export const getNextGridCell = (row: number, col: number) => pageState.grid[row]?.[col];
 
 export const onInitLoading = () => {
