@@ -144,6 +144,8 @@ const onCellMove = ({ node, ...args }: MoveArgs) => {
  * keyboard navigation and editing functionality. Controls include: focus, keyboard
  * navigation (arrow keys, Home, End, PageUp, PageDown), and cell editing
  * events.
+ * See {@link https://www.w3.org/WAI/ARIA/apg/patterns/grid/#datagridsforpresentingtabularinformation| DataGrids for Presenting Table Information}
+ * for more information.
  *
  * **Keyboard Controls:**
  * - `Enter`: Begins editing the cell, preventing new line insertion.
