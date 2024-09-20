@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@stack/actions": "workspace:*",
-    "lucide-svelte": "0.438.0",
+    "lucide-svelte": "0.441.0",
     "svelte": "5.0.0-next.216",
     "tailwind-merge": "2.5.2"
   },
