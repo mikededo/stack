@@ -46,7 +46,7 @@
 </script>
 
 <div
-    class="group flex w-full items-stretch aria-current:bg-primary-50 hover:bg-primary-50"
+    class="group flex min-h-[45px] w-full items-stretch aria-current:bg-primary-50 hover:bg-primary-50"
     use:menu.trigger
     aria-current={isRowActive(position) || menu.states.isMenuActive}
     aria-rowindex={position + 1}
