@@ -2,7 +2,7 @@
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
 
-    import { useCell } from './use-cell.svelte';
+    import { useCell } from './use-cell';
 
     type EditSnippetProps = { onFinishEditing?: () => void };
     type Props = {
