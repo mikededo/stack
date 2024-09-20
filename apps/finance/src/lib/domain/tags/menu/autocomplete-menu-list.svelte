@@ -5,8 +5,9 @@
 
     import { Circle, CircleCheck } from 'lucide-svelte';
 
+    import { useBookTags } from '$lib/hooks';
+
     import { useInputMenuOption } from './autocomplete-menu-list';
-    import { useTagList } from './tag-list.svelte';
 
     type Props = {
         book: string;
@@ -18,25 +19,30 @@
     };
     let { book, filterTags, inputRef, isTagActive, onClick, onHideAutocomplete }: Props = $props();
 
-    const { tags, tagsQuery } = useTagList({ book, filterTags });
+    const tagsQuery = useBookTags(book);
+    const filteredTags = $derived.by(() => {
+        if (!$tagsQuery.data) {
+            return [];
+        }
 
-    const getMenuOptions = (tag: Tag) => ({
+        return $tagsQuery.data.filter(filterTags);
+    });
+    const menuOptions = $derived({
         inputRef,
         onHideAutocomplete,
-        onValueChange: onClick,
-        value: tag
+        onValueChange: onClick
     });
 </script>
 
 {#if $tagsQuery.data}
-    {#each tags as tag (tag.id)}
+    {#each filteredTags as tag (tag.id)}
         <div class="w-full" style="--tag-color: {tag.color}; --tag-color-hover: {tag.color}22;">
             <MenuOption
-                class="tag text-[var(--tag-color)] aria-current:bg-[var(--tag-color-hover)] hover:bg-[var(--tag-color-hover)] focus:bg-[var(--tag-color-hover)]"
+                class="tag text-[var(--tag-color)] aria-current:bg-white hover:bg-[var(--tag-color-hover)] focus:bg-[var(--tag-color-hover)]"
                 active={isTagActive?.(tag.id)}
                 Icon={isTagActive?.(tag.id) ? CircleCheck : Circle}
                 label={tag.name}
-                use={[[useInputMenuOption, getMenuOptions(tag)]]}
+                use={[[useInputMenuOption, { ...menuOptions, value: tag }]]}
                 unstyled
             />
         </div>

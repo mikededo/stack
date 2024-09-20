@@ -8,6 +8,8 @@
 
     import type { Expense } from '$lib/db';
 
+    import { useExpenseTagsModifiers } from '$lib/hooks';
+
     import { Cell } from './cell';
     import {
         getPageBookId,
@@ -30,13 +32,15 @@
 
     const { id: userId } = getUserDataContext();
     const expenses = getPageExpenses();
+    const book = getPageBookId();
     const page = getPageId();
     const expenseMutation = useExpenseMutation({
-        bookId: getPageBookId(),
+        bookId: book,
         onMutate: onInitLoading,
         onSettled: onStopLoading,
         userId
     });
+    const { remove } = useExpenseTagsModifiers({ book, page });
 
     let amount = $state(`${expense?.amount?.toFixed(2) ?? ''}`);
     let comment = $state(expense?.comment ?? '');
@@ -104,6 +108,15 @@
 
         onClickAway?.();
     };
+
+    const onDeleteTag = (tag: number) => () => {
+        if (!expense || !expense.id) {
+            // TS check
+            return;
+        }
+
+        $remove.mutate({ expense: expense.id, tag });
+    };
 </script>
 
 {#snippet content()}
@@ -144,7 +157,7 @@
 
         <div class="flex flex-wrap items-center gap-1">
             {#each expense?.tags ?? [] as tag (tag.id)}
-                <Chip color={tag.color}>{tag.name}</Chip>
+                <Chip color={tag.color} onClick={onDeleteTag(tag.id)}>{tag.name}</Chip>
             {/each}
         </div>
     </Cell>

@@ -26,8 +26,11 @@
     let value = $state('');
     let show = $state(false);
     let position = $state<FloatingCardPosition | undefined>();
+    const selectedTags = $derived(new Set(tags.map(({ id }) => id)));
     const filterTags = $derived(
-        (tag: Tag) => value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase())
+        (tag: Tag) =>
+            (value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase())) &&
+            !selectedTags.has(tag.id)
     );
     const { add, remove } = useExpenseTagsModifiers({ book, page });
 
@@ -48,14 +51,24 @@
         };
     });
 
+    // There will never be loads of tags, so we can just iterate over them
+    const isTagActive = (tag: number) => tags.some(({ id }) => id === tag);
+
     const onHideAutocomplete = () => {
         show = false;
     };
 
     const useInput: Action = (node) => {
-        node.focus();
-
         const onKeydown = (event: KeyboardEvent) => {
+            // Keystrokes that are not related with the pop up
+            if (event.key === Keys.Backspace) {
+                if (!tags.length || !expenseId || value.length) {
+                    return;
+                }
+
+                $remove.mutate({ expense: expenseId, tag: tags[tags.length - 1].id });
+            }
+
             if (!popupRef) {
                 return;
             }
@@ -64,7 +77,7 @@
             if (!focusableElements.length) {
                 return;
             }
-
+            // Keystrokes that are related with the pop up
             if (event.key === Keys.ArrowDown) {
                 focusableElements[0].focus();
                 event.preventDefault();
@@ -72,7 +85,6 @@
                 focusableElements[focusableElements.length - 1].focus();
                 event.preventDefault();
             }
-            // TODO: Backspace
         };
 
         const onFocus = () => {
@@ -81,7 +93,8 @@
 
         node.addEventListener('keydown', onKeydown);
         node.addEventListener('focus', onFocus);
-        node.addEventListener('blur', onHideAutocomplete);
+
+        node.focus();
     };
 
     const onToggleTag = (tag: number) => {
@@ -90,19 +103,28 @@
         }
 
         if (tags.find(({ id }) => id === tag)) {
-            $remove.mutate({ expense: expenseId, tag });
+            onDeleteTag(tag)();
         } else {
             $add.mutate({ expense: expenseId, tag });
         }
     };
+
+    const onDeleteTag = (tag: number) => () => {
+        if (!expenseId) {
+            return;
+        }
+
+        $remove.mutate({ expense: expenseId, tag });
+    };
 </script>
 
-<div class="flex flex-wrap items-center gap-1" bind:this={containerRef}>
+<div class="flex flex-wrap items-center gap-1" bind:this={containerRef} use:useTrapFocus>
     {#each tags as tag (tag.id)}
-        <Chip color={tag.color}>{tag.name}</Chip>
+        <Chip color={tag.color} onClick={onDeleteTag(tag.id)}>{tag.name}</Chip>
     {/each}
     <input
         class="w-full min-w-12 flex-1 outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+        bind:this={inputRef}
         bind:value
         use:useInput
     />
@@ -120,9 +142,9 @@
     >
         <TagAutocompleteMenuList
             book={`${book}`}
-            isTagActive={() => false}
             {filterTags}
             {inputRef}
+            {isTagActive}
             onClick={onToggleTag}
             {onHideAutocomplete}
         />

@@ -7,22 +7,21 @@ import type { Tag } from '$lib/db';
 type UseMenuOptionArgs = {
   inputRef: HTMLInputElement | undefined;
   value: Tag;
-  onHideAutocomplete: () => void;
   onValueChange: (id: Tag['id']) => void;
 };
 
 export const useInputMenuOption: Action<HTMLElement, UseMenuOptionArgs> = (
   node,
-  { inputRef, onHideAutocomplete, onValueChange, value }
+  { inputRef, onValueChange, value }
 ) => {
   const onOptionClick = () => {
     onValueChange(value.id);
-    onHideAutocomplete();
   };
 
   const onKeydown = (e: KeyboardEvent) => {
     if (e.key === Keys.Enter) {
       onOptionClick();
+      inputRef?.focus();
     } else if (e.key === Keys.Escape) {
       // Focus input again
       inputRef?.focus();
