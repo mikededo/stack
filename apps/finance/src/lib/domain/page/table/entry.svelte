@@ -119,13 +119,21 @@
     };
 </script>
 
+{#snippet value_or_placeholder(value: string | undefined, placeholder: string)}
+    {#if value}
+        {value}
+    {:else}
+        <span class="italic text-surface-500">{placeholder}</span>
+    {/if}
+{/snippet}
+
 {#snippet content()}
     <Cell class="w-32 shrink-0 border-b border-primary-100 p-3" aria-colindex={1}>
         {#snippet edit()}
             <Date bind:value={date} use={[useUpsertExpense]} />
         {/snippet}
 
-        {date}
+        {@render value_or_placeholder(date, 'dd/mm/yyyy')}
     </Cell>
 
     <Cell class="w-32 shrink-0 border-b border-primary-100 p-3" aria-colindex={2}>
@@ -133,7 +141,7 @@
             <Amount bind:value={amount} use={[useUpsertExpense]} />
         {/snippet}
 
-        {#if amount}&euro; {amount}{/if}
+        {@render value_or_placeholder(amount ? `€ ${amount}` : undefined, '€ 0.00')}
     </Cell>
 
     <Cell class="relative w-full min-w-64 border-b border-primary-100 p-3" aria-colindex={3}>
@@ -147,7 +155,7 @@
             />
         {/snippet}
 
-        {comment}
+        {@render value_or_placeholder(comment, "What's this expense about?")}
     </Cell>
 
     <Cell class="w-48 shrink-0 border-b border-primary-100 p-3 md:w-72" aria-colindex={4}>
@@ -167,7 +175,7 @@
     {@render content()}
 {:else if position !== undefined}
     <div
-        class="group flex w-full items-stretch hover:bg-primary-50"
+        class="group flex min-h-[45px] w-full items-stretch hover:bg-primary-50"
         use:clickAway={onInternalClickAway}
         aria-rowindex={position + 1}
         role="row"
