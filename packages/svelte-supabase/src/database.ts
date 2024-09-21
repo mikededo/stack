@@ -9,7 +9,7 @@ export type Json =
 export type Database = {
   auth: {
     CompositeTypes: {
-      [_ in never]: never;
+      [_ in never]: never
     };
     Enums: {
       aal_level: 'aal1' | 'aal2' | 'aal3';
@@ -699,15 +699,15 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      [_ in never]: never
     };
   };
   finances: {
     CompositeTypes: {
-      [_ in never]: never;
+      [_ in never]: never
     };
     Enums: {
-      [_ in never]: never;
+      [_ in never]: never
     };
     Functions: {
       create_budget_plan: {
@@ -855,6 +855,7 @@ export type Database = {
           created_at?: string;
           created_by?: string;
           id?: number;
+          position?: number;
         };
         Relationships: [
           {
@@ -880,6 +881,7 @@ export type Database = {
           date: string;
           id: number;
           page_id: number;
+          position: number;
         };
         Update: {
           amount?: number;
@@ -889,6 +891,7 @@ export type Database = {
           date?: string;
           id?: number;
           page_id?: number;
+          position?: number;
         };
       };
       expenses_tags: {
@@ -1237,13 +1240,13 @@ export type Database = {
   };
   public: {
     CompositeTypes: {
-      [_ in never]: never;
+      [_ in never]: never
     };
     Enums: {
-      [_ in never]: never;
+      [_ in never]: never
     };
     Functions: {
-      [_ in never]: never;
+      [_ in never]: never
     };
     Tables: {
       user_data: {
@@ -1274,7 +1277,7 @@ export type Database = {
       };
     };
     Views: {
-      [_ in never]: never;
+      [_ in never]: never
     };
   };
 };
