@@ -915,6 +915,13 @@ export type Database = {
             referencedRelation: 'expense';
           },
           {
+            columns: ['expense_id'];
+            foreignKeyName: 'expenses_tags_expense_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'position_sorted_expenses';
+          },
+          {
             columns: ['tag_id'];
             foreignKeyName: 'expenses_tags_tag_id_fkey';
             isOneToOne: false;
@@ -1200,6 +1207,7 @@ export type Database = {
           date?: null | string;
           id?: null | number;
           page_id?: null | number;
+          position?: null | number;
         };
         Relationships: [
           {
@@ -1225,6 +1233,7 @@ export type Database = {
           date: null | string;
           id: null | number;
           page_id: null | number;
+          position: null | number;
         };
         Update: {
           amount?: null | number;
@@ -1234,6 +1243,55 @@ export type Database = {
           date?: null | string;
           id?: null | number;
           page_id?: null | number;
+          position?: null | number;
+        };
+      };
+      position_sorted_expenses: {
+        Insert: {
+          amount?: null | number;
+          comment?: null | string;
+          created_at?: null | string;
+          created_by?: null | string;
+          date?: null | string;
+          id?: null | number;
+          page_id?: null | number;
+          position?: null | number;
+        };
+        Relationships: [
+          {
+            columns: ['created_by'];
+            foreignKeyName: 'expense_created_by_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          },
+          {
+            columns: ['page_id'];
+            foreignKeyName: 'expense_page_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'page';
+          }
+        ];
+        Row: {
+          amount: null | number;
+          comment: null | string;
+          created_at: null | string;
+          created_by: null | string;
+          date: null | string;
+          id: null | number;
+          page_id: null | number;
+          position: null | number;
+        };
+        Update: {
+          amount?: null | number;
+          comment?: null | string;
+          created_at?: null | string;
+          created_by?: null | string;
+          date?: null | string;
+          id?: null | number;
+          page_id?: null | number;
+          position?: null | number;
         };
       };
     };
