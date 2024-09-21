@@ -1,4 +1,4 @@
-import { createSupabaseServerClient, getSession } from '@stack/svelte-supabase';
+import { createSupabaseServerClient, getSession } from '@stack/supabase';
 
 import { type Handle, redirect } from '@sveltejs/kit';
 
@@ -10,7 +10,11 @@ import { getEnv, pathTo } from '$lib/config';
 export const handle: Handle = async ({ event, resolve }) => {
   const { supabaseAnonKey, supabaseUrl } = getEnv();
 
-  event.locals.supabase = createSupabaseServerClient(supabaseUrl, supabaseAnonKey, event);
+  event.locals.supabase = createSupabaseServerClient(
+    supabaseUrl,
+    supabaseAnonKey,
+    event
+  );
   event.locals.safeGetSession = async () => getSession(event.locals.supabase);
 
   if (event.url.pathname === '/') {

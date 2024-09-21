@@ -1,4 +1,4 @@
-import type { Client } from '@stack/svelte-supabase';
+import type { Client } from '@stack/supabase';
 
 // Mutations
 
@@ -10,7 +10,10 @@ export type NewExpenseData = {
   id?: number;
   tags?: number[];
 };
-export const createExpense = async (client: Client, { page, ...data }: NewExpenseData) => {
+export const createExpense = async (
+  client: Client,
+  { page, ...data }: NewExpenseData
+) => {
   const expense = { page_id: page, ...data };
   const query = client.schema('finances').from('expense');
   if (data.id) {

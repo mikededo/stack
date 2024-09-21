@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getSupabaseClient, type SignInData, signInUser } from '@stack/svelte-supabase';
+    import { getSupabaseClient, type SignInData, signInUser } from '@stack/supabase';
     import { Button, Input } from '@stack/ui';
     import { EMAIL_REGEX, PASSWORD_REGEX } from '@stack/utils';
 

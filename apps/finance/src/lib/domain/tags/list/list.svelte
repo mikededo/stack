@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getSupabaseClient } from '@stack/svelte-supabase';
+    import { getSupabaseClient } from '@stack/supabase';
     import { Button, DangerDialog } from '@stack/ui';
 
     import { useQueryClient } from '@tanstack/svelte-query';

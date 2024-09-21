@@ -1,5 +1,5 @@
 {
-  "name": "@stack/svelte-supabase",
+  "name": "@stack/supabase",
   "version": "0.0.0",
   "type": "module",
   "exports": {

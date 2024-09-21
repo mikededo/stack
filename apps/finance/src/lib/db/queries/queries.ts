@@ -1,6 +1,6 @@
-import type { Client, Result } from '@stack/svelte-supabase';
+import type { Client, Result } from '@stack/supabase';
 
-import { withUnauthorizedRedirect } from '@stack/svelte-supabase';
+import { withUnauthorizedRedirect } from '@stack/supabase';
 
 export const getPageQuery = (client: Client, id: number) =>
   client
@@ -22,7 +22,8 @@ export const getPinnedPagesQuery = (client: Client) =>
     .select('page(*)')
     .order('last_clicked', { ascending: false });
 export const getPinnedPages = async (client: Client) =>
-  (await withUnauthorizedRedirect(client, await getPinnedPagesQuery(client))).data;
+  (await withUnauthorizedRedirect(client, await getPinnedPagesQuery(client)))
+    .data;
 export type PinnedPages = Result<typeof getPinnedPagesQuery>;
 export type PinnedPage = PinnedPages[number]['page'];
 
@@ -48,9 +49,17 @@ export const pinPage = async (client: Client, page: number) =>
       .throwOnError()
   ).data;
 export const unpinPage = async (client: Client, page: number) =>
-  await client.schema('finances').from('pinned_pages').delete().eq('page_id', page).throwOnError();
+  await client
+    .schema('finances')
+    .from('pinned_pages')
+    .delete()
+    .eq('page_id', page)
+    .throwOnError();
 export type ClickPinnedPageData = { page: number; userId: string };
-export const clickPinnedPage = async (client: Client, { page, userId }: ClickPinnedPageData) =>
+export const clickPinnedPage = async (
+  client: Client,
+  { page, userId }: ClickPinnedPageData
+) =>
   await client
     .schema('finances')
     .from('pinned_pages')

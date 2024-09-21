@@ -1,4 +1,4 @@
-import type { Client } from '@stack/svelte-supabase';
+import type { Client } from '@stack/supabase';
 
 import type { Session, User } from '@supabase/supabase-js';
 

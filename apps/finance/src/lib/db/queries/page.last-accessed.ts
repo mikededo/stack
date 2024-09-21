@@ -1,4 +1,8 @@
-import { type Client, type Result, withUnauthorizedRedirect } from '@stack/svelte-supabase';
+import {
+  type Client,
+  type Result,
+  withUnauthorizedRedirect
+} from '@stack/supabase';
 
 export const getLastAccessedPagesQuery = (client: Client) =>
   client
@@ -7,9 +11,17 @@ export const getLastAccessedPagesQuery = (client: Client) =>
     .select('*, page(*, book(name))')
     .order('last_accessed', { ascending: false });
 export const getLastAccessedPages = async (client: Client) =>
-  (await withUnauthorizedRedirect(client, await getLastAccessedPagesQuery(client))).data;
+  (
+    await withUnauthorizedRedirect(
+      client,
+      await getLastAccessedPagesQuery(client)
+    )
+  ).data;
 export type LastViewedPage = Result<typeof getLastAccessedPagesQuery>;
 
 // Mutations
 export const trackPageView = async (client: Client, page: number) =>
-  await client.schema('finances').rpc('log_last_accessed_page', { page }).throwOnError();
+  await client
+    .schema('finances')
+    .rpc('log_last_accessed_page', { page })
+    .throwOnError();

@@ -3,7 +3,7 @@
 
     import type { Snippet } from 'svelte';
 
-    import { setSupabaseClient } from '@stack/svelte-supabase';
+    import { setSupabaseClient } from '@stack/supabase';
 
     import type { LayoutData } from './$types.js';
 

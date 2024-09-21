@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getSupabaseClient } from '@stack/svelte-supabase';
+    import { getSupabaseClient } from '@stack/supabase';
     import { Button, Drawer, IconButton } from '@stack/ui';
 
     import { createQuery } from '@tanstack/svelte-query';

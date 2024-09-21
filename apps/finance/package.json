@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@stack/actions": "workspace:*",
-    "@stack/svelte-supabase": "workspace:*",
+    "@stack/supabase": "workspace:*",
     "@stack/ui": "workspace:*",
     "@stack/utils": "workspace:*",
     "@supabase/ssr": "0.5.1",

@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { ComponentType, Snippet } from 'svelte';
 
-    import { setUserDataContext } from '@stack/svelte-supabase';
+    import { setUserDataContext } from '@stack/supabase';
     import { Logo } from '@stack/ui';
 
     import type { LayoutData } from './$types';

@@ -1,4 +1,4 @@
-# @stack/svelte-supabase
+# @stack/supabase
 
 This package provides a set of utilities to work with Supabase in SvelteKit.
 
@@ -8,7 +8,7 @@ Create a `hooks.server.ts` file in the root of your project and add the
 following code:
 
 ````ts
-import { createSupabaseServerClient, getSession } from '@stack/svelte-supabase';
+import { createSupabaseServerClient, getSession } from '@stack/supabase';
 
 import type { Handle } from '@sveltejs/kit';
 
@@ -55,7 +55,7 @@ In your root `+layout.svelte`:
 
 ```svelte
 <script lang="ts">
-  import { setSupabaseClient } from '@stack/svelte-supabase';
+  import { setSupabaseClient } from '@stack/supabase';
 
   setSupabaseClient(supabase);
 </script>
@@ -65,7 +65,7 @@ Therefore, whenever you need to access the Supabase client, you can do so by
 
 ```svelte
 <script lang="ts">
-  import { getSupabaseClient } from '@stack/svelte-supabase';
+  import { getSupabaseClient } from '@stack/supabase';
 
   // You can provide the schema name for the supabase client
   const supabase = getSupabaseClient<'public'>();

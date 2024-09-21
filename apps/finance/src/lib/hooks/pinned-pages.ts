@@ -1,6 +1,10 @@
-import { getSupabaseClient } from '@stack/svelte-supabase';
+import { getSupabaseClient } from '@stack/supabase';
 
-import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
+import {
+  createMutation,
+  createQuery,
+  useQueryClient
+} from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
 import {

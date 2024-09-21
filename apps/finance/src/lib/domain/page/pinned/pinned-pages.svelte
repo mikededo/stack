@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getUserDataContext } from '@stack/svelte-supabase';
+    import { getUserDataContext } from '@stack/supabase';
 
     import type { PinnedPage } from '$lib/db';
 

@@ -1,10 +1,19 @@
-import { getSupabaseClient } from '@stack/svelte-supabase';
+import { getSupabaseClient } from '@stack/supabase';
 
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
-import { type Book, type BooksWithPages, createPage, type NewPageData } from '$lib/db';
-import { usePinnedPages as usePinnedPagesQuery, usePinPage, useUnpinPage } from '$lib/hooks';
+import {
+  type Book,
+  type BooksWithPages,
+  createPage,
+  type NewPageData
+} from '$lib/db';
+import {
+  usePinnedPages as usePinnedPagesQuery,
+  usePinPage,
+  useUnpinPage
+} from '$lib/hooks';
 
 export const usePinnedPages = () => {
   const query = usePinnedPagesQuery();
@@ -19,7 +28,8 @@ export const useCreatePage = () => {
   const supabaseClient = getSupabaseClient();
 
   return createMutation({
-    mutationFn: async (data: NewPageData) => await createPage(supabaseClient, data),
+    mutationFn: async (data: NewPageData) =>
+      await createPage(supabaseClient, data),
     onSuccess: (data) => {
       if (!data) {
         return;

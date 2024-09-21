@@ -1,4 +1,4 @@
-import { getUserData } from '@stack/svelte-supabase';
+import { getUserData } from '@stack/supabase';
 
 import type { LayoutLoad } from './$types';
 

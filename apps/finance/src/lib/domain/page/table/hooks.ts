@@ -1,6 +1,6 @@
 import type { MutationResult } from '@stack/utils';
 
-import { getSupabaseClient } from '@stack/svelte-supabase';
+import { getSupabaseClient } from '@stack/supabase';
 
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 
@@ -13,7 +13,9 @@ import { createExpense, type Expense, type Page } from '$lib/db';
 const updateExistingExpense
   = ({ tags: _, ...updatedExpense }: Expense) =>
     (expense: Expense) =>
-      updatedExpense.id === expense.id ? { ...expense, ...updatedExpense } : expense;
+      updatedExpense.id === expense.id
+        ? { ...expense, ...updatedExpense }
+        : expense;
 
 type MutationContext = { cachedPage: null | Page; isNewExpense: boolean };
 type UseExpenseMutationArgs = {
@@ -76,7 +78,9 @@ export const useExpenseMutation = ({
       if (optimisticExpense.id) {
         queryClient.setQueryData<Page>(queryKey, {
           ...cachedPage,
-          expenses: cachedPage.expenses.map(updateExistingExpense(optimisticExpense))
+          expenses: cachedPage.expenses.map(
+            updateExistingExpense(optimisticExpense)
+          )
         });
       } else if (expense.id === 0) {
         // New expense has id set to 0
@@ -110,16 +114,19 @@ export const useExpenseMutation = ({
       }
 
       const newExpense = { ...data[0], tags: [] };
-      queryClient.setQueryData<Page>(Keys.PAGE(`${bookId}`, `${newExpense.page_id}`), (prev) => {
-        if (!prev) {
-          return prev;
-        }
+      queryClient.setQueryData<Page>(
+        Keys.PAGE(`${bookId}`, `${newExpense.page_id}`),
+        (prev) => {
+          if (!prev) {
+            return prev;
+          }
 
-        // We append the new expense, as we know it's a new, not an updated expense
-        const updated = { ...prev };
-        updated.expenses = [...updated.expenses, newExpense];
-        return updated;
-      });
+          // We append the new expense, as we know it's a new, not an updated expense
+          const updated = { ...prev };
+          updated.expenses = [...updated.expenses, newExpense];
+          return updated;
+        }
+      );
     }
   });
 };

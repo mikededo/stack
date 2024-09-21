@@ -1,6 +1,10 @@
-import { getSupabaseClient } from '@stack/svelte-supabase';
+import { getSupabaseClient } from '@stack/supabase';
 
-import { createMutation, createQuery, useQueryClient } from '@tanstack/svelte-query';
+import {
+  createMutation,
+  createQuery,
+  useQueryClient
+} from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
 import {
@@ -11,7 +15,11 @@ import {
   upsertBudgetPlan
 } from '$lib/db';
 
-import { getAllocations, getBudgetPlanContext, splitOrNumber } from './context.svelte';
+import {
+  getAllocations,
+  getBudgetPlanContext,
+  splitOrNumber
+} from './context.svelte';
 
 export const useUpsertPlan = () => {
   const supabase = getSupabaseClient();
@@ -22,19 +30,31 @@ export const useUpsertPlan = () => {
     mutationFn: async () => {
       const [_, budget] = ctx.budget.split('€ ');
       const data = {
-        allocations: getAllocations().map(({ amount, id, name, percentage }) => {
-          const validId = typeof id === 'number' ? id : null;
+        allocations: getAllocations().map(
+          ({ amount, id, name, percentage }) => {
+            const validId = typeof id === 'number' ? id : null;
 
-          if (amount) {
-            const [, value] = splitOrNumber(amount, '€ ');
-            return { amount: Number(value), id: validId, name, percentage: 0 };
-          } else if (percentage) {
-            const [, value] = splitOrNumber(percentage, '% ');
-            return { amount: 0, id: validId, name, percentage: Number(value) };
+            if (amount) {
+              const [, value] = splitOrNumber(amount, '€ ');
+              return {
+                amount: Number(value),
+                id: validId,
+                name,
+                percentage: 0
+              };
+            } else if (percentage) {
+              const [, value] = splitOrNumber(percentage, '% ');
+              return {
+                amount: 0,
+                id: validId,
+                name,
+                percentage: Number(value)
+              };
+            }
+
+            return { amount: 0, id: null, name, percentage: 0 }; // This should never happen
           }
-
-          return { amount: 0, id: null, name, percentage: 0 }; // This should never happen
-        }),
+        ),
         budget: Number(budget),
         id: ctx.id ?? null,
         name: ctx.name
@@ -54,7 +74,9 @@ export const useUpsertPlan = () => {
           // @ts-expect-error Suapabse is not capable of properly typing custom function data
           return [...prev, data as BudgetPlan];
         } else {
-          return prev.map((plan) => (prevId === plan.id ? { ...plan, ...data } : plan));
+          return prev.map((plan) =>
+            prevId === plan.id ? { ...plan, ...data } : plan
+          );
         }
       });
     }

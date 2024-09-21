@@ -1,9 +1,17 @@
-import { type Client, type Result, withUnauthorizedRedirect } from '@stack/svelte-supabase';
+import {
+  type Client,
+  type Result,
+  withUnauthorizedRedirect
+} from '@stack/supabase';
 
 export const getBudgetPlansQuery = (client: Client) =>
-  client.schema('finances').from('budget_plan').select('*, allocations:budget_allocation(*)');
+  client
+    .schema('finances')
+    .from('budget_plan')
+    .select('*, allocations:budget_allocation(*)');
 export const getBudgetPlans = async (client: Client) =>
-  (await withUnauthorizedRedirect(client, await getBudgetPlansQuery(client))).data;
+  (await withUnauthorizedRedirect(client, await getBudgetPlansQuery(client)))
+    .data;
 export type BudgetPlans = Result<typeof getBudgetPlansQuery>;
 export type BudgetPlan = BudgetPlans[number];
 export type BudgetPlanAllocation = BudgetPlan['allocations'][number];
@@ -15,7 +23,8 @@ export const getBudgetPresetsQuery = (client: Client) =>
     .select('*, allocations:preset_budget_allocation(*)')
     .order('created_at', { ascending: false });
 export const getBudgetPresets = async (client: Client) =>
-  (await withUnauthorizedRedirect(client, await getBudgetPresetsQuery(client))).data;
+  (await withUnauthorizedRedirect(client, await getBudgetPresetsQuery(client)))
+    .data;
 export type BudgetPresets = Result<typeof getBudgetPresetsQuery>;
 
 export type NewBudgetAllocationData = {
@@ -60,4 +69,10 @@ export const upsertBudgetPlan = async (
 };
 
 export const deleteBudgetPlan = async (client: Client, id: number) =>
-  await client.schema('finances').from('budget_plan').delete().eq('id', id).select().throwOnError();
+  await client
+    .schema('finances')
+    .from('budget_plan')
+    .delete()
+    .eq('id', id)
+    .select()
+    .throwOnError();

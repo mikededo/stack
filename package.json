@@ -8,7 +8,7 @@
     "db:migration": "supabase migration new",
     "db:start": "supabase start",
     "db:stop": "supabase stop",
-    "db:types": "supabase gen types --lang typescript --local --schema auth,public,finances > ./packages/svelte-supabase/src/database.ts && turbo lint:fix --ui stream --output-logs errors-only --filter @stack/svelte-supabase",
+    "db:types": "supabase gen types --lang typescript --local --schema auth,public,finances > ./packages/svelte-supabase/src/database.ts && turbo lint:fix --ui stream --output-logs errors-only --filter @stack/supabase",
     "dep:check": "syncpack list-mismatches",
     "dep:fix": "syncpack fix-mismatches",
     "dep:format": "syncpack format",

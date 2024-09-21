@@ -1,6 +1,6 @@
 import type { MutationResult } from '@stack/utils';
 
-import { getSupabaseClient } from '@stack/svelte-supabase';
+import { getSupabaseClient } from '@stack/supabase';
 
 import type { Expense, Page, Tag } from '$lib/db';
 
@@ -16,8 +16,14 @@ import { addExpenseTag, removeExpenseTag } from '$lib/db';
 
 type ExpenseTagModified = { expense: number; tag: number };
 
-type MutationContext = { fallback: Page | undefined; updated: Page | undefined };
-type Result<T extends (...args: any) => any> = MutationResult<T, MutationContext>;
+type MutationContext = {
+  fallback: Page | undefined;
+  updated: Page | undefined;
+};
+type Result<T extends (...args: any) => any> = MutationResult<
+  T,
+  MutationContext
+>;
 type OnError = CreateMutationOptions<
   unknown,
   Error,
@@ -76,10 +82,16 @@ const onResetContext
         return;
       }
 
-      queryClient.setQueryData<Page>(Keys.PAGE(`${book}`, `${page}`), context.fallback);
+      queryClient.setQueryData<Page>(
+        Keys.PAGE(`${book}`, `${page}`),
+        context.fallback
+      );
     };
 
-export const useExpenseTagsModifiers = ({ book, page }: UseExpenseTagsModifiersArgs) => {
+export const useExpenseTagsModifiers = ({
+  book,
+  page
+}: UseExpenseTagsModifiersArgs) => {
   const client = getSupabaseClient();
   const queryClient = useQueryClient();
   const onError = onResetContext(queryClient, book, page);
@@ -98,33 +110,44 @@ export const useExpenseTagsModifiers = ({ book, page }: UseExpenseTagsModifiersA
       }
 
       // Optimistically remove the tag from the expens
-      const fallback = queryClient.getQueryData<Page>(Keys.PAGE(`${book}`, `${page}`));
-      const updated = queryClient.setQueryData<Page>(Keys.PAGE(`${book}`, `${page}`), (data) => {
-        if (!data) {
-          return data;
-        }
+      const fallback = queryClient.getQueryData<Page>(
+        Keys.PAGE(`${book}`, `${page}`)
+      );
+      const updated = queryClient.setQueryData<Page>(
+        Keys.PAGE(`${book}`, `${page}`),
+        (data) => {
+          if (!data) {
+            return data;
+          }
 
-        return pageUpdater(data, addExpenseTagMapper(expenseId, tag));
-      });
+          return pageUpdater(data, addExpenseTagMapper(expenseId, tag));
+        }
+      );
 
       return { fallback, updated };
     }
   });
 
   const remove: Result<typeof removeExpenseTag> = createMutation({
-    mutationFn: async (data: ExpenseTagModified) => removeExpenseTag(client, data),
+    mutationFn: async (data: ExpenseTagModified) =>
+      removeExpenseTag(client, data),
     onError,
     // We want to optimistically remove the tag from the expense
     onMutate: ({ expense: expenseId, tag: tagId }) => {
       // Optimistically remove the tag from the expens
-      const fallback = queryClient.getQueryData<Page>(Keys.PAGE(`${book}`, `${page}`));
-      const updated = queryClient.setQueryData<Page>(Keys.PAGE(`${book}`, `${page}`), (data) => {
-        if (!data) {
-          return data;
-        }
+      const fallback = queryClient.getQueryData<Page>(
+        Keys.PAGE(`${book}`, `${page}`)
+      );
+      const updated = queryClient.setQueryData<Page>(
+        Keys.PAGE(`${book}`, `${page}`),
+        (data) => {
+          if (!data) {
+            return data;
+          }
 
-        return pageUpdater(data, removeExpenseTagMapper(expenseId, tagId));
-      });
+          return pageUpdater(data, removeExpenseTagMapper(expenseId, tagId));
+        }
+      );
 
       return { fallback, updated };
     }

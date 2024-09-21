@@ -1,9 +1,14 @@
-import { type Client, type Result, withUnauthorizedRedirect } from '@stack/svelte-supabase';
+import {
+  type Client,
+  type Result,
+  withUnauthorizedRedirect
+} from '@stack/supabase';
 
 export const getBooksWithPagesQuery = (client: Client) =>
   client.schema('finances').from('book').select('*, page(*)');
 export const getBooksWithPages = async (client: Client) =>
-  (await withUnauthorizedRedirect(client, await getBooksWithPagesQuery(client))).data;
+  (await withUnauthorizedRedirect(client, await getBooksWithPagesQuery(client)))
+    .data;
 export type BooksWithPages = Result<typeof getBooksWithPagesQuery>;
 
 export const getBookQuery = (client: Client, id: number) =>
@@ -21,4 +26,11 @@ export type Tag = Book['tag'][number];
 
 // Mutations
 export const createBook = async (client: Client, name: string) =>
-  (await client.schema('finances').from('book').insert([{ name }]).select().throwOnError()).data;
+  (
+    await client
+      .schema('finances')
+      .from('book')
+      .insert([{ name }])
+      .select()
+      .throwOnError()
+  ).data;
