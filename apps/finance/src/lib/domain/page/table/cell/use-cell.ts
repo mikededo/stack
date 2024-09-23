@@ -9,15 +9,15 @@ type UseCellArgs = {
   edit: boolean;
   onEdit: () => void;
   onStopEdit: () => void;
-};
+} | undefined;
 
 type RowStaticPositions = 'row-end' | 'row-start';
 type GridStaticPositions = 'first-cell' | 'first-row' | 'last-cell' | 'last-row';
-type MoveArgs = { node: HTMLDivElement } & (
+type MoveArgs = { node: HTMLElement } & (
   | {
     x: number;
     /**
-     * Passing an offset as the function gets the index from the cell
+     * Passing an offset as the const gets the index from the cell
      */
     yOffset?: number;
   }
@@ -28,7 +28,7 @@ type MoveArgs = { node: HTMLDivElement } & (
 /**
  * Returns the parent row index 0-based!
  */
-function getParentRowIndex(node: HTMLDivElement) {
+const getParentRowIndex = (node: HTMLElement) => {
   // The parent of the cell is always a div[role="row"], which must have an
   // aria-rowindex attribute
   // If checks fail, we throw as the grid is not correct
@@ -48,26 +48,27 @@ function getParentRowIndex(node: HTMLDivElement) {
 
   // Subtract 1 as aria-rowindex is 1-based
   return Number(rowIndexString) - 1;
-}
+};
 
 /**
  * Checks if the cell is in edit mode through `data-editing` attribute.
  */
-const isCellInEditMode = (node: HTMLDivElement) => node.dataset.editing === 'true';
+const isCellInEditMode = (node: HTMLElement) => node.dataset.editing === 'true';
 
 /**
  * Returns the cell row index 0-based. If no index is found, an error is
  * thrown.
  */
-function getCellRowIndex(node: HTMLElement) {
+const getCellRowIndex = (node: HTMLElement) => {
   const index = node.ariaColIndex;
   if (!index) {
     // Enforcing accessiblity
     throw new Error('Cell is missing an aria-colindex attribute');
   }
   return index;
-}
-function updateCellFocus(node: HTMLDivElement, x: number, y: number) {
+};
+
+const updateCellFocus = (node: HTMLElement, x: number, y: number) => {
   const nextCell = getNextGridCell(x, y);
   if (!nextCell) {
     return;
@@ -76,7 +77,7 @@ function updateCellFocus(node: HTMLDivElement, x: number, y: number) {
   nextCell.focus();
   // Update the tabindex
   node.tabIndex = -1;
-}
+};
 
 /**
  * Moves the focus to the next cell in the grid, based on the actual cell aria-colindex
@@ -85,7 +86,7 @@ function updateCellFocus(node: HTMLDivElement, x: number, y: number) {
  * If there's no cell for the given coordinates, the focus is not moved and the current
  * cell tabindex is unchanged.
  */
-function onCellMove({ node, ...args }: MoveArgs) {
+const onCellMove = ({ node, ...args }: MoveArgs) => {
   if ('position' in args) {
     const { position } = args;
     switch (position) {
@@ -138,11 +139,11 @@ function onCellMove({ node, ...args }: MoveArgs) {
   const { x, yOffset = 0 } = args;
   const index = getCellRowIndex(node);
   updateCellFocus(node, x, +index + yOffset);
-}
+};
 
 /**
  * The action is applied to each table cell (div[role="gridcell"]), and manages
- * keyboard navigation and editing functionality. Controls include: focus, keyboard
+ * keyboard navigation and editing constality. Controls include: focus, keyboard
  * navigation (arrow keys, Home, End, PageUp, PageDown), and cell editing
  * events.
  * See {@link https://www.w3.org/WAI/ARIA/apg/patterns/grid/#datagridsforpresentingtabularinformation| DataGrids for Presenting Table Information}
@@ -158,7 +159,7 @@ function onCellMove({ node, ...args }: MoveArgs) {
  *
  * **Mouse Controls:**
  * - `dblclick`: Initiates cell editing (if the `edit` flag is true). - Click
- *   away functionality stops editing if the cell loses focus.
+ *   away constality stops editing if the cell loses focus.
  *
  * **Tab Index Control:**
  * - `tabIndex` is dynamically managed. If the cell is focused, `tabIndex = 0`.
@@ -168,12 +169,12 @@ function onCellMove({ node, ...args }: MoveArgs) {
  * **Critical Case:**
  * - Ensure that cell edit mode logic (`edit` flag and `isCellInEditMode`)
  *   correctly reflects the current state of the cell. The `onStopEdit`
- *   function is called when clicking away or pressing certain keys. This
+ *   const is called when clicking away or pressing certain keys. This
  *   ensures the user doesn’t remain in edit mode unintentionally.
  */
-export const useCell: Action<HTMLDivElement, UseCellArgs> = (
+export const useCell: Action<HTMLElement, UseCellArgs> = (
   node,
-  { edit, onEdit, onStopEdit }
+  { edit, onEdit, onStopEdit } = { edit: false, onEdit: () => {}, onStopEdit: () => {} }
 ) => {
   const parentRowIndex = getParentRowIndex(node);
 
@@ -262,6 +263,7 @@ export const useCell: Action<HTMLDivElement, UseCellArgs> = (
         break;
     }
   });
+
   if (edit) {
     node.addEventListener('dblclick', onEdit);
   }

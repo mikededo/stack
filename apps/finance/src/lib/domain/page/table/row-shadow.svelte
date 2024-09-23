@@ -16,7 +16,7 @@
         style="top: {ctx.shadowPosition.y}px; width: {ctx.shadowPosition.width}px"
         style:left="{ctx.shadowPosition.x}px"
     >
-        <div class="w-8 flex pt-3.5 justify-center shrink-0">
+        <div class="w-8 flex pt-3.5 justify-center shrink-0" aria-colindex={1} role="gridcell">
             <GripVertical class="fill-surface-500" size={16} />
         </div>
         <EntryContent>

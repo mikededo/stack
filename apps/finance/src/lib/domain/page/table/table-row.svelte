@@ -11,11 +11,11 @@
         ArrowUpToLine,
         ClipboardCopy,
         ClipboardPaste,
-        GripVertical,
         Trash2
     } from 'lucide-svelte';
 
-    import { getDragContext, onDrag, onStartDragging, onStopDragging } from './drag-context.svelte';
+    import { DragCell } from './cell';
+    import { getDragContext } from './drag-context.svelte';
     import Entry from './entry.svelte';
     import RowPlaceholder from './row-placeholder.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
@@ -27,7 +27,6 @@
     const menu = createContextMenu();
     const dragContext = getDragContext();
     let rowNode = $state<HTMLDivElement>();
-    let placeholder = $state(false);
 
     const menuProxy: ProxyFn = cb => () => {
         activateRow(position);
@@ -54,59 +53,19 @@
         { destructive: true, Icon: Trash2, onClick, text: 'Delete' }
     ];
 
-    const useDragCell: Action = (node) => {
-        const onMouseMove = (e: MouseEvent) => {
-            if (!dragContext.isDragging || dragContext.activeRow?.id !== expense?.id) {
-                return;
-            }
-
-            onDrag({ x: e.clientX, y: e.clientY });
-        };
-
-        const onMouseUp = () => {
-            onStopDragging();
-            if (placeholder) {
-                placeholder = false;
-            }
-        };
-
-        const onMouseDown = (e: MouseEvent) => {
-            if (!rowNode) {
-                return;
-            }
-
-            const { width } = rowNode.getBoundingClientRect();
-            onStartDragging(expense, { width, x: e.clientX, y: e.clientY });
-        };
-
-        node.addEventListener('mousedown', onMouseDown);
-        document.addEventListener('mousemove', onMouseMove);
-        document.addEventListener('mouseup', onMouseUp);
-
-        return {
-            destroy() {
-                document.removeEventListener('mouseup', onMouseUp);
-                document.querySelectorAll('div[role="grid"]').forEach((row) => {
-                    row.classList.remove('select-none');
-                });
-            }
-        };
-    };
-
     const useRow: Action = (node) => {
         node.addEventListener('mouseover', () => {
             if (!dragContext.isDragging) {
                 return;
             }
 
-            if (!placeholder) {
-                placeholder = true;
+            if (!dragContext.placeholderRowIndex) {
+                dragContext.placeholderRowIndex = position;
             }
         });
         node.addEventListener('mouseleave', () => {
-            // Do not remove placeholder if mouseout triggered by a child
-            if (placeholder) {
-                placeholder = false;
+            if (dragContext.placeholderRowIndex === position) {
+                dragContext.placeholderRowIndex = null;
             }
         });
     };
@@ -121,14 +80,12 @@
     role="row"
     class:hover:bg-primary-50={!dragContext.isDragging}
 >
-    <div class="w-8 flex pt-3.5 justify-center shrink-0 cursor-grab" use:useDragCell role="gridcell">
-        <GripVertical class="fill-surface-500" size={16} />
-    </div>
+    <DragCell {expense} {rowNode} />
     <Entry {expense} nested />
 </div>
 
 <!-- Copy of the dragged element -->
-{#if dragContext.activeRow?.id !== expense?.id && placeholder}
+{#if dragContext.activeRow?.id !== expense?.id && dragContext.placeholderRowIndex === position}
     <RowPlaceholder {position} />
 {/if}
 

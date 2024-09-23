@@ -2,14 +2,17 @@
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
 
+    import { type ActionArray, useActions } from '@stack/actions';
+
     import { useCell } from './use-cell';
 
     type EditSnippetProps = { onFinishEditing?: () => void };
     type Props = {
         'aria-colindex': number;
         'edit'?: Snippet<[EditSnippetProps]>;
+        'use'?: ActionArray;
     } & Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'tabindex'>;
-    const { edit, ...restProps }: Props = $props();
+    const { edit, use = [], ...restProps }: Props = $props();
 
     let isEditing = $state(false);
     let cellNode = $state<HTMLDivElement>();
@@ -31,7 +34,7 @@
 <div
     {...restProps}
     bind:this={cellNode}
-    use:useCell={{ edit: Boolean(edit), onEdit, onStopEdit: onFinishEditing }}
+    use:useActions={[...use, [useCell, { edit: Boolean(edit), onEdit, onStopEdit: onFinishEditing }]]}
     data-editing={isEditing}
     role="gridcell"
     tabindex="-1"

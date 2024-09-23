@@ -69,14 +69,14 @@
                 >
                     {#each filteredExpenses as expense, i (expense.id)}
                         {#if tableState.newRowIndex === i}
-                            <Entry position={i} {onClickAway} />
+                            <Entry position={i} empty {onClickAway} />
                         {/if}
                         <TableRow position={i} {expense} />
                         {#if i === ctx.page.expenses.length - 1}
                             <!-- By having the new entry at the end of the list, we can ensure that this component -->
                             <!-- is always upadted, even after adding a new expense, ensuring the new entry -->
                             <!-- is autofocused -->
-                            <Entry position={i + 1} />
+                            <Entry position={i + 1} empty />
                         {/if}
                     {/each}
                 </div>

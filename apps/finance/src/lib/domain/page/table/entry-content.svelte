@@ -29,14 +29,14 @@
     {@render dateContent()}
 </Cell>
 
-<Cell class="w-32 shrink-0 p-3" aria-colindex={1} edit={amountEdit}>
+<Cell class="w-32 shrink-0 p-3" aria-colindex={3} edit={amountEdit}>
     {@render amountContent()}
 </Cell>
 
-<Cell class="relative w-full min-w-64 p-3" aria-colindex={3} edit={commentEdit}>
+<Cell class="relative w-full min-w-64 p-3" aria-colindex={4} edit={commentEdit}>
     {@render commentContent()}
 </Cell>
 
-<Cell class="w-48 shrink-0 p-3 md:w-72" aria-colindex={4} edit={tagsEdit}>
+<Cell class="w-48 shrink-0 p-3 md:w-72" aria-colindex={5} edit={tagsEdit}>
     {@render tagsContent()}
 </Cell>

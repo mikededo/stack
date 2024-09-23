@@ -24,11 +24,12 @@
     import TagCombobox from './tag-combobox.svelte';
 
     type Props = {
+        empty?: boolean;
         expense?: Expense;
         onClickAway?: () => void;
         onUpdateExpense?: (expense: Expense) => void;
     } & ({ nested: true; position?: never } | { position: number; nested?: false });
-    const { expense, nested, onClickAway, position }: Props = $props();
+    const { empty, expense, nested, onClickAway, position }: Props = $props();
 
     const { id: userId } = getUserDataContext();
     const expenses = getPageExpenses();
@@ -170,6 +171,7 @@
 {/snippet}
 
 {#if nested}
+    {#if empty}<div class="w-8 shrink-0" role="gridcell"></div>{/if}
     {@render content()}
 {:else if position !== undefined}
     <div
@@ -178,6 +180,7 @@
         aria-rowindex={position + 1}
         role="row"
     >
+        {#if empty}<div class="w-8 shrink-0" role="gridcell"></div>{/if}
         {@render content()}
     </div>
 {/if}
