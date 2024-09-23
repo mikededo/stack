@@ -21,6 +21,7 @@ export default antfu({
     'postcss.config.js',
     'tsconfig.tsbuildinfo'
   ],
+  jsonc: false,
   lessOpinionated: true,
   markdown: false,
   stylistic: {
