@@ -9,7 +9,7 @@
         'aria-colindex': number;
         'edit'?: Snippet<[EditSnippetProps]>;
     } & Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'tabindex'>;
-    let { edit, ...props }: Props = $props();
+    const { edit, ...restProps }: Props = $props();
 
     let isEditing = $state(false);
     let cellNode = $state<HTMLDivElement>();
@@ -29,7 +29,7 @@
 </script>
 
 <div
-    {...props}
+    {...restProps}
     bind:this={cellNode}
     use:useCell={{ edit: Boolean(edit), onEdit, onStopEdit: onFinishEditing }}
     data-editing={isEditing}
@@ -39,7 +39,7 @@
     {#if isEditing && edit}
         {@render edit?.({ onFinishEditing })}
     {:else}
-        {@render props.children?.()}
+        {@render restProps.children?.()}
     {/if}
 </div>
 

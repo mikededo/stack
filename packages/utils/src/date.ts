@@ -11,9 +11,9 @@ export const isValidDate = (date: string): boolean => {
     return false; // The date string doesn't match the pattern
   }
 
-  const day = parseInt(match[1], 10);
-  const month = parseInt(match[2], 10);
-  const year = parseInt(match[3], 10);
+  const day = Number.parseInt(match[1], 10);
+  const month = Number.parseInt(match[2], 10);
+  const year = Number.parseInt(match[3], 10);
 
   // Check the validity of the month
   if (month < 1 || month > 12) {
@@ -31,6 +31,18 @@ export const isValidDate = (date: string): boolean => {
 
   return true;
 };
+
+export const isMoreThanAMinuteAgo = (now: Date, date: Date) =>
+  now.getTime() - date.getTime() > 1000 * 60 - 1;
+
+export const isMoreThanAnHourAgo = (now: Date, date: Date) =>
+  now.getTime() - date.getTime() > 1000 * 60 * 60 - 1;
+
+export const isMoreThanADayAgo = (now: Date, date: Date) =>
+  now.getTime() - date.getTime() > 1000 * 60 * 60 * 24 - 1;
+
+export const isMoreThanAWeekAgo = (now: Date, date: Date) =>
+  now.getTime() - date.getTime() > 1000 * 60 * 60 * 24 * 7 - 1;
 
 export const getRelativeTimeText = (date: Date) => {
   const now = new Date();
@@ -58,15 +70,3 @@ export const getRelativeTimeText = (date: Date) => {
 
   return `${Math.floor(diff / 1000)} seconds ago`;
 };
-
-export const isMoreThanAMinuteAgo = (now: Date, date: Date) =>
-  now.getTime() - date.getTime() > 1000 * 60 - 1;
-
-export const isMoreThanAnHourAgo = (now: Date, date: Date) =>
-  now.getTime() - date.getTime() > 1000 * 60 * 60 - 1;
-
-export const isMoreThanADayAgo = (now: Date, date: Date) =>
-  now.getTime() - date.getTime() > 1000 * 60 * 60 * 24 - 1;
-
-export const isMoreThanAWeekAgo = (now: Date, date: Date) =>
-  now.getTime() - date.getTime() > 1000 * 60 * 60 * 24 * 7 - 1;

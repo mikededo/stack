@@ -1,14 +1,3 @@
-<script context="module" lang="ts">
-    type Props = {
-        name: Snippet;
-        owner: string;
-        isShared?: boolean;
-    } & (
-      | { createdAt: Date; page?: never }
-      | { page: BooksWithPages[number]['page'][number]; createdAt?: never }
-    );
-</script>
-
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
@@ -29,7 +18,15 @@
 
     import { usePinnedPages } from './hooks';
 
-    let { createdAt, isShared, name, owner, page }: Props = $props();
+    type Props = {
+        name: Snippet;
+        owner: string;
+        isShared?: boolean;
+    } & (
+        | { createdAt: Date; page?: never }
+        | { page: BooksWithPages[number]['page'][number]; createdAt?: never }
+    );
+    const { createdAt, isShared, name, owner, page }: Props = $props();
 
     let isPinned = $state(false);
 
@@ -48,6 +45,7 @@
     });
 
     const onClick = () => {
+        // eslint-disable-next-line no-alert
         window.alert('Under development');
     };
 

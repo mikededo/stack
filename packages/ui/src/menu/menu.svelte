@@ -23,24 +23,24 @@
         loading?: boolean;
         wrapperClass?: string;
     } & (
-      | { Icon: ComponentType<LucideIcon>; label?: string }
-      | { label: string; Icon?: ComponentType<LucideIcon> }
+        | { Icon: ComponentType<LucideIcon>; label?: string }
+        | { label: string; Icon?: ComponentType<LucideIcon> }
     );
-    let { children, Icon, label, loading, ...restProps }: Props = $props();
+    const { children, Icon, label, loading, ...restProps }: Props = $props();
 
     let showMenu = $state(false);
-    let menuState = $state<MenuState>({
+    const menuState = $state<MenuState>({
         focusableElements: [],
         focusIndex: 0,
         shown: false
     });
-    let buttonClasses = $derived(
+    const buttonClasses = $derived(
         twMerge(
             'ui-flex ui-h-10 ui-items-center ui-gap-2 ui-rounded-full ui-text-sm',
             restProps.class
         )
     );
-    let wrapperClasses = $derived(twMerge('relative', restProps.wrapperClass));
+    const wrapperClasses = $derived(twMerge('relative', restProps.wrapperClass));
 
     const onToggle = () => {
         showMenu = !showMenu;

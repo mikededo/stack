@@ -8,9 +8,9 @@
     import { getListContext } from './context.svelte';
 
     type Props = { children: Snippet };
-    let { children }: Props = $props();
+    const { children }: Props = $props();
 
-    let listState = getListContext();
+    const listState = getListContext();
 </script>
 
 <div class="flex flex-row items-center justify-end gap-2">

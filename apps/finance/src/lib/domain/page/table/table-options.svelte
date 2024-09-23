@@ -24,7 +24,7 @@
     } from './context.svelte';
 
     type Props = { book: number };
-    let { book }: Props = $props();
+    const { book }: Props = $props();
 
     const tagsQuery = useBookTags(`${book}`);
 

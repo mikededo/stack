@@ -14,7 +14,7 @@
     import PageItem from './page-item.svelte';
 
     type Props = { book: BooksWithPages[number] };
-    let { book }: Props = $props();
+    const { book }: Props = $props();
 
     const newPageMutation = useCreatePage();
     const user = getUserDataContext();

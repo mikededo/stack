@@ -11,9 +11,9 @@
         hoverable?: boolean;
         use?: ActionArray;
     } & HTMLLiAttributes;
-    let { hoverable, use = [], ...restProps }: Props = $props();
+    const { hoverable, use = [], ...restProps }: Props = $props();
 
-    let classes = $derived(
+    const classes = $derived(
         twMerge(
             'ui-border-b ui-border-primary-100 ui-transition-colors odd:ui-bg-primary-50 last-of-type:ui-border-0',
             hoverable && 'ui-cursor-pointer hover:ui-bg-primary-100/50 active:ui-bg-primary-100',

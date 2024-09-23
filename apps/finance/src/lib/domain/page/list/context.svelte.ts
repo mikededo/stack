@@ -6,7 +6,7 @@ export type ListState = {
   sort?: 'date-asc' | 'date-desc' | 'name-asc' | 'name-desc';
 };
 
-let listState = $state<ListState>({
+const listState = $state<ListState>({
   keywords: '',
   sort: 'date-asc',
   view: 'pages'

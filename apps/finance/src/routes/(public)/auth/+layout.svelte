@@ -2,7 +2,7 @@
     import type { Snippet } from 'svelte';
 
     type Props = { children: Snippet };
-    let { children }: Props = $props();
+    const { children }: Props = $props();
 </script>
 
 <svelte:head>

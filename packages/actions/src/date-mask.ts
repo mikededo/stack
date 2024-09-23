@@ -13,9 +13,9 @@ export const useDateMask: Action = (node) => {
 
     // Format the input value as dd/mm/yyyy
     if (value.length > 2 && value.length <= 4) {
-      value = value.slice(0, 2) + '/' + value.slice(2);
+      value = `${value.slice(0, 2)}/${value.slice(2)}`;
     } else if (value.length > 4) {
-      value = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4, 8);
+      value = `${value.slice(0, 2)}/${value.slice(2, 4)}/${value.slice(4, 8)}`;
     }
 
     input.value = value;
@@ -34,7 +34,7 @@ export const useDateMask: Action = (node) => {
       return;
     }
 
-    let value = input.value;
+    const value = input.value;
     // If the cursor is after a slash, remove the slash as well
     const start = input.selectionStart ?? input.value.length;
     if (value.charAt(start - 1) === '/') {

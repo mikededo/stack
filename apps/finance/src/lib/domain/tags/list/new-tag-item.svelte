@@ -28,7 +28,7 @@
         <NameInput bind:value={name} {onCancel} {onConfirm} />
     </div>
     <div class="flex shrink-0 items-center gap-4">
-        <Chip {color}>{name ? name : 'Tag name'}</Chip>
+        <Chip {color}>{name || 'Tag name'}</Chip>
         <ColorInput bind:value={color} {onCancel} {onConfirm} />
         <div class="size-5 rounded" style="background-color: {color}"></div>
     </div>

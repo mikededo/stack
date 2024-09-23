@@ -30,7 +30,7 @@ const VALID_SORTS: Sort[] = ['amount-asc', 'amount-desc', 'date-asc', 'date-desc
 const isValidSort = (sort: null | string): sort is Sort => VALID_SORTS.includes(sort as Sort);
 
 const PAGE_CONTEXT_KEY = 'page:table';
-let pageState = $state<PageContext>({
+const pageState = $state<PageContext>({
   filters: {
     sort: 'date-asc',
     tags: new Set()
@@ -40,7 +40,7 @@ let pageState = $state<PageContext>({
   saveStatus: null
 });
 
-export const initPageContext = () => {
+export function initPageContext() {
   page.subscribe((page: PageStore) => {
     // By subscribing to the page store, we ensure that the state will be update
     // on any page change (i.e. query parameters change)
@@ -52,14 +52,14 @@ export const initPageContext = () => {
 
     pageState.filters = {
       sort: isValidSort(sort) ? sort : 'date-asc',
-      tags: tags
+      tags
     };
   });
 
   return setContext<PageContext>(PAGE_CONTEXT_KEY, pageState);
-};
+}
 
-export const getPageContext = () => {
+export function getPageContext() {
   const context = getContext<PageContext>(PAGE_CONTEXT_KEY);
   if (!context) {
     throw new Error(
@@ -68,19 +68,19 @@ export const getPageContext = () => {
   }
 
   return context;
-};
+}
 
-export const setContextPage = (page: Page) => {
+export function setContextPage(page: Page) {
   pageState.page = page;
-};
+}
 
 // HELPERS
-const throwIfUndefined = <T>(value: T | undefined, message = 'Value is undefined'): T => {
+function throwIfUndefined<T>(value: T | undefined, message = 'Value is undefined'): T {
   if (value === undefined) {
     throw new Error(message);
   }
   return value;
-};
+}
 
 export const updateURL = (path: string) => goto(path, { keepFocus: true });
 
@@ -92,16 +92,16 @@ export const isTagActive = (tag: number) => pageState.filters.tags.has(tag);
 export const areTagsActive = () => pageState.filters.tags.size > 0;
 export const isSortActive = (sort: Sort) => pageState.filters.sort === sort;
 
-export const clearPageFilters = () => {
+export function clearPageFilters() {
   const params = new URLSearchParams(get(page).url.searchParams);
   params.delete('sort');
   params.delete('tags');
 
   updateURL(`${get(page).url.pathname}?${params.toString()}`);
-};
+}
 
 // MODIFIERS
-export const updateGrid = (grid: HTMLDivElement) => {
+export function updateGrid(grid: HTMLDivElement) {
   const rows: HTMLDivElement[][] = [];
   grid.querySelectorAll('div[role="row"]').forEach((row) => {
     const cells: HTMLDivElement[] = [];
@@ -111,24 +111,24 @@ export const updateGrid = (grid: HTMLDivElement) => {
     rows.push(cells);
   });
   pageState.grid = rows;
-};
+}
 
 export const getGridRowCount = () => pageState.grid.length;
 export const getGridRowCellCount = (row: number) => pageState.grid[row]?.length ?? 0;
 export const getNextGridCell = (row: number, col: number) => pageState.grid[row]?.[col];
 
-export const onInitLoading = () => {
+export function onInitLoading() {
   pageState.saveStatus = 'saving';
-};
+}
 
-export const onStopLoading = () => {
+export function onStopLoading() {
   pageState.saveStatus = 'saved';
   setTimeout(() => {
     pageState.saveStatus = null;
   }, 2500);
-};
+}
 
-export const onToggleTag = (tag: number) => {
+export function onToggleTag(tag: number) {
   const _page = get(page);
   const params = new URLSearchParams(_page.url.searchParams);
   const updatedTags = new Set([...pageState.filters.tags.values()]);
@@ -145,12 +145,12 @@ export const onToggleTag = (tag: number) => {
     params.set(TAGS_KEY, [...updatedTags].join(','));
   }
   updateURL(`${_page.url.pathname}?${params.toString()}`);
-};
+}
 
-export const onClickSort = (sort: Sort) => {
+export function onClickSort(sort: Sort) {
   const _page = get(page);
   const params = new URLSearchParams(_page.url.searchParams);
 
   params.set(SORT_KEY, sort);
   updateURL(`${_page.url.pathname}?${params.toString()}`);
-};
+}

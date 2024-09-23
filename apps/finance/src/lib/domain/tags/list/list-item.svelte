@@ -22,9 +22,9 @@
         onDuplicateTag: (tag: Tag) => void;
         onUpdateTag: (tag: Tag) => void;
     };
-    let { onDeleteTag, onDuplicateTag, onUpdateTag, tag }: Props = $props();
+    const { onDeleteTag, onDuplicateTag, onUpdateTag, tag }: Props = $props();
 
-    let menu = createContextMenu();
+    const menu = createContextMenu();
     let name = $state(tag.name);
     let color = $state(tag.color);
     let editMode = $state<'color' | 'name' | undefined>(undefined);

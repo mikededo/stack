@@ -6,7 +6,7 @@
     import { twMerge } from 'tailwind-merge';
 
     type Props = { children: Snippet; show: boolean; containerClass?: string };
-    let { children, containerClass, show }: Props = $props();
+    const { children, containerClass, show }: Props = $props();
 </script>
 
 <div class={twMerge('ui-relative', containerClass)}>

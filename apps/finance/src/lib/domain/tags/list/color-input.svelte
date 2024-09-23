@@ -23,7 +23,7 @@
         ...rest
     }: Props = $props();
 
-    const withAutofocus: Action = (node) => (autofocus ? useAutofocus(node) : undefined);
+    const withAutofocus: Action = node => (autofocus ? useAutofocus(node) : undefined);
 
     const onColorKeydown: KeyboardEventHandler<HTMLInputElement>
         = (e) => {
@@ -49,7 +49,7 @@
     const onColorKeyup: KeyboardEventHandler<HTMLInputElement> = (e) => {
         // Check if the first char is a #
         if (e.currentTarget.value[0] !== '#') {
-            e.currentTarget.value = '#' + e.currentTarget.value;
+            e.currentTarget.value = `#${e.currentTarget.value}`;
         }
 
         if (!HEX_REGEX.test(e.currentTarget.value)) {
@@ -61,7 +61,6 @@
         if (e.currentTarget.value.length === 1 && e.key === 'Backspace') {
             e.currentTarget.value = '#';
             e.preventDefault();
-            return;
         }
     };
 </script>

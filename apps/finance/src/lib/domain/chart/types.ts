@@ -8,16 +8,20 @@ import type {
   UpdateMode
 } from 'chart.js';
 
-export interface ChartBaseProps<
+export type ChartBaseProps<
   TType extends ChartType = ChartType,
   TData = DefaultDataPoint<TType>,
   TLabel = unknown
-> {
+> = {
   /**
    * The data object that is passed into the Chart.js chart
    * @see https://www.chartjs.org/docs/latest/getting-started/
    */
   data: ChartData<TType, TData, TLabel>;
+  /**
+   * Chart.js chart type
+   */
+  type: TType;
   /**
    * Key name to identificate dataset
    * @default 'label'
@@ -36,20 +40,16 @@ export interface ChartBaseProps<
    */
   plugins?: Plugin<TType>[];
   /**
-   * Chart.js chart type
-   */
-  type: TType;
-  /**
    * A mode string to indicate transition configuration should be used.
    * @see https://www.chartjs.org/docs/latest/developers/api.html#update-mode
    */
   updateMode?: UpdateMode;
-}
+};
 
-export interface ChartComponentRef<
+export type ChartComponentRef<
   TType extends ChartType = ChartType,
   TData = DefaultDataPoint<TType>,
   TLabel = unknown
-> {
+> = {
   chart: ChartJS<TType, TData, TLabel> | null;
-}
+};

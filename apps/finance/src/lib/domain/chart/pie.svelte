@@ -22,7 +22,7 @@
         '#2b357d'
     ];
 
-    let { data, labels }: Props = $props();
+    const { data, labels }: Props = $props();
     const chartData = $derived<ChartBaseProps<'doughnut'>['data']>({
         datasets: [
             {

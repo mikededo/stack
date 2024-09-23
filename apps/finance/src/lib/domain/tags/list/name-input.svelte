@@ -18,7 +18,7 @@
         ...rest
     }: Props = $props();
 
-    const withAutofocus: Action = (node) => (autofocus ? useAutofocus(node) : undefined);
+    const withAutofocus: Action = node => (autofocus ? useAutofocus(node) : undefined);
 
     const onNameKeydown: KeyboardEventHandler<HTMLInputElement> = (e) => {
         if (e.key === 'Enter') {

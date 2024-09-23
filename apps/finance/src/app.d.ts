@@ -5,7 +5,7 @@ import type { Session, User } from '@supabase/supabase-js';
 declare global {
   namespace App {
     interface Locals {
-      safeGetSession(): Promise<{ session: null | Session; user: null | User }>;
+      safeGetSession: () => Promise<{ session: null | Session; user: null | User }>;
       supabase: Client;
     }
     interface PageData {

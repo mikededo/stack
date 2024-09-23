@@ -3,20 +3,20 @@ type TableState = {
   newRowIndex: null | number;
 };
 
-let tableState = $state<TableState>({
+const tableState = $state<TableState>({
   activeRow: null,
   newRowIndex: null
 });
 export { tableState };
 
-export const newRowInto = (index: number) => {
+export function newRowInto(index: number) {
   tableState.newRowIndex = index;
-};
+}
 
-export const activateRow = (index: number) => {
+export function activateRow(index: number) {
   tableState.activeRow = index;
-};
-export const disableRow = () => {
+}
+export function disableRow() {
   tableState.activeRow = null;
-};
+}
 export const isRowActive = (index: number) => tableState.activeRow === index;

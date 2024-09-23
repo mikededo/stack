@@ -29,7 +29,9 @@ const Paths: Record<Routes, string> = {
 export const isCurrentPath = (path: string | undefined): boolean => get(page).url.pathname === path;
 
 export const isNestedPath = (path: string | undefined, nested: string): boolean => {
-  if (!path) return false;
+  if (!path) {
+    return false;
+  }
 
   if (Object.keys(Paths).includes(nested)) {
     const routePattern = Paths[nested as Routes];

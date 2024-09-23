@@ -7,7 +7,7 @@
     import { PageList } from '$lib/domain/page';
 
     type Props = { books: BooksWithPages };
-    let { books }: Props = $props();
+    const { books }: Props = $props();
 
     let openedBooks = $state<Set<number>>(new Set());
 

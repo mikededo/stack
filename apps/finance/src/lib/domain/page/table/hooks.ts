@@ -10,12 +10,12 @@ import { createExpense, type Expense, type Page } from '$lib/db';
 /**
  * Merges updating all fields of the expense, except for the tags
  */
-const updateExistingExpense
-  = ({ tags: _, ...updatedExpense }: Expense) =>
-    (expense: Expense) =>
-      updatedExpense.id === expense.id
-        ? { ...expense, ...updatedExpense }
-        : expense;
+function updateExistingExpense({ tags: _, ...updatedExpense }: Expense) {
+  return (expense: Expense) =>
+    updatedExpense.id === expense.id
+      ? { ...expense, ...updatedExpense }
+      : expense;
+}
 
 type MutationContext = { cachedPage: null | Page; isNewExpense: boolean };
 type UseExpenseMutationArgs = {
@@ -25,12 +25,12 @@ type UseExpenseMutationArgs = {
   onSettled?: () => void;
 };
 type Result = MutationResult<typeof createExpense, MutationContext>;
-export const useExpenseMutation = ({
+export function useExpenseMutation({
   bookId,
   onMutate,
   onSettled,
   userId
-}: UseExpenseMutationArgs): Result => {
+}: UseExpenseMutationArgs): Result {
   const supabase = getSupabaseClient();
   const queryClient = useQueryClient();
 
@@ -129,4 +129,4 @@ export const useExpenseMutation = ({
       );
     }
   });
-};
+}

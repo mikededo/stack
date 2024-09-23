@@ -10,11 +10,11 @@ export const usePercentageMask: Action = (node) => {
   const onInput = () => {
     let value = node.value;
 
-    value = value.replace(/[^\d]/g, '');
+    value = value.replace(/\D/g, '');
 
     // Convert to number and limit to 0-100
-    const numericValue = parseInt(value, 10);
-    if (!isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
+    const numericValue = Number.parseInt(value, 10);
+    if (!Number.isNaN(numericValue) && numericValue >= 0 && numericValue <= 100) {
       node.value = numericValue.toString();
     } else {
       node.value = '';

@@ -13,14 +13,14 @@
         label: string;
         children?: never;
     } & ButtonProps;
-    let { Icon, label, ...props }: Props = $props();
+    const { Icon, label, ...restProps }: Props = $props();
 
-    let buttonClasses = $derived(
+    const buttonClasses = $derived(
         twMerge('ui-flex ui-h-10 ui-items-center ui-gap-2 ui-rounded-full ui-text-sm', props.class)
     );
 </script>
 
-<Button {...props} class={buttonClasses}>
+<Button {...restProps} class={buttonClasses}>
     <svelte:component this={Icon} class="size-4" />
     <span>{label}</span>
 </Button>

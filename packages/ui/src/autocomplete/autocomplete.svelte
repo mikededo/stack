@@ -39,7 +39,7 @@
             return undefined;
         }
 
-        let client = wrapperNode.getBoundingClientRect();
+        const client = wrapperNode.getBoundingClientRect();
         return { left: 0, top: client.height + 8, width: client.width };
     });
 

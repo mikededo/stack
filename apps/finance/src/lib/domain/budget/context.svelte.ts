@@ -1,3 +1,4 @@
+/* eslint-disable ts/no-use-before-define */
 import type { BudgetPlan, BudgetPlanAllocation, BudgetPresets } from '$lib/db';
 
 import { getContext, setContext } from 'svelte';
@@ -43,7 +44,7 @@ export const splitOrNumber = (value: number | string, split: string) =>
 
 const CONTEXT_KEY = 'budget-plan';
 
-let state = $state<BudgetPlanState>({
+const state = $state<BudgetPlanState>({
   activePreset: null,
   budget: '',
   id: undefined,

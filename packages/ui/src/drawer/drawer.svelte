@@ -26,7 +26,7 @@
         subtitle?: Snippet;
         onClose?: () => void;
     };
-    let { children, header, Icon, onClose, show, subtitle }: Props = $props();
+    const { children, header, Icon, onClose, show, subtitle }: Props = $props();
 
     const internalShow = spring(show ? MAX_OVERLAY_OPACITY : MIN_OVERLAY_OPACITY);
     const position = spring(show ? MAX_DRAWER_POSITION : MIN_DRAWER_POSITION);

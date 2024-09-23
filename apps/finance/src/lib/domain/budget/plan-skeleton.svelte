@@ -1,6 +1,6 @@
 <script lang="ts">
     type Props = { chip?: boolean };
-    let { chip = false }: Props = $props();
+    const { chip = false }: Props = $props();
 </script>
 
 <div class="w-full animate-pulse rounded border p-3 text-left transition-all">

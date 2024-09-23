@@ -38,7 +38,7 @@ export const createContextMenu = () => {
 
   return {
     get menu(): Menu {
-      let _internal = $derived(cmState);
+      const _internal = $derived(cmState);
 
       return {
         hide: () => {
@@ -51,7 +51,7 @@ export const createContextMenu = () => {
     },
     states: {
       get isMenuActive() {
-        let _internal = $derived(cmState !== null);
+        const _internal = $derived(cmState !== null);
         return _internal;
       }
     },

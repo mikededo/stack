@@ -3,9 +3,9 @@
 
     import { type Props, sharedClasses } from './styles.js';
 
-    let { children, color = 'primary', variant = 'default', ...restProps }: Props = $props();
+    const { children, color = 'primary', variant = 'default', ...restProps }: Props = $props();
 
-    let elementProps = $derived({
+    const elementProps = $derived({
         ...restProps,
         'aria-disabled': restProps.disabled ? 'true' : restProps['aria-disabled']
     });

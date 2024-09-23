@@ -15,7 +15,7 @@
     import { getPageBookId, getPageId } from './context.svelte';
 
     type Props = { tags: Tag[]; expenseId?: null | number };
-    let { expenseId, tags }: Props = $props();
+    const { expenseId, tags }: Props = $props();
 
     const book = getPageBookId();
     const page = getPageId();
@@ -28,21 +28,24 @@
     let position = $state<FloatingCardPosition | undefined>();
     const selectedTags = $derived(new Set(tags.map(({ id }) => id)));
     const filterTags = $derived(
-        (tag: Tag) =>
-            (value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase()))
-            && !selectedTags.has(tag.id)
+        (tag: Tag) => {
+            return (
+                value.length === 0 || tag.name.toLowerCase().includes(value.toLowerCase())
+            ) && !selectedTags.has(tag.id);
+        }
     );
     const { add, remove } = useExpenseTagsModifiers({ book, page });
 
     $effect(() => {
         // Force update on tags update
+      // eslint-disable-next-line no-unused-expressions
         tags;
 
         if (!containerRef) {
             return;
         }
 
-        let client = containerRef.getBoundingClientRect();
+        const client = containerRef.getBoundingClientRect();
 
         position = {
             left: client.x,
@@ -97,6 +100,14 @@
         node.focus();
     };
 
+    const onDeleteTag = (tag: number) => () => {
+        if (!expenseId) {
+            return;
+        }
+
+        $remove.mutate({ expense: expenseId, tag });
+    };
+
     const onToggleTag = (tag: number) => {
         if (!expenseId) {
             return;
@@ -109,13 +120,6 @@
         }
     };
 
-    const onDeleteTag = (tag: number) => () => {
-        if (!expenseId) {
-            return;
-        }
-
-        $remove.mutate({ expense: expenseId, tag });
-    };
 </script>
 
 <div class="flex flex-wrap items-center gap-1" bind:this={containerRef} use:useTrapFocus>

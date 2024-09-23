@@ -5,11 +5,11 @@ type SvelteActionReturnType<P> = {
   update?: (newParams?: P) => void;
 } | void;
 type SvelteHTMLActionType<P> = (node: HTMLElement, params?: P) => SvelteActionReturnType<P>;
-type HTMLActionEntry<P extends any = any> = [SvelteHTMLActionType<P>, P] | SvelteHTMLActionType<P>;
+type HTMLActionEntry<P = any> = [SvelteHTMLActionType<P>, P] | SvelteHTMLActionType<P>;
 export type ActionArray = HTMLActionEntry[];
 
 export function useActions(node: HTMLElement, actions: ActionArray) {
-  let actionReturns: SvelteActionReturnType<any>[] = [];
+  const actionReturns: SvelteActionReturnType<any>[] = [];
 
   if (actions) {
     for (let i = 0; i < actions.length; i++) {
@@ -34,7 +34,7 @@ export function useActions(node: HTMLElement, actions: ActionArray) {
     },
 
     update(actions: ActionArray) {
-      if (((actions && actions.length) || 0) != actionReturns.length) {
+      if (((actions && actions.length) || 0) !== actionReturns.length) {
         throw new Error('You must not change the length of an actions array.');
       }
 

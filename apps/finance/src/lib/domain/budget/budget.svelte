@@ -4,7 +4,7 @@
 
     import { getBudgetPlanContext } from './context.svelte';
 
-    let context = getBudgetPlanContext();
+    const context = getBudgetPlanContext();
 </script>
 
 <Input

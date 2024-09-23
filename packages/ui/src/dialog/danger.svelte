@@ -11,7 +11,7 @@
         disableCancel?: boolean;
         disableConfirm?: boolean;
     };
-    let { children, disableCancel, disableConfirm, onCancel, onConfirm }: Props = $props();
+    const { children, disableCancel, disableConfirm, onCancel, onConfirm }: Props = $props();
 </script>
 
 {#snippet header()}

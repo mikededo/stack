@@ -17,7 +17,7 @@
         use?: ActionArray;
         onClick?: () => void;
     };
-    let { active, Icon, label, onClick, unstyled, use = [], ...restProps }: Props = $props();
+    const { active, Icon, label, onClick, unstyled, use = [], ...restProps }: Props = $props();
 
     const classes = $derived(
         twMerge(

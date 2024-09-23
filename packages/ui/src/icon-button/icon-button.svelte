@@ -8,10 +8,9 @@
     type Props = (
         | ({ href: string } & HTMLAnchorAttributes)
         | ({ href?: never } & HTMLButtonAttributes)
-    ) &
-    BaseProps;
+    ) & BaseProps;
 
-    let {
+    const {
         color = 'primary',
         href,
         Icon,
@@ -23,8 +22,8 @@
     }: Props = $props();
 
     const iconProps = { strokeWidth };
-    let wrapperClass = $derived(getWrapperClasses({ classes: wrapperClasses, color, size }));
-    let iconClass = $derived(getIconClasses({ classes: iconClasses, size }));
+    const wrapperClass = $derived(getWrapperClasses({ classes: wrapperClasses, color, size }));
+    const iconClass = $derived(getIconClasses({ classes: iconClasses, size }));
 </script>
 
 {#if 'href' in restProps}

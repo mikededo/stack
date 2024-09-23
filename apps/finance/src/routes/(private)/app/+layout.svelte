@@ -19,7 +19,7 @@
     import { isNestedPath, pathTo } from '$lib/config';
 
     type Props = { children: Snippet; data: LayoutData };
-    let { children, data }: Props = $props();
+    const { children, data }: Props = $props();
 
     setUserDataContext(data.user);
 
@@ -47,7 +47,7 @@
 </header>
 
 <div class="flex w-full flex-col overflow-hidden bg-background bg-surface-50 md:flex-row">
-    <!-- Desktop navigation-->
+    <!-- Desktop navigation -->
     <div class="hidden h-content-md overflow-x-hidden px-2 md:block md:min-w-64">
         <nav class="h-full gap-1 py-10">
             <ul class="flex w-full flex-col gap-1">
@@ -55,11 +55,10 @@
                     <li>
                         <a
                             class="flex w-full cursor-pointer items-center justify-between rounded px-3 py-2 text-sm font-semibold transition-colors aria-disabled:pointer-events-none aria-disabled:text-surface-400 aria-current:bg-primary-100 aria-current:text-primary aria-not-current:hover:bg-primary-100"
+                            aria-current={href === $page.url.pathname || isNestedPath(href, $page.url.pathname)}
                             aria-disabled={disabled}
                             role="tab"
                             {href}
-                            aria-current={href === $page.url.pathname
-                            || isNestedPath(href, $page.url.pathname)}
                         >
                             <span>{name}</span>
                             <svelte:component this={Icon} class="size-4" strokeWidth={2} />

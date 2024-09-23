@@ -10,7 +10,7 @@
         isTagActive: (tag: number) => boolean;
         onClick: (tag: number) => void;
     };
-    let { book, isTagActive, ...restProps }: Props = $props();
+    const { book, isTagActive, ...restProps }: Props = $props();
 
     const tagsQuery = useBookTags(book);
 

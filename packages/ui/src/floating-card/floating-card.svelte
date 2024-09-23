@@ -4,7 +4,7 @@
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
 
-    import { clickAway, useActions } from '@stack/actions';
+    import { useActions } from '@stack/actions';
 
     import type { FloatingCardPosition } from './types';
 
@@ -18,24 +18,22 @@
         position?: FloatingCardPosition;
         ref?: HTMLDivElement;
         use?: ActionArray;
-        onClickAway?: Parameters<typeof clickAway>[1];
     } & HTMLAttributes<HTMLDivElement>;
     let {
         children,
         noPadding,
-        onClickAway,
         position,
         ref = $bindable(),
         use = [],
         ...restProps
     }: Props = $props();
 
-    let positionStyle = $derived(
+    const positionStyle = $derived(
         position
             ? `top: ${position.top}px; left: ${position.left}px; width: ${position.width}px;`
             : undefined
     );
-    let classes = $derived(
+    const classes = $derived(
         twMerge(
             'ui-z-20 ui-flex ui-w-full ui-min-w-48 ui-origin-top-right ui-flex-col ui-items-start ui-gap-[1px] ui-rounded-lg ui-border ui-border-surface-100 ui-bg-white ui-shadow-lg',
             position ? 'ui-fixed' : 'ui-absolute -ui-bottom-2 ui-right-0 ui-translate-y-full',

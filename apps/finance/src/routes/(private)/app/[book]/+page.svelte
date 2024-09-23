@@ -12,12 +12,12 @@
     import { useBook } from '$lib/hooks';
 
     type Props = { data: PageData };
-    let { data }: Props = $props();
+    const { data }: Props = $props();
 
-    let listState = initListContext();
+    const listState = initListContext();
 
-    let query = useBook(data.params.book);
-    let breadcrumbs = $derived.by<Crumbs | undefined>(() => {
+    const query = useBook(data.params.book);
+    const breadcrumbs = $derived.by<Crumbs | undefined>(() => {
         if (!$query.data) {
             return;
         }
@@ -29,7 +29,7 @@
         listState.view = view;
     };
 
-    let tabs = $derived<Tab[]>([
+    const tabs = $derived<Tab[]>([
         { Icon: File, name: 'Page list', onClick: onClickTab('pages') },
         { Icon: Tag, name: 'Tag list', onClick: onClickTab('tags') }
     ]);

@@ -13,7 +13,7 @@
     import { useBookPage, useTrackViewedPage } from '$lib/hooks';
 
     type Props = { data: PageData };
-    let { data }: Props = $props();
+    const { data }: Props = $props();
 
     const trackPageView = useTrackViewedPage();
     const query = useBookPage(data.params.book, data.params.page);
@@ -32,7 +32,7 @@
         const dailyToExpense = new Map<string, number>();
         data.expenses.forEach((expense) => {
             if (expense.date) {
-                let agg = dailyToExpense.get(expense.date!);
+                const agg = dailyToExpense.get(expense.date!);
                 if (!agg) {
                     dailyToExpense.set(expense.date!, expense.amount!);
                 } else {
@@ -44,7 +44,7 @@
                 return;
             }
             expense.tags.forEach((tag) => {
-                let agg = tagToExpense.get(expense.tags[0].name);
+                const agg = tagToExpense.get(expense.tags[0].name);
                 if (!agg) {
                     tagToExpense.set(tag.name, expense.amount!);
                 } else {

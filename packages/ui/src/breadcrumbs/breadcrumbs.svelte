@@ -2,7 +2,7 @@
     import type { Crumbs } from './types.js';
 
     type Props = { breadcrumbs: Crumbs };
-    let { breadcrumbs }: Props = $props();
+    const { breadcrumbs }: Props = $props();
 </script>
 
 <nav aria-label="Breadcrumbs">

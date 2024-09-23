@@ -13,7 +13,7 @@
     };
     let { onCancel, onConfirm, value = $bindable() }: Props = $props();
 
-    let user = getUserDataContext();
+    const user = getUserDataContext();
 
     const onKeydown: KeyboardEventHandler<HTMLInputElement> = (event) => {
         if (event.key === 'Escape') {

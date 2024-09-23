@@ -17,7 +17,7 @@
         onClick: (tag: number) => void;
         onHideAutocomplete: () => void;
     };
-    let { book, filterTags, inputRef, isTagActive, onClick, onHideAutocomplete }: Props = $props();
+    const { book, filterTags, inputRef, isTagActive, onClick, onHideAutocomplete }: Props = $props();
 
     const tagsQuery = useBookTags(book);
     const filteredTags = $derived.by(() => {

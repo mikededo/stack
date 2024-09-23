@@ -15,18 +15,18 @@
     import NewTagItem from './new-tag-item.svelte';
 
     type Props = { book: Book };
-    let { book }: Props = $props();
+    const { book }: Props = $props();
 
-    let queryClient = useQueryClient();
-    let supabaseClient = getSupabaseClient();
+    const queryClient = useQueryClient();
+    const supabaseClient = getSupabaseClient();
 
     let newTag = $state(false);
     let name = $state('');
     let color = $state('#9d33dd');
-    let canSubmit = $derived(isTagValid(name, color));
+    const canSubmit = $derived(isTagValid(name, color));
     let confirmDelete = $state<Tag | undefined>();
 
-    let mutationArgs = {
+    const mutationArgs = {
         bookId: `${book.id}`,
         onSettled: () => {
             newTag = false;

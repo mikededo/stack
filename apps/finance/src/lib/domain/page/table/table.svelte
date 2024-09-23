@@ -3,13 +3,17 @@
     import { fade } from 'svelte/transition';
 
     import { clearPageFilters, getPageContext, updateGrid } from './context.svelte';
+    import { initDragContext } from './drag-context.svelte';
     import Entry from './entry.svelte';
+    import RowShadow from './row-shadow.svelte';
     import { tableState } from './state.svelte';
     import PageTableHead from './table-head.svelte';
     import PageTableOptions from './table-options.svelte';
     import TableRow from './table-row.svelte';
 
     const ctx = getPageContext();
+    initDragContext();
+
     let gridNode = $state<HTMLDivElement>();
     const filteredExpenses = $derived.by(() => {
         if (!ctx.page) {
@@ -26,7 +30,7 @@
                 return false;
             }
 
-            return expense.tags.some((tag) => ctx.filters.tags.has(tag.id));
+            return expense.tags.some(tag => ctx.filters.tags.has(tag.id));
         });
     });
 
@@ -35,6 +39,7 @@
     };
 
     $effect(() => {
+        // eslint-disable-next-line no-unused-expressions
         ctx.page?.expenses;
         if (!gridNode) {
             return;
@@ -106,4 +111,6 @@
             {/if}
         </div>
     </section>
+
+    <RowShadow />
 {/if}

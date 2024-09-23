@@ -10,14 +10,14 @@
     import { pathTo } from '$lib/config';
 
     type Props = { entry: LastViewedPage[number] };
-    let { entry }: Props = $props();
-    let { last_accessed, page } = entry;
+    const { entry }: Props = $props();
+    const { last_accessed, page } = entry;
 
     let duration = $state(200);
     let relativeTime = $state(
         getRelativeTimeText(last_accessed ? new Date(last_accessed) : new Date())
     );
-    let href = $derived(
+    const href = $derived(
         page ? pathTo('page', { book: `${page.book_id}`, page: `${page.id}` }) : undefined
     );
 

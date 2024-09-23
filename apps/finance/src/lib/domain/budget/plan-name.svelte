@@ -2,7 +2,7 @@
     import { useAnimatedPlaceholder } from './actions.svelte';
     import { getBudgetPlanContext } from './context.svelte';
 
-    let context = getBudgetPlanContext();
+    const context = getBudgetPlanContext();
 </script>
 
 <div class="flex flex-col gap-2 md:mb-2">

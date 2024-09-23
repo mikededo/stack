@@ -4,7 +4,7 @@
     import { afterNavigate, beforeNavigate, onNavigate } from '$app/navigation';
 
     type Props = { children: Snippet };
-    let { children }: Props = $props();
+    const { children }: Props = $props();
 
     let paramChanges = $state(false);
     let loaderWidth = $state(0);
@@ -35,10 +35,10 @@
         }
 
         loaderWidth = 100;
-        let opacityTimeout = setTimeout(() => {
+        const opacityTimeout = setTimeout(() => {
             loaderOpacity = 0;
         }, 500);
-        let widthTimeout = setTimeout(() => {
+        const widthTimeout = setTimeout(() => {
             loaderWidth = 0;
         }, 550);
 

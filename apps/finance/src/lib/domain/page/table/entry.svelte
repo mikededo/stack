@@ -10,7 +10,6 @@
 
     import { useExpenseTagsModifiers } from '$lib/hooks';
 
-    import { Cell } from './cell';
     import {
         getPageBookId,
         getPageExpenses,
@@ -18,6 +17,7 @@
         onInitLoading,
         onStopLoading
     } from './context.svelte';
+    import EntryContent from './entry-content.svelte';
     import { hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
     import { useExpenseMutation } from './hooks';
     import { Amount, Comment, Date } from './new-expense';
@@ -28,7 +28,7 @@
         onClickAway?: () => void;
         onUpdateExpense?: (expense: Expense) => void;
     } & ({ nested: true; position?: never } | { position: number; nested?: false });
-    let { expense, nested, onClickAway, position }: Props = $props();
+    const { expense, nested, onClickAway, position }: Props = $props();
 
     const { id: userId } = getUserDataContext();
     const expenses = getPageExpenses();
@@ -128,24 +128,25 @@
 {/snippet}
 
 {#snippet content()}
-    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3" aria-colindex={1}>
-        {#snippet edit()}
+    <EntryContent>
+        {#snippet dateContent()}
+            {@render value_or_placeholder(date, 'dd/mm/yyyy')}
+        {/snippet}
+        {#snippet dateEdit()}
             <Date bind:value={date} use={[useUpsertExpense]} />
         {/snippet}
 
-        {@render value_or_placeholder(date, 'dd/mm/yyyy')}
-    </Cell>
-
-    <Cell class="w-32 shrink-0 border-b border-primary-100 p-3" aria-colindex={2}>
-        {#snippet edit()}
-            <Amount bind:value={amount} use={[useUpsertExpense]} />
+        {#snippet amountContent()}
+            {@render value_or_placeholder(amount ? `€ ${amount}` : undefined, '€ 0.00')}
         {/snippet}
+        {#snippet amountEdit()}
+              <Amount bind:value={amount} use={[useUpsertExpense]} />
+          {/snippet}
 
-        {@render value_or_placeholder(amount ? `€ ${amount}` : undefined, '€ 0.00')}
-    </Cell>
-
-    <Cell class="relative w-full min-w-64 border-b border-primary-100 p-3" aria-colindex={3}>
-        {#snippet edit({ onFinishEditing })}
+        {#snippet commentContent()}
+            {@render value_or_placeholder(comment, 'What\'s this expense about?')}
+        {/snippet}
+        {#snippet commentEdit({ onFinishEditing })}
             <Comment
                 bind:cardRef={commentAutocompleteRef}
                 bind:value={comment}
@@ -155,20 +156,17 @@
             />
         {/snippet}
 
-        {@render value_or_placeholder(comment, 'What\'s this expense about?')}
-    </Cell>
-
-    <Cell class="w-48 shrink-0 border-b border-primary-100 p-3 md:w-72" aria-colindex={4}>
-        {#snippet edit()}
+        {#snippet tagsContent()}
+            <div class="flex flex-wrap items-center gap-1">
+                {#each expense?.tags ?? [] as tag (tag.id)}
+                    <Chip color={tag.color} onClick={onDeleteTag(tag.id)}>{tag.name}</Chip>
+                {/each}
+            </div>
+        {/snippet}
+        {#snippet tagsEdit()}
             <TagCombobox expenseId={expense?.id} tags={expense?.tags ?? []} />
         {/snippet}
-
-        <div class="flex flex-wrap items-center gap-1">
-            {#each expense?.tags ?? [] as tag (tag.id)}
-                <Chip color={tag.color} onClick={onDeleteTag(tag.id)}>{tag.name}</Chip>
-            {/each}
-        </div>
-    </Cell>
+    </EntryContent>
 {/snippet}
 
 {#if nested}

@@ -12,10 +12,10 @@
     import { getBudgetPlanContext, onToggleSavedPlan } from './context.svelte';
 
     type Props = { plan: BudgetPlan; onDeletePlan: (id: number) => void };
-    let { onDeletePlan, plan }: Props = $props();
+    const { onDeletePlan, plan }: Props = $props();
 
     const ctx = getBudgetPlanContext();
-    let { allocations, name, total_income } = $derived(plan);
+    const { allocations, name, total_income } = $derived(plan);
 
     let confirmDelete = $state(false);
     let duration = $state(100);
@@ -30,7 +30,7 @@
             return 0;
         }
 
-        return percentage ? percentage : (amount! / budget) * 100;
+        return percentage || (amount! / budget) * 100;
     };
 
     const onClick = () => {

@@ -14,7 +14,7 @@
         children: Snippet;
         data: LayoutData;
     };
-    let { children, data }: Props = $props();
+    const { children, data }: Props = $props();
 
     setSupabaseClient(data.supabase);
 </script>

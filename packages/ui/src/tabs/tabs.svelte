@@ -13,7 +13,7 @@
     import type { Action } from 'svelte/action';
 
     type Props = { tabs: Tab[]; initialTab?: number };
-    let { initialTab = 0, tabs }: Props = $props();
+    const { initialTab = 0, tabs }: Props = $props();
 
     let initial = $state<HTMLButtonElement | undefined>();
     let position = $state({ w: 0, x: 0 });

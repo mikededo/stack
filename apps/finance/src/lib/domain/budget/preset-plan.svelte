@@ -5,8 +5,8 @@
     import { getBudgetPlanContext, toggleActivePreset } from './context.svelte';
 
     type Props = { plan: BudgetPresets[number] };
-    let { plan }: Props = $props();
-    let { allocations, description, name } = plan;
+    const { plan }: Props = $props();
+    const { allocations, description, name } = plan;
 
     const ctx = getBudgetPlanContext();
 

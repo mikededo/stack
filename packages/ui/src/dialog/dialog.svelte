@@ -16,9 +16,9 @@
         footer?: Snippet;
         header?: Snippet;
     };
-    let { children, class: dialogClasses, footer, header, onClose }: Props = $props();
+    const { children, class: dialogClasses, footer, header, onClose }: Props = $props();
 
-    let classes = $derived(
+    const classes = $derived(
         twMerge(
             'ui-border-border ui-flex ui-max-h-[80%] ui-min-h-fit ui-w-full ui-min-w-[480px] ui-max-w-lg ui-flex-col ui-overflow-hidden ui-rounded ui-border ui-bg-background ui-shadow-lg ui-transition-all',
             dialogClasses

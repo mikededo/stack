@@ -16,12 +16,12 @@ export const useMoneyMask: Action = (node) => {
     // Ensure only one dot is present
     const parts = value.split('.');
     if (parts.length > 2) {
-      value = parts[0] + '.' + parts.slice(1).join('');
+      value = `${parts[0]}.${parts.slice(1).join('')}`;
     }
 
     // Limit to two decimal places
     if (parts[1] && parts[1].length > 2) {
-      value = parts[0] + '.' + parts[1].substring(0, 2);
+      value = `${parts[0]}.${parts[1].substring(0, 2)}`;
     }
 
     node.value = value;

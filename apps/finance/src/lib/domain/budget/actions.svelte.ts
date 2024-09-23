@@ -57,7 +57,10 @@ export const useAnimatedPlaceholder: Action = (node) => {
       nextStep(type, TYPE_SPEED_MS);
     } else {
       charIndex = 0;
-      nextStep(() => remove(placeholder), TYPE_PAUSE_MS);
+      nextStep(() => {
+        // eslint-disable-next-line ts/no-use-before-define
+        remove(placeholder);
+      }, TYPE_PAUSE_MS);
     }
   };
 
@@ -71,7 +74,9 @@ export const useAnimatedPlaceholder: Action = (node) => {
     node.setAttribute('placeholder', newPlaceholder);
 
     if (newPlaceholder.length > 0) {
-      nextStep(() => remove(newPlaceholder), DELETE_SPEED_MS);
+      nextStep(() => {
+        remove(newPlaceholder);
+      }, DELETE_SPEED_MS);
     } else {
       placeholderIndex = (placeholderIndex + 1) % PLACEHOLDERS.length;
       nextStep(type, DELETE_PAUSE_MS);

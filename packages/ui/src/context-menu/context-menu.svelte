@@ -9,7 +9,7 @@
     import { twMerge } from 'tailwind-merge';
 
     type Props = { menu: Menu; options: ContextMenuOption[] };
-    let { menu, options }: Props = $props();
+    const { menu, options }: Props = $props();
 
     const onClick = (onClick: Required<Option>['onClick']) => () => {
         menu.hide();
@@ -20,8 +20,7 @@
         twMerge(
             'ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm ui-transition-colors ui-duration-100 aria-disabled:ui-cursor-not-allowed aria-disabled:ui-text-surface-400 aria-disabled:hover:ui-bg-transparent disabled:ui-cursor-not-allowed disabled:ui-text-surface-400 disabled:hover:ui-bg-transparent',
             onClick && 'hover:ui-bg-surface-50',
-            destructive
-            && 'ui-text-destructive-500 hover:!ui-bg-destructive-50 focus:ui-bg-destructive-50 active:ui-bg-destructive-50'
+            destructive && 'ui-text-destructive-500 hover:!ui-bg-destructive-50 focus:ui-bg-destructive-50 active:ui-bg-destructive-50'
         );
 </script>
 

@@ -1,3 +1,5 @@
+<!-- eslint-disable-file -->
+
 # @stack/supabase
 
 This package provides a set of utilities to work with Supabase in SvelteKit.
@@ -55,9 +57,9 @@ In your root `+layout.svelte`:
 
 ```svelte
 <script lang="ts">
-  import { setSupabaseClient } from '@stack/supabase';
+    import { setSupabaseClient } from '@stack/supabase';
 
-  setSupabaseClient(supabase);
+    setSupabaseClient(supabase);
 </script>
 ```
 
@@ -65,10 +67,10 @@ Therefore, whenever you need to access the Supabase client, you can do so by
 
 ```svelte
 <script lang="ts">
-  import { getSupabaseClient } from '@stack/supabase';
+    import { getSupabaseClient } from '@stack/supabase';
 
-  // You can provide the schema name for the supabase client
-  const supabase = getSupabaseClient<'public'>();
+    // You can provide the schema name for the supabase client
+    const supabase = getSupabaseClient<'public'>();
 </script>
 ```
 

@@ -28,7 +28,7 @@ type MoveArgs = { node: HTMLDivElement } & (
 /**
  * Returns the parent row index 0-based!
  */
-const getParentRowIndex = (node: HTMLDivElement) => {
+function getParentRowIndex(node: HTMLDivElement) {
   // The parent of the cell is always a div[role="row"], which must have an
   // aria-rowindex attribute
   // If checks fail, we throw as the grid is not correct
@@ -41,14 +41,14 @@ const getParentRowIndex = (node: HTMLDivElement) => {
     // Enforcing accessiblity
     throw new Error('Cell parent is missing an aria-rowindex attribute');
   }
-  if (isNaN(Number(rowIndexString))) {
+  if (Number.isNaN(Number(rowIndexString))) {
     // Enforcing accessiblity
-    throw new Error('Cell parent aria-rowindex is not a number');
+    throw new TypeError('Cell parent aria-rowindex is not a number');
   }
 
   // Subtract 1 as aria-rowindex is 1-based
   return Number(rowIndexString) - 1;
-};
+}
 
 /**
  * Checks if the cell is in edit mode through `data-editing` attribute.
@@ -59,15 +59,15 @@ const isCellInEditMode = (node: HTMLDivElement) => node.dataset.editing === 'tru
  * Returns the cell row index 0-based. If no index is found, an error is
  * thrown.
  */
-const getCellRowIndex = (node: HTMLElement) => {
+function getCellRowIndex(node: HTMLElement) {
   const index = node.ariaColIndex;
   if (!index) {
     // Enforcing accessiblity
     throw new Error('Cell is missing an aria-colindex attribute');
   }
   return index;
-};
-const updateCellFocus = (node: HTMLDivElement, x: number, y: number) => {
+}
+function updateCellFocus(node: HTMLDivElement, x: number, y: number) {
   const nextCell = getNextGridCell(x, y);
   if (!nextCell) {
     return;
@@ -76,7 +76,7 @@ const updateCellFocus = (node: HTMLDivElement, x: number, y: number) => {
   nextCell.focus();
   // Update the tabindex
   node.tabIndex = -1;
-};
+}
 
 /**
  * Moves the focus to the next cell in the grid, based on the actual cell aria-colindex
@@ -85,7 +85,7 @@ const updateCellFocus = (node: HTMLDivElement, x: number, y: number) => {
  * If there's no cell for the given coordinates, the focus is not moved and the current
  * cell tabindex is unchanged.
  */
-const onCellMove = ({ node, ...args }: MoveArgs) => {
+function onCellMove({ node, ...args }: MoveArgs) {
   if ('position' in args) {
     const { position } = args;
     switch (position) {
@@ -138,7 +138,7 @@ const onCellMove = ({ node, ...args }: MoveArgs) => {
   const { x, yOffset = 0 } = args;
   const index = getCellRowIndex(node);
   updateCellFocus(node, x, +index + yOffset);
-};
+}
 
 /**
  * The action is applied to each table cell (div[role="gridcell"]), and manages
