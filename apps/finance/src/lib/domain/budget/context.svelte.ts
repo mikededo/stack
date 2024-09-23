@@ -84,8 +84,8 @@ export const onNewAllocation = () => {
   ];
 };
 
-export const onChangeAllocationProperty
-  = (i: number, property: 'amount' | 'name' | 'percentage') => (event: Event) => {
+export const onChangeAllocationProperty =
+  (i: number, property: 'amount' | 'name' | 'percentage') => (event: Event) => {
     const target = event.target as HTMLInputElement;
     if (state.activePreset) {
       const updated = [...state.presetAllocations];

@@ -25,8 +25,8 @@
 
     const withAutofocus: Action = node => (autofocus ? useAutofocus(node) : undefined);
 
-    const onColorKeydown: KeyboardEventHandler<HTMLInputElement>
-        = (e) => {
+    const onColorKeydown: KeyboardEventHandler<HTMLInputElement> =
+        (e) => {
             if (e.key === 'Enter') {
                 onConfirm?.();
                 return;

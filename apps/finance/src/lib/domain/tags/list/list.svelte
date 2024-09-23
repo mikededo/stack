@@ -34,8 +34,8 @@
         queryClient,
         supabaseClient
     };
-    const { createTagMutation, deleteTagMutation, updateTagMutation }
-        = useTagMutations(mutationArgs);
+    const { createTagMutation, deleteTagMutation, updateTagMutation } =
+        useTagMutations(mutationArgs);
 
     const onAddTag = () => {
         newTag = true;
@@ -76,10 +76,16 @@
 <ul>
     <ListHeader />
     {#each book.tag as tag (tag.id)}
-        <TagListItem {tag} onDeleteTag={onConfirmDelete} {onDuplicateTag} {onUpdateTag} />
+        <TagListItem {tag}
+            onDeleteTag={onConfirmDelete}
+            {onDuplicateTag}
+            {onUpdateTag} />
     {/each}
     {#if newTag}
-        <NewTagItem bind:color bind:name onCancel={onCancelNewTag} onConfirm={onCreateNewTag} />
+        <NewTagItem bind:color
+            bind:name
+            onCancel={onCancelNewTag}
+            onConfirm={onCreateNewTag} />
     {/if}
 </ul>
 

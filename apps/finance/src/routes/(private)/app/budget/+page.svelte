@@ -62,7 +62,10 @@
 <PlanAllocations />
 <SavedBudgetPlans />
 
-<Drawer header="Premade plans" Icon={LayoutTemplate} {show} onClose={onHidePresets}>
+<Drawer header="Premade plans"
+    Icon={LayoutTemplate}
+    {show}
+    onClose={onHidePresets}>
     {#snippet subtitle()}
         Here are some preset budget plans that you can use as a starting point.
     {/snippet}

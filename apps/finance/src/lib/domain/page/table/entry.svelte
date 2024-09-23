@@ -100,9 +100,9 @@
     const onInternalClickAway = (event: MouseEvent) => {
         // Special check in case the user clicks one of the autocomplete options
         if (
-            event.target instanceof HTMLElement
-            && commentAutocompleteRef
-            && commentAutocompleteRef.contains(event.target)
+            event.target instanceof HTMLElement &&
+            commentAutocompleteRef &&
+            commentAutocompleteRef.contains(event.target)
         ) {
             return;
         }

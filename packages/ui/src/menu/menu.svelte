@@ -64,16 +64,16 @@
                 e.preventDefault();
                 e.stopPropagation();
                 menuState.focusableElements[menuState.focusIndex].focus();
-                menuState.focusIndex
-                    = menuState.focusIndex + 1 === menuState.focusableElements.length
+                menuState.focusIndex =
+                    menuState.focusIndex + 1 === menuState.focusableElements.length
                         ? 0
                         : menuState.focusIndex + 1;
                 break;
             case Keys.ArrowUp:
                 e.preventDefault();
                 menuState.focusableElements[menuState.focusIndex].focus();
-                menuState.focusIndex
-                    = menuState.focusIndex - 1 === -1
+                menuState.focusIndex =
+                    menuState.focusIndex - 1 === -1
                         ? menuState.focusableElements.length - 1
                         : menuState.focusIndex - 1;
                 break;
@@ -87,7 +87,10 @@
 </script>
 
 <div class={wrapperClasses}>
-    <Button class={buttonClasses} color="surface" disabled={showMenu || loading} onclick={onToggle}>
+    <Button class={buttonClasses}
+        color="surface"
+        disabled={showMenu || loading}
+        onclick={onToggle}>
         {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
         {#if Icon && !loading}<svelte:component this={Icon} class="size-4" />{/if}
         {#if label}<span>{label}</span>{/if}

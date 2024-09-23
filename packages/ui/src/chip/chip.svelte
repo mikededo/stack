@@ -26,7 +26,10 @@
 </script>
 
 {#if onClick}
-    <button {...restProps} class={classes} {style} onclick={onClick}>
+    <button {...restProps}
+        class={classes}
+        {style}
+        onclick={onClick}>
         {@render children()}
         <X size={14} strokeWidth={2.5} />
     </button>

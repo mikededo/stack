@@ -30,6 +30,7 @@ export default antfu({
     semi: true
   },
   svelte: true,
+  toml: false,
   typescript: {
     overrides: {
       'no-use-before-define': 'off',
@@ -60,7 +61,8 @@ export default antfu({
         variables: true
       }]
     }
-  }
+  },
+  yaml: false
 }, {
   files: ['**/*.d.ts'],
   rules: {
@@ -77,7 +79,11 @@ export default antfu({
     {
       rules: {
         'style/brace-style': ['error', '1tbs'],
-        'style/comma-dangle': ['error', 'never']
+        'style/comma-dangle': ['error', 'never'],
+        'style/operator-linebreak': ['error', 'after', {
+          overrides: { ':': 'before', '?': 'before' }
+        }],
+        'style/quote-props': ['error', 'as-needed']
       }
     }
   )
@@ -88,7 +94,11 @@ export default antfu({
         'error',
         { prefer: 'double' }
       ],
-      'svelte/indent': ['error', { indent: 4 }]
+      'svelte/indent': ['error', { indent: 4 }],
+      'svelte/max-attributes-per-line': [
+        'error',
+        { multiline: 1, singleline: 3 }
+      ]
     }
   })
   .override(
@@ -152,10 +162,10 @@ export default antfu({
             customGroups: {
               'bind-directives': 'bind:*',
               'bind-this': 'bind:this',
-              'class': 'class',
-              'effects': 'on*',
+              class: 'class',
+              effects: 'on*',
               'style-props': '--style-props',
-              'this': 'this',
+              this: 'this',
               'use-directives': 'use:*'
             },
             groups: [

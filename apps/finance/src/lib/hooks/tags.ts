@@ -48,8 +48,8 @@ type UseExpenseTagsModifiersArgs = {
 // Therefore, we need to search for the expense in the query and then update the
 // tags from such expense
 
-const addExpenseTagMapper
-  = (expenseId: number, tag: Tag) =>
+const addExpenseTagMapper =
+  (expenseId: number, tag: Tag) =>
     (expense: Expense): Expense => {
       if (expense.id !== expenseId) {
         return expense;
@@ -57,8 +57,8 @@ const addExpenseTagMapper
 
       return { ...expense, tags: [...expense.tags, tag] };
     };
-const removeExpenseTagMapper
-  = (expenseId: number, tagId: number) =>
+const removeExpenseTagMapper =
+  (expenseId: number, tagId: number) =>
     (expense: Expense): Expense => {
       if (expense.id !== expenseId) {
         return expense;
@@ -75,8 +75,8 @@ const pageUpdater = (page: Page, mapper: (tag: Expense) => Expense) => ({
   expenses: page.expenses.map(mapper)
 });
 
-const onResetContext
-  = (queryClient: QueryClient, book: number, page: number): OnError =>
+const onResetContext =
+  (queryClient: QueryClient, book: number, page: number): OnError =>
     (_, __, context) => {
       if (!context || !context.fallback) {
         return;

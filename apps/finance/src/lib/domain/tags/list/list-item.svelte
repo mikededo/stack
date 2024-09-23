@@ -38,8 +38,8 @@
         { destructive: true, Icon: Trash2, onClick: onFwdTag(onDeleteTag), text: 'Delete' }
     ];
 
-    const onEditMode
-        = (mode: typeof editMode = undefined) =>
+    const onEditMode =
+        (mode: typeof editMode = undefined) =>
             () => {
                 editMode = mode;
                 if (!mode) {
