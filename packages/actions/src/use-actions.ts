@@ -8,7 +8,7 @@ type SvelteHTMLActionType<P> = (node: HTMLElement, params?: P) => SvelteActionRe
 type HTMLActionEntry<P = any> = [SvelteHTMLActionType<P>, P] | SvelteHTMLActionType<P>;
 export type ActionArray = HTMLActionEntry[];
 
-export function useActions(node: HTMLElement, actions: ActionArray) {
+export const useActions = (node: HTMLElement, actions: ActionArray) => {
   const actionReturns: SvelteActionReturnType<any>[] = [];
 
   if (actions) {
@@ -53,4 +53,4 @@ export function useActions(node: HTMLElement, actions: ActionArray) {
       }
     }
   };
-}
+};
