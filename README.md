@@ -34,7 +34,15 @@ PUBLIC_SUPABASE_ANON_KEY=
 
 All migrations are stored in [`supabase/migrations`](./supabase/migrations). On
 starting the database with `bunx supabase start`, the migrations will be
-applied automatically.
+applied automatically. To apply any migrations manually (i.e., after any update)
+run:
+
+```bash
+# This URL would work as long as you keep the config as provided. If there's
+# any change in the config, you'll have to update the URL accordingly.
+# More in the following sections
+bunx supabase db push --db-url postgresql://postgres:<postgres-password>@api.coolify.orb.local:54322
+```
 
 > In order to know the url and anon key, you can run: `bunx supabase status`
 
@@ -71,7 +79,7 @@ instance, you will have to expose the pg port. In order to do so, modify the
 
 ```yaml
 ports:
-  - '54322:${POSTGRES_PORT}'
+  - "54322:${POSTGRES_PORT}"
 ```
 
 Again, restart the service in case your service was already running. Now, you
@@ -113,6 +121,6 @@ access it at `http://<app-name>.<machine-name>.orb.local`.
 
 Here's the list of the apps and ports in which they are served by default:
 
-| App name        | Port |
-| --------------- | ---- |
-| @mstack/finance | 3000 |
+| App name       | Port |
+| -------------- | ---- |
+| @stack/finance | 3000 |
