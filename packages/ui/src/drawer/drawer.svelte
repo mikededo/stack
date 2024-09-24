@@ -62,12 +62,6 @@
         };
 
         node.addEventListener('click', onClick);
-
-        return {
-            destroy() {
-                node.removeEventListener('click', onClick);
-            }
-        };
     };
 
     $effect(() => {

@@ -129,10 +129,4 @@ export const useUpDownArrows: Action<HTMLElement, string> = (node, prefix) => {
   };
 
   node.addEventListener('keydown', onKeydown);
-
-  return {
-    destroy() {
-      node.removeEventListener('keydown', onKeydown);
-    }
-  };
 };

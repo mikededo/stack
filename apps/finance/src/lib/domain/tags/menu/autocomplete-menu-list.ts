@@ -30,11 +30,4 @@ export const useInputMenuOption: Action<HTMLElement, UseMenuOptionArgs> = (
 
   node.addEventListener('keydown', onKeydown);
   node.addEventListener('mousedown', onOptionClick);
-
-  return {
-    destroy() {
-      node.removeEventListener('keydown', onKeydown);
-      node.removeEventListener('mousedown', onOptionClick);
-    }
-  };
 };

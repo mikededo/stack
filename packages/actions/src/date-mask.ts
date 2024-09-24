@@ -46,11 +46,4 @@ export const useDateMask: Action = (node) => {
 
   node.addEventListener('input', onInput, true);
   node.addEventListener('keydown', onKeydown);
-
-  return {
-    destroy() {
-      node.removeEventListener('input', onInput, true);
-      node.removeEventListener('keydown', onKeydown);
-    }
-  };
 };

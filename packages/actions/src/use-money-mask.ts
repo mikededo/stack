@@ -28,14 +28,6 @@ export const useMoneyMask: Action = (node) => {
   };
 
   node.addEventListener('input', onInput, true);
-
   // Register also the prefix of the currency
-  const prefix = usePrefix(node, '€ ');
-
-  return {
-    destroy() {
-      node.removeEventListener('input', onInput, true);
-      prefix.destroy?.();
-    }
-  };
+  usePrefix(node, '€ ');
 };

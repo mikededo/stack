@@ -22,13 +22,5 @@ export const usePercentageMask: Action = (node) => {
   };
 
   node.addEventListener('input', onInput, true);
-
-  const prefix = usePrefix(node, '% ');
-
-  return {
-    destroy() {
-      node.removeEventListener('input', onInput, true);
-      prefix.destroy?.();
-    }
-  };
+  usePrefix(node, '% ');
 };

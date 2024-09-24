@@ -19,10 +19,4 @@ export const useTrapFocus: Action = (node) => {
   };
 
   node.addEventListener('keydown', onKeydown);
-
-  return {
-    destroy() {
-      node.removeEventListener('keydown', onKeydown);
-    }
-  };
 };

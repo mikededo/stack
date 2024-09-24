@@ -1,6 +1,4 @@
-import type { ActionReturn } from 'svelte/action';
-
-export const usePrefix = (node: HTMLInputElement, prefix: string): ActionReturn => {
+export const usePrefix = (node: HTMLInputElement, prefix: string): void => {
   const onInput = () => {
     if (!node.value.startsWith(prefix) && node.value) {
       node.value = prefix + node.value;
@@ -11,10 +9,4 @@ export const usePrefix = (node: HTMLInputElement, prefix: string): ActionReturn 
 
   node.addEventListener('input', onInput, true);
   onInput();
-
-  return {
-    destroy() {
-      node.removeEventListener('input', onInput, true);
-    }
-  };
 };
