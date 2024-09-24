@@ -8,6 +8,7 @@ export type NewExpenseData = {
   date: string;
   page: number;
   id?: number;
+  position?: number;
   tags?: number[];
 };
 export const createExpense = async (

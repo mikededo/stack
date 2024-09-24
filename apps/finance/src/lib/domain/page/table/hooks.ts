@@ -25,12 +25,12 @@ type UseExpenseMutationArgs = {
   onSettled?: () => void;
 };
 type Result = MutationResult<typeof createExpense, MutationContext>;
-export function useExpenseMutation({
+export const useExpenseMutation = ({
   bookId,
   onMutate,
   onSettled,
   userId
-}: UseExpenseMutationArgs): Result {
+}: UseExpenseMutationArgs): Result => {
   const supabase = getSupabaseClient();
   const queryClient = useQueryClient();
 
@@ -67,6 +67,7 @@ export function useExpenseMutation({
         created_by: userId,
         id: expense.id ?? 0,
         page_id: expense.page,
+        position: expense.position ?? -1,
         tags: []
       };
 
@@ -129,4 +130,4 @@ export function useExpenseMutation({
       );
     }
   });
-}
+};
