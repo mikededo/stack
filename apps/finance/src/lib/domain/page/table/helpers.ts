@@ -2,7 +2,7 @@ import { isValidDate } from '@stack/utils';
 
 import type { Expense } from '$lib/db';
 
-export function parseDate(date?: null | string) {
+export const parseDate = (date?: null | string) => {
   if (!date) {
     return '';
   }
@@ -18,17 +18,17 @@ export function parseDate(date?: null | string) {
   }
 
   return `${day}/${month}/${year}`;
-}
+};
 
-export function parseAmount(amount?: null | string) {
+export const parseAmount = (amount?: null | string) => {
   if (!amount) {
     return '';
   }
 
   return amount.startsWith('€ ') ? amount.slice(2) : amount;
-}
+};
 
-export function getNewEntryMatches(expenses: Expense[], value: string) {
+export const getNewEntryMatches = (expenses: Expense[], value: string) => {
   if (!expenses.length) {
     return [];
   }
@@ -60,14 +60,14 @@ export function getNewEntryMatches(expenses: Expense[], value: string) {
     new Map()
   );
   return [...result.values()];
-}
+};
 
 type ExpenseValidation = { amount: string; comment: string; date: string };
-export function isExpenseValid({ amount, comment, date }: ExpenseValidation) {
+export const isExpenseValid = ({ amount, comment, date }: ExpenseValidation) => {
   return Boolean(comment && isValidDate(date) && Number(parseAmount(amount)) >= 0);
-}
+};
 
-export function hasExpenseChanged(expense: Expense, newExpense: ExpenseValidation) {
+export const hasExpenseChanged = (expense: Expense, newExpense: ExpenseValidation) => {
   // Ensure dates are in the same format
   if (parseDate(expense.date) !== parseDate(newExpense.date)) {
     return true;
@@ -78,4 +78,4 @@ export function hasExpenseChanged(expense: Expense, newExpense: ExpenseValidatio
   }
 
   return expense.comment !== newExpense.comment;
-}
+};

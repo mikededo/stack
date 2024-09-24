@@ -42,7 +42,7 @@ export const isNestedPath = (path: string | undefined, nested: string): boolean 
   return false;
 };
 
-export function pathTo<T extends Routes>(route: T, params?: Route[T]): string {
+export const pathTo = <T extends Routes>(route: T, params?: Route[T]): string => {
   if (params !== undefined) {
     return Object.keys(params).reduce(
       (path, key) => path.replace(`:${key}`, (params as Record<string, string>)[key]),
@@ -51,7 +51,7 @@ export function pathTo<T extends Routes>(route: T, params?: Route[T]): string {
   } else {
     return Paths[route];
   }
-}
+};
 
 export const isAuthPath = (path: string | undefined) => path === Paths.auth;
 export const isAuthRelated = (path: string | undefined) => path?.startsWith(Paths.auth);
