@@ -103,7 +103,6 @@
             tabindex={1}
             use={[useFocusableElements, [clickAway, onHide]]}
             noPadding
-            onClickAway={onHide}
             onkeydown={onNavigation}
         >
             <div
