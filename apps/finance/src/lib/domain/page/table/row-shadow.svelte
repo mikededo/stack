@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { Chip } from '@stack/ui';
+
     import { GripVertical } from 'lucide-svelte';
 
     import { getDragContext } from './drag-context.svelte';
@@ -10,7 +12,7 @@
 
 {#if ctx.activeRow}
     <div
-        class="fixed z-[100] rounded-sm shadow-md bg-white gap-2 p-2 opacity-95 flex pointer-events-none text-sm"
+        class="fixed z-[100] rounded-sm shadow-md bg-white gap-2 p-2 opacity-90 flex pointer-events-none text-sm"
         aria-rowindex={0}
         role="row"
         style="top: {ctx.shadowPosition.y}px; width: {ctx.shadowPosition.width}px"
@@ -25,7 +27,13 @@
                 {ctx.activeRow?.amount ? `€ ${ctx.activeRow.amount.toFixed(2)}` : undefined}
             {/snippet}
             {#snippet commentContent()}{ctx.activeRow?.comment}{/snippet}
-            {#snippet tagsContent()}<div></div>{/snippet}
+            {#snippet tagsContent()}
+                <div class="flex flex-wrap items-center gap-1">
+                    {#each (ctx.activeRow?.tags ?? []) as tag (tag.id)}
+                        <Chip color={tag.color}>{tag.name}</Chip>
+                    {/each}
+                </div>
+            {/snippet}
         </EntryContent>
     </div>
 {/if}

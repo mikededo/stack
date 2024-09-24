@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { Chip } from '@stack/ui';
+
     import { slide } from 'svelte/transition';
 
     import { getDragContext } from './drag-context.svelte';
@@ -25,6 +27,12 @@
             {ctx.activeRow?.amount ? `€ ${ctx.activeRow.amount.toFixed(2)}` : undefined}
         {/snippet}
         {#snippet commentContent()}{ctx.activeRow?.comment}{/snippet}
-        {#snippet tagsContent()}<div></div>{/snippet}
+        {#snippet tagsContent()}
+            <div class="flex flex-wrap items-center gap-1">
+                {#each (ctx.activeRow?.tags ?? []) as tag (tag.id)}
+                    <Chip color={tag.color}>{tag.name}</Chip>
+                {/each}
+            </div>
+        {/snippet}
     </EntryContent>
 </div>
