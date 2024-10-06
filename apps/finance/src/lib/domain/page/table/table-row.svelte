@@ -14,10 +14,8 @@
         Trash2
     } from 'lucide-svelte';
 
-    import { DragCell } from './cell';
-    import { getDragContext } from './drag-context.svelte';
+    import { DragCell, DragRow, getDragContext } from './drag';
     import Entry from './entry.svelte';
-    import RowPlaceholder from './row-placeholder.svelte';
     import { activateRow, disableRow, isRowActive, newRowInto } from './state.svelte';
 
     type ProxyFn = <F extends (...args: any) => any = () => void>(cb: F) => () => void;
@@ -69,6 +67,7 @@
             }
         });
     };
+
 </script>
 
 <div
@@ -86,7 +85,7 @@
 
 <!-- Copy of the dragged element -->
 {#if dragContext.activeRow?.id !== expense?.id && dragContext.placeholderRowIndex === position}
-    <RowPlaceholder {position} />
+    <DragRow {position} />
 {/if}
 
 <ContextMenu menu={menu.menu} options={cmOptions} />

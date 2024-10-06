@@ -1,7 +1,7 @@
 <script lang="ts">
     import { GripVertical } from 'lucide-svelte';
 
-    import Cell from './cell.svelte';
+    import { Cell } from '../cell';
     import { useDragCell } from './use-drag-cell';
 
     type Props = Parameters<typeof useDragCell>[1];

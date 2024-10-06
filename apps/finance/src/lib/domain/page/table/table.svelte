@@ -3,9 +3,8 @@
     import { fade } from 'svelte/transition';
 
     import { clearPageFilters, getPageContext, updateGrid } from './context.svelte';
-    import { initDragContext } from './drag-context.svelte';
+    import { DragRow, initDragContext } from './drag';
     import Entry from './entry.svelte';
-    import RowShadow from './row-shadow.svelte';
     import { tableState } from './state.svelte';
     import PageTableHead from './table-head.svelte';
     import PageTableOptions from './table-options.svelte';
@@ -112,5 +111,5 @@
         </div>
     </section>
 
-    <RowShadow />
+    <DragRow shadow />
 {/if}
