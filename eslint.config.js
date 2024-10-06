@@ -80,6 +80,7 @@ export default antfu({
       rules: {
         'style/brace-style': ['error', '1tbs'],
         'style/comma-dangle': ['error', 'never'],
+        'style/no-multiple-empty-lines': ['error', { max: 1 }],
         'style/operator-linebreak': ['error', 'after', {
           overrides: { ':': 'before', '?': 'before' }
         }],
