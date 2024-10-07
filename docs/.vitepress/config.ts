@@ -1,28 +1,25 @@
-import { defineConfig } from 'vitepress';
+import { type DefaultTheme, defineConfigWithTheme } from 'vitepress';
 
-// https://vitepress.dev/reference/site-config
-export default defineConfig({
-  description: 'Official documentation for the Stack project 🥞',
+export default defineConfigWithTheme<DefaultTheme.Config>({
+  description: 'Official documentation for the Stack project',
+  head: [
+    ['link', { href: '/img/favicon.ico', rel: 'icon', type: 'image/png' }]
+  ],
   themeConfig: {
-    // https://vitepress.dev/reference/default-theme-config
+    editLink: {
+      pattern: 'https://github.com/mikededo/stack/edit/main/docs/:path',
+      text: 'Edit this page'
+    },
+    logo: '/img/logo.svg',
     nav: [
-      { link: '/', text: 'Home' },
-      { link: '/markdown-examples', text: 'Examples' }
+      // TODO: Add links
     ],
-
-    sidebar: [
-      {
-        items: [
-          { link: '/markdown-examples', text: 'Markdown Examples' },
-          { link: '/api-examples', text: 'Runtime API Examples' }
-        ],
-        text: 'Examples'
-      }
-    ],
-
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+    search: { provider: 'local' },
+    sidebar: {
+      // TODO: Add links
+    },
+    siteTitle: 'Stack Docs'
   },
-  title: 'Stack documentation'
+
+  title: 'Stack docs'
 });

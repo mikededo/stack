@@ -7,18 +7,17 @@ hero:
   tagline: Official documentation for the Stack project 
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Get started!
+      link: /guide/start
     - theme: alt
-      text: API Examples
-      link: /api-examples
+      text: See the apps
+      link: /apps
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: Deployment 🛳️
+    details: Easily configure and deploy the all or some apps from Stack
+  - title: Local development 💻
+    details: Setup and a local dev environment to modify Stack to your needs
+    link: guide/local-development
 ---
 
