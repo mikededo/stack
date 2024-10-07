@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Snippet } from 'svelte';
+    import type { ComponentProps, Snippet } from 'svelte';
 
     import { Cell } from './cell';
 
@@ -8,10 +8,10 @@
         commentContent: Snippet;
         dateContent: Snippet;
         tagsContent: Snippet;
-        amountEdit?: Cell['$$prop_def']['edit'];
-        commentEdit?: Cell['$$prop_def']['edit'];
-        dateEdit?: Cell['$$prop_def']['edit'];
-        tagsEdit?: Cell['$$prop_def']['edit'];
+        amountEdit?: ComponentProps<typeof Cell>['edit'];
+        commentEdit?: ComponentProps<typeof Cell>['edit'];
+        dateEdit?: ComponentProps<typeof Cell>['edit'];
+        tagsEdit?: ComponentProps<typeof Cell>['edit'];
     };
     const {
         amountContent,
