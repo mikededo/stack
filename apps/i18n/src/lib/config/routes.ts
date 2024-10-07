@@ -5,14 +5,15 @@ import { page } from '$app/stores';
 type Route = {
   app: undefined;
   auth: undefined;
-  // Fill this
+  signIn: undefined;
 };
 
 type Routes = keyof Route;
 
 const Paths: Record<Routes, string> = {
   app: '/app',
-  auth: '/auth'
+  auth: '/auth',
+  signIn: '/auth/sign-in'
 };
 
 export const isCurrentPath = (path: string | undefined): boolean => get(page).url.pathname === path;
