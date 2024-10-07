@@ -27,6 +27,8 @@
   },
   "dependencies": {
     "@stack/actions": "workspace:*",
+    "@stack/supabase": "workspace:*",
+    "@sveltejs/kit": "2.6.2",
     "lucide-svelte": "0.447.0",
     "svelte": "5.0.0-next.216",
     "tailwind-merge": "2.5.3"
