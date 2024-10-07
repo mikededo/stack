@@ -1,17 +1,9 @@
-import type { Client } from '@stack/supabase';
-
-import type { Session, User } from '@supabase/supabase-js';
+import type { SupabaseLocals, SupabasePageData } from '@stack/supabase';
 
 declare global {
   namespace App {
-    interface Locals {
-      safeGetSession: () => Promise<{ session: null | Session; user: null | User }>;
-      supabase: Client;
-    }
-    interface PageData {
-      session: null | Session;
-      user: null | User;
-    }
+    interface Locals extends SupabaseLocals { }
+    interface PageData extends SupabasePageData { }
 
     // interface Error {}
     // interface PageState {}
@@ -19,4 +11,4 @@ declare global {
   }
 }
 
-export {};
+export { };
