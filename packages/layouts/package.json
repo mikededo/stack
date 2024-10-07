@@ -1,0 +1,38 @@
+{
+  "name": "@stack/layouts",
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "svelte": "./src/index.ts"
+    },
+    "./styles": "./dist/index.css",
+    "./tailwind": "./tailwind.config.ts"
+  },
+  "files": [
+    "!dist/**/*.spec.*",
+    "!dist/**/*.test.*",
+    "dist"
+  ],
+  "scripts": {
+    "build": "bun run prepare && bun run build:lib && bun run build:styles",
+    "build:lib": "svelte-kit sync && svelte-package --input src",
+    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
+    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint --fix .",
+    "prepare": "svelte-kit sync",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@stack/actions": "workspace:*",
+    "lucide-svelte": "0.447.0",
+    "svelte": "5.0.0-next.216",
+    "tailwind-merge": "2.5.3"
+  },
+  "devDependencies": {
+    "@stack/tailwind-config": "workspace:*",
+    "@sveltejs/vite-plugin-svelte": "4.0.0-next.6"
+  }
+}
