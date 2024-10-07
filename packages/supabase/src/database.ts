@@ -1296,6 +1296,167 @@ export type Database = {
       };
     };
   };
+  i18n: {
+    CompositeTypes: {
+      [_ in never]: never
+    };
+    Enums: {
+      [_ in never]: never
+    };
+    Functions: {
+      [_ in never]: never
+    };
+    Tables: {
+      keys: {
+        Insert: {
+          key_name: string;
+          description?: null | string;
+          id?: never;
+          project_id?: null | number;
+        };
+        Relationships: [
+          {
+            columns: ['project_id'];
+            foreignKeyName: 'keys_project_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'projects';
+          }
+        ];
+        Row: {
+          description: null | string;
+          id: number;
+          key_name: string;
+          project_id: null | number;
+        };
+        Update: {
+          description?: null | string;
+          id?: never;
+          key_name?: string;
+          project_id?: null | number;
+        };
+      };
+      languages: {
+        Relationships: [];
+        Insert: {
+          code: string;
+          name: string;
+          id?: never;
+        };
+        Row: {
+          code: string;
+          id: number;
+          name: string;
+        };
+        Update: {
+          code?: string;
+          id?: never;
+          name?: string;
+        };
+      };
+      project_languages: {
+        Insert: {
+          id?: never;
+          language_id?: null | number;
+          project_id?: null | number;
+        };
+        Relationships: [
+          {
+            columns: ['language_id'];
+            foreignKeyName: 'project_languages_language_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'languages';
+          },
+          {
+            columns: ['project_id'];
+            foreignKeyName: 'project_languages_project_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'projects';
+          }
+        ];
+        Row: {
+          id: number;
+          language_id: null | number;
+          project_id: null | number;
+        };
+        Update: {
+          id?: never;
+          language_id?: null | number;
+          project_id?: null | number;
+        };
+      };
+      projects: {
+        Insert: {
+          name: string;
+          owner_id: string;
+          description?: null | string;
+          id?: never;
+        };
+        Relationships: [
+          {
+            columns: ['owner_id'];
+            foreignKeyName: 'projects_owner_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'users';
+          }
+        ];
+        Row: {
+          description: null | string;
+          id: number;
+          name: string;
+          owner_id: string;
+        };
+        Update: {
+          description?: null | string;
+          id?: never;
+          name?: string;
+          owner_id?: string;
+        };
+      };
+      translations: {
+        Insert: {
+          id?: never;
+          key_id?: null | number;
+          language_id?: null | number;
+          value?: null | string;
+        };
+        Relationships: [
+          {
+            columns: ['key_id'];
+            foreignKeyName: 'translations_key_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'keys';
+          },
+          {
+            columns: ['language_id'];
+            foreignKeyName: 'translations_language_id_fkey';
+            isOneToOne: false;
+            referencedColumns: ['id'];
+            referencedRelation: 'languages';
+          }
+        ];
+        Row: {
+          id: number;
+          key_id: null | number;
+          language_id: null | number;
+          value: null | string;
+        };
+        Update: {
+          id?: never;
+          key_id?: null | number;
+          language_id?: null | number;
+          value?: null | string;
+        };
+      };
+    };
+    Views: {
+      [_ in never]: never
+    };
+  };
   public: {
     CompositeTypes: {
       [_ in never]: never
@@ -1421,3 +1582,4 @@ export type Enums<
   : PublicEnumNameOrOptions extends keyof PublicSchema['Enums']
     ? PublicSchema['Enums'][PublicEnumNameOrOptions]
     : never;
+
