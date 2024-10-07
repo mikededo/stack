@@ -15,6 +15,7 @@ import { getEnv } from '$lib/config';
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   depends('supabase:auth');
 
+  // TODO: Migrate this into a function inside @stack/supabase
   const { supabaseAnonKey, supabaseUrl } = getEnv();
   const supabase = isBrowser()
     ? createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
