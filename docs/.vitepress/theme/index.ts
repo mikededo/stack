@@ -1,7 +1,7 @@
-import './style.css';
+/* eslint-disable perfectionist/sort-imports */
 
 import DefaultTheme from 'vitepress/theme';
 
-export default {
-  extends: DefaultTheme
-};
+import './style.css';
+
+export default DefaultTheme;
