@@ -20,7 +20,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/svelte-query": "5.59.0"
+    "@tanstack/svelte-query": "5.59.12"
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
