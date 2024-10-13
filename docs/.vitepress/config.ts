@@ -39,18 +39,27 @@ export default defineConfigWithTheme<DefaultTheme.Config>({
         collapsed: true,
         items: [
           { link: '/codebase/monorepo/', text: 'Monorepo' },
-          { collapsed: true, items: [
-            { link: '/codebase/packages/config-tailwind', text: '@stack/config-tailwind' },
-            { link: '/codebase/packages/supabase', text: '@stack/supabase' },
-            { link: '/codebase/packages/actions', text: '@stack/actions' },
-            { link: '/codebase/packages/layouts', text: '@stack/layouts' },
-            { link: '/codebase/packages/ui', text: '@stack/ui' },
-            { link: '/codebase/packages/utils', text: '@stack/utils' }
-          ], text: 'Packages' },
-          { collapsed: true, items: [
-            { link: '/codebase/apps/finance', text: '@stack/finance' },
-            { link: '/codebase/apps/i18n', text: '@stack/i18n' }
-          ], text: 'Apps' },
+          { link: '/codebase/styles', text: 'Styles' },
+          {
+            collapsed: true,
+            items: [
+              { link: '/codebase/packages/config-tailwind', text: '@stack/config-tailwind' },
+              { link: '/codebase/packages/supabase', text: '@stack/supabase' },
+              { link: '/codebase/packages/actions', text: '@stack/actions' },
+              { link: '/codebase/packages/layouts', text: '@stack/layouts' },
+              { link: '/codebase/packages/ui', text: '@stack/ui' },
+              { link: '/codebase/packages/utils', text: '@stack/utils' }
+            ],
+            text: 'Packages'
+          },
+          {
+            collapsed: true,
+            items: [
+              { link: '/codebase/apps/finance', text: '@stack/finance' },
+              { link: '/codebase/apps/i18n', text: '@stack/i18n' }
+            ],
+            text: 'Apps'
+          },
           { link: '/codebase/turbo', text: 'Turbo' },
           { link: '/codebase/supabase', text: 'Supabase' }
         ],
