@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@stack/actions": "workspace:*",
+    "@stack/layouts": "workspace:*",
     "@stack/supabase": "workspace:*",
     "@stack/ui": "workspace:*",
     "@stack/utils": "workspace:*",
