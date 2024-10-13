@@ -19,7 +19,7 @@
         }
         : {
             'aria-rowindex': 0,
-            class: 'fixed z-[100] rounded-sm shadow-md bg-white gap-2 p-2 opacity-90 flex pointer-events-none text-sm',
+            class: ctx.activeRow ? 'fixed z-[100] rounded-sm shadow-md bg-white gap-2 p-2 opacity-95 flex pointer-events-none text-sm' : 'hidden',
             style: `top: ${ctx.shadowPosition.y}px; width: ${ctx.shadowPosition.width}px; left: ${ctx.shadowPosition.x}px`
         });
 </script>

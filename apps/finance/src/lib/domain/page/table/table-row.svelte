@@ -71,7 +71,7 @@
 </script>
 
 <div
-    class="group flex min-h-[45px] w-full items-stretch aria-current:bg-primary-50 relative border-b border-primary-100"
+    class="group flex min-h-[45px] min-w-full w-fit items-stretch aria-current:bg-primary-50 relative border-b border-primary-100"
     bind:this={rowNode}
     use:useActions={[menu.trigger, useRow]}
     aria-current={isRowActive(position) || menu.states.isMenuActive}
