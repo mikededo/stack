@@ -8,8 +8,7 @@ type BaseProps = { color?: ButtonColor; disabled?: boolean; variant?: ButtonVari
 export type Props = (
   | ({ href: string } & HTMLAnchorAttributes)
   | ({ href?: never } & HTMLButtonAttributes)
-) &
-BaseProps;
+) & BaseProps;
 
 const VARIANTS: Record<ButtonVariant, string> = {
   condensed: 'ui-py-1 ui-px-2.5 ui-h-unset ui-text-xs ui-font-normal',
@@ -33,7 +32,7 @@ export const sharedClasses = ({
   variant
 }: { className?: null | string } & Required<Pick<BaseProps, 'color' | 'variant'>>) =>
   twMerge(
-    'ui-whitespace-nowrap ui-rounded-lg ui-font-medium ui-transition-all focus-visible:ui-scale-[0.975] focus-visible:ui-outline-none active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
+    'ui-whitespace-nowrap ui-rounded-md ui-font-medium ui-transition-all focus-visible:ui-scale-[0.975] focus-visible:ui-outline-none active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
     VARIANTS[variant],
     COLORS[color],
     className
