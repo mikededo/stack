@@ -17,6 +17,7 @@
     --foreground: #ffffff;
   }
 }
+
 html {
   @apply font-sans;
 
