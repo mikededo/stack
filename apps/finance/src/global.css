@@ -1,10 +1,6 @@
 @import url('@stack/ui/styles');
 @import url('@stack/layouts/styles');
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @layer base {
   :root {
     --font-sans: Geist;
