@@ -69,7 +69,7 @@ export const getBudgetPlanContext = () => {
 // MODIFIERS
 
 export const onNewAllocation = () => {
-  if (state.id) {
+  if (state.id || (!state.id && !state.activePreset)) {
     // Add to the plan allocations
     state.planAllocations = [
       ...state.planAllocations,

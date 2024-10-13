@@ -38,6 +38,7 @@
     beforeNavigate(() => {
         duration = 0;
     });
+
 </script>
 
 <div class="flex flex-col gap-4 rounded-md border border-surface-200 p-6 pt-4">

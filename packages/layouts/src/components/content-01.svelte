@@ -55,7 +55,7 @@
                             {href}
                         >
                             <span>{name}</span>
-                            <Icon class="l-size-4" strokeWidth={2} />
+                            <Icon size={20} strokeWidth={2} />
                         </a>
                     </li>
                 {/each}

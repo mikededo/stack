@@ -22,24 +22,25 @@
     };
 </script>
 
-{#each books as book, i (book.id)}
-    <button
-        class="flex w-full cursor-pointer items-center justify-between border-b border-primary-100 px-3 py-2 transition-colors hover:bg-primary-100 active:bg-primary-100"
-        aria-current={openedBooks.has(book.id)}
-        class:bg-primary-50={i % 2 === 0}
-        onclick={onToggleBook(book.id)}
-    >
-        <div class="flex items-center gap-2">
-            <Book class="size-4" strokeWidth={2.5} />
-            <span>{book.name}</span>
-        </div>
-        <div class="rotate-0 transition-transform" class:rotate-180={openedBooks.has(book.id)}>
-            <ChevronDown class="size-4" />
-        </div>
-    </button>
-    {#if openedBooks.has(book.id)}
-        <div class="pl-4" transition:slide={{ duration: 200 }}>
-            <PageList {book} />
-        </div>
-    {/if}
+{#each books as book (book.id)}
+    <div class="first:border last:border-t-0 border-x last:border-b first:rounded-t-md overflow-hidden last:rounded-b-md">
+        <button
+            class="flex w-full cursor-pointer items-center justify-between px-3 py-2 transition-colors"
+            aria-current={openedBooks.has(book.id)}
+            onclick={onToggleBook(book.id)}
+        >
+            <div class="flex items-center gap-2">
+                <Book class="size-4" strokeWidth={2.5} />
+                <span>{book.name}</span>
+            </div>
+            <div class="rotate-0 transition-transform" class:rotate-180={openedBooks.has(book.id)}>
+                <ChevronDown class="size-4" />
+            </div>
+        </button>
+        {#if openedBooks.has(book.id)}
+            <div class="pl-4" transition:slide={{ duration: 200 }}>
+                <PageList {book} />
+            </div>
+        {/if}
+    </div>
 {/each}

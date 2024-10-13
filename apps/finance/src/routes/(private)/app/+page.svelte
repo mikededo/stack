@@ -28,19 +28,17 @@
 <PinnedPages />
 <section class="flex h-full flex-col gap-3">
     <h2 class="text-2xl">Your books</h2>
-    <div>
-        {#if $booksQuery.isLoading}
-            <div transition:fade={{ duration: 100 }}>
-                <BookAccordionSkeleton />
-            </div>
-        {:else if $booksQuery.data?.length}
-            <div transition:fade={{ delay: 100, duration: 100 }}>
-                <BookAccordion books={$booksQuery.data} />
-            </div>
-        {:else if !$booksQuery.isError}
-            <EmptyBookState />
-        {/if}
-    </div>
+    {#if $booksQuery.isLoading}
+        <div transition:fade={{ duration: 100 }}>
+            <BookAccordionSkeleton />
+        </div>
+    {:else if $booksQuery.data?.length}
+        <div transition:fade={{ delay: 100, duration: 100 }}>
+            <BookAccordion books={$booksQuery.data} />
+        </div>
+    {:else if !$booksQuery.isError}
+        <EmptyBookState />
+    {/if}
 </section>
 
 <CreateBookDialog />
