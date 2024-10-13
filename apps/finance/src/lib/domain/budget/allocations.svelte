@@ -1,6 +1,3 @@
-<script context="module" lang="ts">
-</script>
-
 <script lang="ts">
     import { useMoneyMask, usePercentageMask } from '@stack/actions';
     import { IconButton, Input, TextIconButton } from '@stack/ui';
@@ -43,7 +40,7 @@
     });
 </script>
 
-<div class="flex flex-col gap-4 rounded-lg border border-surface-200 p-6 pt-4">
+<div class="flex flex-col gap-4 rounded-md border border-surface-200 p-6 pt-4">
     <div>
         <h2 class="text-xl font-semibold">Budget allocations</h2>
         <p class="text-sm italic text-surface-700">

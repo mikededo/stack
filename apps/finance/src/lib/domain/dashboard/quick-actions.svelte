@@ -67,14 +67,14 @@
     <div class="grid grid-cols-2 gap-2 lg:grid-cols-3 xl:grid-cols-4">
         {#each Actions as { disabled, icon, loading, name, onClick, subtitle }}
             <button
-                class="group flex w-full flex-col gap-3 rounded-lg border border-surface-200 bg-white p-3 text-left transition-all duration-150 hover:border-primary-300 disabled:cursor-not-allowed disabled:hover:border-surface-200"
+                class="group flex w-full flex-col gap-3 rounded-md border border-surface-200 bg-white p-3 text-left transition-all duration-150 hover:border-primary-300 disabled:cursor-not-allowed disabled:hover:border-surface-200"
                 disabled={disabled || loading}
                 class:animate-pulse={loading}
                 onclick={onClick}
             >
                 <div class="flex w-full items-start justify-between">
                     <div
-                        class="flex size-10 items-center justify-center rounded-lg bg-primary-500 p-2 group-disabled:bg-surface-200"
+                        class="flex size-10 items-center justify-center rounded-md bg-primary-500 p-2 group-disabled:bg-surface-200"
                     >
                         <svelte:component this={icon} class="stroke-white" strokeWidth={1.75} />
                     </div>

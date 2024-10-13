@@ -29,7 +29,6 @@
 <section class="flex h-full flex-col gap-3">
     <h2 class="text-2xl">Your books</h2>
     <div>
-        <!-- <BookAccordionSkeleton /> -->
         {#if $booksQuery.isLoading}
             <div transition:fade={{ duration: 100 }}>
                 <BookAccordionSkeleton />

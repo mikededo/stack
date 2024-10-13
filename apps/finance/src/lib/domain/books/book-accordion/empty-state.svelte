@@ -10,7 +10,7 @@
 </script>
 
 <button
-    class="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-surface-200 p-3 text-center text-sm text-surface-700 outline-none transition-all hover:border-primary-300"
+    class="flex w-full items-center justify-center gap-2 rounded-md border border-dashed border-surface-200 p-3 text-center text-sm text-surface-700 outline-none transition-all hover:border-primary-300"
     transition:fade={{ delay: 100, duration: 100 }}
     onclick={onClick}
 >

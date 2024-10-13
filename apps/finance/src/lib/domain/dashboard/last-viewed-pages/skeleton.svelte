@@ -4,7 +4,7 @@
 
 {#each { length: 3 } as _, i (i)}
     <div
-        class="flex shrink-0 animate-pulse flex-col gap-2 rounded-lg border border-surface-200 bg-white p-3"
+        class="flex shrink-0 animate-pulse flex-col gap-2 rounded-md border border-surface-200 bg-white p-3"
     >
         <div class="flex items-center gap-0.5">
             <div class="h-5 w-24 rounded-md bg-surface-200"></div>
