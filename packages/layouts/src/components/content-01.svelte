@@ -40,28 +40,24 @@
     </div>
 </header>
 
-<div class="l-flex l-w-full l-flex-col l-overflow-hidden l-bg-background md:l-flex-row">
-    <!-- Desktop navigation -->
-    <div class="l-hidden l-h-content l-overflow-x-hidden l-border-r l-border-surface-200 l-px-2 md:l-block md:l-min-w-64">
-        <nav class="l-h-full l-gap-1 l-py-10">
-            <ul class="l-flex l-w-full l-flex-col l-gap-1">
-                {#each tabs as { disabled, href, Icon, name } (href)}
-                    <li>
-                        <a
-                            class="l-flex l-rounded-md l-w-full l-cursor-pointer l-items-center l-justify-between l-px-3 l-py-2 l-text-sm l-font-semibold l-transition-colors aria-disabled:l-pointer-events-none aria-disabled:l-text-surface-400 aria-current:l-bg-primary-100 aria-current:l-text-primary aria-not-current:hover:l-bg-primary-100"
-                            aria-current={isPageActive(href)}
-                            aria-disabled={disabled}
-                            role="tab"
-                            {href}
-                        >
-                            <span>{name}</span>
-                            <Icon size={20} strokeWidth={2} />
-                        </a>
-                    </li>
-                {/each}
-            </ul>
-        </nav>
-    </div>
+<div class="l-flex l-w-full l-flex-col l-overflow-hidden l-bg-background">
+    <nav class="l-w-full l-border-b l-hidden md:l-block">
+        <ul class="l-flex l-gap-1 l-items-center l-justify-center">
+            {#each tabs as { disabled, href, name } (href)}
+                <li>
+                    <a
+                        class="l-flex l-w-full l-cursor-pointer l-items-center l-border-b-2 l-border-transparent l-h-12 l-justify-between l-px-3 l-py-2 l-text-sm l-font-semibold l-transition-colors aria-disabled:l-pointer-events-none aria-disabled:l-text-surface-400 aria-current:l-border-primary aria-not-current:hover:l-text-foreground aria-current:l-text-primary aria-not-current:l-text-surface-800 aria-not-current:hover:l-border-primary"
+                        aria-current={isPageActive(href)}
+                        aria-disabled={disabled}
+                        role="tab"
+                        {href}
+                    >
+                        <span>{name}</span>
+                    </a>
+                </li>
+            {/each}
+        </ul>
+    </nav>
 
     <!-- Mobile navigation -->
     <header class="l-block md:l-hidden">
@@ -74,12 +70,10 @@
         </nav>
     </header>
 
-    <main
-        class="l-w-full l-flex-1 l-overflow-hidden l-bg-white l-scrollbar-thin md:l-w-content-md lg:l-scrollbar"
-    >
+    <main class="l-scrollbar-thin">
         {#key pathname}
             <div
-                class="l-flex l-h-content l-flex-col l-gap-4 l-overflow-y-auto l-p-6 md:l-px-10 md:l-py-8"
+                class="l-flex l-h-content l-flex-col l-gap-4 l-overflow-y-auto l-p-6 md:l-px-10"
                 in:fade={{ delay: 100, duration: 100 }}
                 out:fade={{ duration: 100 }}
             >

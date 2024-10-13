@@ -11,7 +11,7 @@ export default {
   theme: {
     extend: {
       height: ({ theme }) => ({
-        content: `calc(100vh - ${theme('spacing.12')})`,
+        content: `calc(100vh - ${theme('spacing.24')})`,
         'top-bar': theme('spacing.12')
       }),
       width: {
