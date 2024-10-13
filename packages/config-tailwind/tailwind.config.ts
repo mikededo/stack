@@ -3,6 +3,8 @@ import type { Config } from 'tailwindcss';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 import plugin from 'tailwindcss/plugin';
 
+export * from './aria';
+
 export const theme: Config['theme'] = {
   borderRadius: {
     '2xl': '1rem',
@@ -156,3 +158,4 @@ export const typography = () =>
       }
     });
   });
+
