@@ -7,8 +7,6 @@
     import { Ellipsis } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
-    import { page } from '$app/stores';
-
     type Tab = {
         href: string;
         Icon: ComponentType<LucideIcon>;
@@ -17,6 +15,7 @@
     };
     type Props = {
         children: Snippet;
+        isPageActive: (href: string) => boolean;
         /**
          * Pathname needs to be provided as the layout has a transition on changing pages
          */
@@ -24,7 +23,7 @@
         tabs: Tab[];
         userName: string;
     };
-    const { children, pathname, tabs, userName }: Props = $props();
+    const { children, isPageActive, pathname, tabs, userName }: Props = $props();
 </script>
 
 <header class="l-hidden l-h-top-bar l-border-b l-border-surface-200 l-w-full md:l-flex">
@@ -49,14 +48,14 @@
                 {#each tabs as { disabled, href, Icon, name } (href)}
                     <li>
                         <a
-                            class="l-flex l-w-full l-cursor-pointer l-items-center l-justify-between l-px-3 l-py-2 l-text-sm l-font-semibold l-transition-colors aria-disabled:l-pointer-events-none aria-disabled:l-text-surface-400 aria-current:l-bg-primary-100 aria-current:l-text-primary aria-not-current:hover:l-bg-primary-100"
-                            aria-current={href === $page.url.pathname}
+                            class="l-flex l-rounded-md l-w-full l-cursor-pointer l-items-center l-justify-between l-px-3 l-py-2 l-text-sm l-font-semibold l-transition-colors aria-disabled:l-pointer-events-none aria-disabled:l-text-surface-400 aria-current:l-bg-primary-100 aria-current:l-text-primary aria-not-current:hover:l-bg-primary-100"
+                            aria-current={isPageActive(href)}
                             aria-disabled={disabled}
                             role="tab"
                             {href}
                         >
                             <span>{name}</span>
-                            <svelte:component this={Icon} class="l-size-4" strokeWidth={2} />
+                            <Icon class="l-size-4" strokeWidth={2} />
                         </a>
                     </li>
                 {/each}
