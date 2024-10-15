@@ -21,6 +21,6 @@
 </script>
 
 <Button {...restProps} class={buttonClasses}>
-    <svelte:component this={Icon} class="size-4" />
+    <Icon class="size-4" />
     <span>{label}</span>
 </Button>

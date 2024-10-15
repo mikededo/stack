@@ -32,7 +32,8 @@
 <button class={classes}
     use:useActions={use}
     aria-current={active}
-    onclick={onClick}>
-    <svelte:component this={Icon} class="ui-size-4 ui-shrink-0" strokeWidth={active ? 2.25 : 2} />
+    onclick={onClick}
+>
+    <Icon class="ui-size-4 ui-shrink-0" strokeWidth={active ? 2.25 : 2} />
     <span class="ui-shrink-0">{label}</span>
 </button>

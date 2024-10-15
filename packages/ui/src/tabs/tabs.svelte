@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script lang="ts" module>
     import type { Icon as LucideIcon } from 'lucide-svelte';
     import type { ComponentType } from 'svelte';
 
@@ -58,7 +58,7 @@
                 use:useTabButton
                 onclick={onClick}
             >
-                <svelte:component this={Icon} class="size-4" />
+                <Icon class="size-4" />
                 <span>{name}</span>
             </button>
         {:else}
@@ -67,7 +67,7 @@
                 use:useTabButton
                 onclick={onClick}
             >
-                <svelte:component this={Icon} class="size-4" />
+                <Icon class="size-4" />
                 <span>{name}</span>
             </button>
         {/if}

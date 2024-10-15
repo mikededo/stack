@@ -92,7 +92,7 @@
         disabled={showMenu || loading}
         onclick={onToggle}>
         {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
-        {#if Icon && !loading}<svelte:component this={Icon} class="size-4" />{/if}
+        {#if Icon && !loading}<Icon class="size-4" />{/if}
         {#if label}<span>{label}</span>{/if}
     </Button>
 

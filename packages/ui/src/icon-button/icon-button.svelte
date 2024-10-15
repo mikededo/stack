@@ -28,10 +28,10 @@
 
 {#if 'href' in restProps}
     <a {...restProps as HTMLAnchorAttributes} class={wrapperClass} {href}>
-        <svelte:component this={Icon} class={iconClass} {...iconProps} />
+        <Icon class={iconClass} {...iconProps} />
     </a>
 {:else}
     <button {...restProps as HTMLButtonAttributes} class={wrapperClass}>
-        <svelte:component this={Icon} class={iconClass} {...iconProps} />
+        <Icon class={iconClass} {...iconProps} />
     </button>
 {/if}
