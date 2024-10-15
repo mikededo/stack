@@ -41,19 +41,19 @@
 
     const Actions = $derived([
         {
-            icon: BookPlus,
+            Icon: BookPlus,
             name: 'Add a new book',
             onClick: onNewBookClick,
             subtitle: 'Create a new empty book'
         },
         {
-            icon: FilePlus,
+            Icon: FilePlus,
             name: 'Add a new page',
             subtitle: 'Add a page to a new or existing book'
         },
         {
             disabled: !$lastViewedPages.data?.length,
-            icon: FileClock,
+            Icon: FileClock,
             loading: $lastViewedPages.isLoading,
             name: 'Open last viewed page',
             onClick: onOpenLastViewedPage,
@@ -65,7 +65,7 @@
 <section class="flex flex-col gap-3 md:mb-4">
     <p class="text-sm font-semibold">Quick actions</p>
     <div class="grid grid-cols-2 gap-2 lg:grid-cols-3 xl:grid-cols-4">
-        {#each Actions as { disabled, icon, loading, name, onClick, subtitle }}
+        {#each Actions as { disabled, Icon, loading, name, onClick, subtitle }}
             <button
                 class="group flex w-full flex-col gap-3 rounded-md border border-surface-200 bg-white p-3 text-left transition-all duration-150 hover:border-primary-300 disabled:cursor-not-allowed disabled:hover:border-surface-200"
                 disabled={disabled || loading}
@@ -76,7 +76,7 @@
                     <div
                         class="flex size-10 items-center justify-center rounded-md bg-primary-500 p-2 group-disabled:bg-surface-200"
                     >
-                        <svelte:component this={icon} class="stroke-white" strokeWidth={1.75} />
+                        <Icon class="stroke-white" strokeWidth={1.75} />
                     </div>
                     <Plus
                         class="size-4 stroke-surface-700 transition-all group-hover:rotate-90 group-hover:stroke-primary group-disabled:rotate-0 group-disabled:stroke-surface-700"

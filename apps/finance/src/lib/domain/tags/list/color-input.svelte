@@ -1,7 +1,3 @@
-<script context="module" lang="ts">
-    const AllowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
-</script>
-
 <script lang="ts">
     import type { Action } from 'svelte/action';
     import type { HTMLInputAttributes, KeyboardEventHandler } from 'svelte/elements';
@@ -22,6 +18,7 @@
         value = $bindable(),
         ...rest
     }: Props = $props();
+    const ALLOWED_KEYS = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
 
     const withAutofocus: Action = node => (autofocus ? useAutofocus(node) : undefined);
 
@@ -38,7 +35,7 @@
             }
 
             const length = e.currentTarget.value.length;
-            if ((length >= 7 && AllowedKeys.includes(e.key)) || length < 7) {
+            if ((length >= 7 && ALLOWED_KEYS.includes(e.key)) || length < 7) {
                 return;
             }
 
