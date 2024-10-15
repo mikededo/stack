@@ -51,7 +51,7 @@
                             {href}
                         >
                             <span>{name}</span>
-                            <svelte:component this={Icon} class="size-4" strokeWidth={2} />
+                            <Icon class="size-4" strokeWidth={2} />
                         </a>
                     </li>
                 {/each}
