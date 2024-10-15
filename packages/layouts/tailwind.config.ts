@@ -9,9 +9,14 @@ export default {
   prefix: 'l-',
   presets: [{ theme }],
   theme: {
+    container: {
+      center: true,
+      screens: { '2xl': '1360px', xl: '1100px' }
+    },
     extend: {
       height: ({ theme }) => ({
-        content: `calc(100vh - ${theme('spacing.24')})`,
+        content: `calc(100vh - ${theme('spacing.12')})`,
+        'content-nav': `calc(100vh - ${theme('spacing.24')})`,
         'top-bar': theme('spacing.12')
       }),
       width: {

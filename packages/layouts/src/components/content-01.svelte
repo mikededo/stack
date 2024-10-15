@@ -41,39 +41,43 @@
 </header>
 
 <div class="l-flex l-w-full l-flex-col l-overflow-hidden l-bg-background">
-    <nav class="l-w-full l-border-b l-hidden md:l-block">
-        <ul class="l-flex l-gap-1 l-items-center l-justify-center">
-            {#each tabs as { disabled, href, name } (href)}
-                <li>
-                    <a
-                        class="l-flex l-w-full l-cursor-pointer l-items-center l-border-b-2 l-border-transparent l-h-12 l-justify-between l-px-3 l-py-2 l-text-sm l-font-semibold l-transition-colors aria-disabled:l-pointer-events-none aria-disabled:l-text-surface-400 aria-current:l-border-primary aria-not-current:hover:l-text-foreground aria-current:l-text-primary aria-not-current:l-text-surface-800 aria-not-current:hover:l-border-primary"
-                        aria-current={isPageActive(href)}
-                        aria-disabled={disabled}
-                        role="tab"
-                        {href}
-                    >
-                        <span>{name}</span>
-                    </a>
-                </li>
-            {/each}
-        </ul>
-    </nav>
-
-    <!-- Mobile navigation -->
-    <header class="l-block md:l-hidden">
-        <nav class="l-flex l-h-12 l-items-center l-justify-between l-px-2">
-            <div class="l-flex l-items-center l-gap-2">
-                <Logo />
-                <p class="l-font-bold">Stack</p>
-            </div>
-            <Ellipsis class="l-size-4" strokeWidth={2.5} />
+    {#if tabs.length}
+        <nav class="l-w-full l-border-b l-hidden md:l-block">
+            <ul class="l-flex l-gap-1 l-items-center l-justify-center">
+                {#each tabs as { disabled, href, name } (href)}
+                    <li>
+                        <a
+                            class="l-flex l-w-full l-cursor-pointer l-items-center l-border-b-2 l-border-transparent l-h-12 l-justify-between l-px-3 l-py-2 l-text-sm l-font-semibold l-transition-colors aria-disabled:l-pointer-events-none aria-disabled:l-text-surface-400 aria-current:l-border-primary aria-not-current:hover:l-text-foreground aria-current:l-text-primary aria-not-current:l-text-surface-800 aria-not-current:hover:l-border-primary"
+                            aria-current={isPageActive(href)}
+                            aria-disabled={disabled}
+                            role="tab"
+                            {href}
+                        >
+                            <span>{name}</span>
+                        </a>
+                    </li>
+                {/each}
+            </ul>
         </nav>
-    </header>
+
+        <!-- Mobile navigation -->
+        <header class="l-block md:l-hidden">
+            <nav class="l-flex l-h-12 l-items-center l-justify-between l-px-2">
+                <div class="l-flex l-items-center l-gap-2">
+                    <Logo />
+                    <p class="l-font-bold">Stack</p>
+                </div>
+                <Ellipsis class="l-size-4" strokeWidth={2.5} />
+            </nav>
+        </header>
+    {/if}
 
     <main class="l-scrollbar-thin">
         {#key pathname}
             <div
-                class="l-flex l-h-content l-flex-col l-gap-4 l-overflow-y-auto l-p-6 md:l-px-10"
+                class="l-flex l-flex-col l-gap-4 l-overflow-y-auto l-p-6 md:l-px-10"
+                class:l-h-content={!tabs.length}
+                class:l-h-content-nav={tabs.length > 0}
                 in:fade={{ delay: 100, duration: 100 }}
                 out:fade={{ duration: 100 }}
             >
