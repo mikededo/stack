@@ -1,11 +1,3 @@
-<script context="module" lang="ts">
-    type MenuState = {
-        focusableElements: HTMLElement[];
-        focusIndex: number;
-        shown: boolean;
-    };
-</script>
-
 <script lang="ts">
     import { clickAway } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
@@ -16,6 +8,12 @@
 
     import { Button } from '../button/index.js';
     import { FloatingCard } from '../floating-card/index.js';
+
+    type MenuState = {
+        focusableElements: HTMLElement[];
+        focusIndex: number;
+        shown: boolean;
+    };
 
     type Props = {
         children: Snippet;
