@@ -1,34 +1,16 @@
-import type { Database } from '@stack/supabase';
+import { createSupabaseClient } from '@stack/supabase';
 
 import type { LayoutLoad } from './$types';
 
-import {
-  createBrowserClient,
-  createServerClient,
-  isBrowser
-} from '@supabase/ssr';
 import { QueryClient } from '@tanstack/svelte-query';
 
 import { browser } from '$app/environment';
-import { getEnv } from '$lib/config';
+import { env } from '$env/dynamic/public';
 
 export const load: LayoutLoad = async ({ data, depends, fetch }) => {
   depends('supabase:auth');
 
-  const { supabaseAnonKey, supabaseUrl } = getEnv();
-  const supabase = isBrowser()
-    ? createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
-      global: { fetch }
-    })
-    : createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
-      cookies: {
-        getAll() {
-          return data.cookies;
-        }
-      },
-      global: { fetch }
-    });
-
+  const supabase = createSupabaseClient(fetch, data.cookies, env);
   if (!supabase) {
     throw new Error('Supabase client not set');
   }
