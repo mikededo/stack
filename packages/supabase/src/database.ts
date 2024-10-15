@@ -1393,6 +1393,8 @@ export type Database = {
           owner_id: string;
           description?: null | string;
           id?: never;
+          last_updated?: null | string;
+          website_url?: null | string;
         };
         Relationships: [
           {
@@ -1406,14 +1408,18 @@ export type Database = {
         Row: {
           description: null | string;
           id: number;
+          last_updated: null | string;
           name: string;
           owner_id: string;
+          website_url: null | string;
         };
         Update: {
           description?: null | string;
           id?: never;
+          last_updated?: null | string;
           name?: string;
           owner_id?: string;
+          website_url?: null | string;
         };
       };
       translations: {
