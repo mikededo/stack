@@ -14,6 +14,8 @@ type UseCellArgs = {
 type RowStaticPositions = 'row-end' | 'row-start';
 type GridStaticPositions = 'first-cell' | 'first-row' | 'last-cell' | 'last-row';
 type MoveArgs = { node: HTMLElement } & (
+  | { position: GridStaticPositions }
+  | { position: RowStaticPositions; row: number }
   | {
     x: number;
     /**
@@ -21,8 +23,6 @@ type MoveArgs = { node: HTMLElement } & (
      */
     yOffset?: number;
   }
-  | { position: GridStaticPositions }
-  | { position: RowStaticPositions; row: number }
 );
 
 /**

@@ -135,8 +135,8 @@
             {@render value_or_placeholder(amount ? `€ ${amount}` : undefined, '€ 0.00')}
         {/snippet}
         {#snippet amountEdit()}
-              <Amount bind:value={amount} use={[useUpsertExpense]} />
-          {/snippet}
+            <Amount bind:value={amount} use={[useUpsertExpense]} />
+        {/snippet}
 
         {#snippet commentContent()}
             {@render value_or_placeholder(comment, 'What\'s this expense about?')}
