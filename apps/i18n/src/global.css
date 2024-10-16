@@ -1,4 +1,5 @@
 @import url('@stack/ui/styles');
+@import url('@stack/layouts/styles');
 
 @tailwind base;
 @tailwind components;

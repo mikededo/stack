@@ -19,10 +19,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@stack/layouts": "workspace:*",
+    "@stack/supabase": "workspace:*",
+    "@stack/ui": "workspace:*",
+    "@stack/utils": "workspace:*",
     "@supabase/ssr": "0.5.1",
     "@supabase/supabase-js": "2.45.4",
     "@tanstack/svelte-query": "5.59.12",
-    "lucide-svelte": "0.452.0"
+    "lucide-svelte": "0.452.0",
+    "tailwind-merge": "2.5.3"
   },
   "devDependencies": {
     "@playwright/test": "1.48.0",
