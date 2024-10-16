@@ -1356,9 +1356,10 @@ export type Database = {
       };
       project_languages: {
         Insert: {
+          language_id: number;
+          project_id: number;
           id?: never;
-          language_id?: null | number;
-          project_id?: null | number;
+          is_default?: boolean;
         };
         Relationships: [
           {
@@ -1378,13 +1379,15 @@ export type Database = {
         ];
         Row: {
           id: number;
-          language_id: null | number;
-          project_id: null | number;
+          is_default: boolean;
+          language_id: number;
+          project_id: number;
         };
         Update: {
           id?: never;
-          language_id?: null | number;
-          project_id?: null | number;
+          is_default?: boolean;
+          language_id?: number;
+          project_id?: number;
         };
       };
       projects: {
