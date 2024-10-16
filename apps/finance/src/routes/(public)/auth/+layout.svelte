@@ -7,4 +7,6 @@
     const { children }: Props = $props();
 </script>
 
-<Auth appName="Finance" {children} />
+<Auth appName="Finance">
+    {@render children()}
+</Auth>
