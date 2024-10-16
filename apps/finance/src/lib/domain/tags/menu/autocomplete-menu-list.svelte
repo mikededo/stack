@@ -15,9 +15,8 @@
         inputRef: HTMLInputElement | undefined;
         isTagActive: (tag: number) => boolean;
         onClick: (tag: number) => void;
-        onHideAutocomplete: () => void;
     };
-    const { book, filterTags, inputRef, isTagActive, onClick, onHideAutocomplete }: Props = $props();
+    const { book, filterTags, inputRef, isTagActive, onClick }: Props = $props();
 
     const tagsQuery = useBookTags(book);
     const filteredTags = $derived.by(() => {
@@ -27,24 +26,28 @@
 
         return $tagsQuery.data.filter(filterTags);
     });
-    const menuOptions = $derived({
-        inputRef,
-        onHideAutocomplete,
-        onValueChange: onClick
-    });
+    const menuOptions = $derived({ inputRef, onValueChange: onClick });
+
+    $inspect(filteredTags);
 </script>
 
 {#if $tagsQuery.data}
-    {#each filteredTags as tag (tag.id)}
-        <div class="w-full" style="--tag-color: {tag.color}; --tag-color-hover: {tag.color}22;">
-            <MenuOption
-                class="tag text-[var(--tag-color)] aria-current:bg-white hover:bg-[var(--tag-color-hover)] focus:bg-[var(--tag-color-hover)]"
-                active={isTagActive?.(tag.id)}
-                Icon={isTagActive?.(tag.id) ? CircleCheck : Circle}
-                label={tag.name}
-                use={[[useInputMenuOption, { ...menuOptions, value: tag }]]}
-                unstyled
-            />
+    {#if filteredTags.length}
+        {#each filteredTags as tag (tag.id)}
+            <div class="w-full" style="--tag-color: {tag.color}; --tag-color-hover: {tag.color}22;">
+                <MenuOption
+                    class="tag text-[var(--tag-color)] aria-current:bg-white hover:bg-[var(--tag-color-hover)] focus:bg-[var(--tag-color-hover)]"
+                    active={isTagActive?.(tag.id)}
+                    Icon={isTagActive?.(tag.id) ? CircleCheck : Circle}
+                    label={tag.name}
+                    use={[[useInputMenuOption, { ...menuOptions, value: tag }]]}
+                    unstyled
+                />
+            </div>
+        {/each}
+    {:else}
+        <div class="h-9 w-full flex items-center px-3 gap-1">
+            <p class="text-sm text-surface-800">No tags matching your input!</p>
         </div>
-    {/each}
+    {/if}
 {/if}
