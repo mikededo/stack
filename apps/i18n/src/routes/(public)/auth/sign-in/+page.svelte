@@ -44,7 +44,7 @@
 
 <form class="flex h-full w-full flex-col items-center justify-center gap-8" onsubmit={onSubmit}>
     <div class="flex w-full flex-col items-center gap-2">
-        <h1 class="text-3xl font-bold">Finance 💰</h1>
+        <h1 class="text-3xl font-bold">i18n 🌍</h1>
         <p class="text-foreground/75">Log in to your account to continue</p>
         {#if errorMessage}
             <p class="text-destructive">{errorMessage}</p>
