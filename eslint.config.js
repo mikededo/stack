@@ -34,6 +34,11 @@ export default antfu({
   typescript: {
     overrides: {
       'no-use-before-define': 'off',
+      'style/indent': [
+        'error',
+        2,
+        { offsetTernaryExpressions: true }
+      ],
       'ts/consistent-type-definitions': ['error', 'type'],
       'ts/consistent-type-imports': ['error', {
         disallowTypeAnnotations: false,

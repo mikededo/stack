@@ -2,8 +2,17 @@ import type { QueryData, Session, SupabaseClient, User } from '@supabase/supabas
 
 import type { Database } from './database';
 
+type Schema = keyof Database;
+type SchemaFunctions<S extends Schema> = keyof Database[S]['Functions'];
+
 export type Client = SupabaseClient<Database>;
 export type Result<T extends (...args: any) => any> = QueryData<ReturnType<T>>;
+
+export type FunctionArgs<
+  S extends Schema = 'public',
+  F extends SchemaFunctions<S> = never
+> = F extends never ? never :
+  'Args' extends keyof Database[S]['Functions'][F] ? Database[S]['Functions'][F]['Args'] : never;
 
 export type SupabaseLocals = {
   safeGetSession: () => Promise<{ session: null | Session; user: null | User }>;

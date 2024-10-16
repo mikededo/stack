@@ -1304,7 +1304,16 @@ export type Database = {
       [_ in never]: never
     };
     Functions: {
-      [_ in never]: never
+      create_project: {
+        Returns: number;
+        Args: {
+          p_default_language_id: number;
+          p_description: string;
+          p_language_ids: number[];
+          p_name: string;
+          p_website_url?: string;
+        };
+      };
     };
     Tables: {
       keys: {
