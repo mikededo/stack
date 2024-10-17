@@ -2,6 +2,7 @@ import type { ActionArray } from '@stack/actions';
 
 import type { ComponentProps, Snippet } from 'svelte';
 
+import type { PrefixedKeys } from '../../../utils/src/types.js';
 import type { Input } from '../input/index.js';
 
 type InputSnippetProps = {
@@ -39,9 +40,11 @@ type InputSnippetProps = {
   value: string;
 };
 
+type InputComponentProps = ComponentProps<typeof Input>;
+type InputEvents = PrefixedKeys<PrefixedKeys<InputComponentProps, 'on:', true>, 'on'>;
 type InputProps = Pick<
-  ComponentProps<typeof Input>,
-  'class' | 'color' | 'disabled' | 'invalid' | 'label' | 'name' | 'placeholder'
+  InputComponentProps,
+  'class' | 'color' | 'disabled' | 'invalid' | 'label' | 'name' | 'placeholder' | keyof InputEvents
 >;
 
 export type Props = (
