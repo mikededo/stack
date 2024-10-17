@@ -34,11 +34,6 @@ export default antfu({
   typescript: {
     overrides: {
       'no-use-before-define': 'off',
-      'style/indent': [
-        'error',
-        2,
-        { offsetTernaryExpressions: true }
-      ],
       'ts/consistent-type-definitions': ['error', 'type'],
       'ts/consistent-type-imports': ['error', {
         disallowTypeAnnotations: false,
@@ -85,6 +80,11 @@ export default antfu({
       rules: {
         'style/brace-style': ['error', '1tbs'],
         'style/comma-dangle': ['error', 'never'],
+        'style/indent': [
+          'error',
+          2,
+          { flatTernaryExpressions: true, offsetTernaryExpressions: true }
+        ],
         'style/no-multiple-empty-lines': ['error', { max: 1 }],
         'style/operator-linebreak': ['error', 'after', {
           overrides: { ':': 'before', '?': 'before' }

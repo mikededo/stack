@@ -12,6 +12,10 @@ export type MutationResult<
   >
 >;
 
+export type PrefixedKeys<T, Prefix extends string, Invert extends boolean = false> = {
+  [K in keyof T as K extends `${Prefix}${string}` ? (Invert extends true ? never : K) : (Invert extends true ? K : never)]: T[K];
+};
+
 export type CamelCase<S extends string> = S extends `${infer T}_${infer U}`
   ? `${T}${Capitalize<CamelCase<U>>}`
   : S;
