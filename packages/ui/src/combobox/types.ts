@@ -1,8 +1,10 @@
 import type { ActionArray } from '@stack/actions';
 
-import type { Snippet } from 'svelte';
+import type { ComponentProps, Snippet } from 'svelte';
 
-type InputProps = {
+import type { Input } from '../input/index.js';
+
+type InputSnippetProps = {
   /**
    * Forwarded ref from {@link Props.inputRef}. If no `inputRef` is passed to
    * the combobox, it will forward the internal reference.
@@ -37,7 +39,24 @@ type InputProps = {
   value: string;
 };
 
-export type Props = {
+type InputProps = Pick<
+  ComponentProps<typeof Input>,
+  'class' | 'color' | 'disabled' | 'invalid' | 'label' | 'name' | 'placeholder'
+>;
+
+export type Props = (
+  {
+    /**
+     * Optional input to be rendered instead of the default one.
+     */
+    input: Snippet<[InputSnippetProps]>;
+    inputProps?: never;
+  } | {
+    inputProps: InputProps;
+    input?: never;
+  }
+) &
+{
   /**
    * The list of options that will be displayed in the dropdown.
    * This is a function or component that renders the options.
@@ -48,10 +67,6 @@ export type Props = {
    * to be a function or component that renders the selected items.
    */
   selectedOptions: Snippet;
-  /**
-   * Optional input to be rendered instead of the default one.
-   */
-  input?: Snippet<[InputProps]>;
   /**
    * A reference to the input element. This is exposed so that the parent
    * component can directly manipulate or access the input field, if

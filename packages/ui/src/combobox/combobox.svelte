@@ -7,11 +7,14 @@
     import type { FloatingCardPosition } from '../floating-card/index.js';
     import type { Props } from './types.js';
 
+    import { twMerge } from 'tailwind-merge';
+
     import { FloatingCard } from '../floating-card/index.js';
     import { Input } from '../input/index.js';
 
     let {
         input,
+        inputProps,
         inputRef = $bindable(),
         onArrowDownPress,
         onArrowUpPress,
@@ -83,13 +86,19 @@
     });
 </script>
 
-<div class="ui-flex ui-flex-wrap ui-items-center ui-gap-1" bind:this={containerRef}>
+<div class="ui-flex ui-w-full ui-flex-wrap ui-items-center ui-gap-1" bind:this={containerRef}>
     <!-- Render items as chip or custom element -->
     {@render selectedOptions()}
     {#if input}
         {@render input({ ref: inputRef, use: [useInput], value })}
     {:else}
-        <Input bind:ref={inputRef} bind:value use={[useInput]} />
+        <Input
+            {...inputProps}
+            class={twMerge('ui-w-full', inputProps?.class)}
+            bind:ref={inputRef}
+            bind:value
+            use={[useInput]}
+        />
     {/if}
 </div>
 
