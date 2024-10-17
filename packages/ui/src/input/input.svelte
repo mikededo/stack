@@ -36,8 +36,8 @@
 
     const classes = $derived(
         twMerge(
-            'ui-h-10 ui-rounded ui-border ui-px-4 ui-outline-none ui-transition-colors disabled:ui-cursor-not-allowed',
             COLORS[color ?? 'primary'],
+            'ui-h-10 ui-rounded ui-border ui-px-4 ui-outline-none ui-transition-colors disabled:ui-cursor-not-allowed disabled:ui-border-border',
             invalid && 'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
             rest.class
         )
@@ -57,7 +57,7 @@
 {/snippet}
 
 {#if label}
-    <div class="ui-flex ui-flex-col ui-gap-2">
+    <div class="ui-flex ui-flex-col ui-gap-2 ui-w-full">
         <label class="ui-text-xs ui-font-semibold ui-uppercase" for={name}>{label}</label>
         {@render content()}
     </div>
