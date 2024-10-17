@@ -2,12 +2,16 @@
     import type { Action } from 'svelte/action';
 
     import { portal, useTrapFocus } from '@stack/actions';
-    import { FloatingCard, type FloatingCardPosition } from '@stack/ui';
     import { getFocusableElements, Keys } from '@stack/utils';
 
+    import type { FloatingCardPosition } from '../floating-card/index.js';
     import type { Props } from './types.js';
 
+    import { FloatingCard } from '../floating-card/index.js';
+    import { Input } from '../input/index.js';
+
     let {
+        input,
         inputRef = $bindable(),
         onArrowDownPress,
         onArrowUpPress,
@@ -15,7 +19,7 @@
         options,
         selectedOptions,
         show,
-        value = $bindable()
+        value = $bindable('')
     }: Props = $props();
 
     let position = $state<FloatingCardPosition | undefined>();
@@ -77,25 +81,22 @@
             width: client.width
         };
     });
-
-    $inspect(options);
 </script>
 
 <div class="ui-flex ui-flex-wrap ui-items-center ui-gap-1" bind:this={containerRef}>
     <!-- Render items as chip or custom element -->
     {@render selectedOptions()}
-    <input
-        class="w-full min-w-12 flex-1 outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
-        bind:this={inputRef}
-        bind:value
-        use:useInput
-    />
+    {#if input}
+        {@render input({ ref: inputRef, use: [useInput], value })}
+    {:else}
+        <Input bind:ref={inputRef} bind:value use={[useInput]} />
+    {/if}
 </div>
 
 {#if showOptions && show}
     <!-- Max height set to 156 as each menu option is 36 + y padding + gap -->
     <FloatingCard
-        class="max-h-[156px] overflow-y-auto"
+        class="ui-max-h-[156px] ui-overflow-y-auto"
         bind:ref={popupRef}
         role="menu"
         tabindex={1}

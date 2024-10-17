@@ -13,6 +13,7 @@
         color?: InputColor;
         invalid?: boolean;
         label?: string;
+        ref?: HTMLInputElement;
         use?: ActionArray;
     } & HTMLInputAttributes;
     let {
@@ -20,6 +21,7 @@
         invalid,
         label,
         name,
+        ref = $bindable<HTMLInputElement>(),
         use = [],
         value = $bindable<string>(''),
         ...rest
@@ -46,6 +48,7 @@
     <input
         {...rest}
         class={classes}
+        bind:this={ref}
         bind:value
         use:useActions={use}
         aria-invalid={invalid}

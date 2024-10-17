@@ -1,3 +1,42 @@
+import type { ActionArray } from '@stack/actions';
+
+import type { Snippet } from 'svelte';
+
+type InputProps = {
+  /**
+   * Forwarded ref from {@link Props.inputRef}. If no `inputRef` is passed to
+   * the combobox, it will forward the internal reference.
+   * Note that binded elements cannot be used as destructured props in the
+   * snippet. See this {@link https://github.com/sveltejs/svelte/discussions/12688#discussioncomment-10215226|comment}.
+   */
+  ref: HTMLInputElement | undefined;
+  /**
+   * List of actions that are forwarded to the custom input element which
+   * provide most of the controls to work with the combobox.
+   *
+   * Should be used as:
+   * ```svelte
+   * <script>
+   *     import { useActions } from '@stack/actions';
+   * </script>
+   *
+   * <Combobox>
+   *    {#snippet input({ use })}
+   *        <input use:useActions={[...use]} />
+   *    {/snippet}
+   * </Combobox>
+   * ```
+   */
+  use: ActionArray;
+  /**
+   * Value of the input. The value *must* be binded to the component, otherwise
+   * it won't behave as expected.
+   * Note that binded elements cannot be used as destructured props in the
+   * snippet. See this {@link https://github.com/sveltejs/svelte/discussions/12688#discussioncomment-10215226|comment}.
+   */
+  value: string;
+};
+
 export type Props = {
   /**
    * The list of options that will be displayed in the dropdown.
@@ -9,6 +48,10 @@ export type Props = {
    * to be a function or component that renders the selected items.
    */
   selectedOptions: Snippet;
+  /**
+   * Optional input to be rendered instead of the default one.
+   */
+  input?: Snippet<[InputProps]>;
   /**
    * A reference to the input element. This is exposed so that the parent
    * component can directly manipulate or access the input field, if
