@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { useActions } from '@stack/actions';
     import { Chip, Combobox } from '@stack/ui';
 
     import type { Tag } from '$lib/db';
@@ -67,6 +68,14 @@
         {#each tags as tag (tag.id)}
             <Chip color={tag.color} onClick={onDeleteTag(tag.id)}>{tag.name}</Chip>
         {/each}
+    {/snippet}
+    {#snippet input(args)}
+        <input
+            class="w-full min-w-12 flex-1 outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+            bind:this={args.ref}
+            bind:value={args.value}
+            use:useActions={args.use}
+        />
     {/snippet}
 
     {#snippet options()}
