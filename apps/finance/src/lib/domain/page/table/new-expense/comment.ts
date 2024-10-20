@@ -13,14 +13,16 @@ export const useOptionButton: Action<HTMLButtonElement, UseOptionButtonArgs> = (
   node,
   { comment, inputRef, onHideAutocomplete, onValueChange }
 ) => {
-  const onOptionClick = () => {
+  const onOptionClick = (e: Event) => {
+    e.stopPropagation();
+
     onValueChange(comment);
     onHideAutocomplete();
   };
 
   const onKeydown = (e: KeyboardEvent) => {
     if (e.key === Keys.Enter) {
-      onOptionClick();
+      onOptionClick(e);
       e.stopPropagation();
     } else if (e.key === Keys.Escape) {
       // Focus input again
@@ -34,24 +36,30 @@ export const useOptionButton: Action<HTMLButtonElement, UseOptionButtonArgs> = (
   };
 
   node.addEventListener('keydown', onKeydown, true);
-  node.addEventListener('mousedown', onOptionClick);
+  node.addEventListener('mousedown', onOptionClick, true);
   node.addEventListener('focus', onOptionFocus);
 };
 
 type UseFieldAutofocusArgs = {
   onClearPreviewValue: () => void;
   onHideAutocomplete: () => void;
+  onValueChange: (value: string) => void;
 };
 
-export const useFieldAutofocus: Action<HTMLElement, UseFieldAutofocusArgs> = (
+export const useComment: Action<HTMLElement, UseFieldAutofocusArgs> = (
   node,
-  { onClearPreviewValue, onHideAutocomplete }
+  { onClearPreviewValue, onHideAutocomplete, onValueChange }
 ) => {
   node.focus();
 
-  const onKeydown = (event: KeyboardEvent) => {
-    if (event.key === Keys.Tab) {
+  const onKeydown = (e: KeyboardEvent) => {
+    if (e.key === Keys.Tab) {
       onHideAutocomplete();
+    } else if (e.key === Keys.Enter) {
+      if ('value' in node) {
+        onValueChange(node.value);
+        e.stopPropagation();
+      }
     }
   };
 

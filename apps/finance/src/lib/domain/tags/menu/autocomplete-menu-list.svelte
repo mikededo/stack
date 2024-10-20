@@ -27,8 +27,6 @@
         return $tagsQuery.data.filter(filterTags);
     });
     const menuOptions = $derived({ inputRef, onValueChange: onClick });
-
-    $inspect(filteredTags);
 </script>
 
 {#if $tagsQuery.data}

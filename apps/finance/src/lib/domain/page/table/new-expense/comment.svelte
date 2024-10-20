@@ -5,12 +5,15 @@
 
     import type { Expense } from '$lib/db';
 
+    import { onMount } from 'svelte';
+
     import { getNewEntryMatches } from '../helpers';
-    import { useFieldAutofocus, useOptionButton } from './comment';
+    import { useComment, useOptionButton } from './comment';
 
     type Props = {
         // TODO: Replace expenses for context
         expenses: Expense[];
+        onOptionClick: (comment: string) => void;
         cardRef?: HTMLDivElement;
         use?: ActionArray;
         value?: string;
@@ -20,13 +23,14 @@
         cardRef = $bindable(),
         expenses,
         onBlur,
+        onOptionClick,
         use = [],
         value = $bindable('')
     }: Props = $props();
 
     let previewValue = $state('');
     // We always show the autocomplete on load, as the input is autofocused
-    let show = $state(true);
+    let show = $state(false);
     let inputRef = $state<HTMLTextAreaElement>();
     const autocompleteOptions = $derived(show ? getNewEntryMatches(expenses, value) : []);
 
@@ -36,7 +40,9 @@
             return;
         }
 
-        value = updated;
+        if (value !== updated) {
+            onOptionClick(updated);
+        }
     };
 
     const onClearPreviewValue = () => {
@@ -52,12 +58,21 @@
         onClearPreviewValue();
         onBlur?.();
     };
+
+    onMount(() => {
+        show = true;
+    });
+
+    const useCommentOptions = $derived({
+        onClearPreviewValue,
+        onHideAutocomplete,
+        onValueChange
+    });
 </script>
 
 <Autocomplete
     class="h-full w-full"
     bind:cardRef
-    cardClasses="!left-3"
     show={!!autocompleteOptions.length && show}
     onClickAway={onHideAutocomplete}
 >
@@ -65,7 +80,7 @@
         class="h-full w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
         bind:this={inputRef}
         bind:value
-        use:useActions={[...use, [useFieldAutofocus, { onClearPreviewValue, onHideAutocomplete }]]}
+        use:useActions={[...use, [useComment, useCommentOptions]]}
         name="comment"
         placeholder="What was this expense for...?"
         rows={1}

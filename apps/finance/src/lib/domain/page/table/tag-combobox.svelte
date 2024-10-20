@@ -55,12 +55,12 @@
             $add.mutate({ expense: expenseId, tag });
         }
     };
-
 </script>
 
 <Combobox
     bind:value
     show={!!book}
+    autofocus
     {inputRef}
     {onBackspacePress}
 >
@@ -73,7 +73,7 @@
         <input
             class="w-full min-w-12 flex-1 outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
             bind:this={args.ref}
-            bind:value={args.value}
+            bind:value={value}
             use:useActions={args.use}
         />
     {/snippet}

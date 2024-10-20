@@ -23,7 +23,10 @@
 </script>
 
 {#each books as book (book.id)}
-    <div class="first:border last:border-t-0 border-x last:border-b first:rounded-t-md overflow-hidden last:rounded-b-md">
+    <div
+        class="first:border border-x last:border-b first:rounded-t-md overflow-hidden last:rounded-b-md"
+        class:last:border-t-0={books.length > 1}
+    >
         <button
             class="flex w-full cursor-pointer items-center justify-between px-4 py-2 transition-colors"
             aria-current={openedBooks.has(book.id)}

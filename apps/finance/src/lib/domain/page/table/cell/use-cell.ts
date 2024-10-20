@@ -174,7 +174,7 @@ const onCellMove = ({ node, ...args }: MoveArgs) => {
  */
 export const useCell: Action<HTMLElement, UseCellArgs> = (
   node,
-  { edit, onEdit, onStopEdit } = { edit: false, onEdit: () => {}, onStopEdit: () => {} }
+  { edit, onEdit, onStopEdit } = { edit: false, onEdit: () => { }, onStopEdit: () => { } }
 ) => {
   const parentRowIndex = getParentRowIndex(node);
 

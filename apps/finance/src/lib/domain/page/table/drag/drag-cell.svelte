@@ -9,7 +9,7 @@
 </script>
 
 <Cell
-    class="w-8 flex pt-3.5 justify-center shrink-0 cursor-grab"
+    class="w-8 flex items-center justify-center shrink-0 cursor-grab"
     aria-colindex={1}
     use={[[useDragCell, restProps]]}
 >

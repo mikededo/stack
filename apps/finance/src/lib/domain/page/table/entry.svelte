@@ -18,10 +18,14 @@
         onStopLoading
     } from './context.svelte';
     import EntryContent from './entry-content.svelte';
-    import { hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
+    import { type ExpenseValidation, hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
     import { useExpenseMutation } from './hooks';
     import { Amount, Comment, Date } from './new-expense';
     import TagCombobox from './tag-combobox.svelte';
+
+    type UpsertExpenseArgs = {
+        onFinishEditing: () => void;
+    };
 
     type Props = {
         empty?: boolean;
@@ -48,7 +52,33 @@
     let date = $state(parseDate(expense?.date));
     let commentAutocompleteRef = $state<HTMLDivElement>();
 
-    const useUpsertExpense: Action<HTMLElement> = (node) => {
+    const upsertExpense = (updated: ExpenseValidation) => {
+        if (expense && !hasExpenseChanged(expense, updated)) {
+            return;
+        }
+
+        const updatedFields = {
+            ...updated,
+            amount: Number(updated.amount.startsWith('€ ') ? updated.amount.slice(1) : updated.amount)
+        };
+        $expenseMutation.mutate(
+            { ...updatedFields, id: expense?.id ?? undefined, page },
+            {
+                onSuccess: (data) => {
+                    if (!data || data.length !== 1) {
+                        return;
+                    }
+
+                    const updatedExpense = data[0];
+                    amount = `${updatedExpense.amount.toFixed(2) ?? ''}`;
+                    comment = updatedExpense.comment ?? '';
+                    date = parseDate(updatedExpense.date);
+                }
+            }
+        );
+    };
+
+    const useUpsertExpense: Action<HTMLElement, UpsertExpenseArgs> = (node, { onFinishEditing }) => {
         const onKeydown = (event: KeyboardEvent) => {
             if (event.key === 'Escape') {
                 return;
@@ -64,40 +94,22 @@
             }
 
             event.preventDefault();
-            if (expense && !hasExpenseChanged(expense, newExpense)) {
-                return;
-            }
-
-            const updatedFields = {
-                amount: Number(amount.startsWith('€ ') ? amount.slice(1) : amount),
-                comment,
-                date
-            };
-            $expenseMutation.mutate(
-                { ...updatedFields, id: expense?.id ?? undefined, page },
-                {
-                    onSuccess: () => {
-                        // Restart the fields
-                        amount = `${expense?.amount?.toFixed(2) ?? ''}`;
-                        comment = expense?.comment ?? '';
-                        date = parseDate(expense?.date);
-                    }
-                }
-            );
+            upsertExpense(newExpense);
 
             node.blur();
+            onFinishEditing();
         };
 
         node.addEventListener('keydown', onKeydown);
     };
 
+    const onCommentOptionClick = (value: string) => {
+        upsertExpense({ amount, comment: value, date });
+    };
+
     const onInternalClickAway = (event: MouseEvent) => {
         // Special check in case the user clicks one of the autocomplete options
-        if (
-            event.target instanceof HTMLElement &&
-            commentAutocompleteRef &&
-            commentAutocompleteRef.contains(event.target)
-        ) {
+        if (event.target instanceof HTMLButtonElement) {
             return;
         }
 
@@ -127,27 +139,28 @@
         {#snippet dateContent()}
             {@render value_or_placeholder(date, 'dd/mm/yyyy')}
         {/snippet}
-        {#snippet dateEdit()}
-            <Date bind:value={date} use={[useUpsertExpense]} />
+        {#snippet dateEdit(args)}
+            <Date bind:value={date} use={[[useUpsertExpense, args]]} />
         {/snippet}
 
         {#snippet amountContent()}
             {@render value_or_placeholder(amount ? `€ ${amount}` : undefined, '€ 0.00')}
         {/snippet}
-        {#snippet amountEdit()}
-            <Amount bind:value={amount} use={[useUpsertExpense]} />
+        {#snippet amountEdit(args)}
+            <Amount bind:value={amount} use={[[useUpsertExpense, args]]} />
         {/snippet}
 
         {#snippet commentContent()}
             {@render value_or_placeholder(comment, 'What\'s this expense about?')}
         {/snippet}
-        {#snippet commentEdit({ onFinishEditing })}
+        {#snippet commentEdit(args)}
             <Comment
                 bind:cardRef={commentAutocompleteRef}
                 bind:value={comment}
-                use={[useUpsertExpense]}
+                use={[[useUpsertExpense, args]]}
                 {expenses}
-                onBlur={onFinishEditing}
+                onBlur={args.onFinishEditing}
+                onOptionClick={onCommentOptionClick}
             />
         {/snippet}
 
