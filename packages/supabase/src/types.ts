@@ -12,7 +12,7 @@ export type FunctionArgs<
   S extends Schema = 'public',
   F extends SchemaFunctions<S> = never
 > = F extends never ? never :
-  'Args' extends keyof Database[S]['Functions'][F] ? Database[S]['Functions'][F]['Args'] : never;
+'Args' extends keyof Database[S]['Functions'][F] ? Database[S]['Functions'][F]['Args'] : never;
 
 export type SupabaseLocals = {
   safeGetSession: () => Promise<{ session: null | Session; user: null | User }>;

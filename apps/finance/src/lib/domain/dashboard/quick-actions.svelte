@@ -83,8 +83,7 @@
                     />
                 </div>
                 <div class="flex w-full flex-col items-start gap-0.5">
-                    <span class="text-sm font-semibold group-disabled:text-surface-700">{name}</span
-                    >
+                    <span class="text-sm font-semibold group-disabled:text-surface-700">{name}</span>
                     {#if subtitle}
                         <span class="text-xs italic text-surface-700">{subtitle}</span>
                     {/if}

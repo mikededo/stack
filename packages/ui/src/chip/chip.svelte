@@ -29,7 +29,8 @@
     <button {...restProps}
         class={classes}
         {style}
-        onclick={onClick}>
+        onclick={onClick}
+    >
         {@render children()}
         <X size={14} strokeWidth={2.5} />
     </button>

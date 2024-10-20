@@ -79,13 +79,15 @@
         <TagListItem {tag}
             onDeleteTag={onConfirmDelete}
             {onDuplicateTag}
-            {onUpdateTag} />
+            {onUpdateTag}
+        />
     {/each}
     {#if newTag}
         <NewTagItem bind:color
             bind:name
             onCancel={onCancelNewTag}
-            onConfirm={onCreateNewTag} />
+            onConfirm={onCreateNewTag}
+        />
     {/if}
 </ul>
 

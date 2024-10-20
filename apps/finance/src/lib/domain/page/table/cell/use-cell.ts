@@ -90,21 +90,6 @@ const onCellMove = ({ node, ...args }: MoveArgs) => {
   if ('position' in args) {
     const { position } = args;
     switch (position) {
-      // Row static positions
-      case 'row-start': {
-        updateCellFocus(node, args.row, 0);
-        break;
-      }
-      case 'row-end': {
-        const lastCell = getGridRowCellCount(args.row) - 1;
-        if (lastCell < 0) {
-          return;
-        }
-
-        updateCellFocus(node, args.row, lastCell);
-        break;
-      }
-
       // Grid static positions
       case 'first-cell': {
         updateCellFocus(node, 0, 0);
@@ -115,6 +100,7 @@ const onCellMove = ({ node, ...args }: MoveArgs) => {
         updateCellFocus(node, 0, +index - 1);
         break;
       }
+
       case 'last-cell': {
         const rowCount = Math.min(getGridRowCount() - 1);
         const lastCell = getGridRowCellCount(rowCount) - 1;
@@ -129,6 +115,20 @@ const onCellMove = ({ node, ...args }: MoveArgs) => {
         const index = getCellRowIndex(node);
         const rowCount = Math.min(getGridRowCount() - 1);
         updateCellFocus(node, rowCount, +index - 1);
+        break;
+      }
+      case 'row-end': {
+        const lastCell = getGridRowCellCount(args.row) - 1;
+        if (lastCell < 0) {
+          return;
+        }
+
+        updateCellFocus(node, args.row, lastCell);
+        break;
+      }
+      // Row static positions
+      case 'row-start': {
+        updateCellFocus(node, args.row, 0);
         break;
       }
     }
@@ -215,6 +215,11 @@ export const useCell: Action<HTMLElement, UseCellArgs> = (
     }
 
     switch (e.key) {
+      case Keys.ArrowDown:
+        onCellMove({ node, x: parentRowIndex + 1, yOffset: -1 });
+        e.preventDefault(); // Prevents moving the scroll bar
+        break;
+
       case Keys.ArrowLeft:
         onCellMove({ node, x: parentRowIndex, yOffset: -2 });
         break;
@@ -229,8 +234,12 @@ export const useCell: Action<HTMLElement, UseCellArgs> = (
         e.preventDefault(); // Prevents moving the scroll bar
         break;
 
-      case Keys.ArrowDown:
-        onCellMove({ node, x: parentRowIndex + 1, yOffset: -1 });
+      case Keys.End:
+        if (e.ctrlKey) {
+          onCellMove({ node, position: 'last-cell' });
+        } else {
+          onCellMove({ node, position: 'row-end', row: parentRowIndex });
+        }
         e.preventDefault(); // Prevents moving the scroll bar
         break;
 
@@ -243,22 +252,13 @@ export const useCell: Action<HTMLElement, UseCellArgs> = (
         e.preventDefault(); // Prevents moving the scroll bar
         break;
 
-      case Keys.End:
-        if (e.ctrlKey) {
-          onCellMove({ node, position: 'last-cell' });
-        } else {
-          onCellMove({ node, position: 'row-end', row: parentRowIndex });
-        }
+      case Keys.PageDown:
+        onCellMove({ node, position: 'last-row' });
         e.preventDefault(); // Prevents moving the scroll bar
         break;
 
       case Keys.PageUp:
         onCellMove({ node, position: 'first-row' });
-        e.preventDefault(); // Prevents moving the scroll bar
-        break;
-
-      case Keys.PageDown:
-        onCellMove({ node, position: 'last-row' });
         e.preventDefault(); // Prevents moving the scroll bar
         break;
     }

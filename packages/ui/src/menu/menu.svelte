@@ -54,10 +54,6 @@
         }
 
         switch (e.key) {
-            case Keys.Escape:
-                e.preventDefault();
-                onHide();
-                break;
             case Keys.ArrowDown:
                 e.preventDefault();
                 e.stopPropagation();
@@ -75,6 +71,10 @@
                         ? menuState.focusableElements.length - 1
                         : menuState.focusIndex - 1;
                 break;
+            case Keys.Escape:
+                e.preventDefault();
+                onHide();
+                break;
         }
     };
 
@@ -88,7 +88,8 @@
     <Button class={buttonClasses}
         color="surface"
         disabled={showMenu || loading}
-        onclick={onToggle}>
+        onclick={onToggle}
+    >
         {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
         {#if Icon && !loading}<Icon class="size-4" />{/if}
         {#if label}<span>{label}</span>{/if}
