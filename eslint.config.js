@@ -100,6 +100,7 @@ export default antfu({
   .override('antfu/svelte/rules', {
     rules: {
       'style/indent-binary-ops': ['error', 4],
+      'svelte/html-closing-bracket-new-line': ['error'],
       'svelte/html-quotes': [
         'error',
         { prefer: 'double' }
@@ -108,7 +109,8 @@ export default antfu({
       'svelte/max-attributes-per-line': [
         'error',
         { multiline: 1, singleline: 3 }
-      ]
+      ],
+      'svelte/no-inspect': ['error']
     }
   })
   .override(

@@ -28,10 +28,10 @@
   "dependencies": {
     "@stack/actions": "workspace:*",
     "@stack/supabase": "workspace:*",
-    "@sveltejs/kit": "2.7.0",
-    "lucide-svelte": "0.452.0",
+    "@sveltejs/kit": "2.7.2",
+    "lucide-svelte": "0.453.0",
     "svelte": "^5.0.0-next.264",
-    "tailwind-merge": "2.5.3"
+    "tailwind-merge": "2.5.4"
   },
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",

@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@supabase/ssr": "0.5.1",
-    "@supabase/supabase-js": "2.45.4"
+    "@supabase/supabase-js": "2.45.6"
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
