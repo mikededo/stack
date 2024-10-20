@@ -1,10 +1,11 @@
 import type { ActionArray } from '@stack/actions';
 
-import type { ComponentProps, Snippet } from 'svelte';
+import type { Snippet } from 'svelte';
+import type { HTMLInputAttributes } from 'svelte/elements';
 
-import type { PrefixedKeys } from '../../../utils/src/types.js';
-import type { Input } from '../input/index.js';
-
+/**
+ * Properties forwarded to the custom input snippet.
+ */
 type InputSnippetProps = {
   /**
    * Forwarded ref from {@link Props.inputRef}. If no `inputRef` is passed to
@@ -31,21 +32,7 @@ type InputSnippetProps = {
    * ```
    */
   use: ActionArray;
-  /**
-   * Value of the input. The value *must* be binded to the component, otherwise
-   * it won't behave as expected.
-   * Note that binded elements cannot be used as destructured props in the
-   * snippet. See this {@link https://github.com/sveltejs/svelte/discussions/12688#discussioncomment-10215226|comment}.
-   */
-  value: string;
 };
-
-type InputComponentProps = ComponentProps<typeof Input>;
-type InputEvents = PrefixedKeys<PrefixedKeys<InputComponentProps, 'on:', true>, 'on'>;
-type InputProps = Pick<
-  InputComponentProps,
-  'class' | 'color' | 'disabled' | 'invalid' | 'label' | 'name' | 'placeholder' | keyof InputEvents
->;
 
 export type Props = (
   {
@@ -53,10 +40,24 @@ export type Props = (
      * Optional input to be rendered instead of the default one.
      */
     input: Snippet<[InputSnippetProps]>;
+    /**
+     * The value of the input element. When using a custom input, the value
+     * must* be binded to the component, otherwise some of the features of the
+     * combobox (such as removing an input on backspace) won't work as
+     * expected. This is because the combobox will not be able to access the
+     * value.
+     */
+    value: string;
     inputProps?: never;
   } | {
-    inputProps: InputProps;
+    inputProps: { invalid?: boolean; label?: string } & HTMLInputAttributes;
     input?: never;
+    /**
+     * The value of the input element. Can be controlled, to, for example,
+     * filter the options by the current user value.
+     * Contrary to the custom input, the value does not have to be binded to the component.
+     */
+    value?: string;
   }
 ) &
 {
@@ -70,6 +71,10 @@ export type Props = (
    * to be a function or component that renders the selected items.
    */
   selectedOptions: Snippet;
+  /**
+   * Controls if the input should be focused on load. Defaults to `false`.
+   */
+  autofocus?: boolean;
   /**
    * A reference to the input element. This is exposed so that the parent
    * component can directly manipulate or access the input field, if
@@ -87,11 +92,6 @@ export type Props = (
    * Defaults to `false`.
    */
   show?: boolean;
-  /**
-   * The value of the input element. Can be controlled, to, for example,
-   * filter the options by the current user value.
-   */
-  value?: string;
 
   /**
    * Callback triggered when the "ArrowDown" key is pressed while the

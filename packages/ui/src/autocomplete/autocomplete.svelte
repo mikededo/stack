@@ -4,7 +4,7 @@
     import type { Snippet } from 'svelte';
     import type { Action } from 'svelte/action';
 
-    import { clickAway, useActions } from '@stack/actions';
+    import { clickAway, portal, useActions } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
 
     import { twMerge } from 'tailwind-merge';
@@ -40,7 +40,7 @@
         }
 
         const client = wrapperNode.getBoundingClientRect();
-        return { left: 0, top: client.height + 8, width: client.width };
+        return { left: client.left, top: client.top + client.height + 8, width: client.width + 8 };
     });
 
     $effect(() => {
@@ -76,8 +76,9 @@
         restProps.onClickAway?.();
     };
 
-    const onAutocompleteOptionCheck = (event: MouseEvent) =>
-        !cardRef || (!cardRef.contains(event.target as HTMLElement) && !event.defaultPrevented);
+    const onAutocompleteOptionCheck = (event: MouseEvent) => {
+        return !cardRef || (!cardRef.contains(event.target as HTMLElement) && !event.defaultPrevented);
+    };
 
     const autocompleteActions: ActionArray = [
         ...use,
@@ -90,11 +91,12 @@
     {@render children()}
 </div>
 
-{#if show && options.length}
+{#if show}
     <FloatingCard
-        class={twMerge('!ui-absolute !ui-z-50 !ui-mx-auto ui-overflow-hidden !ui-p-0', cardClasses)}
+        class={twMerge('!ui-z-50 !ui-mx-auto ui-overflow-hidden !ui-p-0', cardClasses)}
         bind:ref={cardRef}
         position={autocompletePosition}
+        use={[[portal, '']]}
     >
         <div
             class="ui-flex ui-max-h-44 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1"

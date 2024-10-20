@@ -67,10 +67,10 @@
 
 <style lang="postcss">
     .input:focus {
-        box-shadow: inset 0 0 0 1px theme('colors.primary.500');
+        box-shadow:  0 0 0 4px theme('colors.primary.100');
     }
 
     .input[aria-invalid='true']:focus {
-        box-shadow: inset 0 0 0 1px theme('colors.destructive.500');
+        box-shadow:  0 0 0 4px theme('colors.destructive.100');
     }
 </style>

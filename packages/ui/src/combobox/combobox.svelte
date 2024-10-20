@@ -10,9 +10,9 @@
     import { twMerge } from 'tailwind-merge';
 
     import { FloatingCard } from '../floating-card/index.js';
-    import { Input } from '../input/index.js';
 
     let {
+        autofocus = false,
         input,
         inputProps,
         inputRef = $bindable(),
@@ -21,19 +21,19 @@
         onBackspacePress,
         options,
         selectedOptions,
-        show,
+        show = true,
         value = $bindable('')
     }: Props = $props();
 
     let position = $state<FloatingCardPosition | undefined>();
     let containerRef = $state<HTMLDivElement>();
     let popupRef = $state<HTMLDivElement>();
-    let showOptions = $state(false);
+    let showOptions = $state(autofocus);
 
     const useInput: Action = (node) => {
         const onKeydown = (event: KeyboardEvent) => {
             // Keystrokes that are not related with the pop up
-            if (event.key === Keys.Backspace) {
+            if (event.key === Keys.Backspace && !value) {
                 onBackspacePress?.();
             }
 
@@ -63,9 +63,45 @@
 
         node.addEventListener('keydown', onKeydown);
         node.addEventListener('focus', onFocus);
+        node.addEventListener('blur', (e) => {
+            // If clicks away from the combobox, hide the options
+            if (e.relatedTarget instanceof HTMLElement && popupRef?.contains(e.relatedTarget)) {
+                // Do not blur
+                node.focus();
+                return;
+            }
 
-        node.focus();
+            showOptions = false;
+        });
+
+        if (autofocus) {
+            node.focus();
+        }
     };
+
+    const useContainer: Action<HTMLDivElement> = (node) => {
+        // Attach action only if the input is not custom
+        if (input) {
+            return;
+        }
+
+        node.addEventListener('mousedown', (e) => {
+            if (e.target === node && document.activeElement !== inputRef) {
+                inputRef?.focus();
+                e.preventDefault();
+            }
+        });
+    };
+
+    // Mimic the input classes
+    const containerClasses = $derived(
+        twMerge(
+            'ui-min-h-10 ui-rounded ui-border ui-px-4 ui-py-2 ui-transition-all aria-disabled:ui-cursor-not-allowed aria-disabled:ui-border-border aria-disabled:ui-bg-surface-50 focus-within:ui-border-primary input',
+            !inputProps?.disabled && 'hover:ui-border-primary',
+            inputProps?.invalid && 'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
+            inputProps?.class
+        )
+    );
 
     $effect(() => {
         // Force update on tags update
@@ -86,18 +122,28 @@
     });
 </script>
 
-<div class="ui-flex ui-w-full ui-flex-wrap ui-items-center ui-gap-1" bind:this={containerRef}>
+{#if !input && inputProps?.label}
+    <label class="ui-text-xs ui-font-semibold ui-uppercase" for={inputProps.name}>
+        {inputProps.label}
+    </label>
+{/if}
+<div
+    class={twMerge('ui-flex ui-w-full ui-flex-wrap ui-items-center ui-gap-1', inputProps && containerClasses)}
+    bind:this={containerRef}
+    use:useContainer
+    aria-disabled={inputProps?.disabled}
+>
     <!-- Render items as chip or custom element -->
     {@render selectedOptions()}
     {#if input}
-        {@render input({ ref: inputRef, use: [useInput], value })}
-    {:else}
-        <Input
+        {@render input({ ref: inputRef, use: [useInput] })}
+    {:else if inputProps}
+        <input
             {...inputProps}
-            class={twMerge('ui-w-full', inputProps?.class)}
-            bind:ref={inputRef}
+            class="ui-outline-none ui-w-full ui-flex-1 ui-min-w-12 disabled:ui-bg-surface-50 disabled:ui-cursor-not-allowed"
+            bind:this={inputRef}
             bind:value
-            use={[useInput]}
+            use:useInput
         />
     {/if}
 </div>
@@ -115,3 +161,13 @@
         {@render options()}
     </FloatingCard>
 {/if}
+
+<style lang="postcss">
+    .input:focus-within {
+        box-shadow: 0 0 0 4px theme('colors.primary.100');
+    }
+
+    .input[aria-invalid='true']:focus-within {
+        box-shadow: inset 0 0 0 4px theme('colors.destructive.100');
+    }
+</style>
