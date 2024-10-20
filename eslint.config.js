@@ -83,7 +83,11 @@ export default antfu({
         'style/indent': [
           'error',
           2,
-          { flatTernaryExpressions: true, offsetTernaryExpressions: true }
+          {
+            flatTernaryExpressions: true,
+            offsetTernaryExpressions: true,
+            SwitchCase: 1
+          }
         ],
         'style/no-multiple-empty-lines': ['error', { max: 1 }],
         'style/operator-linebreak': ['error', 'after', {
