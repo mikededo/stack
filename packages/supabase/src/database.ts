@@ -1402,10 +1402,10 @@ export type Database = {
       projects: {
         Insert: {
           name: string;
-          owner_id: string;
           description?: null | string;
           id?: never;
           last_updated?: null | string;
+          owner_id?: string;
           website_url?: null | string;
         };
         Relationships: [
