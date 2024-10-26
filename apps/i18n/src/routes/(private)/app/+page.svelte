@@ -6,10 +6,13 @@
     import { createQuery } from '@tanstack/svelte-query';
 
     import { Keys } from '$lib/config';
-    import { getProjects } from '$lib/db';
+    import { getAvailableLanguages, getProjects } from '$lib/db';
     import {
+        CreateProjectCard,
+        CreateProjectDialog,
         ProjectCard,
-        ProjectGrid
+        ProjectGrid,
+        ProjectSkeleton
     } from '$lib/domain/projects';
 
     export let data: PageData;
@@ -19,17 +22,10 @@
         queryFn: () => getProjects(supabase),
         queryKey: Keys.PROJECTS
     });
-// const languagesQuery = createQuery({
-    //     queryFn: () => getAvailableLanguages(supabaseClient),
-    //     queryKey: Keys.LANGUAGES
-    // });
-
-    // const handleOnPrefetch = (id: ProjectWithLanguages['id']) => {
-    //     queryClient.prefetchQuery({
-    //         queryFn: async () => await getProject(supabaseClient, id),
-    //         queryKey: Keys.PROJECT(`${id}`)
-    //     });
-    // };
+    const languagesQuery = createQuery({
+        queryFn: () => getAvailableLanguages(supabase),
+        queryKey: Keys.LANGUAGES
+    });
 </script>
 
 <svelte:head>
@@ -44,14 +40,14 @@
 </svelte:head>
 
 <Container class="h-full w-full">
+    <h1 class="mb-4 md:mb-8">Projects</h1>
     {#if $projectsQuery.isLoading}
         <ProjectGrid>
-            <div></div>
-            <!-- <ProjectSkeleton /> -->
-            <!-- <ProjectSkeleton /> -->
-            <!-- <ProjectSkeleton /> -->
-            <!-- <ProjectSkeleton /> -->
-            <!-- <ProjectSkeleton /> -->
+            <ProjectSkeleton />
+            <ProjectSkeleton />
+            <ProjectSkeleton />
+            <ProjectSkeleton />
+            <ProjectSkeleton />
         </ProjectGrid>
     {:else if !$projectsQuery.data}
         <div>Empty state</div>
@@ -60,8 +56,8 @@
             {#each $projectsQuery.data as project (project.id)}
                 <ProjectCard {project} />
             {/each}
-            <!-- <CreateProjectCard /> -->
+            <CreateProjectCard />
         </ProjectGrid>
     {/if}
 </Container>
-<!-- <CreateProjectDialog languages={$languagesQuery.data} loading={$languagesQuery.isLoading} /> -->
+<CreateProjectDialog languages={$languagesQuery.data ?? []} loading={$languagesQuery.isLoading} />

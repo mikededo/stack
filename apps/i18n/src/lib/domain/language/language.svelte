@@ -8,7 +8,7 @@
     const { code, isDefault }: Props = $props();
 
     const classes = $derived(
-        twMerge('rounded-full bg-muted px-2 py-0.5 font-semibold', isDefault && 'bg-primary text-white')
+        twMerge('rounded-full bg-surface-100 px-2 py-0.5 font-semibold', isDefault && 'bg-primary text-white')
     );
 </script>
 

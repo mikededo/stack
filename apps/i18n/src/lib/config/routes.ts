@@ -5,6 +5,7 @@ import { page } from '$app/stores';
 type Route = {
   app: undefined;
   auth: undefined;
+  project: { project: string };
   signIn: undefined;
 };
 
@@ -13,6 +14,7 @@ type Routes = keyof Route;
 const Paths: Record<Routes, string> = {
   app: '/app',
   auth: '/auth',
+  project: '/project/:project',
   signIn: '/auth/sign-in'
 };
 

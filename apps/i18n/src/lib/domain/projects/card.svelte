@@ -12,7 +12,7 @@
 </script>
 
 <div class="border-border flex h-40 w-full gap-6 rounded border p-4">
-    <div class="h-24 w-24 shrink-0 rounded bg-muted"></div>
+    <div class="h-24 w-24 shrink-0 rounded bg-surface-50"></div>
     <div class="flex w-full flex-col justify-between">
         <div class="flex items-center gap-1 self-end">
             <a class="text-lg font-bold hover:underline" href="/">
@@ -20,7 +20,7 @@
             </a>
             {#if website}
                 <a
-                    class="cursor-pointer rounded-sm p-1 transition-colors hover:bg-muted"
+                    class="cursor-pointer rounded-sm p-1 transition-colors hover:bg-surface-50"
                     href={website}
                     rel="noreferrer"
                     target="_blank"
