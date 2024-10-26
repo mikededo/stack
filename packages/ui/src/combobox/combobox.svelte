@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
-    import { portal, useTrapFocus } from '@stack/actions';
+    import { clickAway, portal, useActions, useTrapFocus } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
 
     import type { FloatingCardPosition } from '../floating-card/index.js';
@@ -30,6 +30,8 @@
     let popupRef = $state<HTMLDivElement>();
     let showOptions = $state(autofocus);
 
+    let isOptionFocused = false;
+
     const useInput: Action = (node) => {
         const onKeydown = (event: KeyboardEvent) => {
             // Keystrokes that are not related with the pop up
@@ -45,60 +47,87 @@
             if (!focusableElements.length) {
                 return;
             }
+
+            isOptionFocused = true;
+            event.preventDefault();
+
             // Keystrokes that are related with the pop up
             if (event.key === Keys.ArrowDown) {
                 focusableElements[0].focus();
-                event.preventDefault();
                 onArrowDownPress?.();
             } else if (event.key === Keys.ArrowUp) {
                 focusableElements[focusableElements.length - 1].focus();
-                event.preventDefault();
                 onArrowUpPress?.();
             }
         };
 
         const onFocus = () => {
+            isOptionFocused = false;
             showOptions = true;
+        };
+
+        const onBlur = (e: FocusEvent) => {
+            if (isOptionFocused) {
+                return;
+            }
+
+            if (e.relatedTarget instanceof HTMLElement && popupRef?.contains(e.relatedTarget)) {
+                // Persist focus on the input
+                inputRef?.focus();
+                return;
+            }
+
+            // If clicks away from the combobox, hide the options
+            showOptions = false;
         };
 
         node.addEventListener('keydown', onKeydown);
         node.addEventListener('focus', onFocus);
-        node.addEventListener('blur', (e) => {
-            // If clicks away from the combobox, hide the options
-            if (e.relatedTarget instanceof HTMLElement && popupRef?.contains(e.relatedTarget)) {
-                // Do not blur
-                node.focus();
-                return;
-            }
-
-            showOptions = false;
-        });
+        node.addEventListener('blur', onBlur);
 
         if (autofocus) {
             node.focus();
         }
     };
 
-    const useContainer: Action<HTMLDivElement> = (node) => {
+    const useContainer: Action = (node) => {
         // Attach action only if the input is not custom
         if (input) {
             return;
         }
 
-        node.addEventListener('mousedown', (e) => {
+        const onMouseDown = (e: MouseEvent) => {
             if (e.target === node && document.activeElement !== inputRef) {
                 inputRef?.focus();
                 e.preventDefault();
             }
-        });
+        };
+
+        node.addEventListener('mousedown', onMouseDown);
+    };
+
+    const usePopup: Action = (node) => {
+        const onKeydown = (e: KeyboardEvent) => {
+            if (e.key === Keys.Escape) {
+                inputRef?.focus();
+            }
+        };
+
+        node.addEventListener('keydown', onKeydown);
     };
 
     // Mimic the input classes
     const containerClasses = $derived(
         twMerge(
-            'ui-min-h-10 ui-rounded ui-border ui-px-4 ui-py-2 ui-transition-all aria-disabled:ui-cursor-not-allowed aria-disabled:ui-border-border aria-disabled:ui-bg-surface-50 focus-within:ui-border-primary input',
+            'ui-min-h-10 ui-rounded ui-border ui-px-3 ui-py-2 ui-transition-all aria-disabled:ui-cursor-not-allowed aria-disabled:ui-border-border aria-disabled:ui-bg-surface-50 focus-within:ui-border-primary input',
             !inputProps?.disabled && 'hover:ui-border-primary',
             inputProps?.invalid && 'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
+            inputProps?.class
+        )
+    );
+    const inputClasses = $derived(
+        twMerge(
+            'ui-outline-none ui-w-full ui-flex-1 ui-min-w-12 disabled:ui-bg-surface-50 disabled:ui-cursor-not-allowed',
             inputProps?.class
         )
     );
@@ -130,17 +159,17 @@
 <div
     class={twMerge('ui-flex ui-w-full ui-flex-wrap ui-items-center ui-gap-1', inputProps && containerClasses)}
     bind:this={containerRef}
-    use:useContainer
+    use:useActions={[useContainer, clickAway]}
     aria-disabled={inputProps?.disabled}
 >
     <!-- Render items as chip or custom element -->
-    {@render selectedOptions()}
+    {@render selectedOptions?.()}
     {#if input}
         {@render input({ ref: inputRef, use: [useInput] })}
     {:else if inputProps}
         <input
             {...inputProps}
-            class="ui-outline-none ui-w-full ui-flex-1 ui-min-w-12 disabled:ui-bg-surface-50 disabled:ui-cursor-not-allowed"
+            class={inputClasses}
             bind:this={inputRef}
             bind:value
             use:useInput
@@ -155,7 +184,7 @@
         bind:ref={popupRef}
         role="menu"
         tabindex={1}
-        use={[[portal, ''], useTrapFocus]}
+        use={[[portal, ''], useTrapFocus, usePopup]}
         {position}
     >
         {@render options()}

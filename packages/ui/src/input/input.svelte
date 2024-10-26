@@ -37,7 +37,7 @@
     const classes = $derived(
         twMerge(
             COLORS[color ?? 'primary'],
-            'ui-h-10 ui-rounded ui-border ui-px-4 ui-outline-none ui-transition-colors disabled:ui-cursor-not-allowed disabled:ui-border-border',
+            'ui-h-10 ui-rounded ui-border ui-px-3 ui-outline-none ui-transition-colors disabled:ui-cursor-not-allowed disabled:ui-border-border',
             invalid && 'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
             rest.class
         )

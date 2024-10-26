@@ -67,11 +67,6 @@ export type Props = (
    */
   options: Snippet;
   /**
-   * The currently selected options. Similar to `options`, it is expected
-   * to be a function or component that renders the selected items.
-   */
-  selectedOptions: Snippet;
-  /**
    * Controls if the input should be focused on load. Defaults to `false`.
    */
   autofocus?: boolean;
@@ -81,6 +76,12 @@ export type Props = (
    * needed (e.g., forcing focus on external actions or events).
    */
   inputRef?: HTMLInputElement;
+  /**
+   * The currently selected options. Similar to `options`, it is expected
+   * to be a function or component that renders the selected items.
+   * Will be ignored if not provided.
+   */
+  selectedOptions?: Snippet;
   /**
    * Controls the visibility of the dropdown containing the options. If
    * `true`, the dropdown is shown; otherwise, it is hidden. The
