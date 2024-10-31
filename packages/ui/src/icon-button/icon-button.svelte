@@ -12,7 +12,6 @@
 
     const {
         color = 'primary',
-        href,
         Icon,
         iconClasses,
         size = 'default',
@@ -27,7 +26,7 @@
 </script>
 
 {#if 'href' in restProps}
-    <a {...restProps as HTMLAnchorAttributes} class={wrapperClass} {href}>
+    <a {...restProps as HTMLAnchorAttributes} class={wrapperClass} href={restProps.href}>
         <Icon class={iconClass} {...iconProps} />
     </a>
 {:else}
