@@ -1319,9 +1319,9 @@ export type Database = {
       keys: {
         Insert: {
           key_name: string;
+          project_id: number;
           description?: null | string;
           id?: never;
-          project_id?: null | number;
         };
         Relationships: [
           {
@@ -1336,13 +1336,13 @@ export type Database = {
           description: null | string;
           id: number;
           key_name: string;
-          project_id: null | number;
+          project_id: number;
         };
         Update: {
           description?: null | string;
           id?: never;
           key_name?: string;
-          project_id?: null | number;
+          project_id?: number;
         };
       };
       languages: {
@@ -1436,9 +1436,9 @@ export type Database = {
       };
       translations: {
         Insert: {
+          key_id: number;
+          language_id: number;
           id?: never;
-          key_id?: null | number;
-          language_id?: null | number;
           value?: null | string;
         };
         Relationships: [
@@ -1459,14 +1459,14 @@ export type Database = {
         ];
         Row: {
           id: number;
-          key_id: null | number;
-          language_id: null | number;
+          key_id: number;
+          language_id: number;
           value: null | string;
         };
         Update: {
           id?: never;
-          key_id?: null | number;
-          language_id?: null | number;
+          key_id?: number;
+          language_id?: number;
           value?: null | string;
         };
       };
