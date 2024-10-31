@@ -28,13 +28,13 @@
   "dependencies": {
     "@stack/actions": "workspace:*",
     "@stack/supabase": "workspace:*",
-    "@sveltejs/kit": "2.7.2",
-    "lucide-svelte": "0.453.0",
-    "svelte": "^5.0.0-next.264",
+    "lucide-svelte": "0.454.0",
     "tailwind-merge": "2.5.4"
   },
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",
-    "@sveltejs/vite-plugin-svelte": "4.0.0-next.6"
+    "@sveltejs/kit": "2.7.3",
+    "@sveltejs/vite-plugin-svelte": "4.0.0",
+    "svelte": "5.1.8"
   }
 }

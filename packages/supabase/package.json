@@ -15,10 +15,10 @@
   },
   "dependencies": {
     "@supabase/ssr": "0.5.1",
-    "@supabase/supabase-js": "2.45.6"
+    "@supabase/supabase-js": "2.46.1"
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
-    "svelte": "^5.0.0-next.264"
+    "svelte": "5.1.8"
   }
 }

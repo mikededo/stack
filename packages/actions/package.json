@@ -21,14 +21,14 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@stack/utils": "workspace:*",
-    "svelte": "^5.0.0-next.264"
+    "@stack/utils": "workspace:*"
   },
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",
     "@stack/typescript-config": "workspace:*",
-    "@sveltejs/kit": "2.7.2",
-    "@sveltejs/package": "2.3.5",
-    "@sveltejs/vite-plugin-svelte": "4.0.0-next.6"
+    "@sveltejs/kit": "2.7.3",
+    "@sveltejs/package": "2.3.7",
+    "@sveltejs/vite-plugin-svelte": "4.0.0",
+    "svelte": "5.1.8"
   }
 }
