@@ -3,19 +3,20 @@
 
     import { ExternalLink } from 'lucide-svelte';
 
+    import { pathTo } from '$lib/config';
     import { LanguageContainer, LanguageItem } from '$lib/domain/language';
 
     type Props = { project: Project };
     const { project }: Props = $props();
 
-    const { languages, last_updated, name, website_url: website } = project;
+    const { id, languages, last_updated, name, website_url: website } = project;
 </script>
 
 <div class="border-border flex h-40 w-full gap-6 rounded border p-4">
     <div class="h-24 w-24 shrink-0 rounded bg-surface-50"></div>
     <div class="flex w-full flex-col justify-between">
         <div class="flex items-center gap-1 self-end">
-            <a class="text-lg font-bold hover:underline" href="/">
+            <a class="text-lg font-bold hover:underline" href={pathTo('project', { project: `${id}` })}>
                 {name}
             </a>
             {#if website}

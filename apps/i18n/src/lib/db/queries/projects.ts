@@ -26,3 +26,17 @@ export const createProject = async (
     }).throwOnError()
   ).data;
 
+export const getProjectWithPhrases = (client: Client, id: number) =>
+  client
+    .schema('i18n')
+    .from('projects')
+    .select(
+      '*, keys(*, translations(*)), languages:project_languages(...languages(*))'
+    )
+    .eq('id', id)
+    .single();
+export const getProject = async (client: Client, id: number) =>
+  (await withUnauthorizedRedirect(client, await getProjectWithPhrases(client, id))).data;
+export type ProjectKeys = Result<typeof getProjectWithPhrases>;
+export type ProjectKey = ProjectKeys['keys'][number];
+

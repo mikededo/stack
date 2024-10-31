@@ -3,9 +3,15 @@ import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
 
-type ProjectDialogParams = 'createProject';
+// TODO: Rename to create-project
+type ProjectDialogParams = 'create-project';
+type KeyDialogParams = 'delete-key';
 type Params = {
-  dialog: ProjectDialogParams;
+  dialog: KeyDialogParams | ProjectDialogParams;
+  multiple: 'false' | 'true';
+
+  // Key specific
+  keyId: string;
 };
 type ParamKeys = keyof Params;
 
@@ -13,12 +19,28 @@ type Options = {
   pathname?: string;
 };
 
-export const appendParam = <K extends ParamKeys>(key: K, value: Params[K]) => {
+export function addParams(params: Partial<Params>, options?: Options): void;
+export function addParams<K extends ParamKeys>(params: [K, Params[K]], options?: Options): void;
+export function addParams<K extends ParamKeys>(
+  params: [K, Params[K]] | Partial<Params>,
+  options: Options = {}
+): void {
   const { url } = get(page);
-  const params = new URLSearchParams(url.searchParams.toString());
-  params.set(key, value);
-  goto(`${url.pathname}?${params.toString()}`);
-};
+  const resParams = new URLSearchParams(url.searchParams.toString());
+
+  if (Array.isArray(params)) {
+    const [key, value] = params;
+    resParams.set(key, value);
+  } else {
+    Object.entries(params).forEach(([key, val]) => {
+      if (val !== undefined) {
+        resParams.set(key, val);
+      }
+    });
+  }
+
+  goto(`${options.pathname ?? url.pathname}?${resParams.toString()}`);
+}
 
 export const deleteParam = (key: ParamKeys, { pathname }: Options = {}) => {
   const { url } = get(page);

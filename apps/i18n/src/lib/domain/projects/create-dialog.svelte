@@ -37,7 +37,7 @@
         website: ''
     });
 
-    const showDialog = $derived(containsParam($page.url.searchParams, 'dialog', 'createProject'));
+    const showDialog = $derived(containsParam($page.url.searchParams, 'dialog', 'create-project'));
 
     const queryClient = useQueryClient();
     const mutation = createMutation({
