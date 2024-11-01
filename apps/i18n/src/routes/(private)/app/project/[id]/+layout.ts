@@ -1,3 +1,16 @@
 import type { LayoutLoad } from './$types';
 
-export const load: LayoutLoad = ({ params }) => ({ id: params.id });
+import { Keys } from '$lib/config';
+import { getProject } from '$lib/db';
+
+export const load: LayoutLoad = async ({ params, parent }) => {
+  const { id } = params;
+  const { queryClient, supabase } = await parent();
+
+  queryClient.prefetchQuery({
+    queryFn: async () => await getProject(supabase, +id),
+    queryKey: Keys.PROJECT(id)
+  });
+
+  return ({ id });
+};

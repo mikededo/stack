@@ -49,3 +49,4 @@ export const pathTo = <T extends Routes>(route: T, params?: Route[T]): string =>
 
 export const isAuthPath = (path: string | undefined) => path === Paths.auth;
 export const isAuthRelated = (path: string | undefined) => path?.startsWith(Paths.auth);
+export const isHomePath = (path: string | undefined) => path === Paths.app;

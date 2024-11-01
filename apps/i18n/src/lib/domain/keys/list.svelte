@@ -5,6 +5,7 @@
 
     import { Earth } from 'lucide-svelte';
 
+    import ListItemCell from './list-item-cell.svelte';
     import KeyListItem from './list-item.svelte';
 
     type Props = {
@@ -16,19 +17,19 @@
 </script>
 
 <div class="border rounded overflow-x-auto border-surface-100 text-sm" role="table">
-    <div class="px-4 py-3 flex items-center border-b border-surface-100 bg-surface-50 w-fit min-w-full" role="row">
-        <div class="w-48 md:w-64 shrink-0 font-semibold" role="cell">Key identifier</div>
-        <div class="w-48 shrink-0" role="cell">
+    <div class="relative flex items-center border-b border-surface-100 bg-surface-50 min-w-fit" role="row">
+        <ListItemCell header sticky>Key identifier</ListItemCell>
+        <ListItemCell header>
             <Chip variant="primary">Status</Chip>
-        </div>
+        </ListItemCell>
         {#each languages as { code, name }(code)}
-            <div class="w-48 font-semibold items-center gap-2 flex" role="cell">
+            <ListItemCell class="flex gap-2 items-center" header>
                 <Earth class="size-4" />
                 <p>{name}</p>
-            </div>
+            </ListItemCell>
         {/each}
-        <div class="w-12 self-end shrink-0" role="cell"></div>
     </div>
+
     {#if keys.length}
         <div role="rowgroup">
             {#each keys as { description, key_name: key, translations } (key)}
@@ -44,6 +45,13 @@
             {/each}
         </div>
     {:else}
-        <div>No keys found!</div>
+        <div
+            class="flex flex-col w-full py-8 items-center justify-center"
+        >
+            <h2 class="text-center text-lg ">
+                No keys found!
+            </h2>
+            <p>Try creating a new key!</p>
+        </div>
     {/if}
 </div>
