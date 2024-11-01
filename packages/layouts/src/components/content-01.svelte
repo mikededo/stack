@@ -20,10 +20,15 @@
          * Pathname needs to be provided as the layout has a transition on changing pages
          */
         pathname: string;
-        tabs: Tab[];
         userName: string;
+        tabs?: Tab[];
+        /**
+         * Page change transition.
+         * @default true
+         */
+        transition?: boolean;
     };
-    const { children, isPageActive, pathname, tabs, userName }: Props = $props();
+    const { children, isPageActive, pathname, tabs = [], transition = true, userName }: Props = $props();
 </script>
 
 <header class="l-hidden l-h-top-bar l-border-b l-border-surface-200 l-w-full md:l-flex">
@@ -78,8 +83,8 @@
                 class="l-flex l-flex-col l-gap-4 l-overflow-y-auto l-p-6 md:l-px-10"
                 class:l-h-content={!tabs.length}
                 class:l-h-content-nav={tabs.length > 0}
-                in:fade={{ delay: 100, duration: 100 }}
-                out:fade={{ duration: 100 }}
+                in:fade={{ delay: 100, duration: transition ? 100 : 0 }}
+                out:fade={{ duration: transition ? 100 : 0 }}
             >
                 {@render children()}
             </div>
