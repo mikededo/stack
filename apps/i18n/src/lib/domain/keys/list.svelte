@@ -15,7 +15,7 @@
     };
     const { keys, languages, projectId }: Props = $props();
 
-    let scrolled = $state(true);
+    let scrolled = $state(false);
 
     const useContainer: Action = (node) => {
         node.addEventListener('scroll', () => {
