@@ -15,8 +15,11 @@
         languages: Project['languages'];
         projectId: ProjectKeys['id'];
         translations: ProjectKey['translations'];
+        scrolled?: boolean;
     };
-    const { description, key, languages, projectId, translations }: Props = $props();
+    const { description, key, languages, projectId, scrolled, translations }: Props = $props();
+
+    const classes = $derived(`border-r border-transparent ${scrolled ? 'border-surface-100' : ''}`);
 
     const [status, Icon, text] = $derived.by(() => {
         const translated = translations.length;
@@ -32,7 +35,7 @@
 </script>
 
 <div class="flex relative items-center border-b border-surface-100 last:border-none min-w-fit" role="row">
-    <ListItemCell sticky>
+    <ListItemCell class={classes} sticky>
         <a class="uppercase hover:underline hover:underline-offset-2" {href}>{key}</a>
         <p class="text-xs text-surface-600 line-clamp-1">{description}</p>
     </ListItemCell>

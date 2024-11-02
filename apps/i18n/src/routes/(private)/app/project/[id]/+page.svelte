@@ -1,11 +1,11 @@
 <script lang="ts">
     import { getSupabaseClient } from '@stack/supabase';
-    import { TextIconButton } from '@stack/ui';
+    import { IconButton, TextIconButton } from '@stack/ui';
 
     import type { PageData } from './$types';
 
     import { createQuery } from '@tanstack/svelte-query';
-    import { FilePenLine } from 'lucide-svelte';
+    import { FilePenLine, Settings } from 'lucide-svelte';
 
     import { Keys, pathTo } from '$lib/config';
     import { getProject } from '$lib/db';
@@ -29,12 +29,15 @@
         {:else if $query.data}
             <div class="flex justify-between w-full">
                 <h2 class="text-4xl font-bold">{$query.data.name}</h2>
-                <TextIconButton
-                    color="muted"
-                    href={pathTo('editor', { project: `${$query.data.id}` })}
-                    Icon={FilePenLine}
-                    label="Go to editor"
-                />
+                <div class="flex items-center gap-1">
+                    <TextIconButton
+                        color="muted"
+                        href={pathTo('editor', { project: `${$query.data.id}` })}
+                        Icon={FilePenLine}
+                        label="Go to editor"
+                    />
+                    <IconButton color="muted" Icon={Settings} iconClasses="size-4" />
+                </div>
             </div>
         {/if}
     </div>

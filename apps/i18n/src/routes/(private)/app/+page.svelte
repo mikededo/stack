@@ -6,7 +6,7 @@
     import { createQuery } from '@tanstack/svelte-query';
 
     import { Keys } from '$lib/config';
-    import { getAvailableLanguages, getProjects } from '$lib/db';
+    import { getProjects } from '$lib/db';
     import {
         CreateProjectCard,
         CreateProjectDialog,
@@ -21,10 +21,6 @@
     const projectsQuery = createQuery({
         queryFn: () => getProjects(supabase),
         queryKey: Keys.PROJECTS
-    });
-    const languagesQuery = createQuery({
-        queryFn: () => getAvailableLanguages(supabase),
-        queryKey: Keys.LANGUAGES
     });
 </script>
 
@@ -60,4 +56,4 @@
         </ProjectGrid>
     {/if}
 </Container>
-<CreateProjectDialog languages={$languagesQuery.data ?? []} loading={$languagesQuery.isLoading} />
+<CreateProjectDialog />
