@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
-    "svelte": "5.1.8"
+    "svelte": "5.1.11"
   }
 }

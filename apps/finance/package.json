@@ -26,7 +26,7 @@
     "@stack/utils": "workspace:*",
     "@supabase/ssr": "0.5.1",
     "@supabase/supabase-js": "2.46.1",
-    "@tanstack/svelte-query": "5.59.16",
+    "@tanstack/svelte-query": "5.59.20",
     "chart.js": "4.4.6",
     "lucide-svelte": "0.454.0",
     "tailwind-merge": "2.5.4"
@@ -37,13 +37,13 @@
     "@stack/typescript-config": "workspace:*",
     "@sveltejs/adapter-auto": "3.3.1",
     "@sveltejs/adapter-node": "5.2.9",
-    "@sveltejs/kit": "2.7.3",
+    "@sveltejs/kit": "2.7.7",
     "@sveltejs/vite-plugin-svelte": "4.0.0",
-    "@tanstack/svelte-query-devtools": "5.59.16",
-    "svelte": "5.1.8",
+    "@tanstack/svelte-query-devtools": "5.59.20",
+    "svelte": "5.1.11",
     "svelte-adapter-bun": "0.5.2",
     "svelte-check": "4.0.5",
-    "tslib": "2.8.0",
+    "tslib": "2.8.1",
     "vite": "5.4.10",
     "vitest": "2.1.4"
   }
