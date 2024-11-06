@@ -7,13 +7,13 @@
     import { createMutation } from '@tanstack/svelte-query';
 
     import { page } from '$app/stores';
-    import { containsParam } from '$lib/config';
+    import { hasParam } from '$lib/config';
     import { createProject } from '$lib/db';
 
     import { LanguageSelector } from '../language';
     import { useProjectDialog } from './project-dialog.svelte';
 
-    const showDialog = $derived(containsParam($page.url.searchParams, 'dialog', 'create-project'));
+    const showDialog = $derived(hasParam($page.url, ['dialog', 'create-project']));
 
     const supabaseClient = getSupabaseClient();
     const mutation = createMutation({

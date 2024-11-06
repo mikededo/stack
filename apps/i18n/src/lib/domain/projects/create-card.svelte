@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { addParams } from '$lib/config';
+    import { gotoWithParams } from '$lib/config';
 
     const handleOnCreate = () => {
-        addParams(['dialog', 'create-project']);
+        gotoWithParams({ dialog: 'create-project' });
     };
 </script>
 

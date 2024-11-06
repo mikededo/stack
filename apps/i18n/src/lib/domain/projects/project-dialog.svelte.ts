@@ -2,7 +2,7 @@ import { getSupabaseClient } from '@stack/supabase';
 
 import { createQuery, useQueryClient } from '@tanstack/svelte-query';
 
-import { deleteParam, Keys, pathTo } from '$lib/config';
+import { gotoWithParams, Keys, pathTo } from '$lib/config';
 import { type CreateProjectData, getAvailableLanguages, type Language, type Languages, type Project } from '$lib/db';
 
 type OnMutateArgs = {
@@ -50,7 +50,7 @@ export const useProjectDialog = ({ onMutate }: UseProjectDialogArgs) => {
   const onClose = (_?: Event, id?: number) => {
     // If there's an id, we redirect to the newly created project
     const pathname = id ? pathTo('project', { project: `${id}` }) : undefined;
-    deleteParam('dialog', { pathname });
+    gotoWithParams({ dialog: undefined }, { pathname });
 
     state.name = '';
     state.website = '';
