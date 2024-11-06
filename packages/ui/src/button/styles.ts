@@ -32,7 +32,7 @@ export const sharedClasses = ({
   variant
 }: { className?: null | string } & Required<Pick<BaseProps, 'color' | 'variant'>>) =>
   twMerge(
-    'ui-whitespace-nowrap ui-rounded-md ui-font-medium ui-transition-all focus-visible:ui-scale-[0.975] focus-visible:ui-outline-none active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
+    'ui-whitespace-nowrap ui-rounded-full ui-font-medium ui-transition-all focus-visible:ui-scale-[0.975] focus-visible:ui-outline-none active:ui-scale-[0.975] disabled:ui-cursor-not-allowed disabled:active:ui-scale-100',
     VARIANTS[variant],
     COLORS[color],
     className
