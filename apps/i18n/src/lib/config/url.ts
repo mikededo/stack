@@ -5,20 +5,20 @@ import { get } from 'svelte/store';
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
 
-type DialogType = 'create-project' | 'delete-key';
+type DialogType = 'create-key' | 'create-project' | 'delete-key';
 type AppURLParams = {
   dialog: DialogType;
   keyId: string;
   multiple: 'false' | 'true';
 };
 type IsMultiValue = {
-  dialog: true;
+  dialog: false;
   keyId: false;
   multiple: false;
 };
 
 const MULTI_VALUE_CONFIG: IsMultiValue = {
-  dialog: true,
+  dialog: false,
   keyId: false,
   multiple: false
 } as const;

@@ -5,11 +5,11 @@
     import type { PageData } from './$types';
 
     import { createQuery } from '@tanstack/svelte-query';
-    import { FilePenLine, Settings } from 'lucide-svelte';
+    import { FilePenLine, FilePlus, Settings } from 'lucide-svelte';
 
-    import { Keys, pathTo } from '$lib/config';
+    import { gotoWithParams, Keys, pathTo } from '$lib/config';
     import { getProject } from '$lib/db';
-    import { KeyList, SkeletonKeyList } from '$lib/domain/keys';
+    import { CreateKeyDialog, KeyList, SkeletonKeyList } from '$lib/domain/keys';
 
     type Props = { data: PageData };
     const { data }: Props = $props();
@@ -17,9 +17,13 @@
     const supabaseClient = getSupabaseClient();
 
     const query = createQuery({
-        queryFn: async () => await getProject(supabaseClient, +data.id),
+        queryFn: () => getProject(supabaseClient, +data.id),
         queryKey: Keys.PROJECT(data.id)
     });
+
+    const onAddKey = () => {
+        gotoWithParams({ dialog: 'create-key' });
+    };
 </script>
 
 <div class="flex flex-col gap-8">
@@ -30,6 +34,13 @@
             <div class="flex justify-between w-full">
                 <h2 class="text-4xl font-bold">{$query.data.name}</h2>
                 <div class="flex items-center gap-1">
+                    <TextIconButton
+                        color="primary"
+                        disabled={$query.isLoading}
+                        Icon={FilePlus}
+                        label="Add key"
+                        onclick={onAddKey}
+                    />
                     <TextIconButton
                         color="muted"
                         href={pathTo('editor', { project: `${$query.data.id}` })}
@@ -47,3 +58,5 @@
         <KeyList keys={$query.data.keys} languages={$query.data.languages} projectId={$query.data.id} />
     {/if}
 </div>
+
+<CreateKeyDialog project={+data.id} />

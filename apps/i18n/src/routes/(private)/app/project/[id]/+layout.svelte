@@ -28,7 +28,7 @@
 
     const query = createQuery({
         enabled: !Number.isNaN(+data.id),
-        queryFn: async () => await getProject(supabase, +data.id),
+        queryFn: () => getProject(supabase, +data.id),
         queryKey: Keys.PROJECT(data.id)
     });
     const breadcrumbs = $derived.by<Crumbs>(() => {

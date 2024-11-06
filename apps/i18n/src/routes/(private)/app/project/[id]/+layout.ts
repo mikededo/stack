@@ -8,7 +8,7 @@ export const load: LayoutLoad = async ({ params, parent }) => {
   const { queryClient, supabase } = await parent();
 
   queryClient.prefetchQuery({
-    queryFn: async () => await getProject(supabase, +id),
+    queryFn: () => getProject(supabase, +id),
     queryKey: Keys.PROJECT(id)
   });
 
