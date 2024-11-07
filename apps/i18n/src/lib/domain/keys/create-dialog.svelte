@@ -1,6 +1,6 @@
 <script lang="ts">
     import { getSupabaseClient } from '@stack/supabase';
-    import { Button, Dialog, Input } from '@stack/ui';
+    import { Button, Checkbox, Dialog, Input } from '@stack/ui';
 
     import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 
@@ -13,7 +13,9 @@
 
     const supabaseClient = getSupabaseClient();
     const showDialog = $derived(hasParam($page.url, ['dialog', 'create-key']) && project);
+    let inputRef = $state<HTMLInputElement>();
     let key = $state('');
+    let createAnother = $state(false);
 
     const queryClient = useQueryClient();
     const mutation = createMutation({
@@ -27,8 +29,6 @@
     };
 
     const handleOnCreate = () => {
-        // TODO: Add create another one
-        // TODO: If not create another one, redirect to editor
         $mutation.mutate(undefined, {
             onSuccess: (data) => {
                 if (!data) {
@@ -48,7 +48,12 @@
                     return updated;
                 });
 
-                handleOnClose();
+                if (createAnother) {
+                    key = '';
+                    inputRef?.focus();
+                } else {
+                    handleOnClose();
+                }
             }
         });
     };
@@ -64,12 +69,20 @@
             </div>
         {/snippet}
 
-        <Input
-            class="mb-1"
-            bind:value={key}
-            label="Key"
-            name="key"
-            placeholder="Unique phrase key..."
-        />
+        <div class="flex flex-col gap-2 mb-1">
+            <Input
+                bind:ref={inputRef}
+                bind:value={key}
+                label="Key"
+                name="key"
+                placeholder="Unique phrase key..."
+            />
+            <Checkbox
+                bind:checked={createAnother}
+                label="Create another key?"
+                labelPosition="right"
+                name="create-another-key"
+            />
+        </div>
     </Dialog>
 {/if}
