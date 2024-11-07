@@ -15,11 +15,12 @@
     const showDialog = $derived(hasParam($page.url, ['dialog', 'create-key']) && project);
     let inputRef = $state<HTMLInputElement>();
     let key = $state('');
+    let description = $state('');
     let createAnother = $state(false);
 
     const queryClient = useQueryClient();
     const mutation = createMutation({
-        mutationFn: () => createKey(supabaseClient, { key, project })
+        mutationFn: () => createKey(supabaseClient, { description, key, project })
     });
 
     const handleOnClose = () => {
@@ -69,13 +70,19 @@
             </div>
         {/snippet}
 
-        <div class="flex flex-col gap-2 mb-1">
+        <div class="flex flex-col gap-2.5 mb-1">
             <Input
                 bind:ref={inputRef}
                 bind:value={key}
                 label="Key"
                 name="key"
                 placeholder="Unique phrase key..."
+            />
+            <Input
+                bind:value={description}
+                label="Description"
+                name="description"
+                placeholder="Optional key descrption"
             />
             <Checkbox
                 bind:checked={createAnother}
