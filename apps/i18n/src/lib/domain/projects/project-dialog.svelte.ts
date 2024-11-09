@@ -1,9 +1,9 @@
-import { getSupabaseClient } from '@stack/supabase';
+import type { CreateProjectData, Language, Languages, Project } from '$lib/db';
 
-import { createQuery, useQueryClient } from '@tanstack/svelte-query';
+import { useQueryClient } from '@tanstack/svelte-query';
 
 import { gotoWithParams, Keys, pathTo } from '$lib/config';
-import { type CreateProjectData, getAvailableLanguages, type Language, type Languages, type Project } from '$lib/db';
+import { useLanguages } from '$lib/hooks';
 
 type OnMutateArgs = {
   onSuccess: (id: null | number) => void;
@@ -26,12 +26,8 @@ type UseProjectDialogArgs = {
 };
 export const useProjectDialog = ({ onMutate }: UseProjectDialogArgs) => {
   // Async data
-  const supabase = getSupabaseClient();
   const queryClient = useQueryClient();
-  const languagesStore = createQuery({
-    queryFn: () => getAvailableLanguages(supabase),
-    queryKey: Keys.LANGUAGES
-  });
+  const languagesStore = useLanguages();
   let data = $state<Data>({ isLoading: true });
   languagesStore.subscribe(({ data: queryData, isLoading }) => {
     data = { isLoading, languages: queryData };

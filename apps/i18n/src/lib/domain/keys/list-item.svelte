@@ -1,12 +1,9 @@
 <script lang="ts">
-    import { Chip } from '@stack/ui';
-
     import type { Project, ProjectKey, ProjectKeys } from '$lib/db';
-
-    import { Check, CircleX, TriangleAlert } from 'lucide-svelte';
 
     import { pathTo } from '$lib/config';
 
+    import KeyStatusChip from './key-status-chip.svelte';
     import ListItemCell from './list-item-cell.svelte';
 
     type Props = {
@@ -21,17 +18,7 @@
 
     const classes = $derived(`border-r border-transparent ${scrolled ? 'border-surface-100' : ''}`);
 
-    const [status, Icon, text] = $derived.by(() => {
-        const translated = translations.length;
-        if (!translated) {
-            return ['destructive' as const, CircleX, 'Not started'];
-        }
-
-        return translated < languages.length
-            ? ['warning' as const, TriangleAlert, 'Incomplete']
-            : ['positive' as const, Check, 'Completed'];
-    });
-    const href = $derived(pathTo('editor', { project: `${projectId}` }));
+    const href = $derived(pathTo('editor', { project: `${projectId}` }, { keyId: key }));
 </script>
 
 <div class="flex relative items-center border-b border-surface-100 last:border-none min-w-fit" role="row">
@@ -40,10 +27,7 @@
         <p class="text-xs text-surface-600 line-clamp-1">{description}</p>
     </ListItemCell>
     <ListItemCell>
-        <Chip class="flex gap-1 items-center px-2.5 w-fit" variant={status}>
-            <Icon class="size-3" strokeWidth={2} />
-            <span class="text-xs">{text}</span>
-        </Chip>
+        <KeyStatusChip count={translations.length} max={languages.length} />
     </ListItemCell>
     {#each languages as { code, id }(code)}
         <ListItemCell>

@@ -6,7 +6,7 @@ import { goto } from '$app/navigation';
 import { page } from '$app/stores';
 
 type DialogType = 'create-key' | 'create-project' | 'delete-key';
-type AppURLParams = {
+type AppURLSearchParams = {
   dialog: DialogType;
   keyId: string;
   multiple: 'false' | 'true';
@@ -26,19 +26,17 @@ const MULTI_VALUE_CONFIG: IsMultiValue = {
 export const {
   buildURLParams,
   deleteParam,
+  getParamValues,
   hasParam,
   hasParams
-} = createAppURLParams<AppURLParams, IsMultiValue>(MULTI_VALUE_CONFIG);
+} = createAppURLParams<AppURLSearchParams, IsMultiValue>(MULTI_VALUE_CONFIG);
 
-type Options = {
-  pathname?: string;
-};
-
+type GoToOptions = { pathname?: string };
 export const gotoWithParams = (
-  params: Params<AppURLParams, IsMultiValue>,
-  options: Options = {}
+  params: Params<AppURLSearchParams, IsMultiValue>,
+  options: GoToOptions = {}
 ): void => {
   const { url } = get(page);
-  goto(`${options.pathname ?? url.pathname}?${buildURLParams(url, params)}`);
+  goto(`${options.pathname ?? url.pathname}?${buildURLParams(params)}`);
 };
 
