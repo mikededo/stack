@@ -4,7 +4,6 @@ import { createAppURLParams } from './url';
 
 describe('createAppURLParams', () => {
   it('should return the correct URL parameters', () => {
-    const url = new URL('https://example.com');
     const params = {
       key1: 'value1',
       key2: 'value2',
@@ -18,7 +17,7 @@ describe('createAppURLParams', () => {
       key4: true
     });
 
-    expect(urlParams.buildURLParams(url, params)).toBe(
+    expect(urlParams.buildURLParams(params)).toBe(
       'key1=value1&key2=value2&key3=value3%2Cvalue4&key4=value5%2Cvalue6'
     );
   });
