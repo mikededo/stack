@@ -4,7 +4,7 @@ import { type Client, type FunctionArgs, type Result, withUnauthorizedRedirect }
 
 const getProjectsQuery = (client: Client) => client.schema('i18n')
   .from('projects')
-  .select('*, languages:project_languages(...languages(*))');
+  .select('*, languages:project_languages(is_default, ...languages(*))');
 export const getProjects = async (client: Client) =>
   (await withUnauthorizedRedirect(client, await getProjectsQuery(client)))
     .data;
@@ -31,7 +31,7 @@ export const getProjectWithPhrases = (client: Client, id: number) =>
     .schema('i18n')
     .from('projects')
     .select(
-      '*, keys(*, translations(*)), languages:project_languages(...languages(*))'
+      '*, keys(*, translations(*)), languages:project_languages(is_default, ...languages(*))'
     )
     .eq('id', id)
     .single();

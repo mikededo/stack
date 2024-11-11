@@ -52,10 +52,15 @@
             </div>
         {/if}
     </div>
+
     {#if $query.isLoading}
         <SkeletonKeyList />
     {:else if $query.data}
-        <KeyList keys={$query.data.keys} languages={$query.data.languages} projectId={$query.data.id} />
+        <KeyList
+            keys={$query.data.keys}
+            languages={$query.data.languages}
+            projectId={$query.data.id}
+        />
     {/if}
 </div>
 

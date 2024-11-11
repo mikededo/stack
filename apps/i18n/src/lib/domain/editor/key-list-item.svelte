@@ -16,7 +16,7 @@
 </script>
 
 <li
-    class="group"
+    class="group aria-current:border-primary border-y border-y-transparent transition-colors"
     aria-current={selectedKey === name}
 >
     <a
