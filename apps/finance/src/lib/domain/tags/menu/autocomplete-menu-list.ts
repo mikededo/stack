@@ -1,8 +1,7 @@
+import type { Tag } from '$lib/db';
 import type { Action } from 'svelte/action';
 
 import { Keys } from '@stack/utils';
-
-import type { Tag } from '$lib/db';
 
 type UseMenuOptionArgs = {
   inputRef: HTMLInputElement | undefined;

@@ -1,18 +1,16 @@
 <script lang="ts">
     import type { ActionArray } from '@stack/actions';
-
     import type { HTMLInputAttributes, HTMLTextareaAttributes } from 'svelte/elements';
 
     import { useActions } from '@stack/actions';
-
     import { twMerge } from 'tailwind-merge';
 
     type InputColor = 'destructive' | 'primary' | 'surface';
     type BaseProps = {
-        color?: InputColor;
         invalid?: boolean;
         label?: string;
         use?: ActionArray;
+        color?: InputColor;
     };
     type InputProps = {
         multiline?: never;

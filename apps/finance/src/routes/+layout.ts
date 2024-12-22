@@ -1,9 +1,7 @@
-import { createSupabaseClient } from '@stack/supabase';
-
 import type { LayoutLoad } from './$types';
 
+import { createSupabaseClient } from '@stack/supabase';
 import { QueryClient } from '@tanstack/svelte-query';
-
 import { browser } from '$app/environment';
 import { env } from '$env/dynamic/public';
 

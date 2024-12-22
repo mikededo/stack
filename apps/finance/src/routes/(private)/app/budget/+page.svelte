@@ -1,10 +1,7 @@
 <script lang="ts">
     import { getSupabaseClient } from '@stack/supabase';
     import { Button, Drawer, IconButton } from '@stack/ui';
-
     import { createQuery } from '@tanstack/svelte-query';
-    import { LayoutTemplate } from 'lucide-svelte';
-
     import { Keys } from '$lib/config';
     import { getBudgetPresets } from '$lib/db/queries';
     import {
@@ -16,6 +13,7 @@
         PresetPlan,
         SavedBudgetPlans
     } from '$lib/domain/budget';
+    import { LayoutTemplate } from 'lucide-svelte';
 
     const ctx = initBudgetPlanContext();
 

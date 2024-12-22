@@ -1,7 +1,5 @@
 import { getSupabaseClient } from '@stack/supabase';
-
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
-
 import { Keys } from '$lib/config';
 import {
   type Book,

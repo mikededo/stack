@@ -2,8 +2,8 @@
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
-        code: null | string;
         isDefault: boolean | null;
+        code: null | string;
     };
     const { code, isDefault }: Props = $props();
 

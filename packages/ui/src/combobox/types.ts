@@ -1,5 +1,4 @@
 import type { ActionArray } from '@stack/actions';
-
 import type { Snippet } from 'svelte';
 import type { HTMLInputAttributes } from 'svelte/elements';
 
@@ -67,15 +66,15 @@ export type Props = (
    */
   options: Snippet;
   /**
-   * Controls if the input should be focused on load. Defaults to `false`.
-   */
-  autofocus?: boolean;
-  /**
    * A reference to the input element. This is exposed so that the parent
    * component can directly manipulate or access the input field, if
    * needed (e.g., forcing focus on external actions or events).
    */
   inputRef?: HTMLInputElement;
+  /**
+   * Controls if the input should be focused on load. Defaults to `false`.
+   */
+  autofocus?: boolean;
   /**
    * The currently selected options. Similar to `options`, it is expected
    * to be a function or component that renders the selected items.

@@ -1,6 +1,5 @@
-import type { Action } from 'svelte/action';
-
 import type { Expense } from '$lib/db';
+import type { Action } from 'svelte/action';
 
 import { useCell } from '../cell';
 import { getDragContext, onDrag, onStartDragging, onStopDragging } from './drag-context.svelte';

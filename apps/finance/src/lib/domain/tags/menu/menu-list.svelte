@@ -1,13 +1,11 @@
 <script lang="ts">
     import { MenuOption } from '@stack/ui';
-
+    import { useBookTags } from '$lib/hooks';
     import { Circle, CircleCheck } from 'lucide-svelte';
 
-    import { useBookTags } from '$lib/hooks';
-
     type Props = {
-        book: string;
         isTagActive: (tag: number) => boolean;
+        book: string;
         onClick: (tag: number) => void;
     };
     const { book, isTagActive, ...restProps }: Props = $props();

@@ -7,12 +7,12 @@ export type IconButtonColor = 'destructive' | 'muted' | 'primary' | 'surface';
 export type IconButtonSizes = 'default' | 'large' | 'small';
 export type BaseProps = {
   Icon: ComponentType<LucideIcon>;
-  color?: IconButtonColor;
   href?: string;
-  iconClasses?: string;
   size?: IconButtonSizes;
-  strokeWidth?: IconProps['strokeWidth'];
   wrapperClasses?: string;
+  color?: IconButtonColor;
+  iconClasses?: string;
+  strokeWidth?: IconProps['strokeWidth'];
 };
 
 const ICON_SIZES: Record<IconButtonSizes, string> = {

@@ -1,16 +1,15 @@
-import { get } from 'svelte/store';
-
 import { page } from '$app/stores';
+import { get } from 'svelte/store';
 
 type Route = {
   app: undefined;
   auth: undefined;
-  book: { book: string };
   budget: undefined;
-  home: undefined;
-  page: { book: string; page: string };
+  page: { page: string; book: string };
   signIn: undefined;
   signUp: undefined;
+  book: { book: string };
+  home: undefined;
 };
 
 type Routes = keyof Route;

@@ -1,20 +1,18 @@
 import { createAppURLParams, type Params } from '@stack/utils';
-
-import { get } from 'svelte/store';
-
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
+import { get } from 'svelte/store';
 
 type DialogType = 'create-key' | 'create-project' | 'delete-key';
 type AppURLSearchParams = {
-  dialog: DialogType;
   keyId: string;
   multiple: 'false' | 'true';
+  dialog: DialogType;
 };
 type IsMultiValue = {
-  dialog: false;
   keyId: false;
   multiple: false;
+  dialog: false;
 };
 
 const MULTI_VALUE_CONFIG: IsMultiValue = {

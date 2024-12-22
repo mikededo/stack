@@ -15,11 +15,11 @@ export type FunctionArgs<
 'Args' extends keyof Database[S]['Functions'][F] ? Database[S]['Functions'][F]['Args'] : never;
 
 export type SupabaseLocals = {
-  safeGetSession: () => Promise<{ session: null | Session; user: null | User }>;
   supabase: Client;
+  safeGetSession: () => Promise<{ user: null | User; session: null | Session }>;
 };
 
 export type SupabasePageData = {
-  session: null | Session;
   user: null | User;
+  session: null | Session;
 };

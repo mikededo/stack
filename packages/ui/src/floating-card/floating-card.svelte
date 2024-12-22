@@ -1,23 +1,21 @@
 <script lang="ts">
     import type { ActionArray } from '@stack/actions';
-
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
 
-    import { useActions } from '@stack/actions';
-
     import type { FloatingCardPosition } from './types.js';
 
+    import { useActions } from '@stack/actions';
     import { cubicInOut } from 'svelte/easing';
     import { fade } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
         children: Snippet;
-        noPadding?: boolean;
-        position?: FloatingCardPosition;
         ref?: HTMLDivElement;
         use?: ActionArray;
+        noPadding?: boolean;
+        position?: FloatingCardPosition;
     } & HTMLAttributes<HTMLDivElement>;
     let {
         children,

@@ -1,7 +1,6 @@
 import type { CreateProjectData, Language, Languages, Project } from '$lib/db';
 
 import { useQueryClient } from '@tanstack/svelte-query';
-
 import { gotoWithParams, Keys, pathTo } from '$lib/config';
 import { useLanguages } from '$lib/hooks';
 
@@ -10,10 +9,10 @@ type OnMutateArgs = {
 };
 type FormState = {
   defaultLanguage: string;
-  description: string;
   name: string;
   selectedLanguages: Languages[number][];
   website: string;
+  description: string;
 };
 type Data = {
   isLoading: boolean;

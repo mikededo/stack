@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Input } from '@stack/ui';
-
     import { useProject } from '$lib/hooks';
 
     import KeyListItem from './key-list-item.svelte';

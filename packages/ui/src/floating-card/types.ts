@@ -1,1 +1,1 @@
-export type FloatingCardPosition = { left: number; top: number; width: number };
+export type FloatingCardPosition = { left: number; width: number; top: number };

@@ -28,17 +28,17 @@ export type ChartBaseProps<
    */
   datasetIdKey?: string;
   /**
-   * The options object that is passed into the Chart.js chart
-   * @see https://www.chartjs.org/docs/latest/general/options.html
-   * @default {}
-   */
-  options?: ChartOptions<TType>;
-  /**
    * The plugins array that is passed into the Chart.js chart
    * @see https://www.chartjs.org/docs/latest/developers/plugins.html
    * @default []
    */
   plugins?: Plugin<TType>[];
+  /**
+   * The options object that is passed into the Chart.js chart
+   * @see https://www.chartjs.org/docs/latest/general/options.html
+   * @default {}
+   */
+  options?: ChartOptions<TType>;
   /**
    * A mode string to indicate transition configuration should be used.
    * @see https://www.chartjs.org/docs/latest/developers/api.html#update-mode

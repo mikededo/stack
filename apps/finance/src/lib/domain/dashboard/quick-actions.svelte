@@ -1,10 +1,9 @@
 <script lang="ts">
-    import { BookPlus, FileClock, FilePlus, Plus } from 'lucide-svelte';
-
     import { goto } from '$app/navigation';
     import { pathTo } from '$lib/config';
     import { showDialog } from '$lib/domain/dialog';
     import { useLastViewedPages } from '$lib/hooks';
+    import { BookPlus, FileClock, FilePlus, Plus } from 'lucide-svelte';
 
     const lastViewedPages = useLastViewedPages();
     const lastViewedPageSubtitle = $derived.by(() => {

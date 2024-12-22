@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Chip } from '@stack/ui';
-
     import { GripVertical } from 'lucide-svelte';
     import { slide } from 'svelte/transition';
 

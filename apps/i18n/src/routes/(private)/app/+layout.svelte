@@ -1,11 +1,10 @@
 <script lang="ts">
     import type { Snippet } from 'svelte';
 
-    import { Content01 } from '@stack/layouts';
-    import { setUserDataContext } from '@stack/supabase';
-
     import type { LayoutData } from './$types';
 
+    import { Content01 } from '@stack/layouts';
+    import { setUserDataContext } from '@stack/supabase';
     import { onNavigate } from '$app/navigation';
     import { page } from '$app/stores';
     import { isHomePath } from '$lib/config';

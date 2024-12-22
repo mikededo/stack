@@ -1,6 +1,6 @@
-import { isValidDate } from '@stack/utils';
-
 import type { Expense } from '$lib/db';
+
+import { isValidDate } from '@stack/utils';
 
 export const parseDate = (date?: null | string) => {
   if (!date) {
@@ -62,7 +62,7 @@ export const getNewEntryMatches = (expenses: Expense[], value: string) => {
   return [...result.values()];
 };
 
-export type ExpenseValidation = { amount: string; comment: string; date: string };
+export type ExpenseValidation = { date: string; amount: string; comment: string };
 export const isExpenseValid = ({ amount, comment, date }: ExpenseValidation) => {
   return Boolean(comment && isValidDate(date) && Number(parseAmount(amount)) >= 0);
 };

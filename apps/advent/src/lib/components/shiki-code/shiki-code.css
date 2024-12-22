@@ -1,0 +1,12 @@
+.shiki-wrapper {
+  background-color: #f8f8f8;
+  overflow-x: auto;
+  font-weight: 400;
+  font-size: 0.875em;
+
+  scrollbar-width: thin;
+
+  span {
+    color: var(--shiki-light);
+  }
+}

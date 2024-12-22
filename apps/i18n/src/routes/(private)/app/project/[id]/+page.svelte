@@ -1,15 +1,13 @@
 <script lang="ts">
-    import { getSupabaseClient } from '@stack/supabase';
-    import { IconButton, TextIconButton } from '@stack/ui';
-
     import type { PageData } from './$types';
 
+    import { getSupabaseClient } from '@stack/supabase';
+    import { IconButton, TextIconButton } from '@stack/ui';
     import { createQuery } from '@tanstack/svelte-query';
-    import { FilePenLine, FilePlus, Settings } from 'lucide-svelte';
-
     import { gotoWithParams, Keys, pathTo } from '$lib/config';
     import { getProject } from '$lib/db';
     import { CreateKeyDialog, KeyList, SkeletonKeyList } from '$lib/domain/keys';
+    import { FilePenLine, FilePlus, Settings } from 'lucide-svelte';
 
     type Props = { data: PageData };
     const { data }: Props = $props();

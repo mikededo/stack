@@ -1,6 +1,6 @@
 type SupabaseEnv = {
-  supabaseAnonKey: string;
   supabaseUrl: string;
+  supabaseAnonKey: string;
 };
 
 export const getSupabaseEnv = (env: Record<string, string | undefined>): SupabaseEnv => {

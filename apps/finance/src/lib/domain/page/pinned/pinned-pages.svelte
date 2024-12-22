@@ -1,13 +1,11 @@
 <script lang="ts">
-    import { getUserDataContext } from '@stack/supabase';
-
     import type { PinnedPage } from '$lib/db';
 
-    import { Pin } from 'lucide-svelte';
-    import { fade } from 'svelte/transition';
-
+    import { getUserDataContext } from '@stack/supabase';
     import { beforeNavigate, goto } from '$app/navigation';
     import { useClickPinnedPage, usePinnedPages } from '$lib/hooks';
+    import { Pin } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
     import PinPlaceholder from './pin-placeholder.svelte';
     import PinSkeleton from './pin-skeleton.svelte';

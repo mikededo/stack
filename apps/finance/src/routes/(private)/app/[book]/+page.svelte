@@ -1,15 +1,13 @@
 <script lang="ts">
-    import { Breadcrumbs, type Crumbs, type Tab, Tabs } from '@stack/ui';
-
     import type { PageData } from './$types';
 
-    import { File, Tag } from 'lucide-svelte';
-    import { fade } from 'svelte/transition';
-
+    import { Breadcrumbs, type Crumbs, type Tab, Tabs } from '@stack/ui';
     import { pathTo } from '$lib/config';
     import { initListContext, type ListState, PageList, PageListOptions } from '$lib/domain/page';
     import { TagList } from '$lib/domain/tags';
     import { useBook } from '$lib/hooks';
+    import { File, Tag } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
     type Props = { data: PageData };
     const { data }: Props = $props();

@@ -1,10 +1,8 @@
 <script lang="ts">
+    import type { BooksWithPages } from '$lib/db';
     import type { Snippet } from 'svelte';
 
     import { ContextMenu, type ContextMenuOption, createContextMenu, ListItem } from '@stack/ui';
-
-    import type { BooksWithPages } from '$lib/db';
-
     import {
         ClipboardCopyIcon,
         ClipboardPasteIcon,

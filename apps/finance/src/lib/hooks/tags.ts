@@ -1,16 +1,13 @@
 import type { MutationResult } from '@stack/utils';
-
-import { getSupabaseClient } from '@stack/supabase';
-
 import type { Expense, Page, Tag } from '$lib/db';
 
+import { getSupabaseClient } from '@stack/supabase';
 import {
   createMutation,
   type CreateMutationOptions,
   type QueryClient,
   useQueryClient
 } from '@tanstack/svelte-query';
-
 import { Keys } from '$lib/config';
 import { addExpenseTag, removeExpenseTag } from '$lib/db';
 
@@ -32,13 +29,13 @@ type OnError = CreateMutationOptions<
 >['onError'];
 type UseExpenseTagsModifiersArgs = {
   /**
-   * Book id is required to be able to get the tags from the cached book tags query
-   */
-  book: number;
-  /**
    * Page being modified, required to know the page to update
    */
   page: number;
+  /**
+   * Book id is required to be able to get the tags from the cached book tags query
+   */
+  book: number;
 };
 
 // The hook allows to add/remove a tag from an expense, while also updating the

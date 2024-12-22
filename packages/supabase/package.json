@@ -14,11 +14,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@supabase/ssr": "0.5.1",
-    "@supabase/supabase-js": "2.46.1"
+    "@supabase/ssr": "0.5.2",
+    "@supabase/supabase-js": "2.47.10"
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
-    "svelte": "5.1.11"
+    "svelte": "5.15.0"
   }
 }

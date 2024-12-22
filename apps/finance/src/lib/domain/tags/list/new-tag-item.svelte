@@ -1,6 +1,5 @@
 <script lang="ts">
     import { Chip, ListItem } from '@stack/ui';
-
     import { Tag } from 'lucide-svelte';
 
     import ColorInput from './color-input.svelte';
@@ -8,8 +7,8 @@
     import NameInput from './name-input.svelte';
 
     type Props = {
-        color: string;
         name: string;
+        color: string;
         onCancel?: () => void;
         onConfirm?: () => void;
     };

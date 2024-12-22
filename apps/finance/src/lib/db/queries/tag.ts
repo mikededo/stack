@@ -2,7 +2,7 @@ import type { Client } from '@stack/supabase';
 
 // Mutations
 
-export type NewTagData = { book: number; color: string; name: string };
+export type NewTagData = { name: string; book: number; color: string };
 export const createTag = async (
   client: Client,
   { book, ...data }: NewTagData
@@ -15,7 +15,7 @@ export const createTag = async (
       .select()
       .throwOnError()
   ).data;
-export type UpdateTagData = { color: string; id: number; name: string };
+export type UpdateTagData = { id: number; name: string; color: string };
 export const updateTag = async (
   client: Client,
   { id, ...data }: UpdateTagData

@@ -3,10 +3,9 @@
 
     import type { Snippet } from 'svelte';
 
-    import { setSupabaseClient } from '@stack/supabase';
-
     import type { LayoutData } from './$types.js';
 
+    import { setSupabaseClient } from '@stack/supabase';
     import { QueryClientProvider } from '@tanstack/svelte-query';
     import { SvelteQueryDevtools } from '@tanstack/svelte-query-devtools';
 

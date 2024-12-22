@@ -1,10 +1,8 @@
 <script lang="ts">
     import type { ActionArray } from '@stack/actions';
-
     import type { ComponentType } from 'svelte';
 
     import { useActions } from '@stack/actions';
-
     import { Icon as LucideIcon } from 'lucide-svelte';
     import { twMerge } from 'tailwind-merge';
 
@@ -12,9 +10,9 @@
         label: string;
         active?: boolean;
         class?: string;
-        Icon?: ComponentType<LucideIcon>;
         unstyled?: boolean;
         use?: ActionArray;
+        Icon?: ComponentType<LucideIcon>;
         onClick?: () => void;
     };
     const { active, Icon, label, onClick, unstyled, use = [], ...restProps }: Props = $props();

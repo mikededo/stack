@@ -7,9 +7,9 @@
     import ListItemCell from './list-item-cell.svelte';
 
     type Props = {
-        description: ProjectKey['description'];
         key: ProjectKey['key_name'];
         languages: Project['languages'];
+        description: ProjectKey['description'];
         projectId: ProjectKeys['id'];
         translations: ProjectKey['translations'];
         scrolled?: boolean;

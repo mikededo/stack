@@ -3,8 +3,8 @@ import type { Action } from 'svelte/action';
 import { Keys } from '@stack/utils';
 
 type UseOptionButtonArgs = {
-  comment: string;
   inputRef: HTMLTextAreaElement | undefined;
+  comment: string;
   onHideAutocomplete: () => void;
   onValueChange: (value: string, fromFocus?: boolean) => void;
 };

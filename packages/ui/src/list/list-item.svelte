@@ -1,15 +1,13 @@
 <script lang="ts">
     import type { ActionArray } from '@stack/actions';
-
     import type { HTMLLiAttributes } from 'svelte/elements';
 
     import { useActions } from '@stack/actions';
-
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
-        hoverable?: boolean;
         use?: ActionArray;
+        hoverable?: boolean;
     } & HTMLLiAttributes;
     const { hoverable, use = [], ...restProps }: Props = $props();
 

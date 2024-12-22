@@ -3,13 +3,13 @@ import type { Client } from '@stack/supabase';
 // Mutations
 
 export type NewExpenseData = {
-  amount: number;
-  comment: string;
   date: string;
   page: number;
+  amount: number;
+  comment: string;
   id?: number;
-  position?: number;
   tags?: number[];
+  position?: number;
 };
 export const createExpense = async (
   client: Client,

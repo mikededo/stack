@@ -130,8 +130,8 @@ export default antfu({
           'error',
           {
             customGroups: {
-              type: { 'repo-type': ['@stack/**'] },
-              value: { repo: ['@stack/**'], style: ['@stack/**/styles'] }
+              type: { 'repo-type': ['@stack/\\*\\*'] },
+              value: { repo: ['@stack/\\*\\*'], style: ['@stack/\\*\\*/styles'] }
             },
             environment: 'bun',
             groups: [
@@ -149,13 +149,14 @@ export default antfu({
               'unknown'
             ],
             ignoreCase: true,
-            internalPattern: ['$*/**'],
+            internalPattern: ['$\\*/\\*\\*'],
             maxLineLength: undefined,
             newlinesBetween: 'always',
             order: 'asc',
             type: 'alphabetical'
           }
         ],
+        'perfectionist/sort-modules': 'off',
         'perfectionist/sort-object-types': [
           'error',
           {
@@ -168,33 +169,35 @@ export default antfu({
             type: 'alphabetical'
           }
         ],
-        'perfectionist/sort-svelte-attributes': [
-          'error',
-          {
-            customGroups: {
-              'bind-directives': 'bind:*',
-              'bind-this': 'bind:this',
-              class: 'class',
-              effects: 'on*',
-              'style-props': '--style-props',
-              this: 'this',
-              'use-directives': 'use:*'
-            },
-            groups: [
-              ['this', 'bind-this'],
-              'style-props',
-              'class',
-              ['bind-directives', 'use-directives'],
-              'unknown',
-              ['shorthand', 'svelte-shorthand'],
-              'multiline',
-              'effects'
-            ],
-            ignoreCase: true,
-            order: 'asc',
-            type: 'alphabetical'
-          }
-        ]
+        // FIXME: This rule has been deprecated and it is no longer working.
+        // It'd be ideal to find an alternative.
+        // 'perfectionist/sort-svelte-attributes': [
+        //   'error',
+        //   {
+        //     customGroups: {
+        //       'bind-directives': 'bind:*',
+        //       'bind-this': 'bind:this',
+        //       class: 'class',
+        //       effects: 'on*',
+        //       'style-props': '--style-props',
+        //       this: 'this',
+        //       'use-directives': 'use:*'
+        //     },
+        //     groups: [
+        //       ['this', 'bind-this'],
+        //       'style-props',
+        //       'class',
+        //       ['bind-directives', 'use-directives'],
+        //       'unknown',
+        //       ['shorthand', 'svelte-shorthand'],
+        //       'multiline',
+        //       'effects'
+        //     ],
+        //     ignoreCase: true,
+        //     order: 'asc',
+        //     type: 'alphabetical'
+        //   }
+        // ]
       }
     }
   );

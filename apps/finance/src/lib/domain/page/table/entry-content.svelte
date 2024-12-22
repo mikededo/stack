@@ -8,10 +8,10 @@
         commentContent: Snippet;
         dateContent: Snippet;
         tagsContent: Snippet;
-        amountEdit?: ComponentProps<typeof Cell>['edit'];
-        commentEdit?: ComponentProps<typeof Cell>['edit'];
         dateEdit?: ComponentProps<typeof Cell>['edit'];
         tagsEdit?: ComponentProps<typeof Cell>['edit'];
+        amountEdit?: ComponentProps<typeof Cell>['edit'];
+        commentEdit?: ComponentProps<typeof Cell>['edit'];
     };
     const {
         amountContent,

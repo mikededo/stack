@@ -1,0 +1,38 @@
+{
+  "name": "@stack/advent",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "dev": "conc \"bun dev:app\" \"bun check:watch\" --names dev,check --handle-input --default-input-target dev",
+    "dev:app": "vite dev",
+    "lint": "eslint . --max-warnings=0",
+    "lint:fix": "eslint --fix .",
+    "prepare": "svelte-kit sync",
+    "preview": "vite preview",
+    "test": "bun run test:integration && bun run test:unit",
+    "test:integration": "playwright test",
+    "test:unit": "vitest",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "lucide-svelte": "0.469.0",
+    "tailwind-merge": "2.5.5"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-auto": "3.3.1",
+    "@sveltejs/adapter-static": "3.0.8",
+    "@sveltejs/kit": "2.14.0",
+    "@sveltejs/vite-plugin-svelte": "5.0.3",
+    "@tailwindcss/typography": "0.5.15",
+    "autoprefixer": "10.4.20",
+    "shiki": "1.24.3",
+    "svelte": "5.15.0",
+    "svelte-check": "4.1.1",
+    "tailwindcss": "3.4.17",
+    "vite": "6.0.5"
+  }
+}

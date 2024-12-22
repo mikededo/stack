@@ -1,13 +1,11 @@
 <script lang="ts">
-    import { Chip, IconButton, Input, TextIconButton } from '@stack/ui';
-
     import type { ProjectKeys } from '$lib/db';
 
-    import { Earth, Save, Trash } from 'lucide-svelte';
-
+    import { Chip, IconButton, Input, TextIconButton } from '@stack/ui';
     import { page } from '$app/stores';
     import { getParamValues } from '$lib/config';
     import { useProject } from '$lib/hooks';
+    import { Earth, Save, Trash } from 'lucide-svelte';
 
     type Props = { project: number };
     const { project }: Props = $props();

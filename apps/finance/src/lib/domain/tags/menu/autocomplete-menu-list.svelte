@@ -1,19 +1,17 @@
 <script lang="ts">
-    import { MenuOption } from '@stack/ui';
-
     import type { Tag } from '$lib/db';
 
-    import { Circle, CircleCheck } from 'lucide-svelte';
-
+    import { MenuOption } from '@stack/ui';
     import { useBookTags } from '$lib/hooks';
+    import { Circle, CircleCheck } from 'lucide-svelte';
 
     import { useInputMenuOption } from './autocomplete-menu-list';
 
     type Props = {
-        book: string;
         filterTags: (tag: Tag) => boolean;
         inputRef: HTMLInputElement | undefined;
         isTagActive: (tag: number) => boolean;
+        book: string;
         onClick: (tag: number) => void;
     };
     const { book, filterTags, inputRef, isTagActive, onClick }: Props = $props();

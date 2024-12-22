@@ -2,7 +2,6 @@
     import type { Snippet } from 'svelte';
 
     import { useBlockScroll } from '@stack/actions';
-
     import { X } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';
@@ -13,8 +12,8 @@
         children: Snippet;
         onClose: () => void;
         class?: string;
-        footer?: Snippet;
         header?: Snippet;
+        footer?: Snippet;
     };
     const { children, class: dialogClasses, footer, header, onClose }: Props = $props();
 

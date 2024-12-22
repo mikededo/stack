@@ -4,16 +4,16 @@ import type { BudgetPlan, BudgetPlanAllocation, BudgetPresets } from '$lib/db';
 import { getContext, setContext } from 'svelte';
 
 export type PresetAllocation = {
-  amount: string;
   name: string;
   percentage: string;
+  amount: string;
   id?: `local-${number}` | number;
 };
 type PlanAllocation = {
-  amount: null | number | string;
   id: `local-${number}` | number;
   name: string;
   percentage: null | number | string;
+  amount: null | number | string;
   budget_plan_id?: BudgetPlanAllocation['budget_plan_id'];
 };
 

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { clickAway } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
-
     import { Loader, type Icon as LucideIcon } from 'lucide-svelte';
     import { type ComponentType, type Snippet } from 'svelte';
     import { twMerge } from 'tailwind-merge';
@@ -18,8 +17,8 @@
     type Props = {
         children: Snippet;
         class?: string;
-        loading?: boolean;
         wrapperClass?: string;
+        loading?: boolean;
     } & (
         | { Icon: ComponentType<LucideIcon>; label?: string }
         | { label: string; Icon?: ComponentType<LucideIcon> }

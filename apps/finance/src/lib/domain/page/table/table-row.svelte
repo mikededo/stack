@@ -1,11 +1,9 @@
 <script lang="ts">
+    import type { Expense } from '$lib/db';
     import type { Action } from 'svelte/action';
 
     import { useActions } from '@stack/actions';
     import { ContextMenu, type ContextMenuOption, createContextMenu } from '@stack/ui';
-
-    import type { Expense } from '$lib/db';
-
     import {
         ArrowDownToLine,
         ArrowUpToLine,

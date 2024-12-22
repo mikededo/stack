@@ -1,9 +1,7 @@
-import { getUserData } from '@stack/supabase';
-
 import type { LayoutLoad } from './$types';
 
+import { getUserData } from '@stack/supabase';
 import { redirect } from '@sveltejs/kit';
-
 import { Keys, pathTo } from '$lib/config';
 
 export const load: LayoutLoad = async ({ parent, url }) => {

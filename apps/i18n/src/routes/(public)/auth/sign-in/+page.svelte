@@ -2,9 +2,7 @@
     import { getSupabaseClient, type SignInData, signInUser } from '@stack/supabase';
     import { Button, Input } from '@stack/ui';
     import { EMAIL_REGEX, PASSWORD_REGEX } from '@stack/utils';
-
     import { createMutation } from '@tanstack/svelte-query';
-
     import { goto } from '$app/navigation';
     import { pathTo } from '$lib/config';
 

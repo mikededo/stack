@@ -3,8 +3,8 @@
     import type { ComponentType } from 'svelte';
 
     export type Tab = {
-        Icon: ComponentType<LucideIcon>;
         name: string;
+        Icon: ComponentType<LucideIcon>;
         onClick?: () => void;
     };
 </script>

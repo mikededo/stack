@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { ComponentType, Snippet } from 'svelte';
 
-    import { Content01 } from '@stack/layouts';
-    import { setUserDataContext } from '@stack/supabase';
-
     import type { LayoutData } from './$types';
 
+    import { Content01 } from '@stack/layouts';
+    import { setUserDataContext } from '@stack/supabase';
+    import { page } from '$app/stores';
+    import { isNestedPath, pathTo } from '$lib/config';
     import {
         DollarSign,
         LayoutDashboard,
@@ -13,15 +14,12 @@
         PiggyBank
     } from 'lucide-svelte';
 
-    import { page } from '$app/stores';
-    import { isNestedPath, pathTo } from '$lib/config';
-
     type Props = { children: Snippet; data: LayoutData };
     const { children, data }: Props = $props();
 
     setUserDataContext(data.user);
 
-    type Tab = { href: string; Icon: ComponentType<LucideIcon>; name: string; disabled?: boolean };
+    type Tab = { href: string; name: string; Icon: ComponentType<LucideIcon>; disabled?: boolean };
     const tabs: Tab[] = [
         { href: pathTo('app'), Icon: LayoutDashboard, name: 'Dashboard' },
         { href: pathTo('budget'), Icon: PiggyBank, name: 'Budget' },

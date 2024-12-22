@@ -1,8 +1,8 @@
 // This is a modified version of hperrin/svelte-material-ui
 // Copyright 2020-present Hunter Perrin
 type SvelteActionReturnType<P> = {
-  destroy?: () => void;
   update?: (newParams?: P) => void;
+  destroy?: () => void;
 } | void;
 type SvelteHTMLActionType<P> = (node: HTMLElement, params?: P) => SvelteActionReturnType<P>;
 type HTMLActionEntry<P = any> = [SvelteHTMLActionType<P>, P] | SvelteHTMLActionType<P>;

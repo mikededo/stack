@@ -4,8 +4,8 @@ import { getContext, setContext } from 'svelte';
 
 type Position = { width: number; x: number; y: number };
 type DragContext = {
-  activeRow: Expense | null;
   isDragging: boolean;
+  activeRow: Expense | null;
   placeholderRowIndex: null | number;
   shadowPosition: Position;
 };

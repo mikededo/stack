@@ -1,8 +1,7 @@
 <script lang="ts">
-    import { Chip } from '@stack/ui';
-
     import type { Project, ProjectKeys } from '$lib/db';
 
+    import { Chip } from '@stack/ui';
     import { Earth } from 'lucide-svelte';
 
     import ListItemCell from './list-item-cell.svelte';

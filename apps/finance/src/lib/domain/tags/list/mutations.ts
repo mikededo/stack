@@ -1,9 +1,7 @@
 import type { Client } from '@stack/supabase';
-
 import type { QueryClient } from '@tanstack/svelte-query';
 
 import { createMutation } from '@tanstack/svelte-query';
-
 import { Keys } from '$lib/config';
 import {
   type Book,
@@ -16,9 +14,9 @@ import {
 } from '$lib/db';
 
 type UseTagMutationArgs = {
-  bookId: string;
   queryClient: QueryClient;
   supabaseClient: Client;
+  bookId: string;
   onSettled?: () => void;
 };
 

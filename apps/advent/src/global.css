@@ -1,0 +1,34 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-gutter: stable;
+    scrollbar-color: #374151 transparent;
+  }
+
+  :root {
+    --font-sans: 'IBM Plex Sans';
+    --font-mono: 'IBM Plex Mono';
+    --background: #ffffff;
+    --foreground: #333333;
+  }
+
+  .dark {
+    --background: #000000;
+    --foreground: #ffffff;
+  }
+}
+
+html {
+  @apply font-sans;
+
+  color: var(--foreground);
+  stroke: var(--foreground);
+}
+
+.prose {
+  --tw-prose-links: theme('colors.primary.500');
+}

@@ -1,16 +1,14 @@
 <script lang="ts">
-    import { Breadcrumbs, type Crumbs } from '@stack/ui';
-
     import type { PageData } from './$types';
 
-    import { Check, Loader2, SaveOff } from 'lucide-svelte';
-    import { fade } from 'svelte/transition';
-
+    import { Breadcrumbs, type Crumbs } from '@stack/ui';
     import { afterNavigate } from '$app/navigation';
     import { pathTo } from '$lib/config';
     import { BarChart, PieChart } from '$lib/domain/chart';
     import { initPageContext, PageTable, setContextPage } from '$lib/domain/page';
     import { useBookPage, useTrackViewedPage } from '$lib/hooks';
+    import { Check, Loader2, SaveOff } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
     type Props = { data: PageData };
     const { data }: Props = $props();

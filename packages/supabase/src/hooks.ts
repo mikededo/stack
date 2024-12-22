@@ -68,14 +68,14 @@ export const createSupabaseClient = (
 
   return isBrowser()
     ? createBrowserClient<Database>(supabaseUrl, supabaseAnonKey, {
-      global: { fetch }
-    })
+        global: { fetch }
+      })
     : createServerClient<Database>(supabaseUrl, supabaseAnonKey, {
-      cookies: {
-        getAll() {
-          return cookies;
-        }
-      },
-      global: { fetch }
-    });
+        cookies: {
+          getAll() {
+            return cookies;
+          }
+        },
+        global: { fetch }
+      });
 };

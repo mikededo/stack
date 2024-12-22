@@ -28,17 +28,17 @@ export const getBudgetPresets = async (client: Client) =>
 export type BudgetPresets = Result<typeof getBudgetPresetsQuery>;
 
 export type NewBudgetAllocationData = {
-  amount: null | number;
   id: null | number;
   name: string;
   percentage: null | number;
+  amount: null | number;
   // Budget plan id is not required as the plan id cannot be updated
 };
 export type BudgetPlanData = {
-  allocations: NewBudgetAllocationData[];
   budget: number;
   id: null | number;
   name: string;
+  allocations: NewBudgetAllocationData[];
 };
 
 // MUTATIONS

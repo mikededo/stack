@@ -1,13 +1,11 @@
 <script lang="ts">
-    import { getRelativeTimeText, isMoreThanAMinuteAgo, isMoreThanAnHourAgo } from '@stack/utils';
-
     import type { LastViewedPage } from '$lib/db';
 
-    import { ChevronRight } from 'lucide-svelte';
-    import { fade } from 'svelte/transition';
-
+    import { getRelativeTimeText, isMoreThanAMinuteAgo, isMoreThanAnHourAgo } from '@stack/utils';
     import { beforeNavigate } from '$app/navigation';
     import { pathTo } from '$lib/config';
+    import { ChevronRight } from 'lucide-svelte';
+    import { fade } from 'svelte/transition';
 
     type Props = { entry: LastViewedPage[number] };
     const { entry }: Props = $props();

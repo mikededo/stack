@@ -1,9 +1,7 @@
 import type { MutationResult } from '@stack/utils';
 
 import { getSupabaseClient } from '@stack/supabase';
-
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
-
 import { Keys } from '$lib/config';
 import { createExpense, type Expense, type Page } from '$lib/db';
 

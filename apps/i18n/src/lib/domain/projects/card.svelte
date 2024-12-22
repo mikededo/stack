@@ -1,10 +1,9 @@
 <script lang="ts">
     import type { Project } from '$lib/db/queries';
 
-    import { ExternalLink } from 'lucide-svelte';
-
     import { pathTo } from '$lib/config';
     import { LanguageContainer, LanguageItem } from '$lib/domain/language';
+    import { ExternalLink } from 'lucide-svelte';
 
     type Props = { project: Project };
     const { project }: Props = $props();

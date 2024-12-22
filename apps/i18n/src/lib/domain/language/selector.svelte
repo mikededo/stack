@@ -1,16 +1,15 @@
 <script lang="ts">
-    import { Chip, Combobox } from '@stack/ui';
-
     import type { Language, Languages } from '$lib/db';
 
+    import { Chip, Combobox } from '@stack/ui';
     import { CheckIcon } from 'lucide-svelte';
 
     type Props = {
         label: string;
         languages: Languages;
         name: string;
-        placeholder: string;
         onLanguageClick: (language: Language) => void;
+        placeholder: string;
         disabled?: boolean;
         multiple?: boolean;
     };

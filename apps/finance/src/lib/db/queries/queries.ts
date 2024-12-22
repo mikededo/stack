@@ -28,7 +28,7 @@ export type PinnedPages = Result<typeof getPinnedPagesQuery>;
 export type PinnedPage = PinnedPages[number]['page'];
 
 // Mutations
-export type NewPageData = { book: number; name: string };
+export type NewPageData = { name: string; book: number };
 export const createPage = async (client: Client, { book, name }: NewPageData) =>
   (
     await client

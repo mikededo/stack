@@ -1,7 +1,5 @@
 import { getSupabaseClient } from '@stack/supabase';
-
 import { createQuery } from '@tanstack/svelte-query';
-
 import { Keys } from '$lib/config';
 import { getAvailableLanguages } from '$lib/db';
 

@@ -3,14 +3,13 @@
     import type { ComponentType, Snippet } from 'svelte';
 
     import { Logo } from '@stack/ui';
-
     import { Ellipsis } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 
     type Tab = {
         href: string;
-        Icon: ComponentType<LucideIcon>;
         name: string;
+        Icon: ComponentType<LucideIcon>;
         disabled?: boolean;
     };
     type Props = {

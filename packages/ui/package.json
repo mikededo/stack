@@ -27,15 +27,15 @@
   },
   "dependencies": {
     "@stack/actions": "workspace:*",
-    "lucide-svelte": "0.454.0",
-    "tailwind-merge": "2.5.4"
+    "lucide-svelte": "0.469.0",
+    "tailwind-merge": "2.5.5"
   },
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",
     "@stack/typescript-config": "workspace:*",
-    "@sveltejs/kit": "2.7.7",
+    "@sveltejs/kit": "2.14.0",
     "@sveltejs/package": "2.3.7",
-    "@sveltejs/vite-plugin-svelte": "4.0.0",
-    "svelte": "5.1.11"
+    "@sveltejs/vite-plugin-svelte": "5.0.3",
+    "svelte": "5.15.0"
   }
 }

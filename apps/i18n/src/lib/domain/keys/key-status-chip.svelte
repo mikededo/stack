@@ -1,19 +1,18 @@
 <script lang="ts">
     import { Chip } from '@stack/ui';
-
     import { Check, CircleX, TriangleAlert } from 'lucide-svelte';
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
         /**
-         * The number of translated values a key has
-         */
-        count: number;
-        /**
          * The maximum number of translations a key can have. Should be the
          * same number as the languages of a project
          */
         max: number;
+        /**
+         * The number of translated values a key has
+         */
+        count: number;
         class?: string;
         condensed?: boolean;
     };

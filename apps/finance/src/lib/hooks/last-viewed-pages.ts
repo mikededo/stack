@@ -1,11 +1,9 @@
 import { getSupabaseClient } from '@stack/supabase';
-
 import {
   createMutation,
   createQuery,
   useQueryClient
 } from '@tanstack/svelte-query';
-
 import { Keys } from '$lib/config';
 import { getLastAccessedPages, trackPageView } from '$lib/db';
 
