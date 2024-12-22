@@ -33,7 +33,7 @@
 </header>
 <section>
     <h2>2024</h2>
-    <div class="not-prose grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+    <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         <ProblemCard title="12th" url="/2024/12">
             {#snippet description()}
                 <p>

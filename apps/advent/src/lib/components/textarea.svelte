@@ -9,11 +9,17 @@
     } & HTMLTextareaAttributes;
 
     let { ref = $bindable(), title, ...restProps }: Props = $props();
+    const classes = $derived(
+        twMerge(
+            'resize-none rounded-md border px-3 py-2 font-mono text-sm outline-none ring-2 ring-transparent ring-offset-1 transition-colors duration-150 hover:border-primary hover:ring-primary-100 hover:ring-offset-primary-100 focus:border-primary focus:ring-primary-100 focus:ring-offset-primary-100 md:px-3',
+            restProps.class
+        )
+    );
 </script>
 
 <p class="m-0 font-semibold">{title}</p>
 <textarea
     {...restProps}
     bind:this={ref}
-    class={twMerge('resize-none rounded-md border px-3 py-2 font-mono text-sm outline-none ring-2 ring-transparent ring-offset-1 transition-colors duration-150 hover:border-blue-500 hover:ring-blue-100 hover:ring-offset-blue-100 md:px-3', restProps.class)}
+    class={classes}
 ></textarea>

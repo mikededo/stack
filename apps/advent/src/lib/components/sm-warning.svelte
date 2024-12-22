@@ -10,7 +10,7 @@
 </div>
 
 {#if notImplemented}
-    <div class="mt-4 rounded-md bg-red-100 px-4 py-2 text-sm text-red-500 md:hidden">
+    <div class="mt-4 rounded-md bg-destructive-100 px-4 py-2 text-sm text-destructive-500 md:hidden">
         This visualization is not adapted to small devices and the output may not be correctly visualized.
     </div>
 {/if}

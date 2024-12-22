@@ -13,7 +13,7 @@
 </script>
 
 <a
-    class="flex flex-col gap-1 rounded-md border px-3 py-2 ring-2 ring-transparent ring-offset-1 transition-colors duration-150 hover:border-blue-500 hover:ring-blue-100 hover:ring-offset-blue-100 md:px-3"
+    class="flex flex-col gap-1 rounded-md border px-3 py-2 ring-2 ring-transparent ring-offset-1 transition-colors duration-150 hover:border-primary-500 hover:ring-primary-100 hover:ring-offset-primary-100 md:px-3"
     href={url}
 >
     <p class="font-semibold">{title}</p>
