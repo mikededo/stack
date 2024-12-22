@@ -6,10 +6,9 @@
     import { beforeNavigate } from '$app/navigation';
     import { Button, Header, ShikiCode, SMWarning, Textarea, Timer } from '$lib/components';
     import { BENCHMARK, DEFAULT_MAP, DEFAULT_MOVEMENTS } from '$lib/inputs/2024/input-15';
+    import { matrixCanvasHelper } from '$lib/utils';
 
-    import { algorithmState, CELL_SIZE, renderCell, runASolver } from './utils.svelte';
-
-    type AnimateCellsArgs = { onComplete: () => void };
+    import { algorithmState, CELL_COLORS, CELL_SIZE, CELL_TEXT_COLORS, runASolver } from './utils.svelte';
 
     const MOVEMENT_PLACEHOLDER = `Default movements are trimmed since the actual input is really long!
 Movements consist of: <^v>...
@@ -33,96 +32,46 @@ You can also generate a set of random movements with the button below.`;
             return;
         }
 
-        const canvas = document.createElement('canvas');
-        const dpr = window.devicePixelRatio || 1;
-        const ctx = canvas.getContext('2d');
-        if (!ctx) {
-            return;
-        }
-
         running = true;
-        canvas.classList.add('mx-auto');
-        container.replaceChildren(canvas);
+        let start: Point = [0, 0];
         const input = (mapInput?.value ? mapInput.value : DEFAULT_MAP)
             .trim()
             .split('\n')
-            .map(line => line.split('')) as Cell[][];
-
-        const rows = input.length;
-        const cols = input[0].length;
-
-        const logicalWidth = cols * CELL_SIZE;
-        const logicalHeight = rows * CELL_SIZE;
-
-        canvas.style.width = `${logicalWidth}px`;
-        canvas.style.height = `${logicalHeight}px`;
-        canvas.width = logicalWidth * dpr;
-        canvas.height = logicalHeight * dpr;
-        ctx.scale(dpr, dpr);
-
-        const renderingState: {
-            delay: number;
-            x: number;
-            y: number;
-            progress: number;
-        }[] = [];
-        let start: Point = [0, 0];
-
-        input.forEach((row, x) => {
-            row.forEach((cell, y) => {
-                if (cell === '@') {
-                    start = [x, y];
+            .map((line, i) => {
+                const res = line.split('');
+                const found = res.findIndex(c => c === '@');
+                if (found > -1) {
+                    start = [i, found];
                 }
 
-                // Delay the start time based on cell position
-                renderingState.push({ delay: (x + y) * 15, progress: -1, x, y });
-            });
+                return res;
+            }) as Cell[][];
+        const matrix = matrixCanvasHelper<Cell>({
+            options: {
+                cellColors: CELL_COLORS,
+                cellSize: CELL_SIZE,
+                cellTextColors: CELL_TEXT_COLORS,
+                input
+            },
+            root: container
         });
-
-        const startTime = Date.now();
-        const animateCells = (args: AnimateCellsArgs) => {
-            ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
-
-            renderingState.forEach((state) => {
-                const { delay, progress, x, y } = state;
-                const cell = input[x][y];
-
-                if (state.progress >= 0) {
-                    renderCell(ctx, x, y, cell, progress);
-                }
-
-                if (progress < 100) {
-                    state.progress = Math.min(
-                        100,
-                        state.progress < 0
-                            ? (Date.now() - startTime > delay ? 0 : -1)
-                            : state.progress + 5
-                    );
-                }
-            });
-
-            // Keep running until all completed
-            if (renderingState.some(state => state.progress < 100)) {
-                requestAnimationFrame(() => {
-                    animateCells(args);
-                });
-            } else {
-                args.onComplete();
-            }
-        };
+        if (!matrix) {
+            // TODO: Handle error
+            return;
+        }
 
         const movements = (movementsInput?.value ? movementsInput.value : DEFAULT_MOVEMENTS)
             .trim()
             .split('\n')
             .map(s => s.split(''))
             .flat();
-        animateCells({
+        matrix.renderMatrix({
             onComplete: () => {
                 algorithmState.map = input;
                 algorithmState.movements = { executed: 0, left: movements.length };
 
                 startTimer = true;
-                runASolver(ctx, start, movements);
+                runASolver(matrix, start, movements);
             }
         });
     };

@@ -1,4 +1,3 @@
-
 /**
  * The implementation of the solution is nearly a clone of the one exposed in
  * the website, with some modifications in order to make the rendering work and
@@ -9,7 +8,7 @@
  * @see https://github.com/mikededo/advent/blob/main/aoc-24/src/solutions/d15.rs
  */
 
-import { hexToRgb, sleep } from '$lib/utils';
+import { type MatrixCanvasHelper, sleep } from '$lib/utils';
 
 export type Point = [number, number];
 export const CELL_SIZE = 16;
@@ -60,28 +59,11 @@ const getNextPos = (current: Point, direction: string, n = 1): Point => {
   }
 };
 
-export const renderCell = (
-  ctx: CanvasRenderingContext2D,
-  x: number,
-  y: number,
-  cell: Cell,
-  progress = 100
-) => {
-  const rectX = y * CELL_SIZE;
-  const rectY = x * CELL_SIZE;
-
-  ctx.fillStyle = `rgba(${hexToRgb(CELL_COLORS[cell])}, ${(progress / 100)})`;
-  ctx.fillRect(rectX, rectY, CELL_SIZE, CELL_SIZE);
-  ctx.font = '12px "IBM Plex Mono"';
-  ctx.fillStyle = CELL_TEXT_COLORS[cell];
-  ctx.fillText(cell, rectX + 4, rectY + 12);
-};
-
 /**
  * Cannot execute the function recursively as there are too many movements
  */
 export const runASolver = async (
-  ctx: CanvasRenderingContext2D,
+  matrix: MatrixCanvasHelper<Cell>,
   start: Point,
   movements: string[]
 ) => {
@@ -113,8 +95,8 @@ export const runASolver = async (
     switch (nextCell) {
       case '#': continue;
       case '.':
-        renderCell(ctx, nextPos[1], nextPos[0], '@');
-        renderCell(ctx, player[1], player[0], '.');
+        matrix.fillRect(nextPos[1], nextPos[0], '@');
+        matrix.fillRect(player[1], player[0], '.');
 
         player = nextPos;
         break;
@@ -141,8 +123,8 @@ export const runASolver = async (
           successors.forEach((pos, i, successors) => {
             const isLast = i === successors.length - 1;
             const prev = successors[i + 1] ?? nextPos;
-            renderCell(ctx, pos[1], pos[0], 'O');
-            renderCell(ctx, prev[1], prev[0], isLast ? '@' : '.');
+            matrix.fillRect(pos[1], pos[0], 'O');
+            matrix.fillRect(prev[1], prev[0], isLast ? '@' : '.');
 
             // Apply the same to the map
             algorithmState.map[pos[0]][pos[1]] = 'O';
@@ -153,7 +135,7 @@ export const runASolver = async (
           }
 
           // Update previous cell
-          renderCell(ctx, player[1], player[0], '.');
+          matrix.fillRect(player[1], player[0], '.');
           player = nextPos;
         }
         break;
