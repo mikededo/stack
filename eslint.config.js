@@ -24,6 +24,10 @@ export default antfu({
   jsonc: false,
   lessOpinionated: true,
   markdown: false,
+  rules: {
+    'arrow-body-style': ['error', 'as-needed'],
+    'func-style': ['error', 'expression', { allowArrowFunctions: true }]
+  },
   stylistic: {
     indent: 2,
     quotes: 'single',
@@ -62,6 +66,7 @@ export default antfu({
       }]
     }
   },
+  vue: false,
   yaml: false
 }, {
   files: ['**/*.d.ts'],
@@ -78,6 +83,7 @@ export default antfu({
     'antfu/stylistic/rules',
     {
       rules: {
+        'style/arrow-parens': ['error', 'always'],
         'style/brace-style': ['error', '1tbs'],
         'style/comma-dangle': ['error', 'never'],
         'style/indent': [
@@ -168,7 +174,7 @@ export default antfu({
             partitionByNewLine: true,
             type: 'alphabetical'
           }
-        ],
+        ]
         // FIXME: This rule has been deprecated and it is no longer working.
         // It'd be ideal to find an alternative.
         // 'perfectionist/sort-svelte-attributes': [

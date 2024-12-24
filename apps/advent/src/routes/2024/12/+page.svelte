@@ -44,7 +44,7 @@ LLLLLLLLLLLLSJJJJRLLLLLZZHHHHHHHHHFFVVV
 LLLLLLLLLLKKKJJJJRLLHHHHHHHHHHHHHHFFDMV
 MLLLLLLLLLKKKJJJJJRLHHHHHHEDDDDDDDDDDMM`
         .split('\n')
-        .map(line => line.split(''));
+        .map((line) => line.split(''));
 
     const CONTAINER_ID = 'container';
     // Generate a list of tailwind classes background colors for the 600 value
@@ -226,7 +226,7 @@ MLLLLLLLLLKKKJJJJJRLHHHHHHEDDDDDDDDDDMM`
         });
 
         if (!input.length) {
-            input = finalInput.trim().split('\n').map(s => s.split(''));
+            input = finalInput.trim().split('\n').map((s) => s.split(''));
         }
         container.style.gridTemplateColumns = `repeat(${Math.min(maxCols, input[0].length)}, 24px)`;
         container.replaceChildren(fragment);

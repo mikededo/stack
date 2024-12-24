@@ -63,7 +63,7 @@ const removeExpenseTagMapper =
 
       return {
         ...expense,
-        tags: expense.tags.filter(tag => tag.id !== tagId)
+        tags: expense.tags.filter((tag) => tag.id !== tagId)
       };
     };
 
@@ -100,7 +100,7 @@ export const useExpenseTagsModifiers = ({
     onMutate: ({ expense: expenseId, tag: tagId }) => {
       // Get the tags
       const tags = queryClient.getQueryData<Tag[]>(Keys.BOOK_TAGS(`${book}`));
-      const tag = tags?.find(tag => tag.id === tagId);
+      const tag = tags?.find((tag) => tag.id === tagId);
       if (!tag) {
         // This sould never happen, but just in case
         return;

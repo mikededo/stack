@@ -63,9 +63,7 @@ export const getNewEntryMatches = (expenses: Expense[], value: string) => {
 };
 
 export type ExpenseValidation = { date: string; amount: string; comment: string };
-export const isExpenseValid = ({ amount, comment, date }: ExpenseValidation) => {
-  return Boolean(comment && isValidDate(date) && Number(parseAmount(amount)) >= 0);
-};
+export const isExpenseValid = ({ amount, comment, date }: ExpenseValidation) => Boolean(comment && isValidDate(date) && Number(parseAmount(amount)) >= 0);
 
 export const hasExpenseChanged = (expense: Expense, newExpense: ExpenseValidation) => {
   // Ensure dates are in the same format

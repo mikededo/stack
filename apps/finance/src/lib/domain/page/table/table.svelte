@@ -29,7 +29,7 @@
                 return false;
             }
 
-            return expense.tags.some(tag => ctx.filters.tags.has(tag.id));
+            return expense.tags.some((tag) => ctx.filters.tags.has(tag.id));
         });
     });
 

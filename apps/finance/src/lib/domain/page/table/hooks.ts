@@ -8,12 +8,10 @@ import { createExpense, type Expense, type Page } from '$lib/db';
 /**
  * Merges updating all fields of the expense, except for the tags
  */
-function updateExistingExpense({ tags: _, ...updatedExpense }: Expense) {
-  return (expense: Expense) =>
-    updatedExpense.id === expense.id
-      ? { ...expense, ...updatedExpense }
-      : expense;
-}
+const updateExistingExpense = ({ tags: _, ...updatedExpense }: Expense) => (expense: Expense) =>
+  updatedExpense.id === expense.id
+    ? { ...expense, ...updatedExpense }
+    : expense;
 
 type MutationContext = { cachedPage: null | Page; isNewExpense: boolean };
 type UseExpenseMutationArgs = {

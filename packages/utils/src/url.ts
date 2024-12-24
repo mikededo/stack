@@ -105,7 +105,7 @@ const hasParam = <
     const values = paramValue.split(separator);
 
     if (Array.isArray(value)) {
-      return value.every(v => values.includes(v));
+      return value.every((v) => values.includes(v));
     }
 
     return values.includes(value as string);
@@ -138,7 +138,7 @@ const hasParams = <
   multiValueConfig: TConfig,
   separator: string = ','
 ): boolean =>
-  checks.every(check => hasParam(url, check, multiValueConfig, separator));
+  checks.every((check) => hasParam(url, check, multiValueConfig, separator));
 
 type GetParamValuesOptions<
   TParams extends BaseURLParams,

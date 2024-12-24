@@ -103,7 +103,7 @@ export const matrixCanvasHelper = <Cell extends string>(
       });
 
       // Keep running until all completed
-      if (renderingState.some(state => state.progress < 100)) {
+      if (renderingState.some((state) => state.progress < 100)) {
         requestAnimationFrame(() => {
           animateCells();
         });

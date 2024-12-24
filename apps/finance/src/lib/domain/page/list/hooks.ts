@@ -45,7 +45,7 @@ export const useCreatePage = () => {
             return book;
           }
 
-          const pages = [...book.page, page].filter(page => page.id !== 0);
+          const pages = [...book.page, page].filter((page) => page.id !== 0);
           return { ...book, page: pages };
         });
       });

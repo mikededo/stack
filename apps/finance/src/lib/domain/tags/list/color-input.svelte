@@ -20,7 +20,7 @@
     }: Props = $props();
     const ALLOWED_KEYS = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight'];
 
-    const withAutofocus: Action = node => (autofocus ? useAutofocus(node) : undefined);
+    const withAutofocus: Action = (node) => (autofocus ? useAutofocus(node) : undefined);
 
     const onColorKeydown: KeyboardEventHandler<HTMLInputElement> =
         (e) => {

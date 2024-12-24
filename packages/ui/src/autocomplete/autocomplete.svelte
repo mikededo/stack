@@ -74,9 +74,7 @@
         restProps.onClickAway?.();
     };
 
-    const onAutocompleteOptionCheck = (event: MouseEvent) => {
-        return !cardRef || (!cardRef.contains(event.target as HTMLElement) && !event.defaultPrevented);
-    };
+    const onAutocompleteOptionCheck = (event: MouseEvent) => !cardRef || (!cardRef.contains(event.target as HTMLElement) && !event.defaultPrevented);
 
     const autocompleteActions: ActionArray = [
         ...use,

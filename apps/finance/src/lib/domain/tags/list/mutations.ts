@@ -53,7 +53,7 @@ const useCreateTag = ({
         return;
       }
 
-      updateBookTagsAndInvalidate(queryClient, bookId, tags => [
+      updateBookTagsAndInvalidate(queryClient, bookId, (tags) => [
         ...tags,
         data[0]
       ]);
@@ -75,8 +75,8 @@ const useUpdateTag = ({
         return;
       }
 
-      updateBookTagsAndInvalidate(queryClient, bookId, tags =>
-        tags.map(tag => (tag.id === id ? { ...tag, ...data[0] } : tag)));
+      updateBookTagsAndInvalidate(queryClient, bookId, (tags) =>
+        tags.map((tag) => (tag.id === id ? { ...tag, ...data[0] } : tag)));
     }
   });
 
@@ -94,7 +94,7 @@ const useDeleteTag = ({
         return;
       }
 
-      updateBookTagsAndInvalidate(queryClient, bookId, tags =>
+      updateBookTagsAndInvalidate(queryClient, bookId, (tags) =>
         tags.filter(({ id }) => id !== tag));
     }
   });

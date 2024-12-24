@@ -9,7 +9,7 @@
     };
 
     const {
-        format = value => Math.round(value),
+        format = (value) => Math.round(value),
         value = 0
     }: Props = $props();
     const animatedValue = new Tween(value, { duration: 100, easing: quadInOut });

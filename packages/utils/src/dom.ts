@@ -11,7 +11,7 @@ const focusableSelector = [
   'select:not([disabled])',
   'textarea:not([disabled])'
 ]
-  .map(selector => `${selector}:not([tabindex='-1'])`)
+  .map((selector) => `${selector}:not([tabindex='-1'])`)
   .join(',');
 
 export const getFocusableElements = (

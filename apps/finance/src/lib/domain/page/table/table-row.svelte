@@ -24,7 +24,7 @@
     const dragContext = getDragContext();
     let rowNode = $state<HTMLDivElement>();
 
-    const menuProxy: ProxyFn = cb => () => {
+    const menuProxy: ProxyFn = (cb) => () => {
         activateRow(position);
         cb();
     };

@@ -72,7 +72,7 @@ export const useUpsertPlan = () => {
           // @ts-expect-error Suapabse is not capable of properly typing custom function data
           return [...prev, data as BudgetPlan];
         } else {
-          return prev.map(plan =>
+          return prev.map((plan) =>
             prevId === plan.id ? { ...plan, ...data } : plan
           );
         }

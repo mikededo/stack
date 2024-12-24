@@ -39,7 +39,7 @@ You can also generate a set of random movements with the button below.`;
             .split('\n')
             .map((line, i) => {
                 const res = line.split('');
-                const found = res.findIndex(c => c === '@');
+                const found = res.findIndex((c) => c === '@');
                 if (found > -1) {
                     start = [i, found];
                 }
@@ -63,7 +63,7 @@ You can also generate a set of random movements with the button below.`;
         const movements = (movementsInput?.value ? movementsInput.value : DEFAULT_MOVEMENTS)
             .trim()
             .split('\n')
-            .map(s => s.split(''))
+            .map((s) => s.split(''))
             .flat();
         matrix.renderMatrix({
             onComplete: () => {
