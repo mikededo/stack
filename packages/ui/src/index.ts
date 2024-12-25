@@ -15,3 +15,4 @@ export { ListItem } from './list/index.js';
 export { Logo } from './logo/index.js';
 export { Menu, MenuOption } from './menu/index.js';
 export { type Tab, Tabs } from './tabs/index.js';
+export { Toast, toast, Toaster } from './toaster/index.js';
