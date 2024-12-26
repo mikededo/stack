@@ -1,9 +1,11 @@
 <script lang="ts">
     import { useMoneyMask, usePercentageMask } from '@stack/actions';
     import { IconButton, Input, TextIconButton } from '@stack/ui';
-    import { beforeNavigate } from '$app/navigation';
+
     import { Plus, Save, Trash2 } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
+
+    import { beforeNavigate } from '$app/navigation';
 
     import { useUpDownArrows } from './actions.svelte';
     import {

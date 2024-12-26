@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { useLastViewedPages } from '$lib/hooks';
     import { CircleSlash2 } from 'lucide-svelte';
+
+    import { useLastViewedPages } from '$lib/hooks';
 
     import LastViewedItem from './item.svelte';
     import LastViewedSkeleton from './skeleton.svelte';

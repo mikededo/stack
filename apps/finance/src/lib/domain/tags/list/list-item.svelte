@@ -1,6 +1,4 @@
 <script lang="ts">
-    import type { Tag } from '$lib/db';
-
     import { clickAway } from '@stack/actions';
     import {
         Chip,
@@ -9,6 +7,9 @@
         createContextMenu,
         ListItem
     } from '@stack/ui';
+
+    import type { Tag } from '$lib/db';
+
     import { Layers2, Tag as TagIcon, Trash2 } from 'lucide-svelte';
 
     import ColorInput from './color-input.svelte';

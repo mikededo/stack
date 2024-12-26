@@ -1,9 +1,11 @@
 <script lang="ts">
+    import { MenuOption } from '@stack/ui';
+
     import type { Tag } from '$lib/db';
 
-    import { MenuOption } from '@stack/ui';
-    import { useBookTags } from '$lib/hooks';
     import { Circle, CircleCheck } from 'lucide-svelte';
+
+    import { useBookTags } from '$lib/hooks';
 
     import { useInputMenuOption } from './autocomplete-menu-list';
 

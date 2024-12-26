@@ -3,6 +3,7 @@
     import type { ComponentType, Snippet } from 'svelte';
 
     import { Logo } from '@stack/ui';
+
     import { Ellipsis } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
 

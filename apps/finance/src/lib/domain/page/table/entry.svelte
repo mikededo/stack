@@ -1,11 +1,13 @@
 <script lang="ts">
-    import type { Expense } from '$lib/db';
     import type { Action } from 'svelte/action';
 
     import { clickAway } from '@stack/actions';
     import { getUserDataContext } from '@stack/supabase';
     import { Chip } from '@stack/ui';
     import { Keys } from '@stack/utils';
+
+    import type { Expense } from '$lib/db';
+
     import { useExpenseTagsModifiers } from '$lib/hooks';
 
     import {

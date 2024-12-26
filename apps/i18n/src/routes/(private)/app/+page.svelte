@@ -1,8 +1,10 @@
 <script lang="ts">
+    import { Container } from '@stack/layouts';
+
     import type { PageData } from './$types';
 
-    import { Container } from '@stack/layouts';
     import { createQuery } from '@tanstack/svelte-query';
+
     import { Keys } from '$lib/config';
     import { getProjects } from '$lib/db';
     import {

@@ -1,7 +1,9 @@
 import { createAppURLParams, type Params } from '@stack/utils';
+
+import { get } from 'svelte/store';
+
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
-import { get } from 'svelte/store';
 
 type DialogType = 'create-key' | 'create-project' | 'delete-key';
 type AppURLSearchParams = {

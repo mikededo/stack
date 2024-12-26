@@ -1,8 +1,9 @@
 <script lang="ts">
-    import type { Tag } from '$lib/db';
-
     import { useActions } from '@stack/actions';
     import { Chip, Combobox } from '@stack/ui';
+
+    import type { Tag } from '$lib/db';
+
     import { TagAutocompleteMenuList } from '$lib/domain/tags';
     import { useExpenseTagsModifiers } from '$lib/hooks';
 

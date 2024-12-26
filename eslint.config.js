@@ -136,8 +136,11 @@ export default antfu({
           'error',
           {
             customGroups: {
-              type: { 'repo-type': ['@stack/\\*\\*'] },
-              value: { repo: ['@stack/\\*\\*'], style: ['@stack/\\*\\*/styles'] }
+              type: { 'repo-type': ['@stack\\/[^\\/]+'] },
+              value: {
+                repo: ['@stack\\/[^\\/]+'],
+                style: ['@stack\\/[^\\/]+/styles']
+              }
             },
             environment: 'bun',
             groups: [
@@ -155,7 +158,7 @@ export default antfu({
               'unknown'
             ],
             ignoreCase: true,
-            internalPattern: ['$\\*/\\*\\*'],
+            internalPattern: ['\\$[^\\/]+\\/[^\\/]+'],
             maxLineLength: undefined,
             newlinesBetween: 'always',
             order: 'asc',

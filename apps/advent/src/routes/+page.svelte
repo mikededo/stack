@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { ProblemCard } from '$lib/components';
     import { GithubIcon } from 'lucide-svelte';
+
+    import { ProblemCard } from '$lib/components';
 
 </script>
 

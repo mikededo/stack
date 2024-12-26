@@ -1,11 +1,12 @@
 <script lang="ts">
     import type { Action } from 'svelte/action';
 
+    import { clickAway, portal, useActions, useTrapFocus } from '@stack/actions';
+    import { getFocusableElements, Keys } from '@stack/utils';
+
     import type { FloatingCardPosition } from '../floating-card/index.js';
     import type { Props } from './types.js';
 
-    import { clickAway, portal, useActions, useTrapFocus } from '@stack/actions';
-    import { getFocusableElements, Keys } from '@stack/utils';
     import { twMerge } from 'tailwind-merge';
 
     import { FloatingCard } from '../floating-card/index.js';

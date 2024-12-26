@@ -1,9 +1,10 @@
 <script lang="ts">
     import type { BooksWithPages } from '$lib/db';
 
-    import { PageList } from '$lib/domain/page';
     import { Book, ChevronDown } from 'lucide-svelte';
     import { slide } from 'svelte/transition';
+
+    import { PageList } from '$lib/domain/page';
 
     type Props = { books: BooksWithPages };
     const { books }: Props = $props();

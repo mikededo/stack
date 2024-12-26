@@ -4,9 +4,11 @@
     import type { Action } from 'svelte/action';
 
     import { portal, useActions } from '@stack/actions';
-    import { browser } from '$app/environment';
+
     import { LayoutTemplate, X } from 'lucide-svelte';
     import { spring } from 'svelte/motion';
+
+    import { browser } from '$app/environment';
 
     import { IconButton } from '../icon-button/index.js';
 

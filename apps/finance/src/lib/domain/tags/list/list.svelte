@@ -1,10 +1,12 @@
 <script lang="ts">
     import { getSupabaseClient } from '@stack/supabase';
     import { Button, DangerDialog } from '@stack/ui';
+
     import { useQueryClient } from '@tanstack/svelte-query';
-    import { type Book, type Tag } from '$lib/db';
     import { Plus } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
+
+    import { type Book, type Tag } from '$lib/db';
 
     import { isTagValid } from './helpers';
     import ListHeader from './list-header.svelte';

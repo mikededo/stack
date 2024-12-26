@@ -1,13 +1,16 @@
 <script lang="ts">
     import type { Crumbs } from '@stack/ui';
-    import type { Snippet } from 'svelte';
 
-    import type { LayoutData } from './$types';
+    import type { Snippet } from 'svelte';
 
     import { Container } from '@stack/layouts';
     import { Breadcrumbs } from '@stack/ui';
+
+    import type { LayoutData } from './$types';
+
     import { error } from '@sveltejs/kit';
     import { createQuery } from '@tanstack/svelte-query';
+
     import { page } from '$app/stores';
     import { Keys, pathTo } from '$lib/config';
     import { getProject } from '$lib/db';

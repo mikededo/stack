@@ -1,7 +1,9 @@
 <script lang="ts">
     import { MenuOption } from '@stack/ui';
-    import { useBookTags } from '$lib/hooks';
+
     import { Circle, CircleCheck } from 'lucide-svelte';
+
+    import { useBookTags } from '$lib/hooks';
 
     type Props = {
         isTagActive: (tag: number) => boolean;

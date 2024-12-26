@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss';
 
 import { themeColors } from '@stack/tailwind-config';
+
 import typography from '@tailwindcss/typography';
 import defaultTheme from 'tailwindcss/defaultTheme';
 

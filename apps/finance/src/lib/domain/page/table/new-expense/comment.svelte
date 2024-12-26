@@ -1,9 +1,10 @@
 <script lang="ts">
-    import type { Expense } from '$lib/db';
-
     import { useTrapFocus } from '@stack/actions';
     import { type ActionArray, useActions } from '@stack/actions';
     import { Autocomplete } from '@stack/ui';
+
+    import type { Expense } from '$lib/db';
+
     import { onMount } from 'svelte';
 
     import { getNewEntryMatches } from '../helpers';

@@ -1,8 +1,9 @@
 <script lang="ts">
+    import { clickAway, portal } from '@stack/actions';
+
     import type { Menu } from './context.svelte.ts';
     import type { ContextMenuOption, Option } from './types.js';
 
-    import { clickAway, portal } from '@stack/actions';
     import { cubicInOut } from 'svelte/easing';
     import { scale } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';

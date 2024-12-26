@@ -1,5 +1,6 @@
-import { page } from '$app/stores';
 import { get } from 'svelte/store';
+
+import { page } from '$app/stores';
 
 import { buildURLParams } from './url';
 

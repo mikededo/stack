@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { showDialog } from '$lib/domain/dialog';
     import { CircleSlash2 } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
+
+    import { showDialog } from '$lib/domain/dialog';
 
     const onClick = () => {
         showDialog('CREATE_BOOK');

@@ -1,6 +1,7 @@
+import { get } from 'svelte/store';
+
 import { goto } from '$app/navigation';
 import { page } from '$app/stores';
-import { get } from 'svelte/store';
 
 const DIALOG_KEY = 'dialog';
 const DIALOG_TYPES = {

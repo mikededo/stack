@@ -1,9 +1,11 @@
 <script lang="ts">
-    import type { CreateProjectData } from '$lib/db';
-
     import { getSupabaseClient } from '@stack/supabase';
     import { Button, Dialog, Input } from '@stack/ui';
+
+    import type { CreateProjectData } from '$lib/db';
+
     import { createMutation } from '@tanstack/svelte-query';
+
     import { page } from '$app/stores';
     import { hasParam } from '$lib/config';
     import { createProject } from '$lib/db';

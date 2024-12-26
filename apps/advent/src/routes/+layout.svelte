@@ -1,9 +1,10 @@
 <script lang="ts">
-    import type { LayoutData } from './$types';
+    import { Toaster } from '@stack/ui';
 
     import '../global.css';
 
-    import { Toaster } from '@stack/ui';
+    import type { LayoutData } from './$types';
+
     import { setContext, type Snippet } from 'svelte';
     import { fade } from 'svelte/transition';
 

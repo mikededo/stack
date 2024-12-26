@@ -1,11 +1,13 @@
 <!-- Specific plan render for the saved plans -->
 <script lang="ts">
+    import { Chip, ContextMenu, createContextMenu, DangerDialog } from '@stack/ui';
+
     import type { BudgetPlan } from '$lib/db';
 
-    import { Chip, ContextMenu, createContextMenu, DangerDialog } from '@stack/ui';
-    import { beforeNavigate } from '$app/navigation';
     import { Trash2 } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
+
+    import { beforeNavigate } from '$app/navigation';
 
     import { getBudgetPlanContext, onToggleSavedPlan } from './context.svelte';
 

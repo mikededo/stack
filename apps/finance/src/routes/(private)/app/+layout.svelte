@@ -1,18 +1,20 @@
 <script lang="ts">
     import type { ComponentType, Snippet } from 'svelte';
 
-    import type { LayoutData } from './$types';
-
     import { Content01 } from '@stack/layouts';
     import { setUserDataContext } from '@stack/supabase';
-    import { page } from '$app/stores';
-    import { isNestedPath, pathTo } from '$lib/config';
+
+    import type { LayoutData } from './$types';
+
     import {
         DollarSign,
         LayoutDashboard,
         Icon as LucideIcon,
         PiggyBank
     } from 'lucide-svelte';
+
+    import { page } from '$app/stores';
+    import { isNestedPath, pathTo } from '$lib/config';
 
     type Props = { children: Snippet; data: LayoutData };
     const { children, data }: Props = $props();

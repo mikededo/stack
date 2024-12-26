@@ -1,6 +1,6 @@
-import type { Expense } from '$lib/db';
-
 import { isValidDate } from '@stack/utils';
+
+import type { Expense } from '$lib/db';
 
 export const parseDate = (date?: null | string) => {
   if (!date) {

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { clickAway } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
+
     import { Loader, type Icon as LucideIcon } from 'lucide-svelte';
     import { type ComponentType, type Snippet } from 'svelte';
     import { twMerge } from 'tailwind-merge';

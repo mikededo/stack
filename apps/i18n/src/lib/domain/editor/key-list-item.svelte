@@ -1,10 +1,11 @@
 <script lang="ts">
     import type { ProjectKey } from '$lib/db';
 
-    import { page } from '$app/stores';
-    import { buildURLParams, getParamValues } from '$lib/config';
     import { CheckCircle2, Circle } from 'lucide-svelte';
     import { scale } from 'svelte/transition';
+
+    import { page } from '$app/stores';
+    import { buildURLParams, getParamValues } from '$lib/config';
 
     type Props = { key: ProjectKey };
     const { key }: Props = $props();

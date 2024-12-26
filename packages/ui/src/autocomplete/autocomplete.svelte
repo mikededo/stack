@@ -1,10 +1,12 @@
 <script lang="ts">
     import type { ActionArray } from '@stack/actions';
+
     import type { Snippet } from 'svelte';
     import type { Action } from 'svelte/action';
 
     import { clickAway, portal, useActions } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
+
     import { twMerge } from 'tailwind-merge';
 
     import { FloatingCard } from '../floating-card/index.js';

@@ -2,6 +2,7 @@
     import type { Snippet } from 'svelte';
 
     import { useBlockScroll } from '@stack/actions';
+
     import { X } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
     import { twMerge } from 'tailwind-merge';

@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { Chip, Combobox } from '@stack/ui';
+
     import type { Language, Languages } from '$lib/db';
 
-    import { Chip, Combobox } from '@stack/ui';
     import { CheckIcon } from 'lucide-svelte';
 
     type Props = {

@@ -1,6 +1,7 @@
 <script lang="ts">
-    import type { Project, ProjectKeys } from '$lib/db';
     import type { Action } from 'svelte/action';
+
+    import type { Project, ProjectKeys } from '$lib/db';
 
     import ListHeader from './list-header.svelte';
     import KeyListItem from './list-item.svelte';

@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
+
     import { AnimatedNumber, Button, Header } from '$lib/components';
     import { sleep } from '$lib/utils';
-    import { onMount } from 'svelte';
 
     const MAX_INPUT = `NNNNNNNOOOAJJJJJJJJZZMMMMMMMMUMMUCCCSSS
 NNNNNNNOOOJJJJJJJJJZZMMMMMMMMMMMUCCCSSS
