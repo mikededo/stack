@@ -3,6 +3,7 @@
 
     import type { Cell, Point } from './utils.svelte';
 
+    import { toast } from '@stack/ui';
     import { beforeNavigate } from '$app/navigation';
     import { Button, Header, ShikiCode, SMWarning, Textarea, Timer } from '$lib/components';
     import { BENCHMARK, DEFAULT_MAP, DEFAULT_MOVEMENTS } from '$lib/inputs/2024/input-15';
@@ -56,7 +57,7 @@ You can also generate a set of random movements with the button below.`;
             root: container
         });
         if (!matrix) {
-            // TODO: Handle error
+            toast.error('Unable to render the matrix');
             return;
         }
 

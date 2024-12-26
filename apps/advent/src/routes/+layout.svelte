@@ -3,6 +3,7 @@
 
     import '../global.css';
 
+    import { Toaster } from '@stack/ui';
     import { setContext, type Snippet } from 'svelte';
     import { fade } from 'svelte/transition';
 
@@ -35,3 +36,4 @@
     </p>
 </footer>
 
+<Toaster />
