@@ -345,15 +345,7 @@
 
     {#if toastType !== 'default'}
         <div data-icon="">
-            {#if toastType === 'success'}
-                <ToastIcon type="success" />
-            {:else if toastType === 'error'}
-                <ToastIcon type="success" />
-            {:else if toastType === 'warning'}
-                <ToastIcon type="success" />
-            {:else if toastType === 'info'}
-                <ToastIcon type="success" />
-            {/if}
+            <ToastIcon type={toastType} />
         </div>
     {/if}
 
