@@ -1,4 +1,5 @@
 export { Autocomplete } from './autocomplete/index.js';
+export { Banner } from './banner/index.js';
 export { Breadcrumbs, type Crumbs } from './breadcrumbs/index.js';
 export { Button, TextIconButton } from './button/index.js';
 export { Checkbox } from './checkbox/index.js';
