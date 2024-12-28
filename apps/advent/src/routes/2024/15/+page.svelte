@@ -10,7 +10,13 @@
     import { BENCHMARK, DEFAULT_MAP, DEFAULT_MOVEMENTS } from '$lib/inputs/2024/input-15';
     import { matrixCanvasHelper } from '$lib/utils';
 
-    import { algorithmState, CELL_COLORS, CELL_SIZE, CELL_TEXT_COLORS, runASolver } from './utils.svelte';
+    import {
+        algorithmState,
+        CELL_COLORS,
+        CELL_SIZE,
+        CELL_TEXT_COLORS,
+        runSolver
+    } from './utils.svelte';
 
     const MOVEMENT_PLACEHOLDER = `Default movements are trimmed since the actual input is really long!
 Movements consist of: <^v>...
@@ -73,7 +79,7 @@ You can also generate a set of random movements with the button below.`;
                 algorithmState.movements = { executed: 0, left: movements.length };
 
                 startTimer = true;
-                runASolver(matrix, start, movements);
+                runSolver(matrix, start, movements);
             }
         });
     };
@@ -177,8 +183,7 @@ You can also generate a set of random movements with the button below.`;
     <header class="flex items-end justify-between">
         <h2 class="mb-0">Visualization</h2>
         <div class="flex items-center gap-1">
-            <Button onclick={generateInput}>{running ? 'Running' : 'Solve 1'}</Button>
-            <Button disabled>Solve 2</Button>
+            <Button onclick={generateInput}>{running ? 'Running' : 'Solve'}</Button>
         </div>
     </header>
 

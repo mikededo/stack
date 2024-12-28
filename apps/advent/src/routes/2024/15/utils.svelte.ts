@@ -62,7 +62,7 @@ const getNextPos = (current: Point, direction: string, n = 1): Point => {
 /**
  * Cannot execute the function recursively as there are too many movements
  */
-export const runASolver = async (
+export const runSolver = async (
   matrix: MatrixCanvasHelper<Cell>,
   start: Point,
   movements: string[]
