@@ -1,7 +1,8 @@
 <script lang="ts">
     import './shiki-code.css';
 
-    import { codeToHtml, type Highlighter } from 'shiki';
+    import type { codeToHtml, Highlighter } from 'shiki';
+
     import { getContext } from 'svelte';
 
     type CodeToHtml = Parameters<typeof codeToHtml>;

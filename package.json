@@ -21,7 +21,6 @@
     "docs:preview": "vitepress preview docs",
     "lint": "turbo lint",
     "lint:fix": "turbo lint:fix",
-    "prepare": "turbo prepare",
     "turbo:update": "bunx @turbo/codemod@latest update",
     "type-check": "turbo type-check"
   },

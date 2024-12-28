@@ -19,10 +19,12 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@stack/ui": "workspace:*",
     "lucide-svelte": "0.469.0",
     "tailwind-merge": "2.5.5"
   },
   "devDependencies": {
+    "@stack/tailwind-config": "workspace:*",
     "@sveltejs/adapter-auto": "3.3.1",
     "@sveltejs/adapter-static": "3.0.8",
     "@sveltejs/kit": "2.14.0",
