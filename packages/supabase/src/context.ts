@@ -1,7 +1,7 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 
-import type { User } from './auth';
-import type { Database } from './database';
+import type { User } from './auth.js';
+import type { Database } from './database.js';
 
 import { getContext, setContext } from 'svelte';
 

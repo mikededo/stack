@@ -2,11 +2,11 @@
     import { getSupabaseClient } from '@stack/supabase';
     import { Button, DangerDialog } from '@stack/ui';
 
+    import type { Book, Tag } from '$lib/db';
+
     import { useQueryClient } from '@tanstack/svelte-query';
     import { Plus } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
-
-    import { type Book, type Tag } from '$lib/db';
 
     import { isTagValid } from './helpers';
     import ListHeader from './list-header.svelte';

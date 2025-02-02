@@ -8,6 +8,8 @@
 
     import type { Expense } from '$lib/db';
 
+    import type { ExpenseValidation } from './helpers';
+
     import { useExpenseTagsModifiers } from '$lib/hooks';
 
     import {
@@ -18,7 +20,7 @@
         onStopLoading
     } from './context.svelte';
     import EntryContent from './entry-content.svelte';
-    import { type ExpenseValidation, hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
+    import { hasExpenseChanged, isExpenseValid, parseDate } from './helpers';
     import { useExpenseMutation } from './hooks';
     import { Amount, Comment, Date } from './new-expense';
     import TagCombobox from './tag-combobox.svelte';

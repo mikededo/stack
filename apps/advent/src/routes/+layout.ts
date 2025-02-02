@@ -16,7 +16,7 @@ export const load: LayoutLoad = async ({ url }) => {
     }
   };
   const highlighter = await createHighlighterCore({
-    engine: createOnigurumaEngine(import('shiki/wasm')),
+    engine: createOnigurumaEngine(() => import('shiki/wasm')),
     langs: [shellsessionLang],
     themes: [modifiedTheme]
   });

@@ -1,8 +1,10 @@
 <script lang="ts">
+    import type { ContextMenuOption } from '@stack/ui';
+
     import type { Action } from 'svelte/action';
 
     import { useActions } from '@stack/actions';
-    import { ContextMenu, type ContextMenuOption, createContextMenu } from '@stack/ui';
+    import { ContextMenu, createContextMenu } from '@stack/ui';
 
     import type { Expense } from '$lib/db';
 

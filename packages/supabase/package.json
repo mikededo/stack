@@ -11,14 +11,15 @@
   "scripts": {
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
+    "@supabase/postgrest-js": "1.18.1",
     "@supabase/ssr": "0.5.2",
-    "@supabase/supabase-js": "2.47.10"
+    "@supabase/supabase-js": "2.48.1"
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
-    "svelte": "5.15.0"
+    "svelte": "5.19.6"
   }
 }

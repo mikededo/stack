@@ -1,5 +1,7 @@
 import { getSupabaseClient } from '@stack/supabase';
 
+import type { BudgetPlan, BudgetPlans } from '$lib/db';
+
 import {
   createMutation,
   createQuery,
@@ -8,8 +10,7 @@ import {
 
 import { Keys } from '$lib/config';
 import {
-  type BudgetPlan,
-  type BudgetPlans,
+
   deleteBudgetPlan,
   getBudgetPlans,
   upsertBudgetPlan

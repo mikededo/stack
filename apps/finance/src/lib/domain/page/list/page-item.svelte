@@ -1,7 +1,9 @@
 <script lang="ts">
+    import type { ContextMenuOption } from '@stack/ui';
+
     import type { Snippet } from 'svelte';
 
-    import { ContextMenu, type ContextMenuOption, createContextMenu, ListItem } from '@stack/ui';
+    import { ContextMenu, createContextMenu, ListItem } from '@stack/ui';
 
     import type { BooksWithPages } from '$lib/db';
 

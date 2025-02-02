@@ -1,6 +1,7 @@
+import type { Client, Result } from '@stack/supabase';
+
 import {
-  type Client,
-  type Result,
+
   withUnauthorizedRedirect
 } from '@stack/supabase';
 

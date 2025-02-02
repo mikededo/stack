@@ -1,8 +1,10 @@
 <script lang="ts">
+    import type { ActionArray } from '@stack/actions';
+
     import type { Snippet } from 'svelte';
     import type { HTMLAttributes } from 'svelte/elements';
 
-    import { type ActionArray, useActions } from '@stack/actions';
+    import { useActions } from '@stack/actions';
 
     import { useCell } from './use-cell';
 

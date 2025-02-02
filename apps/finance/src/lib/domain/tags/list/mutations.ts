@@ -2,17 +2,18 @@ import type { Client } from '@stack/supabase';
 
 import type { QueryClient } from '@tanstack/svelte-query';
 
+import type { Book, NewTagData, Tag, UpdateTagData } from '$lib/db';
+
 import { createMutation } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
 import {
-  type Book,
+
   createTag,
   deleteTag,
-  type NewTagData,
-  type Tag,
-  updateTag,
-  type UpdateTagData
+
+  updateTag
+
 } from '$lib/db';
 
 type UseTagMutationArgs = {

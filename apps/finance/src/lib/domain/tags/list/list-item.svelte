@@ -1,9 +1,11 @@
 <script lang="ts">
+    import type { ContextMenuOption } from '@stack/ui';
+
     import { clickAway } from '@stack/actions';
     import {
         Chip,
         ContextMenu,
-        type ContextMenuOption,
+
         createContextMenu,
         ListItem
     } from '@stack/ui';

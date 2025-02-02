@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { getSupabaseClient, type SignInData, signInUser } from '@stack/supabase';
+    import type { SignInData } from '@stack/supabase';
+
+    import { getSupabaseClient, signInUser } from '@stack/supabase';
     import { Button, Input } from '@stack/ui';
     import { EMAIL_REGEX, PASSWORD_REGEX } from '@stack/utils';
 

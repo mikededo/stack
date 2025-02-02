@@ -1,5 +1,7 @@
 <script lang="ts">
-    import { Breadcrumbs, type Crumbs } from '@stack/ui';
+    import type { Crumbs } from '@stack/ui';
+
+    import { Breadcrumbs } from '@stack/ui';
 
     import type { PageData } from './$types';
 

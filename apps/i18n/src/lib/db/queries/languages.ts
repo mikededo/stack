@@ -1,4 +1,6 @@
-import { type Client, type Result, withUnauthorizedRedirect } from '@stack/supabase';
+import type { Client, Result } from '@stack/supabase';
+
+import { withUnauthorizedRedirect } from '@stack/supabase';
 
 const getAvailableLanguagesQuery = (client: Client) => client
   .schema('i18n')

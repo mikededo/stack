@@ -8,7 +8,9 @@
  * @see https://github.com/mikededo/advent/blob/main/aoc-24/src/solutions/d15.rs
  */
 
-import { type MatrixCanvasHelper, sleep } from '$lib/utils';
+import type { MatrixCanvasHelper } from '$lib/utils';
+
+import { sleep } from '$lib/utils';
 
 export type Point = [number, number];
 export const CELL_SIZE = 16;

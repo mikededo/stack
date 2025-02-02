@@ -17,13 +17,13 @@
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
     "test:unit": "vitest --run",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
-    "@tanstack/svelte-query": "5.62.8"
+    "@tanstack/svelte-query": "5.66.0"
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
-    "vitest": "2.1.8"
+    "vitest": "3.0.4"
   }
 }

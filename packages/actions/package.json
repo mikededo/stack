@@ -18,7 +18,7 @@
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
     "prepare": "svelte-kit sync",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
     "@stack/utils": "workspace:*"
@@ -26,9 +26,9 @@
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",
     "@stack/typescript-config": "workspace:*",
-    "@sveltejs/kit": "2.14.0",
-    "@sveltejs/package": "2.3.7",
+    "@sveltejs/kit": "2.16.1",
+    "@sveltejs/package": "2.3.9",
     "@sveltejs/vite-plugin-svelte": "5.0.3",
-    "svelte": "5.15.0"
+    "svelte": "5.19.6"
   }
 }

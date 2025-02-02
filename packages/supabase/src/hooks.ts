@@ -1,8 +1,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { RequestEvent } from '@sveltejs/kit';
 
-import type { Database } from './database';
-import type { Client } from './types';
+import type { Database } from './database.js';
+import type { Client } from './types.js';
 
 import {
   createBrowserClient,
@@ -10,7 +10,7 @@ import {
   isBrowser
 } from '@supabase/ssr';
 
-import { getSupabaseEnv } from './config';
+import { getSupabaseEnv } from './config.js';
 
 type NativeFetch = typeof fetch;
 

@@ -53,7 +53,7 @@ export const signUpUser = async (
   { email, password, ...rest }: SignUpData
 ) => await client.auth.signUp({ email, options: { data: rest }, password });
 
-export const getUserDataQuery = (client: Client) =>
+const getUserDataQuery = (client: Client) =>
   client.schema('public').from('user_data').select('*').limit(1).single();
 export const getUserData = async (
   client: Client,

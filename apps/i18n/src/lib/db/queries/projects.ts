@@ -1,6 +1,7 @@
+import type { Client, FunctionArgs, Result } from '@stack/supabase';
 import type { CamelCaseProperties } from '@stack/utils';
 
-import { type Client, type FunctionArgs, type Result, withUnauthorizedRedirect } from '@stack/supabase';
+import { withUnauthorizedRedirect } from '@stack/supabase';
 
 const getProjectsQuery = (client: Client) => client.schema('i18n')
   .from('projects')

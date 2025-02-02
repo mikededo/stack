@@ -1,5 +1,9 @@
 <script lang="ts">
-    import { Breadcrumbs, type Crumbs, type Tab, Tabs } from '@stack/ui';
+    import type { Crumbs, Tab } from '@stack/ui';
+
+    import { Breadcrumbs, Tabs } from '@stack/ui';
+
+    import type { ListState } from '$lib/domain/page';
 
     import type { PageData } from './$types';
 
@@ -7,7 +11,7 @@
     import { fade } from 'svelte/transition';
 
     import { pathTo } from '$lib/config';
-    import { initListContext, type ListState, PageList, PageListOptions } from '$lib/domain/page';
+    import { initListContext, PageList, PageListOptions } from '$lib/domain/page';
     import { TagList } from '$lib/domain/tags';
     import { useBook } from '$lib/hooks';
 

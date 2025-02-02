@@ -3,10 +3,10 @@
     import { getUserDataContext } from '@stack/supabase';
     import { Button } from '@stack/ui';
 
+    import type { BooksWithPages } from '$lib/db';
+
     import { FilePlus } from 'lucide-svelte';
     import { fade } from 'svelte/transition';
-
-    import { type BooksWithPages } from '$lib/db';
 
     import { useCreatePage } from './hooks';
     import ListHeader from './list-header.svelte';

@@ -1,3 +1,7 @@
 {
-  "extends": "@stack/typescript-config/svelte.json"
+  "extends": "@stack/typescript-config/svelte.json",
+  "compilerOptions": {
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules", "dist"]
 }

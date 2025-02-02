@@ -1,4 +1,6 @@
-import { createAppURLParams, type Params } from '@stack/utils';
+import type { Params } from '@stack/utils';
+
+import { createAppURLParams } from '@stack/utils';
 
 import { get } from 'svelte/store';
 

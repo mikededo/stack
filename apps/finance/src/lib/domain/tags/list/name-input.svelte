@@ -1,8 +1,10 @@
 <script lang="ts">
+    import type { ActionArray } from '@stack/actions';
+
     import type { Action } from 'svelte/action';
     import type { HTMLInputAttributes, KeyboardEventHandler } from 'svelte/elements';
 
-    import { type ActionArray, useActions, useAutofocus } from '@stack/actions';
+    import { useActions, useAutofocus } from '@stack/actions';
 
     type Props = {
         use?: ActionArray;

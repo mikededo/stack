@@ -1,9 +1,11 @@
 <script lang="ts">
+    import type { Icon as LucideIcon } from 'lucide-svelte';
+    import type { ComponentType, Snippet } from 'svelte';
+
     import { clickAway } from '@stack/actions';
     import { getFocusableElements, Keys } from '@stack/utils';
 
-    import { Loader, type Icon as LucideIcon } from 'lucide-svelte';
-    import { type ComponentType, type Snippet } from 'svelte';
+    import { Loader } from 'lucide-svelte';
     import { twMerge } from 'tailwind-merge';
 
     import { Button } from '../button/index.js';

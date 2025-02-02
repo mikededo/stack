@@ -1,7 +1,9 @@
 <script lang="ts">
     import type { HTMLAnchorAttributes } from 'svelte/elements';
 
-    import { type Props, sharedClasses } from './styles.js';
+    import type { Props } from './styles.js';
+
+    import { sharedClasses } from './styles.js';
 
     const { children, color = 'primary', variant = 'default', ...restProps }: Props = $props();
 

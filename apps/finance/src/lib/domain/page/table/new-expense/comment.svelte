@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { useTrapFocus } from '@stack/actions';
-    import { type ActionArray, useActions } from '@stack/actions';
+    import type { ActionArray } from '@stack/actions';
+
+    import { useActions, useTrapFocus } from '@stack/actions';
     import { Autocomplete } from '@stack/ui';
 
     import type { Expense } from '$lib/db';

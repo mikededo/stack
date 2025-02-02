@@ -1,6 +1,6 @@
 import type { QueryData, Session, SupabaseClient, User } from '@supabase/supabase-js';
 
-import type { Database } from './database';
+import type { Database } from './database.js';
 
 type Schema = keyof Database;
 type SchemaFunctions<S extends Schema> = keyof Database[S]['Functions'];

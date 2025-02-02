@@ -1,13 +1,14 @@
 import { getSupabaseClient } from '@stack/supabase';
 
+import type { Book, BooksWithPages, NewPageData } from '$lib/db';
+
 import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 
 import { Keys } from '$lib/config';
 import {
-  type Book,
-  type BooksWithPages,
-  createPage,
-  type NewPageData
+
+  createPage
+
 } from '$lib/db';
 import {
   usePinnedPages as usePinnedPagesQuery,

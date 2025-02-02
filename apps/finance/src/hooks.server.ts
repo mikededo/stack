@@ -1,6 +1,8 @@
+import type { Handle } from '@sveltejs/kit';
+
 import { createSupabaseServerClient, getSession } from '@stack/supabase';
 
-import { type Handle, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 import { env } from '$env/dynamic/public';
 import { pathTo } from '$lib/config';

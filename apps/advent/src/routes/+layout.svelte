@@ -1,11 +1,13 @@
 <script lang="ts">
-    import { Toaster } from '@stack/ui';
+    import type { Snippet } from 'svelte';
 
     import '../global.css';
 
+    import { Toaster } from '@stack/ui';
+
     import type { LayoutData } from './$types';
 
-    import { setContext, type Snippet } from 'svelte';
+    import { setContext } from 'svelte';
     import { fade } from 'svelte/transition';
 
     type Props = { children: Snippet; data: LayoutData };

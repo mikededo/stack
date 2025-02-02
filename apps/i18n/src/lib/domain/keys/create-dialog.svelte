@@ -2,11 +2,13 @@
     import { getSupabaseClient } from '@stack/supabase';
     import { Button, Checkbox, Dialog, Input } from '@stack/ui';
 
+    import type { Project, ProjectKeys } from '$lib/db';
+
     import { createMutation, useQueryClient } from '@tanstack/svelte-query';
 
     import { page } from '$app/stores';
     import { gotoWithParams, hasParam, Keys } from '$lib/config';
-    import { createKey, type Project, type ProjectKeys } from '$lib/db';
+    import { createKey } from '$lib/db';
 
     type Props = { project: Project['id'] };
     const { project }: Props = $props();

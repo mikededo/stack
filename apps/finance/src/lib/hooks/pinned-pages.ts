@@ -1,5 +1,7 @@
 import { getSupabaseClient } from '@stack/supabase';
 
+import type { ClickPinnedPageData, PinnedPages } from '$lib/db';
+
 import {
   createMutation,
   createQuery,
@@ -9,9 +11,9 @@ import {
 import { Keys } from '$lib/config';
 import {
   clickPinnedPage,
-  type ClickPinnedPageData,
+
   getPinnedPages,
-  type PinnedPages,
+
   pinPage,
   unpinPage
 } from '$lib/db';

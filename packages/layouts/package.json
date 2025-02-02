@@ -23,18 +23,18 @@
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
     "prepare": "svelte-kit sync",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit --project tsconfig.json"
   },
   "dependencies": {
     "@stack/actions": "workspace:*",
     "@stack/supabase": "workspace:*",
-    "lucide-svelte": "0.469.0",
-    "tailwind-merge": "2.5.5"
+    "lucide-svelte": "0.474.0",
+    "tailwind-merge": "3.0.1"
   },
   "devDependencies": {
     "@stack/tailwind-config": "workspace:*",
-    "@sveltejs/kit": "2.14.0",
+    "@sveltejs/kit": "2.16.1",
     "@sveltejs/vite-plugin-svelte": "5.0.3",
-    "svelte": "5.15.0"
+    "svelte": "5.19.6"
   }
 }
