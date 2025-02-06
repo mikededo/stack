@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "@stack/typescript-config": "workspace:*",
-    "vitest": "3.0.4"
+    "vitest": "3.0.5"
   }
 }
