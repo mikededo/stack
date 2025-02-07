@@ -36,7 +36,7 @@
 
 <input
     {...rest}
-    class="w-full bg-transparent outline-none"
+    class="w-full bg-transparent outline-hidden"
     bind:value
     use:useActions={[...use, withAutofocus]}
     placeholder="Tag name..."

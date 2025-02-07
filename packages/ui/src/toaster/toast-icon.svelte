@@ -6,7 +6,7 @@
     type Props = { type: ToastTypes };
     const { type: toastType = 'success' }: Props = $props();
 
-    const classes = 'ui-size-4';
+    const classes = 'ui:size-4';
 </script>
 
 {#if toastType === 'success'}

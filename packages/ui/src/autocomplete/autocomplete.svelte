@@ -91,13 +91,13 @@
 
 {#if show}
     <FloatingCard
-        class={twMerge('!ui-z-50 !ui-mx-auto ui-overflow-hidden !ui-p-0', cardClasses)}
+        class={twMerge('ui:z-50! ui:mx-auto! ui:overflow-hidden ui:p-0!', cardClasses)}
         bind:ref={cardRef}
         position={autocompletePosition}
         use={[[portal, '']]}
     >
         <div
-            class="ui-flex ui-max-h-44 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1"
+            class="ui:flex ui:max-h-44 ui:w-full ui:flex-col ui:gap-[1px] ui:overflow-y-auto ui:overflow-x-hidden ui:p-1"
             bind:this={optionsWrapperNode}
         >
             {@render options()}

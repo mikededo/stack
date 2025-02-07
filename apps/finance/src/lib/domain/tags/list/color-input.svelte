@@ -66,7 +66,7 @@
 
 <input
     {...rest}
-    class="w-20 bg-transparent text-right text-sm uppercase outline-none"
+    class="w-20 bg-transparent text-right text-sm uppercase outline-hidden"
     bind:value
     use:useActions={[...use, withAutofocus]}
     onkeydown={onColorKeydown}

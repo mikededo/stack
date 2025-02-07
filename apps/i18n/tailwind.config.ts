@@ -8,14 +8,5 @@ export default {
   plugins: [aria(), typography(), scrollbars()],
   presets: [{ theme }],
   theme: {
-    extend: {
-      height: {
-        content: 'calc(100vh - 56px)',
-        'content-md': 'calc(100vh - 66px)'
-      },
-      width: {
-        'content-md': 'calc(100vw - 290px)'
-      }
-    }
   }
 } satisfies Config;

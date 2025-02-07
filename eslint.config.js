@@ -18,7 +18,6 @@ export default antfu({
     '**/*/dist/',
     'node_modules/',
     'package/',
-    'postcss.config.js',
     'tsconfig.tsbuildinfo'
   ],
   jsonc: false,

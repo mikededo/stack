@@ -71,7 +71,7 @@
     {/snippet}
     {#snippet input(args)}
         <input
-            class="w-full min-w-12 flex-1 outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+            class="w-full min-w-12 flex-1 outline-hidden group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
             bind:this={args.ref}
             bind:value={value}
             use:useActions={args.use}

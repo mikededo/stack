@@ -36,18 +36,18 @@
     }: Props = $props();
 
     const COLORS: Record<InputColor, string> = {
-        destructive: 'ui-bg-destructive-50 ui-border-destructive-500 ui-text-destructive-500',
-        primary: 'hover:ui-border-primary focus:ui-border-primary active:ui-border-primary input',
+        destructive: 'ui:bg-destructive-50 ui:border-destructive-500 ui:text-destructive-500',
+        primary: 'ui:hover:border-primary ui:focus:border-primary ui:active:border-primary input',
         surface:
-            'ui-bg-surface-50 ui-border-transparent hover:ui-border-surface-200 focus:ui-border-surface-200 active:ui-border-surface-200 disabled:ui-bg-surface-100'
+            'ui:bg-surface-50 ui:border-transparent ui:hover:border-surface-200 ui:focus:border-surface-200 ui:active:border-surface-200 ui:disabled:bg-surface-100'
     };
 
     const classes = $derived(
         twMerge(
             COLORS[color ?? 'primary'],
-            'ui-h-10 ui-rounded ui-border ui-px-3 ui-outline-none ui-transition-all disabled:ui-cursor-not-allowed disabled:ui-border-border ui-shadow-none',
-            invalid && 'hover:ui-border-desctructive ui-border-destructive focus:ui-border-destructive active:ui-border-destructive',
-            rest.multiline && 'ui-resize-none ui-scrollbar-thin ui-py-1.5',
+            'ui:h-10 ui:rounded ui:border ui:px-3 ui:outline-hidden ui:transition-all ui:disabled:cursor-not-allowed ui:disabled:border-border ui:shadow-none',
+            invalid && 'ui:hover:border-desctructive ui:border-destructive ui:focus:border-destructive ui:active:border-destructive',
+            rest.multiline && 'ui:resize-none ui:scrollbar-thin ui:py-1.5',
             rest.class
         )
     );
@@ -78,20 +78,22 @@
 {/snippet}
 
 {#if label}
-    <div class="ui-flex ui-flex-col ui-gap-2 ui-w-full">
-        <label class="ui-text-xs ui-font-semibold ui-uppercase" for={name}>{label}</label>
+    <div class="ui:flex ui:flex-col ui:gap-2 ui:w-full">
+        <label class="ui:text-xs ui:font-semibold ui:uppercase" for={name}>{label}</label>
         {@render content()}
     </div>
 {:else}
     {@render content()}
 {/if}
 
-<style lang="postcss">
+<style>
+@reference "tailwindcss/theme";
+
     .input:focus {
-        box-shadow: 0 0 0 4px theme('colors.primary.100');
+        /* box-shadow: 0 0 0 4px theme(--ui-color-primary-100); */
     }
 
     .input[aria-invalid='true']:focus {
-        box-shadow: 0 0 0 4px theme('colors.destructive.100');
+        /* box-shadow: 0 0 0 4px theme(--ui-color-destructive-100); */
     }
 </style>

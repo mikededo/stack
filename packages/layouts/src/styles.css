@@ -1,3 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import '@stack/tailwind-config/colors' layer(theme);
+@import 'tailwindcss' prefix(l);
+@import '@stack/tailwind-config/base';
+
+@config '../tailwind.config.ts';
+
+@theme {
+  --height-content: calc(100vh - --spacing(12));
+  --height-content-nav: calc(100vh - --spacing(24));
+  --height-top-bar: --spacing(12);
+
+  --width-content-md: calc(100vw - 290px);
+}

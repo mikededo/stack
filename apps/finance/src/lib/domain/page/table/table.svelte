@@ -98,7 +98,7 @@
                             <p class="text-sm text-surface-700">
                                 Try updating the filters or
                                 <button
-                                    class="underline outline-none hover:text-surface-900"
+                                    class="underline outline-hidden hover:text-surface-900"
                                     onclick={clearPageFilters}
                                 >
                                     clearing them

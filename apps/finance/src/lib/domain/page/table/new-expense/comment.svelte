@@ -78,7 +78,7 @@
     onClickAway={onHideAutocomplete}
 >
     <textarea
-        class="h-full w-full resize-none outline-none group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
+        class="h-full w-full resize-none outline-hidden group-hover:bg-primary-50 group-aria-current:bg-primary-50 hover:bg-primary-50"
         bind:this={inputRef}
         bind:value
         use:useActions={[...use, [useComment, useCommentOptions]]}
@@ -108,7 +108,7 @@
                 }}
 
                 <button
-                    class="w-full rounded-md px-2 py-1 text-left text-sm outline-none transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
+                    class="w-full rounded-md px-2 py-1 text-left text-sm outline-hidden transition-colors hover:bg-primary-50 focus:bg-primary-50 active:bg-primary-50"
                     use:useOptionButton={options}
                 >
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->

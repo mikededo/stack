@@ -14,7 +14,7 @@
     const highlighter = getContext<Highlighter>('shiki');
 </script>
 
-<div class="shiki-wrapper not-prose my-1.5 rounded px-5 py-3 text-sm">
+<div class="shiki-wrapper not-prose my-1.5 rounded-sm px-5 py-3 text-sm">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html highlighter.codeToHtml(code, {
         ...options,

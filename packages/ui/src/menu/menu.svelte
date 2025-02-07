@@ -36,7 +36,7 @@
     });
     const buttonClasses = $derived(
         twMerge(
-            'ui-flex ui-h-10 ui-items-center ui-gap-2 ui-rounded-full ui-text-sm',
+            'ui:flex ui:h-10 ui:items-center ui:gap-2 ui:rounded-full ui:text-sm',
             restProps.class
         )
     );
@@ -92,14 +92,14 @@
         disabled={showMenu || loading}
         onclick={onToggle}
     >
-        {#if loading}<Loader class="ui-size-4 ui-animate-spin" />{/if}
+        {#if loading}<Loader class="ui:size-4 ui:animate-spin" />{/if}
         {#if Icon && !loading}<Icon class="size-4" />{/if}
         {#if label}<span>{label}</span>{/if}
     </Button>
 
     {#if showMenu}
         <FloatingCard
-            class="ui-box-border ui-overflow-hidden"
+            class="ui:box-border ui:overflow-hidden"
             role="menu"
             tabindex={1}
             use={[useFocusableElements, [clickAway, onHide]]}
@@ -107,7 +107,7 @@
             onkeydown={onNavigation}
         >
             <div
-                class="ui-flex ui-max-h-96 ui-w-full ui-flex-col ui-gap-[1px] ui-overflow-y-auto ui-overflow-x-hidden ui-p-1 ui-scrollbar-thin"
+                class="ui:flex ui:max-h-96 ui:w-full ui:flex-col ui:gap-[1px] ui:overflow-y-auto ui:overflow-x-hidden ui:p-1 ui:scrollbar-thin"
             >
                 {@render children()}
             </div>

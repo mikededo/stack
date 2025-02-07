@@ -16,7 +16,7 @@
     const { Icon, label, ...restProps }: Props = $props();
 
     const buttonClasses = $derived(
-        twMerge('ui-flex ui-h-10 ui-items-center ui-gap-2 ui-rounded-full ui-text-sm', restProps.class)
+        twMerge('ui:flex ui:h-10 ui:items-center ui:gap-2 ui:rounded-full ui:text-sm', restProps.class)
     );
 </script>
 

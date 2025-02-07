@@ -15,11 +15,11 @@
     const placeholderProps = $derived(!shadow
         ? {
             'aria-rowindex': position + 1,
-            class: 'group flex w-full items-stretch bg-surface-50 !text-sufrace-300 relative border-b border-primary-100 origin-top transition-all !italic'
+            class: 'group flex w-full items-stretch bg-surface-50 text-sufrace-300! relative border-b border-primary-100 origin-top transition-all italic!'
         }
         : {
             'aria-rowindex': 0,
-            class: ctx.activeRow ? 'fixed z-[100] rounded-sm shadow-md bg-white gap-2 p-2 opacity-95 flex pointer-events-none text-sm' : 'hidden',
+            class: ctx.activeRow ? 'fixed z-100 rounded-sm shadow-md bg-white gap-2 p-2 opacity-95 flex pointer-events-none text-sm' : 'hidden',
             style: `top: ${ctx.shadowPosition.y}px; width: ${ctx.shadowPosition.width}px; left: ${ctx.shadowPosition.x}px`
         });
 </script>

@@ -60,7 +60,7 @@
                     class="flex w-full flex-col justify-between gap-2 md:flex-row md:items-center lg:flex-col lg:items-start"
                 >
                     <input
-                        class="shrink-0 text-sm font-semibold outline-none md:w-60 lg:w-auto"
+                        class="shrink-0 text-sm font-semibold outline-hidden md:w-60 lg:w-auto"
                         placeholder="Allocation name"
                         value={name}
                         oninput={onChangeAllocationProperty(i, 'name')}

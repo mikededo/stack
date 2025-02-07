@@ -32,7 +32,7 @@ export const getDragContext = () => {
 };
 
 export const onStartDragging = (row: Expense, position: Position) => {
-  document.body.classList.add('!cursor-grabbing');
+  document.body.classList.add('cursor-grabbing!');
   document.querySelectorAll('div[role="grid"]').forEach((row) => {
     row.classList.add('select-none');
   });
@@ -61,5 +61,5 @@ export const onStopDragging = () => {
   document.querySelectorAll('div[role="grid"]').forEach((row) => {
     row.classList.remove('select-none');
   });
-  document.body.classList.remove('!cursor-grabbing');
+  document.body.classList.remove('cursor-grabbing!');
 };

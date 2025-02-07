@@ -21,9 +21,9 @@
 
     const classes = $derived(
         twMerge(
-            'outline-none ui-flex ui-w-full ui-items-center ui-gap-2 ui-rounded-md ui-px-3 ui-py-2 ui-text-left ui-text-sm',
-            !unstyled && 'hover:ui-bg-surface-50 focus:ui-bg-surface-50 active:ui-bg-surface-50',
-            active && 'ui-bg-surface-50 ui-font-semibold',
+            'outline-none ui:flex ui:w-full ui:items-center ui:gap-2 ui:rounded-md ui:px-3 ui:py-2 ui:text-left ui:text-sm',
+            !unstyled && 'ui:hover:bg-surface-50 ui:focus:bg-surface-50 ui:active:bg-surface-50',
+            active && 'ui:bg-surface-50 ui:font-semibold',
             restProps.class
         )
     );
@@ -34,6 +34,6 @@
     aria-current={active}
     onclick={onClick}
 >
-    <Icon class="ui-size-4 ui-shrink-0" strokeWidth={active ? 2.25 : 2} />
-    <span class="ui-shrink-0">{label}</span>
+    <Icon class="ui:size-4 ui:shrink-0" strokeWidth={active ? 2.25 : 2} />
+    <span class="ui:shrink-0">{label}</span>
 </button>

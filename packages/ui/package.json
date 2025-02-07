@@ -18,8 +18,8 @@
   "scripts": {
     "build": "bun run prepare && bun run build:lib && bun run build:styles",
     "build:lib": "svelte-kit sync && svelte-package --input src",
-    "build:styles": "tailwindcss -i ./src/styles.css -o ./dist/index.css",
-    "dev": "tailwindcss -i ./src/styles.css -o ./dist/index.css --watch",
+    "build:styles": "@tailwindcss/cli -i ./src/styles.css -o ./dist/index.css",
+    "dev": "bunx @tailwindcss/cli -i ./src/styles.css -o ./dist/index.css --watch",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
     "prepare": "svelte-kit sync",
