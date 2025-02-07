@@ -74,7 +74,7 @@
                 {onConfirm}
             />
         {:else}
-            <button class="cursor-text outline-none" onclick={onEditMode('name')}>
+            <button class="cursor-text outline-hidden" onclick={onEditMode('name')}>
                 {tag.name}
             </button>
         {/if}
@@ -91,7 +91,7 @@
             />
         {:else}
             <button
-                class="w-20 cursor-text text-right text-sm uppercase outline-none"
+                class="w-20 cursor-text text-right text-sm uppercase outline-hidden"
                 onclick={onEditMode('color')}
             >
                 {tag.color}

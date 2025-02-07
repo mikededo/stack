@@ -60,7 +60,7 @@
 {#snippet option(language: Language)}
     {@const selected = selectedLanguages.findIndex(({ id }) => id === language.id) !== -1}
     <button
-        class="flex mb-0.5 items-center justify-between gap-1 text-sm py-1.5 px-3 hover:bg-primary-50 focus:bg-primary-50 w-full rounded-sm transition-all outline-none"
+        class="flex mb-0.5 items-center justify-between gap-1 text-sm py-1.5 px-3 hover:bg-primary-50 focus:bg-primary-50 w-full rounded-sm transition-all outline-hidden"
         class:bg-primary-50={selected}
         onclick={onClick(language)}
     >
@@ -75,7 +75,7 @@
 {/snippet}
 
 {#snippet selectedOptions()}
-    <div class="flex items-center justify-between gap-1 data-[selected]:text-primary">
+    <div class="flex items-center justify-between gap-1 data-selected:text-primary">
         {#each [...selectedLanguages] as language (language.id)}
             <Chip variant="primary" onClick={onClick(language)}>{language.name}</Chip>
         {/each}

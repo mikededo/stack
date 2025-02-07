@@ -23,14 +23,14 @@
 </svelte:head>
 
 <main>
-    <div class="l-fixed l-left-0 l-top-0 l-h-full l-w-full l-bg-background">
+    <div class="l:fixed l:left-0 l:top-0 l:h-full l:w-full l:bg-background">
         <div
-            class="l-absolute l-inset-0 l-h-full l-w-full background"
+            class="l:absolute l:inset-0 l:h-full l:w-full background"
         ></div>
     </div>
-    <div class="l-flex l-min-h-screen l-items-center">
+    <div class="l:flex l:min-h-screen l:justify-center">
         <div
-            class="l-fixed l-inset-0 l-overflow-auto l-bg-background l-p-8 md:l-relative md:l-mx-auto md:l-w-full md:l-max-w-md md:l-rounded md:l-border"
+            class="l:fixed l:inset-0 l:overflow-auto l:bg-background l:p-8 l:md:relative l:md:mx-auto l:md:w-full l:md:max-w-md l:md:rounded l:md:border"
         >
             {@render children()}
         </div>

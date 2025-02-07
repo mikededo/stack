@@ -198,11 +198,13 @@ You can also generate a set of random movements with the button below.`;
     <div id={CONTAINER_ID}></div>
 </section>
 
-<style lang="postcss">
+<style>
+@reference "tailwindcss/theme";
+
 .input {
   width: 100%;
 
-  @media screen(md) {
+  @media (width >= theme(--breakpoint-md)) {
     width: var(--input-width);
   }
 }

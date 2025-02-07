@@ -15,8 +15,8 @@
 
     const classes = $derived(
         twMerge(
-            'ui-border-b ui-border-primary-100 ui-transition-colors last-of-type:ui-border-0',
-            hoverable && 'ui-cursor-pointer hover:ui-bg-primary-100/50 active:ui-bg-primary-100',
+            'ui:border-b ui:border-primary-100 ui:transition-colors ui:last-of-type:border-0',
+            hoverable && 'ui:cursor-pointer ui:hover:bg-primary-100/50 ui:active:bg-primary-100',
             restProps.class
         )
     );
