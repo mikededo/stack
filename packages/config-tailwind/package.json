@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "exports": {
     ".": "./tailwind.config.ts",
-    "./postcss": "./postcss.config.js"
+    "./base": "./base.css",
+    "./colors": "./colors.css"
   },
   "scripts": {
     "type-check": "tsc --noEmit --project tsconfig.json"

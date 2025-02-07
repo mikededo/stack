@@ -79,30 +79,30 @@
 
 {#if $internalShow}
     <div
-        class="ui-fixed ui-inset-0 ui-bg-black/30"
+        class="ui:fixed ui:inset-0 ui:bg-black/30"
         use:useActions={[[portal, ''], useOnClick]}
         style="opacity: {$internalShow}"
     ></div>
 {/if}
 <div
-    class="ui-fixed ui-bottom-2 ui-top-2 ui-z-10 ui-flex ui-overflow-x-hidden"
+    class="ui:fixed ui:bottom-2 ui:top-2 ui:z-10 ui:flex ui:overflow-x-hidden"
     use:portal={''}
     role="dialog"
     style="right: {-DRAWER_WIDTH + $position}px"
 >
     <div
-        class="ui-flex ui-h-full ui-w-[480px] ui-flex-col ui-items-center ui-gap-6 ui-rounded-lg ui-bg-white ui-px-5 ui-py-4"
+        class="ui:flex ui:h-full ui:w-[480px] ui:flex-col ui:items-center ui:gap-6 ui:rounded-lg ui:bg-white ui:px-5 ui:py-4"
     >
-        <div class="ui-flex ui-flex-col ui-gap-4">
-            <div class="ui-flex ui-w-full ui-items-center ui-justify-between">
-                <div class="ui-flex ui-items-center ui-gap-2">
-                    {#if Icon}<LayoutTemplate class="ui-size-5" strokeWidth={2.5} />{/if}
-                    <h2 class="ui-text-2xl">{header}</h2>
+        <div class="ui:flex ui:flex-col ui:gap-4">
+            <div class="ui:flex ui:w-full ui:items-center ui:justify-between">
+                <div class="ui:flex ui:items-center ui:gap-2">
+                    {#if Icon}<LayoutTemplate class="ui:size-5" strokeWidth={2.5} />{/if}
+                    <h2 class="ui:text-2xl">{header}</h2>
                 </div>
                 <IconButton color="muted" Icon={X} onclick={onInternalClose} />
             </div>
             {#if subtitle}
-                <p class="ui-text-sm ui-text-surface-700">
+                <p class="ui:text-sm ui:text-surface-700">
                     {@render subtitle()}
                 </p>
             {/if}

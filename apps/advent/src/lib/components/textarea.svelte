@@ -11,7 +11,7 @@
     let { ref = $bindable(), title, ...restProps }: Props = $props();
     const classes = $derived(
         twMerge(
-            'resize-none rounded-md border px-3 py-2 font-mono text-sm outline-none ring-2 ring-transparent ring-offset-1 transition-colors duration-150 hover:border-primary hover:ring-primary-100 hover:ring-offset-primary-100 focus:border-primary focus:ring-primary-100 focus:ring-offset-primary-100 md:px-3',
+            'resize-none rounded-md border px-3 py-2 font-mono text-sm outline-hidden ring-2 ring-transparent ring-offset-1 transition-colors duration-150 hover:border-primary hover:ring-primary-100 hover:ring-offset-primary-100 focus:border-primary focus:ring-primary-100 focus:ring-offset-primary-100 md:px-3',
             restProps.class
         )
     );

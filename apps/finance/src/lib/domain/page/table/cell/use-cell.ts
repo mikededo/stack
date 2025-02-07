@@ -192,7 +192,7 @@ export const useCell: Action<HTMLElement, UseCellArgs> = (
   node.addEventListener('focus', () => {
     node.tabIndex = 0;
   });
-  node.addEventListener('blur', () => {
+  node.addEventListener('blur-sm', () => {
     if (!edit) {
       node.tabIndex = -1;
     }

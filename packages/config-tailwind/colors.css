@@ -1,20 +1,10 @@
-@import url('@stack/ui/styles') layer(base);
-
 @import 'tailwindcss';
 
-@plugin '@tailwindcss/typography';
-
-@custom-variant dark (&:is(.dark *));
-
 @theme {
-  --font-*: initial;
-  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
-    'Courier New', monospace;
-  --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-    'Segoe UI Symbol', 'Noto Color Emoji';
+  --ui-color-background: var(--background);
+  --color-foreground: var(--foreground);
 
-  --color-background: var(--background);
-
+  /* Destructive */
   --color-destructive-50: #fef2f2;
   --color-destructive-100: #fee2e2;
   --color-destructive-200: #fecaca;
@@ -27,8 +17,7 @@
   --color-destructive-900: #7f1d1d;
   --color-destructive-950: #450a0a;
 
-  --color-foreground: var(--foreground);
-
+  /* Info */
   --color-info-50: #cedaff;
   --color-info-100: #a9c0ff;
   --color-info-200: #84a6ff;
@@ -40,6 +29,7 @@
   --color-info-800: #091b9c;
   --color-info-900: #000780;
 
+  /* Positive */
   --color-positive-50: #f0fdf4;
   --color-positive-100: #dcfce7;
   --color-positive-200: #bbf7d0;
@@ -52,6 +42,7 @@
   --color-positive-900: #14532d;
   --color-positive-950: #052e16;
 
+  /* Primary */
   --color-primary-50: #f1f4fd;
   --color-primary-100: #dfe7fa;
   --color-primary-200: #c7d6f6;
@@ -62,8 +53,9 @@
   --color-primary-700: #3447c1;
   --color-primary-800: #2f3b9e;
   --color-primary-900: #2b357d;
-  --color-primary: #5275df;
+  --color-primary: #5275df; /* DEFAULT */
 
+  /* Secondary */
   --color-secondary-50: #fffbeb;
   --color-secondary-100: #fff3c6;
   --color-secondary-200: #ffe888;
@@ -75,6 +67,7 @@
   --color-secondary-800: #94410c;
   --color-secondary-900: #79360e;
 
+  /* Surface */
   --color-surface-50: #f7f7f7;
   --color-surface-100: #f0f0f0;
   --color-surface-200: #e3e3e3;
@@ -86,6 +79,7 @@
   --color-surface-800: #6a6a6a;
   --color-surface-900: #585858;
 
+  /* Warning */
   --color-warning-50: #fff7ed;
   --color-warning-100: #ffedd5;
   --color-warning-200: #fed7aa;
@@ -97,69 +91,4 @@
   --color-warning-800: #9a3412;
   --color-warning-900: #7c2d12;
   --color-warning-950: #431407;
-}
-
-@utility container {
-  margin-inline: auto;
-
-  @media (width >= --theme(--breakpoint-sm)) {
-    max-width: none;
-  }
-
-  @media (width >= 1100px) {
-    max-width: 1100px;
-  }
-
-  @media (width >= 1100px) {
-    max-width: 1100px;
-  }
-}
-
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
-}
-
-@layer base {
-  * {
-    scrollbar-width: thin;
-    scrollbar-gutter: stable;
-    scrollbar-color: #374151 transparent;
-  }
-
-  :root {
-    --font-sans: 'IBM Plex Sans';
-    --font-mono: 'IBM Plex Mono';
-    --background: #ffffff;
-    --foreground: #333333;
-  }
-
-  .dark {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-}
-
-html {
-  @apply font-sans;
-
-  color: var(--foreground);
-  stroke: var(--foreground);
-}
-
-.prose {
-  --tw-prose-links: var(--color-primary-500);
 }

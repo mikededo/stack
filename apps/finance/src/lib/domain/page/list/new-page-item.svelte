@@ -27,7 +27,7 @@
 <PageItem createdAt={new Date()} owner={user.first_name[0]}>
     {#snippet name()}
         <input
-            class="w-full bg-transparent outline-none"
+            class="w-full bg-transparent outline-hidden"
             bind:value
             use:useAutofocus
             placeholder="Page name..."

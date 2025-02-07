@@ -1,5 +1,5 @@
-@import '@stack/tailwind-config/colors';
-@import 'tailwindcss';
+@import 'tailwindcss' prefix(ui);
+@import '@stack/tailwind-config/colors' prefix('');
 
 @config '../tailwind.config.ts';
 

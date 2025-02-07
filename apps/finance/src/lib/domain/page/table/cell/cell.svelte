@@ -48,12 +48,12 @@
     {/if}
 </div>
 
-<style lang="postcss">
+<style>
     div[role='gridcell'] {
-        @apply outline-none;
+        outline-style: none;
     }
 
     div[role='gridcell'][tabindex='0'] {
-        box-shadow: inset 0 0 0 1px theme('colors.primary.500');
+        box-shadow: inset 0 0 0 1px theme(--ui-color-primary-500);
     }
 </style>

@@ -20,7 +20,7 @@
     aria-current={selectedKey === name}
 >
     <a
-        class="px-3 flex flex-col py-1.5 hover:bg-primary-50 transition-colors outline-none group-aria-current:bg-primary-50"
+        class="px-3 flex flex-col py-1.5 hover:bg-primary-50 transition-colors outline-hidden group-aria-current:bg-primary-50"
         href="?{href}"
     >
         <div class="flex items-center justify-between">
