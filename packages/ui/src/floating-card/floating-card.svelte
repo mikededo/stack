@@ -14,6 +14,7 @@
 
     type Props = {
         children: Snippet;
+        class?: string;
         ref?: HTMLDivElement;
         use?: ActionArray;
         noPadding?: boolean;

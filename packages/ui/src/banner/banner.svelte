@@ -4,6 +4,7 @@
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
+        class?: string;
         header?: string;
         variant?: 'default' | 'destructive' | 'info' | 'positive' | 'warning';
     } & HTMLAttributes<HTMLDivElement>;
