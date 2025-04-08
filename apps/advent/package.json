@@ -24,7 +24,7 @@
     "tailwind-merge": "3.0.1"
   },
   "devDependencies": {
-    "@stack/tailwind-config": "workspace:*",
+    "@stack/tailwind": "workspace:*",
     "@sveltejs/adapter-auto": "4.0.0",
     "@sveltejs/adapter-static": "3.0.8",
     "@sveltejs/kit": "2.16.1",

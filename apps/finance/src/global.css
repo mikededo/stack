@@ -2,7 +2,7 @@
 
 @import url('@stack/ui/styles');
 @import url('@stack/layouts/styles');
-@import '@stack/tailwind-config/typography';
+@import '@stack/tailwind/typography';
 
 @config '../tailwind.config.ts';
 

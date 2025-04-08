@@ -1,6 +1,6 @@
-@import '@stack/tailwind-config/base';
-@import '@stack/tailwind-config/colors';
-@import '@stack/tailwind-config/typography';
+@import '@stack/tailwind/base';
+@import '@stack/tailwind/colors';
+@import '@stack/tailwind/typography';
 
 @import '@stack/ui/styles';
 @import '@stack/layouts/styles';
