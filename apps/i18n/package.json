@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.50.1",
-    "@stack/tailwind-config": "workspace:*",
+    "@stack/tailwind": "workspace:*",
     "@stack/typescript-config": "workspace:*",
     "@sveltejs/adapter-auto": "4.0.0",
     "@sveltejs/adapter-node": "5.2.12",
