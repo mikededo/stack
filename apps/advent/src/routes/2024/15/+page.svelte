@@ -198,7 +198,7 @@ You can also generate a set of random movements with the button below.`;
     <div id={CONTAINER_ID}></div>
 </section>
 
-<style>
+<style lang="postcss">
 @reference "tailwindcss";
 
 .input {

@@ -4,6 +4,7 @@
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
+        class?: string;
         ref?: HTMLTextAreaElement;
         title?: string;
     } & HTMLTextareaAttributes;
