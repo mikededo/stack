@@ -56,7 +56,7 @@ export const useComment: Action<HTMLElement, UseFieldAutofocusArgs> = (
     if (e.key === Keys.Tab) {
       onHideAutocomplete();
     } else if (e.key === Keys.Enter) {
-      if ('value' in node) {
+      if ('value' in node && typeof node.value === 'string') {
         onValueChange(node.value);
         e.stopPropagation();
       }
