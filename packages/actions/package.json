@@ -26,9 +26,9 @@
   "devDependencies": {
     "@stack/tailwind": "workspace:*",
     "@stack/typescript-config": "workspace:*",
-    "@sveltejs/kit": "2.16.1",
-    "@sveltejs/package": "2.3.9",
+    "@sveltejs/kit": "2.20.4",
+    "@sveltejs/package": "2.3.10",
     "@sveltejs/vite-plugin-svelte": "5.0.3",
-    "svelte": "5.19.6"
+    "svelte": "5.25.8"
   }
 }
