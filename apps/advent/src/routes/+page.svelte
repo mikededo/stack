@@ -3,6 +3,8 @@
 
     import { ProblemCard } from '$lib/components';
 
+    import { SOLUTIONS } from './solutions';
+
 </script>
 
 <svelte:head>
@@ -32,22 +34,21 @@
         </a>.
     </p>
 </header>
-<section>
-    <h2>2024</h2>
-    <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-        <ProblemCard title="12th" url="/2024/12">
-            {#snippet description()}
-                <p>
-                    Implementation of a <em>&ldquo;flood fill&rdquo;</em> algorithm to dectect consequent areas.
-                </p>
-            {/snippet}
-        </ProblemCard>
-        <ProblemCard title="15th" url="/2024/15">
-            {#snippet description()}
-                <p>
-                    Analyze the robot's actions while accounting for obstacles and blocked movements on a map.
-                </p>
-            {/snippet}
-        </ProblemCard>
-    </div>
-</section>
+
+{#each Object.entries(SOLUTIONS) as [year, days](year)}
+    <section>
+        <h2>{year}</h2>
+        <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            {#each Object.entries(days) as [day, problem](day)}
+                {#if 'href' in problem}
+                    <ProblemCard title={problem.title} url={problem.href}>
+                        {#snippet description()}
+                            <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                            <p>{@html problem.description}</p>
+                        {/snippet}
+                    </ProblemCard>
+                {/if}
+            {/each}
+        </div>
+    </section>
+{/each}
