@@ -1,7 +1,7 @@
 import type { Config } from 'tailwindcss';
 
-import { aria, scrollbars } from '@stack/tailwind';
+import { scrollbars } from '@stack/tailwind';
 
 export default {
-  plugins: [aria(), scrollbars()]
+  plugins: [scrollbars()]
 } satisfies Config;
