@@ -1,0 +1,11 @@
+@utility container {
+  margin-inline: auto;
+
+  @media (width >= theme(--breakpoint-xl)) {
+    max-width: 1100px;
+  }
+
+  @media (width >= theme(--breakpoint-2xl)) {
+    max-width: 1360px;
+  }
+}

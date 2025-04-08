@@ -1,30 +1,11 @@
-@import 'tailwindcss';
-
-@import '@stack/ui/styles' layer(base);
-@import '@stack/layouts/styles' layer(base);
 @import '@stack/tailwind-config/base';
-@import '@stack/tailwind-config/colors' layer(theme);
+@import '@stack/tailwind-config/colors';
+@import '@stack/tailwind-config/typography';
 
-@layer base {
-  :root {
-    --font-sans: Geist;
-    --font-mono: 'Geist Mono';
-    --background: #ffffff;
-    --foreground: #333333;
-  }
+@import '@stack/ui/styles';
+@import '@stack/layouts/styles';
 
-  .dark {
-    --background: #000000;
-    --foreground: #ffffff;
-  }
-}
-
-@theme {
-  --height-content: calc(100vh - 56px);
-  --height-content-md: calc(100vh - 66px);
-
-  --width-content-md: calc(100vw - 290px);
-}
+@config '../tailwind.config.ts';
 
 html {
   @apply font-sans;

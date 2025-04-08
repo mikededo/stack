@@ -1,7 +1,5 @@
-@import 'tailwindcss';
-
-@theme {
-  --ui-color-background: var(--background);
+@theme static {
+  --color-background: var(--background);
   --color-foreground: var(--foreground);
 
   /* Destructive */

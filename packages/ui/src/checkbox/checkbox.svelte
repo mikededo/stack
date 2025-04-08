@@ -13,18 +13,18 @@
 
     const classes = $derived(
         twMerge(
-            'checkbox ui:size-4 ui:rounded-sm ui:border ui:border-surface-200 ui:text-primary ui:transition-all ui:focus:border-primary ui:aria-checked:bg-primary ui:aria-checked:border-primary',
+            'checkbox size-4 rounded-sm border border-surface-200 text-primary transition-all focus:border-primary aria-checked:bg-primary aria-checked:border-primary',
             restProps.class
         )
     );
-    const flexDirection = $derived(labelPosition === 'left' ? 'ui:flex-row' : 'ui:flex-row-reverse');
+    const flexDirection = $derived(labelPosition === 'left' ? 'flex-row' : 'flex-row-reverse');
 
     const onClick = () => {
         checked = !checked;
     };
 </script>
 
-<div class="ui:flex ui:items-center ui:gap-2 {flexDirection}">
+<div class="flex items-center gap-2 {flexDirection}">
     <button
         class={classes}
         aria-checked={checked}
@@ -36,15 +36,13 @@
         value="on"
         onclick={onClick}
     >
-        <Check class="ui:size-3.5 ui:stroke-white" strokeWidth={2.5} />
+        <Check class="size-3.5 stroke-white" strokeWidth={2.5} />
     </button>
-    <label class="ui:text-sm" for={name}>{label}</label>
+    <label class="text-sm" for={name}>{label}</label>
 </div>
 
-<style>
-    @reference '../styles.css';
-
+<style lang="postcss">
     .checkbox:focus {
-        box-shadow: 0 0 0 4px theme(--color-primary-100);
+        box-shadow: 0 0 0 4px var(--color-primary-100);
     }
 </style>

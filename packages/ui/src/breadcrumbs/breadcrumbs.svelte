@@ -6,12 +6,12 @@
 </script>
 
 <nav aria-label="Breadcrumbs">
-    <ol class="ui:flex ui:flex-row ui:gap-1 ui:text-sm ui:text-surface-500 ui:duration-75">
+    <ol class="flex flex-row gap-1 text-sm text-surface-500 duration-75">
         {#each breadcrumbs as crumb, i (i)}
             {#if crumb.href && i < breadcrumbs.length - 1}
                 <li>
                     <a
-                        class="ui:transition-all ui:hover:text-foreground ui:hover:underline"
+                        class="transition-all hover:text-foreground hover:underline"
                         href={crumb.href}
                     >
                         {crumb.label}
@@ -19,7 +19,7 @@
                 </li>
                 <li aria-hidden="true">/</li>
             {:else}
-                <li class="ui:cursor-default ui:text-foreground">
+                <li class="cursor-default text-foreground">
                     {crumb.label}
                 </li>
             {/if}

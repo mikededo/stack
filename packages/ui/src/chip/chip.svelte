@@ -15,18 +15,18 @@
     const { children, color, onClick, variant, ...restProps }: Props = $props();
 
     const COLORS: Record<ChipVariant, string> = {
-        destructive: 'ui:bg-destructive-500/25 ui:text-destructive-500 ui:border-destructive-500',
-        info: 'ui:bg-info-500/25 ui:text-info-500 ui:border-info-500',
-        positive: 'ui:bg-positive-500/25 ui:text-positive-500 ui:border-positive-500',
-        primary: 'ui:bg-primary-500/25 ui:text-primary-500 ui:border-primary-500',
-        warning: 'ui:bg-warning-300/25 ui:text-warning-300 ui:border-warning-500'
+        destructive: 'bg-destructive-500/25 text-destructive-500 border-destructive-500',
+        info: 'bg-info-500/25 text-info-500 border-info-500',
+        positive: 'bg-positive-500/25 text-positive-500 border-positive-500',
+        primary: 'bg-primary-500/25 text-primary-500 border-primary-500',
+        warning: 'bg-warning-300/25 text-warning-300 border-warning-500'
     };
 
     const classes = $derived(
         twMerge(
-            'ui:rounded-full ui:bg-current ui:px-2 ui:py-1 ui:text-xs ui:font-semibold',
+            'rounded-full bg-current px-2 py-1 text-xs font-semibold',
             variant !== undefined && COLORS[variant],
-            onClick && 'ui:flex ui:items-center ui:gap-1 ui:outline-hidden ui:transition-all ui:hover:opacity-90 ui:focus:ring-1 ui:focus:ring-current ui:focus-visible:scale-[0.975] ui:focus-visible:outline-hidden ui:active:scale-[0.975] ui:disabled:cursor-not-allowed ui:disabled:active:scale-100',
+            onClick && 'flex items-center gap-1 outline-hidden transition-all hover:opacity-90 focus:ring-1 focus:ring-current focus-visible:scale-[0.975] focus-visible:outline-hidden active:scale-[0.975] disabled:cursor-not-allowed disabled:active:scale-100',
             restProps.class
         )
     );

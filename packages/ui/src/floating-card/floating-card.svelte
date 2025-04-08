@@ -35,9 +35,9 @@
     );
     const classes = $derived(
         twMerge(
-            'ui:z-50 ui:flex ui:w-full ui:min-w-48 ui:origin-top-right ui:flex-col ui:items-start ui:gap-[1px] ui:rounded-md ui:border ui:border-surface-100 ui:bg-white ui:shadow-lg',
-            position ? 'ui:fixed' : 'ui:absolute ui:-bottom-2 ui:right-0 ui:translate-y-full',
-            noPadding ? 'ui:p-0' : 'ui:p-1',
+            'z-50 flex w-full min-w-48 origin-top-right flex-col items-start gap-[1px] rounded-md border border-surface-100 bg-white shadow-lg',
+            position ? 'fixed' : 'absolute -bottom-2 right-0 translate-y-full',
+            noPadding ? 'p-0' : 'p-1',
             restProps.class
         )
     );

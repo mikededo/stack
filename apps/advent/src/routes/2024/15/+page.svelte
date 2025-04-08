@@ -199,7 +199,7 @@ You can also generate a set of random movements with the button below.`;
 </section>
 
 <style>
-@reference "tailwindcss/theme";
+@reference "tailwindcss";
 
 .input {
   width: 100%;

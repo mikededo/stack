@@ -20,37 +20,37 @@
 
     const classes = $derived(
         twMerge(
-            'ui:border-border ui:flex ui:max-h-[80%] ui:min-h-fit ui:w-full ui:min-w-[480px] ui:max-w-lg ui:flex-col ui:overflow-hidden ui:rounded ui:border ui:bg-background ui:shadow-lg ui:transition-all',
+            'border-border flex max-h-[80%] min-h-fit w-full min-w-[480px] max-w-lg flex-col overflow-hidden rounded border bg-background shadow-lg transition-all',
             dialogClasses
         )
     );
 </script>
 
 <div
-    class="ui:fixed ui:inset-0 ui:bg-black/50"
+    class="fixed inset-0 bg-black/50"
     role="presentation"
     transition:fade={{ duration: 150 }}
 ></div>
 <div
-    class="ui:fixed ui:inset-0 ui:z-50 ui:flex ui:items-center ui:justify-center"
+    class="fixed inset-0 z-50 flex items-center justify-center"
     use:useBlockScroll
     role="dialog"
     transition:fade={{ duration: 150 }}
 >
     <div class={classes} aria-modal="true">
         {#if header}
-            <div class="ui:flex ui:w-full ui:items-center ui:justify-between ui:p-5">
-                <h2 class="ui:text-xl ui:font-semibold">
+            <div class="flex w-full items-center justify-between p-5">
+                <h2 class="text-xl font-semibold">
                     {@render header()}
                 </h2>
                 <IconButton color="muted" Icon={X} onclick={onClose} />
             </div>
         {/if}
-        <div class="ui:relative ui:flex ui:flex-1 ui:flex-col ui:gap-4 ui:overflow-y-auto ui:px-5">
+        <div class="relative flex flex-1 flex-col gap-4 overflow-y-auto px-5">
             {@render children()}
         </div>
         {#if footer}
-            <div class="ui:p-5">
+            <div class="p-5">
                 {@render footer()}
             </div>
         {/if}

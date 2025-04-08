@@ -4,7 +4,7 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   envPrefix: 'STACK_',
-  plugins: [sveltekit(), tailwindcss()],
+  plugins: [tailwindcss(), sveltekit()],
   test: {
     include: ['src/**/*.{test,spec}.{js,ts}']
   }

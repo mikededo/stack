@@ -1,0 +1,37 @@
+@layer base {
+  h1 {
+    font-size: theme(--text-4xl);
+    font-weight: theme(--font-weight-bold);
+    line-height: theme(--leading-tight);
+  }
+
+  h2 {
+    font-size: theme(--text-3xl);
+    font-weight: theme(--font-weight-semibold);
+    line-height: theme(--leading-tight);
+  }
+
+  h2 {
+    font-size: theme(--text-2xl);
+    font-weight: theme(--font-weight-semibold);
+    line-height: theme(--leading-tight);
+  }
+
+  h4 {
+    font-size: theme(--text-xl);
+    font-weight: theme(--font-weight-semibold);
+    line-height: theme(--leading-tight);
+  }
+
+  h5 {
+    font-size: theme(--text-lg);
+    font-weight: theme(--font-weight-semibold);
+    line-height: theme(--leading-tight);
+  }
+
+  h6 {
+    font-size: theme(--text-base);
+    font-weight: theme(--font-weight-semibold);
+    line-height: theme(--leading-tight);
+  }
+}
