@@ -4,7 +4,12 @@ import { twMerge } from 'tailwind-merge';
 
 export type ButtonVariant = 'condensed' | 'default' | 'expanded';
 export type ButtonColor = 'destructive' | 'muted' | 'primary' | 'surface';
-type BaseProps = { disabled?: boolean; variant?: ButtonVariant; color?: ButtonColor };
+type BaseProps = {
+  class?: string;
+  disabled?: boolean;
+  variant?: ButtonVariant;
+  color?: ButtonColor;
+};
 export type Props = (
   | ({ href: string } & HTMLAnchorAttributes)
   | ({ href?: never } & HTMLButtonAttributes)

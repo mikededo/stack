@@ -50,7 +50,7 @@ export type Props = (
     value: string;
     inputProps?: never;
   } | {
-    inputProps: { invalid?: boolean; label?: string } & HTMLInputAttributes;
+    inputProps: { class?: string; invalid?: boolean; label?: string } & HTMLInputAttributes;
     input?: never;
     /**
      * The value of the input element. Can be controlled, to, for example,

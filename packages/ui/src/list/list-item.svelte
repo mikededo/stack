@@ -8,6 +8,7 @@
     import { twMerge } from 'tailwind-merge';
 
     type Props = {
+        class?: string;
         use?: ActionArray;
         hoverable?: boolean;
     } & HTMLLiAttributes;

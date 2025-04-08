@@ -9,6 +9,7 @@
 
     type InputColor = 'destructive' | 'primary' | 'surface';
     type BaseProps = {
+        class?: string;
         invalid?: boolean;
         label?: string;
         use?: ActionArray;

@@ -11,6 +11,7 @@
     type EditSnippetProps = { onFinishEditing?: () => void };
     type Props = {
         'aria-colindex': number;
+        class?: string;
         edit?: Snippet<[EditSnippetProps]>;
         use?: ActionArray;
     } & Omit<HTMLAttributes<HTMLDivElement>, 'role' | 'tabindex'>;
