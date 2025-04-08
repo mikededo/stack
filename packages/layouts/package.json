@@ -7,7 +7,7 @@
       "types": "./src/index.ts",
       "svelte": "./src/index.ts"
     },
-    "./styles": "./dist/index.css",
+    "./styles": "./src/styles.css",
     "./tailwind": "./tailwind.config.ts"
   },
   "files": [
@@ -16,10 +16,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "bun run prepare && bun run build:lib && bun run build:styles",
+    "build": "bun run prepare && bun run build:lib",
     "build:lib": "svelte-kit sync && svelte-package --input src",
-    "build:styles": "bunx @tailwindcss/cli -i ./src/styles.css -o ./dist/index.css",
-    "dev": "bunx @tailwindcss/cli -i ./src/styles.css -o ./dist/index.css --watch",
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint --fix .",
     "prepare": "svelte-kit sync",
@@ -28,6 +26,7 @@
   "dependencies": {
     "@stack/actions": "workspace:*",
     "@stack/supabase": "workspace:*",
+    "@stack/ui": "workspace:*",
     "lucide-svelte": "0.474.0",
     "tailwind-merge": "3.0.1"
   },

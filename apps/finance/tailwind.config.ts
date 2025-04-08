@@ -1,11 +1,11 @@
 import type { Config } from 'tailwindcss';
 
-import { aria, scrollbars, theme, typography } from '@stack/tailwind-config';
+import { aria, scrollbars, theme } from '@stack/tailwind-config';
 
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   darkMode: 'class',
-  plugins: [typography(), scrollbars(), aria()],
+  plugins: [scrollbars(), aria()],
   presets: [{ theme }],
   theme: {
     extend: {

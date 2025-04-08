@@ -31,28 +31,28 @@
     const { children, isPageActive, pathname, tabs = [], transition = true, userName }: Props = $props();
 </script>
 
-<header class="l:hidden l:h-top-bar l:border-b l:border-surface-200 l:w-full l:md:flex">
-    <div class="l:hidden l:h-full l:items-center l:gap-2 l:bg-transparent l:px-4 l:md:flex l:md:min-w-64">
+<header class="hidden h-top-bar border-b border-surface-200 w-full md:flex">
+    <div class="hidden h-full items-center gap-2 bg-transparent px-4 md:flex md:min-w-64">
         <Logo />
-        <p class="l:font-bold">Stack</p>
+        <p class="font-bold">Stack</p>
     </div>
-    <div class="l:flex l:h-full l:w-full l:items-center l:justify-end l:pr-5">
+    <div class="flex h-full w-full items-center justify-end pr-5">
         <span
-            class="l:cursor-pointer l:text-sm l:text-surface-700 l:underline l:decoration-transparent l:underline-offset-1 l:transition-colors l:hover:decoration-surface-700"
+            class="cursor-pointer text-sm text-surface-700 underline decoration-transparent underline-offset-1 transition-colors hover:decoration-surface-700"
         >
             Welcome back, {userName}!
         </span>
     </div>
 </header>
 
-<div class="l:flex l:w-full l:flex-col l:overflow-hidden l:bg-background">
+<div class="flex w-full flex-col overflow-hidden bg-background">
     {#if tabs.length}
-        <nav class="l:w-full l:border-b l:hidden l:md:block">
-            <ul class="l:flex l:gap-1 l:items-center l:justify-center">
+        <nav class="w-full border-b hidden md:block">
+            <ul class="flex gap-1 items-center justify-center">
                 {#each tabs as { disabled, href, name } (href)}
                     <li>
                         <a
-                            class="l:flex l:w-full l:cursor-pointer l:items-center l:border-b-2 l:border-transparent l:h-12 l:justify-between l:px-3 l:py-2 l:text-sm l:font-semibold l:transition-colors l:aria-disabled:pointer-events-none l:aria-disabled:text-surface-400 l:aria-current:border-primary l:hover:aria-not-current:text-foreground l:aria-current:text-primary l:aria-not-current:text-surface-800 l:hover:aria-not-current:border-primary"
+                            class="flex w-full cursor-pointer items-center border-b-2 border-transparent h-12 justify-between px-3 py-2 text-sm font-semibold transition-colors aria-disabled:pointer-events-none aria-disabled:text-surface-400 aria-current:border-primary hover:aria-not-current:text-foreground aria-current:text-primary aria-not-current:text-surface-800 hover:aria-not-current:border-primary"
                             aria-current={isPageActive(href)}
                             aria-disabled={disabled}
                             role="tab"
@@ -66,23 +66,23 @@
         </nav>
 
         <!-- Mobile navigation -->
-        <header class="l:block l:md:hidden">
-            <nav class="l:flex l:h-12 l:items-center l:justify-between l:px-2">
-                <div class="l:flex l:items-center l:gap-2">
+        <header class="block md:hidden">
+            <nav class="flex h-12 items-center justify-between px-2">
+                <div class="flex items-center gap-2">
                     <Logo />
-                    <p class="l:font-bold">Stack</p>
+                    <p class="font-bold">Stack</p>
                 </div>
-                <Ellipsis class="l:size-4" strokeWidth={2.5} />
+                <Ellipsis class="size-4" strokeWidth={2.5} />
             </nav>
         </header>
     {/if}
 
-    <main class="l:scrollbar-thin">
+    <main class="scrollbar-thin">
         {#key pathname}
             <div
-                class="l:flex l:flex-col l:gap-4 l:overflow-y-auto l:p-6 l:md:px-10"
-                class:l-h-content={!tabs.length}
-                class:l-h-content-nav={tabs.length > 0}
+                class="flex flex-col gap-4 overflow-y-auto p-6 md:px-10"
+                class:h-content={!tabs.length}
+                class:h-content-nav={tabs.length > 0}
                 in:fade={{ delay: 100, duration: transition ? 100 : 0 }}
                 out:fade={{ duration: transition ? 100 : 0 }}
             >

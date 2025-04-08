@@ -9,10 +9,10 @@
     const { children, containerClass, show }: Props = $props();
 </script>
 
-<div class={twMerge('ui:relative', containerClass)}>
+<div class={twMerge('relative', containerClass)}>
     {#if show}
         <div
-            class="ui:absolute ui:right-0 ui:top-0 ui:z-10 ui:box-content ui:size-3 ui:origin-center ui:-translate-y-1/4 ui:translate-x-1/4 ui:rounded-full ui:border-4 ui:border-solid ui:border-white ui:bg-primary"
+            class="absolute right-0 top-0 z-10 box-content size-3 origin-center -translate-y-1/4 translate-x-1/4 rounded-full border-4 border-solid border-white bg-primary"
             transition:scale={{ duration: 100, easing: sineOut }}
         ></div>
     {/if}

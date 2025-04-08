@@ -44,16 +44,16 @@
     });
 </script>
 
-<div class="ui:relative ui:flex ui:shrink-0 ui:gap-1 ui:rounded ui:bg-surface-50 ui:px-1 ui:py-2">
+<div class="relative flex shrink-0 gap-1 rounded bg-surface-50 px-1 py-2">
     <div
-        class="ui:absolute ui:bottom-1 ui:top-1 ui:rounded ui:bg-white ui:shadow ui:transition-all"
+        class="absolute bottom-1 top-1 rounded bg-white shadow transition-all"
         style={positionStyle}
     ></div>
     {#each tabs as { Icon, name, onClick }, i (i)}
         {#if i === initialTab}
             <!-- This is a workaround as the bind:this cannot be used conditionally  -->
             <button
-                class="ui:z-1 ui:flex ui:items-center ui:gap-1.5 ui:px-3 ui:py-0.5"
+                class="z-1 flex items-center gap-1.5 px-3 py-0.5"
                 bind:this={initial}
                 use:useTabButton
                 onclick={onClick}
@@ -63,7 +63,7 @@
             </button>
         {:else}
             <button
-                class="ui:z-1 ui:flex ui:items-center ui:gap-1.5 ui:px-3 ui:py-0.5"
+                class="z-1 flex items-center gap-1.5 px-3 py-0.5"
                 use:useTabButton
                 onclick={onClick}
             >

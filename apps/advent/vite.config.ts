@@ -4,7 +4,6 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   envPrefix: 'STACK_',
-  plugins: [sveltekit(), tailwindcss()]
-
+  plugins: [tailwindcss(), sveltekit()]
 });
 

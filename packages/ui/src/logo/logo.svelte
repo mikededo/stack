@@ -1,5 +1,5 @@
 <svg
-    class="ui:size-7 ui:rounded-[6px] ui:bg-primary-600 ui:fill-transparent ui:md:rounded"
+    class="size-7 rounded-[6px] bg-primary-600 fill-transparent md:rounded"
     height="32"
     viewBox="0 0 32 32"
     width="33"

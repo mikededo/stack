@@ -36,11 +36,13 @@
     });
     const buttonClasses = $derived(
         twMerge(
-            'ui:flex ui:h-10 ui:items-center ui:gap-2 ui:rounded-full ui:text-sm',
+            'flex h-10 items-center gap-2 rounded-full text-sm',
             restProps.class
         )
     );
-    const wrapperClasses = $derived(twMerge('relative', restProps.wrapperClass));
+    const wrapperClasses = $derived(
+        twMerge('relative', restProps.wrapperClass)
+    );
 
     const onToggle = () => {
         showMenu = !showMenu;
@@ -56,15 +58,14 @@
         }
 
         switch (e.key) {
-            case Keys.ArrowDown:
+            case Keys.ArrowDown: {
+                const sameIndex = menuState.focusIndex + 1 === menuState.focusableElements.length;
                 e.preventDefault();
                 e.stopPropagation();
                 menuState.focusableElements[menuState.focusIndex].focus();
-                menuState.focusIndex =
-                    menuState.focusIndex + 1 === menuState.focusableElements.length
-                        ? 0
-                        : menuState.focusIndex + 1;
+                menuState.focusIndex = sameIndex ? 0 : menuState.focusIndex + 1;
                 break;
+            }
             case Keys.ArrowUp:
                 e.preventDefault();
                 menuState.focusableElements[menuState.focusIndex].focus();
@@ -87,19 +88,20 @@
 </script>
 
 <div class={wrapperClasses}>
-    <Button class={buttonClasses}
+    <Button
+        class={buttonClasses}
         color="surface"
         disabled={showMenu || loading}
         onclick={onToggle}
     >
-        {#if loading}<Loader class="ui:size-4 ui:animate-spin" />{/if}
+        {#if loading}<Loader class="size-4 animate-spin" />{/if}
         {#if Icon && !loading}<Icon class="size-4" />{/if}
         {#if label}<span>{label}</span>{/if}
     </Button>
 
     {#if showMenu}
         <FloatingCard
-            class="ui:box-border ui:overflow-hidden"
+            class="box-border overflow-hidden"
             role="menu"
             tabindex={1}
             use={[useFocusableElements, [clickAway, onHide]]}
@@ -107,7 +109,7 @@
             onkeydown={onNavigation}
         >
             <div
-                class="ui:flex ui:max-h-96 ui:w-full ui:flex-col ui:gap-[1px] ui:overflow-y-auto ui:overflow-x-hidden ui:p-1 ui:scrollbar-thin"
+                class="flex max-h-96 w-full flex-col gap-[1px] overflow-y-auto overflow-x-hidden p-1 scrollbar-thin"
             >
                 {@render children()}
             </div>

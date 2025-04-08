@@ -5,7 +5,9 @@
   "exports": {
     ".": "./tailwind.config.ts",
     "./base": "./base.css",
-    "./colors": "./colors.css"
+    "./colors": "./colors.css",
+    "./typography": "./typography.css",
+    "./utilities": "./utilities.css"
   },
   "scripts": {
     "type-check": "tsc --noEmit --project tsconfig.json"

@@ -119,15 +119,15 @@
     // Mimic the input classes
     const containerClasses = $derived(
         twMerge(
-            'ui:min-h-10 ui:rounded ui:border ui:px-3 ui:py-2 ui:transition-all ui:aria-disabled:cursor-not-allowed ui:aria-disabled:border-border ui:aria-disabled:bg-surface-50 ui:focus-within:border-primary input',
-            !inputProps?.disabled && 'ui:hover:border-primary',
-            inputProps?.invalid && 'ui:hover:border-desctructive ui:border-destructive ui:focus:border-destructive ui:active:border-destructive',
+            'min-h-10 rounded border px-3 py-2 transition-all aria-disabled:cursor-not-allowed aria-disabled:border-border aria-disabled:bg-surface-50 focus-within:border-primary input',
+            !inputProps?.disabled && 'hover:border-primary',
+            inputProps?.invalid && 'hover:border-desctructive border-destructive focus:border-destructive active:border-destructive',
             inputProps?.class
         )
     );
     const inputClasses = $derived(
         twMerge(
-            'ui:outline-hidden ui:w-full ui:flex-1 ui:min-w-12 ui:disabled:bg-surface-50 ui:disabled:cursor-not-allowed',
+            'outline-hidden w-full flex-1 min-w-12 disabled:bg-surface-50 disabled:cursor-not-allowed',
             inputProps?.class
         )
     );
@@ -152,12 +152,12 @@
 </script>
 
 {#if !input && inputProps?.label}
-    <label class="ui:text-xs ui:font-semibold ui:uppercase" for={inputProps.name}>
+    <label class="text-xs font-semibold uppercase" for={inputProps.name}>
         {inputProps.label}
     </label>
 {/if}
 <div
-    class={twMerge('ui:flex ui:w-full ui:flex-wrap ui:items-center ui:gap-1', inputProps && containerClasses)}
+    class={twMerge('flex w-full flex-wrap items-center gap-1', inputProps && containerClasses)}
     bind:this={containerRef}
     use:useActions={[useContainer, clickAway]}
     aria-disabled={inputProps?.disabled}
@@ -180,7 +180,7 @@
 {#if showOptions && show}
     <!-- Max height set to 156 as each menu option is 36 + y padding + gap -->
     <FloatingCard
-        class="ui:max-h-[156px] ui:overflow-y-auto"
+        class="max-h-[156px] overflow-y-auto"
         bind:ref={popupRef}
         role="menu"
         tabindex={1}
@@ -191,14 +191,12 @@
     </FloatingCard>
 {/if}
 
-<style>
-@reference "tailwindcss/theme";
-
+<style lang="postcss">
     .input:focus-within {
-        /* box-shadow: 0 0 0 4px theme(--ui-color-primary-100); */
+        box-shadow: 0 0 0 4px var(--color-primary-100);
     }
 
     .input[aria-invalid='true']:focus-within {
-        /* box-shadow: inset 0 0 0 4px theme(--ui-color-destructive-100); */
+        box-shadow: inset 0 0 0 4px var(--color-destructive-100);
     }
 </style>

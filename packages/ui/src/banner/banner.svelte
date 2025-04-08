@@ -10,19 +10,19 @@
     const { header, variant = 'default', ...rest }: Props = $props();
 
     const classes = twMerge(
-        'ui:rounded-md ui:px-4 ui:py-2 ui:text-sm',
-        variant === 'default' && 'ui:bg-slate-100',
-        variant === 'destructive' && 'ui:bg-destructive-100 ui:text-destructive-500',
-        variant === 'info' && 'ui:bg-info-100 ui:text-info-500',
-        variant === 'positive' && 'ui:bg-positive-100 ui:text-positive-500',
-        variant === 'warning' && 'ui:bg-warning-100 ui:text-positive-500',
+        'rounded-md px-4 py-2 text-sm',
+        variant === 'default' && 'bg-slate-100',
+        variant === 'destructive' && 'bg-destructive-100 text-destructive-500',
+        variant === 'info' && 'bg-info-100 text-info-500',
+        variant === 'positive' && 'bg-positive-100 text-positive-500',
+        variant === 'warning' && 'bg-warning-100 text-positive-500',
         rest.class
     );
 </script>
 
 <div class={classes}>
     {#if header}
-        <span class="ui:font-bold">{header}</span>
+        <span class="font-bold">{header}</span>
     {/if}
     {@render rest.children?.()}
 </div>

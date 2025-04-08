@@ -16,25 +16,25 @@ export type BaseProps = {
 };
 
 const ICON_SIZES: Record<IconButtonSizes, string> = {
-  default: 'ui:size-5',
-  large: 'ui:size-6',
-  small: 'ui:size-4'
+  default: 'size-5',
+  large: 'size-6',
+  small: 'size-4'
 };
 const ICON_WRAPPER_SIZES: Record<IconButtonSizes, string> = {
-  default: 'ui:size-8',
-  large: 'ui:size-10',
-  small: 'ui:size-6'
+  default: 'size-8',
+  large: 'size-10',
+  small: 'size-6'
 };
 const ICON_WRAPPER_CLASSES =
-  'ui:flex ui:items-center ui:justify-center ui:rounded-full ui-hover:bg-muted ui:transition-colors ui:cursor-pointer';
+  'flex items-center justify-center rounded-full hover:bg-muted transition-colors cursor-pointer';
 const COLORS: Record<IconButtonColor, string> = {
-  destructive: 'ui:text-destructive-500 ui:hover:bg-destructive-50 ui:stroke-destructive-500',
+  destructive: 'text-destructive-500 hover:bg-destructive-50 stroke-destructive-500',
   muted:
-    'ui:bg-transparent ui:text-foreground ui:hover:bg-surface-50 ui:stroke-foreground ui:dark:text-white ui:dark:stroke-white ui:dark:hover:bg-surface-900 ui:disabled:bg-surface-50 ui:disabled:text-surface-200',
+    'bg-transparent text-foreground hover:bg-surface-50 stroke-foreground dark:text-white dark:stroke-white dark:hover:bg-surface-900 disabled:bg-surface-50 disabled:text-surface-200',
   primary:
-    'ui:bg-primary ui:dark:bg-primary-800 ui:text-white ui:hover:bg-primary/90 ui:dark:hover:bg-primary-800/90 ui:stroke-white ui:disabled:bg-primary/75 ui:dark:disabled:bg-primary-800/75',
+    'bg-primary dark:bg-primary-800 text-white hover:bg-primary/90 dark:hover:bg-primary-800/90 stroke-white disabled:bg-primary/75 dark:disabled:bg-primary-800/75',
   surface:
-    'ui:bg-surface-50 ui:dark:bg-surface-900 ui:dark:text-white ui:dark:stroke-white ui:hover:bg-surface/80 ui:dark:hover:bg-surface-900/90 ui:border ui:border-transparent ui:hover:border-surface-100 ui:dark:hover:border-surface-700'
+    'bg-surface-50 dark:bg-surface-900 dark:text-white dark:stroke-white hover:bg-surface/80 dark:hover:bg-surface-900/90 border border-transparent hover:border-surface-100 dark:hover:border-surface-700'
 };
 
 export const getWrapperClasses = ({
