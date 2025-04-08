@@ -49,11 +49,12 @@
 </div>
 
 <style>
+
     div[role='gridcell'] {
         outline-style: none;
     }
 
     div[role='gridcell'][tabindex='0'] {
-        box-shadow: inset 0 0 0 1px theme(--color-primary-500);
+        box-shadow: inset 0 0 0 1px var(--color-primary-500);
     }
 </style>
