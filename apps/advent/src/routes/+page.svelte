@@ -1,7 +1,7 @@
 <script lang="ts">
     import { GithubIcon } from 'lucide-svelte';
 
-    import { ProblemCard } from '$lib/components';
+    import { paddedContainerClasses, ProblemCard } from '$lib/components';
 
     import { SOLUTIONS } from './solutions';
 
@@ -11,7 +11,7 @@
     <title>AoC Visualizations - @mikededo</title>
 </svelte:head>
 
-<header>
+<header class={paddedContainerClasses('lg:pb-6')}>
     <nav>
         <a
             class="mb-2 flex items-center justify-end gap-2 text-sm text-[var(--tw-prose-headings)] no-underline"
@@ -36,11 +36,13 @@
 </header>
 
 {#each Object.entries(SOLUTIONS) as [year, days](year)}
-    <section>
-        <h2>{year}</h2>
-        <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {#each Object.entries(days) as [day, problem](day)}
-                {#if 'href' in problem}
+    {@const entries = Object.entries(days)}
+
+    <section class={paddedContainerClasses('lg:pt-6')}>
+        <h2 class="m-0">{year}</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mb-4 not-prose">
+            {#each entries as [day, problem](day)}
+                {#if problem}
                     <ProblemCard title={problem.title} url={problem.href}>
                         {#snippet description()}
                             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
@@ -50,5 +52,6 @@
                 {/if}
             {/each}
         </div>
+
     </section>
 {/each}

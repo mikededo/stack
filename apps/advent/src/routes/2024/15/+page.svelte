@@ -6,7 +6,7 @@
     import type { Cell, Point } from './utils.svelte';
 
     import { beforeNavigate } from '$app/navigation';
-    import { Button, Header, ShikiCode, SMWarning, Textarea, Timer } from '$lib/components';
+    import { Button, Header, paddedContainerClasses, ShikiCode, SMWarning, Textarea, Timer } from '$lib/components';
     import { BENCHMARK, DEFAULT_MAP, DEFAULT_MOVEMENTS } from '$lib/inputs/2024/input-15';
     import { matrixCanvasHelper } from '$lib/utils';
 
@@ -144,7 +144,7 @@ You can also generate a set of random movements with the button below.`;
     {/snippet}
 </Header>
 
-<section class="hidden md:block">
+<section class={paddedContainerClasses('hidden md:block lg:py-6')}>
     <h2 class="mt-4">Customize your input</h2>
     <div bind:this={container} class="flex w-full flex-col items-center gap-2 md:flex-row">
         <div style="--input-width: {mapWidth}%" class="input flex flex-col gap-2">
@@ -179,7 +179,7 @@ You can also generate a set of random movements with the button below.`;
     </p>
 </section>
 
-<section class="hidden md:block">
+<section class={paddedContainerClasses('hidden md:block lg:py-6')}>
     <header class="flex items-end justify-between">
         <h2 class="mb-0">Visualization</h2>
         <div class="flex items-center gap-1">

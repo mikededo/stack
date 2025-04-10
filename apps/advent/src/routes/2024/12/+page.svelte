@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
 
-    import { AnimatedNumber, Button, Header } from '$lib/components';
+    import { AnimatedNumber, Button, Header, paddedContainerClasses } from '$lib/components';
     import { sleep } from '$lib/utils';
 
     const MAX_INPUT = `NNNNNNNOOOAJJJJJJJJZZMMMMMMMMUMMUCCCSSS
@@ -272,7 +272,7 @@ MLLLLLLLLLKKKJJJJJRLHHHHHHEDDDDDDDDDDMM`
     {/snippet}
 </Header>
 
-<section>
+<section class={paddedContainerClasses('lg:pt-6')}>
     <h2 class="mt-4">Visualization</h2>
     <div class="flex w-full items-center justify-between gap-8 font-semibold">
         <p>Cost: <AnimatedNumber value={cost} /></p>

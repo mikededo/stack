@@ -15,7 +15,7 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-gutter: stable;
+    scrollbar-gutter: auto;
     scrollbar-color: #374151 transparent;
   }
 
