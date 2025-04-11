@@ -10,23 +10,31 @@
     import { setContext } from 'svelte';
     import { fade } from 'svelte/transition';
 
+    import { VGRidLine } from '$lib/components';
+
     type Props = { children: Snippet; data: LayoutData };
     const { children, data }: Props = $props();
 
     setContext('shiki', data.shiki);
 </script>
 
-{#key data.pathname}
-    <main
-        class="container relative border-x divide-y flex min-h-[calc(100vh-48px)] flex-col bg-white"
-        in:fade={{ delay: 100, duration: 100 }}
-        out:fade={{ duration: 100 }}
-    >
-        {@render children()}
-    </main>
-{/key}
+<main
+    class="container relative overflow-x-hidden flex min-h-[calc(100vh-48px)] flex-col bg-white"
+    style="scrollbar-gutter: auto;"
+>
+    {#key data.pathname}
+        <div in:fade={{ delay: 100, duration: 100 }} out:fade={{ duration: 100 }}>
+            {@render children()}
+        </div>
+    {/key}
 
-<footer class="mt-auto flex h-12 w-full items-center border-t justify-center bg-gray-50 text-sm">
+    <VGRidLine class="hidden lg:block" delay={0.15} />
+    <VGRidLine class="hidden lg:block" right delay={0.2} />
+</main>
+
+<footer
+    class="mt-auto flex h-12 items-center justify-center bg-gray-50 w-auto max-w-screen relative h-grid-line text-sm overflow-hidden"
+>
     <p>
         Designed and developed by
         <a

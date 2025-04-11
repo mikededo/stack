@@ -7,3 +7,5 @@ export { ShikiCode } from './shiki-code';
 export { default as SMWarning } from './sm-warning.svelte';
 export { default as Textarea } from './textarea.svelte';
 export { default as Timer } from './timer.svelte';
+export { default as VGRidLine } from './v-grid-line.svelte';
+

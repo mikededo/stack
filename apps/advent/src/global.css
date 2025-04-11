@@ -15,7 +15,7 @@
 @layer base {
   * {
     scrollbar-width: thin;
-    scrollbar-gutter: auto;
+    scrollbar-gutter: stable;
     scrollbar-color: #374151 transparent;
   }
 
@@ -36,6 +36,75 @@ html {
   @apply font-sans;
 }
 
+:root {
+  --grid-line-width: 1px;
+  --grid-line-gap: 5px;
+  --grid-line-color: #aeaeae;
+  --grid-animation-delay: 0;
+
+  --grid-h-line-offset: 150px;
+}
+
 .prose {
   --tw-prose-links: var(--color-primary-500);
+}
+
+.h-grid-line:after,
+.h-grid-line:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(var(--grid-h-line-offset) / 2 * -1);
+  height: var(--grid-line-width);
+  background: linear-gradient(to right, var(--grid-line-color), var(--grid-line-color) 50%, transparent 0, transparent);
+  background-size: var(--grid-line-gap) var(--grid-line-width);
+  mask: linear-gradient(to left, #fff 95%, transparent), linear-gradient(to right, #fff 95%, transparent),
+    linear-gradient(black, black);
+  -webkit-mask: linear-gradient(to left, #fff 95%, transparent), linear-gradient(to right, #fff 95%, transparent),
+    linear-gradient(black, black);
+  -webkit-mask-composite: destination-in;
+  mask-composite: exclude;
+
+  animation-name: hGridEntry;
+}
+
+.v-grid-line {
+  position: absolute;
+  width: var(--grid-line-width);
+  top: 0;
+  background: linear-gradient(180deg, var(--grid-line-color), var(--grid-line-color) 50%, transparent 0, transparent);
+  background-size: var(--grid-line-width) var(--grid-line-gap);
+
+  animation-name: vGridEntry;
+}
+
+.h-grid-line:after,
+.h-grid-line:before,
+.v-grid-line {
+  animation-duration: 0.75s;
+  animation-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+  animation-fill-mode: forwards;
+  animation-delay: calc(var(--grid-animation-delay) + 0.25s);
+}
+
+@keyframes hGridEntry {
+  from {
+    width: 0;
+    opacity: 1;
+  }
+  to {
+    width: calc(100% + var(--grid-h-line-offset));
+    opacity: 0.3;
+  }
+}
+
+@keyframes vGridEntry {
+  from {
+    height: 0;
+    opacity: 1;
+  }
+  to {
+    height: 100%;
+    opacity: 0.4;
+  }
 }
