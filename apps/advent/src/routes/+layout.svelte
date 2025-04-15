@@ -3,8 +3,6 @@
 
     import '../global.css';
 
-    import { Toaster } from '@stack/ui';
-
     import type { LayoutData } from './$types';
 
     import { setContext } from 'svelte';
@@ -46,5 +44,3 @@
         </a>
     </p>
 </footer>
-
-<Toaster />
